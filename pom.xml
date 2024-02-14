@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>gofit</artifactId>
+    <artifactId>crud_entite_1_v1</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
