@@ -1,4 +1,4 @@
-package Interfaces;
+package com.esprit.Interfaces;
 import java.util.List;
 public interface Interface <T> {
     public void add(T t);

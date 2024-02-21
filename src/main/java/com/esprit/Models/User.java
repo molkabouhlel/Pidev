@@ -1,4 +1,4 @@
-package Models;
+package com.esprit.Models;
 
 import java.util.Objects;
 

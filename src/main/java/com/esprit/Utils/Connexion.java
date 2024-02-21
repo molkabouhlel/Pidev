@@ -1,4 +1,4 @@
-package Utils;
+package com.esprit.Utils;
  import java.sql.Connection;
  import java.sql.DriverManager;
  import java.sql.SQLException;
@@ -18,6 +18,7 @@ public class Connexion {
             System.out.println("connected successfully!");
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("mat3adech!");
         }
     }
 

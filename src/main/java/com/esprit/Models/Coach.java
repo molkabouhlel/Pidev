@@ -1,4 +1,4 @@
-package Models;
+package com.esprit.Models;
 
 public class Coach extends User {
     public Coach(int cin, String email, String mdp, String nom, String prénom, int numT, String role, String adresse) {
