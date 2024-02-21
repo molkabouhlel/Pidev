@@ -1,36 +1,41 @@
 package com.esprit.models;
+import com.esprit.models.Espace;
+import java.sql.Time;
 
 public class Club {
 
     private int id_club;
     private String nom_club;
+    private String adresse_club;
     private String description_club;
-    private int capacite;
-    private int id_cours;
-    private int id_espace;
-    private int id_usr;
+    private String image_club;
+    private Time temp_ouverture;
+    private  Espace espace;
 
-    public Club(int id_club, String nom_club, String description_club, int capacite, int id_cours, int id_espace, int id_usr) {
-        this.id_club = id_club;
-        this.nom_club = nom_club;
-        this.description_club = description_club;
-        this.capacite = capacite;
-        this.id_cours = id_cours;
-        this.id_espace = id_espace;
-        this.id_usr = id_usr;
-    }
-
-    public Club(String nom_club, String description_club, int capacite, int id_cours, int id_espace, int id_usr) {
-        this.nom_club = nom_club;
-        this.description_club = description_club;
-        this.capacite = capacite;
-        this.id_cours = id_cours;
-        this.id_espace = id_espace;
-        this.id_usr = id_usr;
+    public Club() {
     }
 
     public Club(int id_club) {
         this.id_club = id_club;
+    }
+
+    public Club(String nom_club, String adresse_club, String description_club, String image_club, Time temp_ouverture, Espace espace) {
+        this.nom_club = nom_club;
+        this.adresse_club = adresse_club;
+        this.description_club = description_club;
+        this.image_club = image_club;
+        this.temp_ouverture = temp_ouverture;
+        this.espace = espace;
+    }
+
+    public Club(int id_club, String nom_club, String adresse_club, String description_club, String image_club, Time temp_ouverture, Espace espace) {
+        this.id_club = id_club;
+        this.nom_club = nom_club;
+        this.adresse_club = adresse_club;
+        this.description_club = description_club;
+        this.image_club = image_club;
+        this.temp_ouverture = temp_ouverture;
+        this.espace = espace;
     }
 
     public int getId_club() {
@@ -49,6 +54,14 @@ public class Club {
         this.nom_club = nom_club;
     }
 
+    public String getAdresse_club() {
+        return adresse_club;
+    }
+
+    public void setAdresse_club(String adresse_club) {
+        this.adresse_club = adresse_club;
+    }
+
     public String getDescription_club() {
         return description_club;
     }
@@ -57,48 +70,40 @@ public class Club {
         this.description_club = description_club;
     }
 
-    public int getCapacite() {
-        return capacite;
+    public String getImage_club() {
+        return image_club;
     }
 
-    public void setCapacite(int capacite) {
-        this.capacite = capacite;
+    public void setImage_club(String image_club) {
+        this.image_club = image_club;
     }
 
-    public int getId_cours() {
-        return id_cours;
+    public Time getTemp_ouverture() {
+        return temp_ouverture;
     }
 
-    public void setId_cours(int id_cours) {
-        this.id_cours = id_cours;
+    public void setTemp_ouverture(Time temp_ouverture) {
+        this.temp_ouverture = temp_ouverture;
     }
 
-    public int getId_espace() {
-        return id_espace;
+    public Espace getEspace() {
+        return espace;
     }
 
-    public void setId_espace(int id_espace) {
-        this.id_espace = id_espace;
-    }
-
-    public int getId_usr() {
-        return id_usr;
-    }
-
-    public void setId_usr(int id_usr) {
-        this.id_usr = id_usr;
+    public void setEspace(Espace espace) {
+        this.espace = espace;
     }
 
     @Override
     public String toString() {
-        return "\n"+ "Club{" +
+        return "Club{" +
                 "id_club=" + id_club +
                 ", nom_club='" + nom_club + '\'' +
+                ", adresse_club='" + adresse_club + '\'' +
                 ", description_club='" + description_club + '\'' +
-                ", capacite=" + capacite +
-                ", id_cours=" + id_cours +
-                ", id_espace=" + id_espace +
-                ", id_usr=" + id_usr +
-                '}';
+                ", image_club='" + image_club + '\'' +
+                ", temp_ouverture=" + temp_ouverture +
+                ", espace=" + espace +
+                '}' +"\n";
     }
 }

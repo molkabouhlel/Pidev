@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="464.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AffichageClubController">
+   <children>
+      <AnchorPane layoutX="7.0" layoutY="28.0" prefHeight="436.0" prefWidth="802.0">
+         <children>
+            <TableView fx:id="Club_TableView" layoutX="12.0" layoutY="72.0" prefHeight="294.0" prefWidth="790.0">
+               <columns>
+                  <TableColumn fx:id="id_club" prefWidth="60.79998779296875" text="ID ">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="espace" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="nom_club" prefWidth="92.80001831054688" text="Nom">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="nom_espace" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="adresse_club" prefWidth="92.80001831054688" text="Adresse">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="nom_espace" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="description_club" prefWidth="168.79998779296875" text="Description">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="description_espace" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="image_club" prefWidth="115.99996948242188" text="Image">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="heure_debut" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="Temp_ouverture" prefWidth="100.0" text="Temp ouverture">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="heure_fin" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="espace" prefWidth="156.00006103515625" text="Espace">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="id_espace" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+            </TableView>
+            <Button fx:id="AjoutClub" layoutX="58.0" layoutY="373.0" mnemonicParsing="false" onAction="#redirecttoAjoutForm" text="ADD" />
+            <Button fx:id="Modifier_Club" layoutX="327.0" layoutY="373.0" mnemonicParsing="false" onAction="#RedirectToModifyForm" text="Modifier" />
+            <Button fx:id="SupprimerClub" layoutX="670.0" layoutY="373.0" mnemonicParsing="false" onAction="#SupprimerClub" text="Supprimer" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="64.0" fitWidth="836.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../Image/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="315.0" layoutY="14.0" prefHeight="36.0" prefWidth="213.0" text="Affichage Club">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.17045454093904205">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.3855750560760498" green="0.5241585373878479" blue="0.9052631855010986" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+   </children>
+</AnchorPane>

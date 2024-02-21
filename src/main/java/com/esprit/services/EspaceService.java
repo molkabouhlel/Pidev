@@ -1,5 +1,6 @@
 package com.esprit.services;
 
+import com.esprit.models.Club;
 import com.esprit.models.Espace;
 import com.esprit.utils.DataSource;
 import java.sql.Time;
@@ -15,7 +16,7 @@ public class EspaceService implements IService<Espace> {
         }
         @Override
         public void ajouter(Espace E) {
-            String req = "INSERT into espace(nom_espace,categorie,description_espace,heure_overture,disponibilite) values ('" + E.getNom_espace() + "', '" + E.getCategorie() + "' , '" + E.getDescription_espace() + "'   , '" +   E.getHeure_overture() + "'  , '" + E.getDisponibilite() + "');";
+            String req = "INSERT into espace(nom_espace,description_espace,heure_debut,heure_fin) values ( '" + E.getNom_espace() + "' , '" + E.getDescription_espace() + "'   , '" +   E.getHeure_debut() + "'  , '" + E.getHeure_fin() + "');";
             try {
                 Statement st = connection.createStatement();
                 st.executeUpdate(req);
@@ -27,7 +28,7 @@ public class EspaceService implements IService<Espace> {
 
         @Override
         public void modifier(Espace E) {
-            String req = "UPDATE espace set nom_espace = '" + E.getNom_espace() + "', categorie = '"  + E.getCategorie() + "' , description_espace = '" + E.getDescription_espace() + "', heure_overture = '" + E.getHeure_overture() + "', disponibilite = '" + E.getDisponibilite() + "' where id_espace = " + E.getId_espace() + ";";
+            String req = "UPDATE espace set nom_espace = '" + E.getNom_espace() + "', description_espace = '"  + E.getDescription_espace() + "' , heure_debut = '" + E.getHeure_debut() + "', heure_fin = '" + E.getHeure_fin() + "' where id_espace = " + E.getId_espace() + ";";
             try {
                 Statement st = connection.createStatement();
                 st.executeUpdate(req);
@@ -57,7 +58,7 @@ public class EspaceService implements IService<Espace> {
                 Statement st = connection.createStatement();
                 ResultSet rs = st.executeQuery(req);
                 while (rs.next()) {
-                    E.add(new Espace(rs.getInt("id_espace"), rs.getString("nom_espace"), rs.getString("categorie") , rs.getString("description_espace") , rs.getTime("heure_overture"),rs.getString("disponibilite")));
+                    E.add(new Espace(rs.getInt("id_espace"), rs.getString("nom_espace"), rs.getString("description_espace") , rs.getTime("heure_debut") , rs.getTime("heure_fin")));
 
                 }
             } catch (SQLException e) {
@@ -65,7 +66,54 @@ public class EspaceService implements IService<Espace> {
             }
             return E;
         }
+
+
+    public Espace rechercheEspace(int id) {
+        Espace Espace = null;
+        String req = "SELECT * FROM espace WHERE id_espace = " + id;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            if (rs.next()) {
+                Espace = new Espace();
+                Espace.setId_espace(rs.getInt("id_espace"));
+                Espace.setNom_espace(rs.getString("nom_espace"));
+                Espace.setDescription_espace(rs.getString("description_espace"));
+                Espace.setHeure_debut(rs.getTime("heure_debut"));
+                Espace.setHeure_fin(rs.getTime("heure_fin"));
+                // Set other properties as needed
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Espace;
     }
+
+
+
+
+    public List<Integer>  Return_idEspace() {
+        List<Integer> E = new ArrayList<>();
+        String req = "SELECT id_espace from espace ";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                E.add(rs.getInt("id_espace"));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return E;
+    }
+
+
+
+}
+
+
+
 
 
 

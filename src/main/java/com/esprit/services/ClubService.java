@@ -1,13 +1,15 @@
 package com.esprit.services;
 
 import com.esprit.models.Club;
+import com.esprit.models.Espace;
+
 import com.esprit.utils.DataSource;
 
 
 import java.sql.*;
 import java.util.*;
 
-public class ClubService implements IService<Club> {
+public class ClubService implements IService<Club>{
 
     private Connection connection;
 
@@ -16,7 +18,7 @@ public class ClubService implements IService<Club> {
     }
     @Override
     public void ajouter(Club C) {
-        String req = "INSERT into club( nom_club,  description_club,  capacite,  id_cours,  id_espace,  id_usr) values ('" + C.getNom_club() + "', '" + C.getDescription_club() + "' , '" + C.getCapacite() + "'   , '" +   C.getId_cours() + "'  , '" + C.getId_espace() + "' , '" + C.getId_usr() + "');";
+        String req = "INSERT into club( nom_club,adresse_club,description_club,image_club,temp_ouverture,id_espace) values ('" + C.getNom_club() + "', '" + C.getAdresse_club() + "', '" + C.getDescription_club() + "' , '" + C.getImage_club() + "'   , '" +   C.getTemp_ouverture() + "'  , '" + C.getEspace().getId_espace() + "');";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -28,7 +30,7 @@ public class ClubService implements IService<Club> {
 
     @Override
     public void modifier(Club C) {
-        String req = "UPDATE club set nom_club = '" + C.getNom_club() + "', description_club = '"  + C.getDescription_club() + "' , capacite = '" + C.getCapacite() + "', id_cours = '" + C.getId_cours() + "', id_espace = '" + C.getId_espace() + "', id_usr = '" + C.getId_usr() + "' where id_club = " + C.getId_club() + ";";
+        String req = "UPDATE club set nom_club = '" + C.getNom_club() + "', adresse_club = '"  + C.getAdresse_club() + "' , description_club = '"  + C.getDescription_club() + "' , image_club = '" + C.getImage_club() + "', temp_ouverture = '" + C.getTemp_ouverture() + "', id_espace = '" + C.getEspace().getId_espace() + "' where id_club = '" + C.getId_club() + "';";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -50,6 +52,7 @@ public class ClubService implements IService<Club> {
         }
     }
 
+
     @Override
     public List<Club> afficher() {
         List<Club> C = new ArrayList<>();
@@ -59,13 +62,80 @@ public class ClubService implements IService<Club> {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                C.add(new Club(rs.getInt("id_club"), rs.getString("nom_club"), rs.getString("description_club") , rs.getInt("capacite") , rs.getInt("id_cours"),rs.getInt("id_espace"),rs.getInt("id_usr")));
-
+                EspaceService es=new EspaceService();
+                Espace espace = es.rechercheEspace(rs.getInt("id_espace"));
+                if (espace != null) {
+                    C.add(new Club(rs.getInt("id_club"), rs.getString("nom_club"), rs.getString("adresse_club"), rs.getString("description_club"), rs.getString("image_club"), rs.getTime("temp_ouverture"), espace));
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return C;
     }
+
+
+    public List<Integer> RecupereridClub() {
+        List<Integer> C = new ArrayList<>();
+        String req = "SELECT id_club from club";
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                C.add(rs.getInt("id_club"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return C;
+    }
+    public List<Integer> RecupereridCours() {
+        List<Integer> C = new ArrayList<>();
+        String req = "SELECT id from cours";
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                    C.add(rs.getInt("id"));
+                }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return C;
+    }
+
+
+
+    public Club rechercheClub(int id) {
+        Club club = null;
+        Espace e = new Espace();
+        String req = "SELECT * FROM club WHERE id_club = " + id;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            if (rs.next()) {
+                club = new Club();
+                club.setId_club(rs.getInt("id_club"));
+                club.setNom_club(rs.getString("nom_club"));
+                club.setAdresse_club(rs.getString("adresse_club"));
+                club.setDescription_club(rs.getString("description_club"));
+                club.setImage_club(rs.getString("image_club"));
+                club.setTemp_ouverture(rs.getTime("temp_ouverture"));
+
+                EspaceService es=new EspaceService();;
+                Espace espace = es.rechercheEspace(rs.getInt("id_espace"));
+                club.setEspace(espace);
+                // Set other properties as needed
+            }
+        } catch (SQLException eq) {
+            System.out.println(eq.getMessage());
+        }
+        return club;
+    }
+
 }
 
