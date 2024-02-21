@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Updateevent">
+   <children>
+      <AnchorPane prefHeight="507.0" prefWidth="647.0">
+         <children>
+            <AnchorPane prefHeight="507.0" prefWidth="171.0" style="-fx-background-color: #4ba6f2;">
+               <children>
+                  <Label layoutX="26.0" layoutY="187.0" text="EVENT " textFill="#f6f5f5">
+                     <font>
+                        <Font name="AGA Arabesque" size="36.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="23.0" layoutY="63.0" mnemonicParsing="false" onAction="#retourner" style="-fx-background-color: #4ba6f2;" text="Retourner" textFill="#efecec" />
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="63.0" fitWidth="647.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@1.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="456.0" layoutY="95.0" text="capacite :" />
+            <Label layoutX="185.0" layoutY="95.0" text="NOM DE L'EVENEMENT :" textFill="#232424" />
+            <Label layoutX="450.0" layoutY="242.0" text="id categorie cours:" />
+            <Label layoutX="185.0" layoutY="234.0" text="url image" />
+            <Label layoutX="450.0" layoutY="163.0" text="id espace :" />
+            <Label layoutX="185.0" layoutY="155.0" text="DESCRIPTION :" />
+            <Label layoutX="185.0" layoutY="364.0" text="date_fin:" />
+            <Label layoutX="450.0" layoutY="312.0" text="id categorie event " />
+            <Label layoutX="180.0" layoutY="288.0" text="date_debut et heure:" />
+            <TextArea fx:id="deseveup" layoutX="185.0" layoutY="177.0" prefHeight="46.0" prefWidth="151.0" />
+            <TextField fx:id="nomeveup" layoutX="185.0" layoutY="121.0" />
+            <TextField fx:id="imeveup" layoutX="185.0" layoutY="260.0" />
+            <TextField fx:id="capeveup" layoutX="428.0" layoutY="121.0" />
+            <Button layoutX="424.0" layoutY="393.0" mnemonicParsing="false" onAction="#modifier" style="-fx-background-radius: 15; -fx-background-color: #2f85b3;" text="modifier" textFill="#f8f7f7" />
+            <DatePicker fx:id="datedebcombo" layoutX="185.0" layoutY="308.0" />
+            <DatePicker fx:id="datefincombo" layoutX="185.0" layoutY="393.0" />
+            <ComboBox fx:id="comboidesup" layoutX="428.0" layoutY="187.0" prefWidth="150.0" />
+            <ComboBox fx:id="comboidcatup" layoutX="428.0" layoutY="272.0" prefWidth="150.0" />
+            <ComboBox fx:id="comboidcatevup" layoutX="424.0" layoutY="340.0" prefWidth="150.0" />
+            <TextField fx:id="timedebup" layoutX="186.0" layoutY="340.0" />
+            <TextField fx:id="timefinup" layoutX="186.0" layoutY="432.0" />
+            <Label layoutX="195.0" layoutY="469.0" text="id:" />
+            <TextField fx:id="idev" layoutX="185.0" layoutY="69.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="439.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Affichercours">
+   <children>
+      <TableView fx:id="tableview" layoutX="31.0" layoutY="93.0" prefHeight="280.0" prefWidth="548.0">
+        <columns>
+          <TableColumn fx:id="nomc" prefWidth="75.0" text="nom" />
+          <TableColumn fx:id="desc" prefWidth="138.66668701171875" text="description" />
+            <TableColumn fx:id="imgc" minWidth="0.0" prefWidth="77.33338928222656" text="imagec" />
+            <TableColumn fx:id="dureec" prefWidth="46.6666259765625" text="duree" />
+            <TableColumn fx:id="idcc" prefWidth="51.99993896484375" text="idcoach" />
+            <TableColumn fx:id="idclub" prefWidth="43.99993896484375" text="idclub" />
+            <TableColumn fx:id="id_typc" prefWidth="170.66665649414062" text="id_typec" />
+        </columns>
+      </TableView>
+      <Button layoutX="30.0" layoutY="398.0" mnemonicParsing="false" onAction="#modifiercours" text="modifier" />
+      <Button layoutX="100.0" layoutY="398.0" mnemonicParsing="false" onAction="#supprimercours" text="suprimer" />
+      <Label layoutX="102.0" layoutY="55.0" prefHeight="40.0" prefWidth="405.0" text="             LISTE DES COURS               " textAlignment="CENTER" textFill="#4c61be" underline="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="81.0" fitWidth="610.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@1.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="34.0" layoutY="55.0" mnemonicParsing="false" onAction="#returnlist" text="retourner" textFill="#363841" />
+   </children>
+</AnchorPane>

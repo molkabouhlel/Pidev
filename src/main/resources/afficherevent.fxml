@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Afficherevent">
+   <children>
+      <AnchorPane layoutX="2.0" layoutY="-10.0" prefHeight="511.0" prefWidth="708.0">
+         <children>
+            <AnchorPane prefHeight="108.0" prefWidth="743.0" style="-fx-background-color: #4ba6f2;">
+               <children>
+                  <Label layoutX="191.0" layoutY="77.0" text="LISTE DES EVENEMENTS :" textFill="#f6f3f3" underline="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button layoutY="66.0" mnemonicParsing="false" onAction="#retourner" style="-fx-background-color: #4ba6f2;" text="RETOURNER" textAlignment="CENTER" textFill="#f7f8fb" underline="true" />
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="61.0" fitWidth="686.0" layoutX="6.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@1.png" />
+               </image>
+            </ImageView>
+            <TableView fx:id="viewev" layoutY="117.0" prefHeight="278.0" prefWidth="725.0">
+               <columns>
+                  <TableColumn fx:id="evnom" prefWidth="103.33331298828125" text="evenement" />
+                  <TableColumn fx:id="deseven" prefWidth="107.33334350585938" text="description" />
+                  <TableColumn fx:id="imageurl" prefWidth="66.66664123535156" text="url image" />
+                  <TableColumn fx:id="dated" prefWidth="69.99996948242188" text="date debut" />
+                  <TableColumn fx:id="datefin" prefWidth="72.6666259765625" text="date fin" />
+                  <TableColumn fx:id="capacite" minWidth="0.0" prefWidth="59.33331298828125" text="capacite" />
+                  <TableColumn fx:id="id_es" prefWidth="67.99996948242188" text="id espace" />
+                  <TableColumn fx:id="id_c" prefWidth="76.66668701171875" text="type cours" />
+                  <TableColumn fx:id="id_catev" prefWidth="104.0" text="type evenement" />
+               </columns>
+            </TableView>
+            <Button layoutX="557.0" layoutY="420.0" mnemonicParsing="false" onAction="#modifaffich" style="-fx-background-color: #4973d6;" text="MODIFIER" textFill="#f7f8fb" />
+            <Button layoutX="472.0" layoutY="420.0" mnemonicParsing="false" onAction="#supp" style="-fx-background-color: #4973d6;" text="supprimer" textFill="#f7f8fb" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

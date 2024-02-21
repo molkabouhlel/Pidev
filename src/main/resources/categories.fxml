@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Categories">
+   <children>
+      <AnchorPane prefHeight="90.0" prefWidth="600.0" style="-fx-background-color: #4ba6f2;">
+         <children>
+            <Button layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#retourner" style="-fx-background-color: #4ba6f2;" text="retourner" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="90.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@1.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="42.0" layoutY="264.0" text="TYPE DE COURS :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="typectext" layoutX="41.0" layoutY="295.0" />
+      <Label layoutX="42.0" layoutY="153.0" text="IDENTIFANT DE COURS :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="211.0" layoutY="187.0" mnemonicParsing="false" onAction="#modifiercatcours" text="modifier" />
+      <Button layoutX="90.0" layoutY="344.0" mnemonicParsing="false" onAction="#ajoutercatcours" text="ajouter" />
+      <Button layoutX="463.0" layoutY="331.0" mnemonicParsing="false" onAction="#supprimercategoriecours" text="supprimer" />
+      <TableView fx:id="tableview" layoutX="380.0" layoutY="112.0" prefHeight="209.0" prefWidth="211.0">
+        <columns>
+          <TableColumn fx:id="idtypec" prefWidth="82.00006103515625" text="ID Categorie " />
+          <TableColumn fx:id="typecours" prefWidth="117.33331298828125" text="NOM CATEGORIE" />
+        </columns>
+      </TableView>
+      <TextField fx:id="idcatec" layoutX="42.0" layoutY="187.0" />
+   </children>
+</AnchorPane>
