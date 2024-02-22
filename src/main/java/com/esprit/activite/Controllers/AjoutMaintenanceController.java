@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -166,5 +167,21 @@ public class AjoutMaintenanceController implements Initializable {
 
 
     }
+    @FXML
+    void refresh(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close(); // Close the current stage
 
-}
+        // Load and show the new interface
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Principale.fxml"));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception, if any}
+    }
+
+}}

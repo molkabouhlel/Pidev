@@ -37,11 +37,12 @@
             </AnchorPane>
             <ImageView fitHeight="65.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Pidev/src/main/resources/429042001_785011366978560_3416642108147507954_n.png" />
+                  <Image url="@429042001_785011366978560_3416642108147507954_n.png" />
                </image>
             </ImageView>
             <Button fx:id="supprimerm" layoutX="409.0" layoutY="350.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="supprimer" />
             <ChoiceBox fx:id="choicebox" layoutX="31.0" layoutY="253.0" prefWidth="150.0" />
+            <Button layoutX="106.0" layoutY="373.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="112.0" text="Retourner" />
          </children>
       </AnchorPane>
    </children>

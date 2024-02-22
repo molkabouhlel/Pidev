@@ -33,9 +33,10 @@
       </AnchorPane>
       <ImageView fitHeight="65.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Pidev/src/main/resources/429042001_785011366978560_3416642108147507954_n.png" />
+            <Image url="@429042001_785011366978560_3416642108147507954_n.png" />
          </image>
       </ImageView>
       <Button fx:id="supp" layoutX="409.0" layoutY="350.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="supprimer" />
+      <Button layoutX="106.0" layoutY="368.0" mnemonicParsing="false" onAction="#refresh" text="Retourner" />
    </children>
 </AnchorPane>

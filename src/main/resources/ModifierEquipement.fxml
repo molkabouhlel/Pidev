@@ -9,14 +9,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.ModifierEquipementController">
    <children>
       <TextField fx:id="ref_eq" layoutX="69.0" layoutY="182.0" promptText="Référence" />
       <TextField fx:id="quantite_dispo" layoutX="69.0" layoutY="293.0" promptText="Quantité" />
       <TextField fx:id="nom_eq" layoutX="69.0" layoutY="222.0" promptText="Nom" />
       <TextField fx:id="description_eq" layoutX="69.0" layoutY="256.0" promptText="Description" />
-      <TextField fx:id="image" layoutX="200.0" layoutY="326.0" prefHeight="26.0" prefWidth="218.0" />
+      <TextField fx:id="image" layoutX="200.0" layoutY="326.0" prefHeight="26.0" prefWidth="218.0" promptText="Image" />
       <ChoiceBox fx:id="id_coach" layoutX="402.0" layoutY="169.0" prefHeight="26.0" prefWidth="150.0" />
       <ChoiceBox fx:id="id_espace" layoutX="402.0" layoutY="209.0" prefHeight="26.0" prefWidth="150.0" />
       <ChoiceBox fx:id="id_ceq" layoutX="402.0" layoutY="248.0" prefHeight="26.0" prefWidth="150.0" />
@@ -33,9 +32,11 @@
       <AnchorPane layoutX="7.0" layoutY="7.0" prefHeight="67.0" prefWidth="614.0" />
       <ImageView fitHeight="67.0" fitWidth="612.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Pidev/src/main/resources/429042001_785011366978560_3416642108147507954_n.png" />
+            <Image url="@429042001_785011366978560_3416642108147507954_n.png" />
          </image>
       </ImageView>
       <Button fx:id="modifiereq" layoutX="283.0" layoutY="361.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
+      <Button layoutX="144.0" layoutY="361.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="95.0" text="Retourner" />
+      <Button fx:id="browse" layoutX="140.0" layoutY="327.0" mnemonicParsing="false" onAction="#browse" text="Browse" />
    </children>
 </AnchorPane>

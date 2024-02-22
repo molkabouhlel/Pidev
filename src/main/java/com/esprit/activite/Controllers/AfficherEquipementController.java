@@ -1,10 +1,12 @@
 package com.esprit.activite.Controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import com.esprit.activite.modeles.Equipement;
 import com.esprit.activite.services.EquipementService;
 import javafx.collections.FXCollections;
@@ -12,14 +14,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+
 
 public class AfficherEquipementController {
 
@@ -50,7 +52,7 @@ public class AfficherEquipementController {
     private TableColumn<?, ?> id_m;
 
     @FXML
-    private TableColumn<?, ?> image;
+    private TableColumn<Equipement, String> image;
 
     @FXML
     private TableColumn<?, ?> nom_eq;
@@ -98,6 +100,32 @@ public class AfficherEquipementController {
         id_ceq.setCellValueFactory(new PropertyValueFactory<>("id_ceq"));
         id_m.setCellValueFactory(new PropertyValueFactory<>("id_m"));
         image.setCellValueFactory(new PropertyValueFactory<>("image"));
+        image.setCellFactory(column -> {
+            return new TableCell<Equipement, String>() { private final ImageView imageView = new ImageView();
+                {
+                    // Set the size of the ImageView as needed
+                    imageView.setFitWidth(150);
+                    imageView.setFitHeight(130);
+                    setGraphic(imageView);
+                }
+
+                @Override
+                protected void updateItem(String imagePath, boolean empty) {
+                    super.updateItem(imagePath, empty);
+                    if (imagePath == null || empty) {
+                        imageView.setImage(null);
+                    } else {
+                        try {
+                            // Load the image from the imagePath and set it in the ImageView
+                            Image image = new Image(new File(imagePath).toURI().toString());
+                            imageView.setImage(image);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+        });
 
 
 
@@ -142,4 +170,21 @@ public class AfficherEquipementController {
         }
 
     }
-}
+    @FXML
+    void refresh(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close(); // Close the current stage
+
+        // Load and show the new interface
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjoutEquipement.fxml"));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception, if any
+
+    }
+}}
