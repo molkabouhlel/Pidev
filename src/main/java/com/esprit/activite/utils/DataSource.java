@@ -16,7 +16,7 @@ public class DataSource {
             System.out.println("Connection a été établie");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("3awed galit , jarib 7adek mara o5ra hhhhh ");
+            System.out.println("erreur ");
         }
     }
 

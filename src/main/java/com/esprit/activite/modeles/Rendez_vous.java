@@ -1,45 +1,42 @@
 package com.esprit.activite.modeles;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Rendez_vous {
-    private Date date_rv;
-    private Time heure_rv;
+    private Timestamp date_rv;
     private  int id_rv;
-     private int  id_eq ;
+    private Equipement ref_eq;
+     private int  id_coach;
+
+    public Rendez_vous(Timestamp date_rv, int id_rv, Equipement ref_eq, int id_coach) {
+        this.date_rv = date_rv;
+        this.id_rv = id_rv;
+        this.ref_eq = ref_eq;
+        this.id_coach = id_coach;
+    }
+
+    public Rendez_vous(Timestamp date_rv, Equipement ref_eq, int id_coach) {
+        this.date_rv = date_rv;
+        this.ref_eq = ref_eq;
+        this.id_coach = id_coach;
+    }
 
     public Rendez_vous(int id_rv) {
         this.id_rv = id_rv;
     }
 
-    public Rendez_vous(Date date_rv, Time heure_rv, int id_eq, int id_rv) {
-        this.date_rv = date_rv;
-        this.heure_rv = heure_rv;
-        this.id_eq = id_eq;
-        this.id_rv = id_rv;
+    public Rendez_vous() {
+
     }
 
-    public Rendez_vous(Date date_rv, Time heure_rv, int id_eq) {
-        this.date_rv = date_rv;
-        this.heure_rv = heure_rv;
-        this.id_eq = id_eq;
-    }
-
-    public Date getDate_rv() {
+    public Timestamp getDate_rv() {
         return date_rv;
     }
 
-    public void setDate_rv(Date date_rv) {
+    public void setDate_rv(Timestamp date_rv) {
         this.date_rv = date_rv;
-    }
-
-    public Time getHeure_rv() {
-        return heure_rv;
-    }
-
-    public void setHeure_rv(Time heure_rv) {
-        this.heure_rv = heure_rv;
     }
 
     public int getId_rv() {
@@ -50,21 +47,29 @@ public class Rendez_vous {
         this.id_rv = id_rv;
     }
 
-    public int getId_eq() {
-        return id_eq;
+    public Equipement getRef_eq() {
+        return ref_eq;
     }
 
-    public void setId_eq(int id_eq) {
-        this.id_eq = id_eq;
+    public void setRef_eq(Equipement ref_eq) {
+        this.ref_eq = ref_eq;
+    }
+
+    public int getId_coach() {
+        return id_coach;
+    }
+
+    public void setId_coach(int id_coach) {
+        this.id_coach = id_coach;
     }
 
     @Override
     public String toString() {
         return "Rendez_vous{" +
                 "date_rv=" + date_rv +
-                ", heure_rv=" + heure_rv +
                 ", id_rv=" + id_rv +
-                ", id_eq=" + id_eq +
+                ", ref_eq=" + ref_eq +
+                ", id_coach=" + id_coach +
                 '}';
     }
 }
