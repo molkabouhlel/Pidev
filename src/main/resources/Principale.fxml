@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.PrincipaleController">
+   <children>
+      <ImageView fitHeight="108.0" fitWidth="117.0" layoutX="318.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cat.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="95.0" fitWidth="125.0" layoutX="446.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@rdv.png" />
+         </image></ImageView>
+      <ImageView fitHeight="88.0" fitWidth="108.0" layoutX="178.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@maint.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="93.0" fitWidth="144.0" layoutX="12.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@eq.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="44.0" layoutY="263.0" mnemonicParsing="false" onAction="#equipement" prefHeight="36.0" prefWidth="98.0" text="Equipements" />
+      <Button layoutX="479.0" layoutY="263.0" mnemonicParsing="false" onAction="#rdv" prefHeight="36.0" prefWidth="80.0" text="Rdv" />
+      <Button layoutX="332.0" layoutY="263.0" mnemonicParsing="false" onAction="#categorie" prefHeight="36.0" prefWidth="80.0" text="Categorie" />
+      <Button layoutX="187.0" layoutY="263.0" mnemonicParsing="false" onAction="#maintenance" prefHeight="36.0" prefWidth="98.0" text="Maintenance" />
+      <ImageView fitHeight="88.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@429042001_785011366978560_3416642108147507954_n.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
