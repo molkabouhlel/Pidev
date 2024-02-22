@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="473.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.AfficherEquipementController">
+   <children>
+      <TableView fx:id="tableview" layoutX="11.0" layoutY="137.0" prefHeight="290.0" prefWidth="714.0">
+        <columns>
+          <TableColumn fx:id="ref_eq" prefWidth="75.0" text="Reference" />
+          <TableColumn fx:id="nom_eq" prefWidth="75.0" text="Nom" />
+            <TableColumn fx:id="description_eq" prefWidth="75.0" text="Description" />
+            <TableColumn fx:id="quantite_dispo" prefWidth="75.0" text="Quantite" />
+            <TableColumn fx:id="id_coach" prefWidth="75.0" text="Coach" />
+            <TableColumn fx:id="id_espace" prefWidth="75.0" text="Espace" />
+            <TableColumn fx:id="id_ceq" prefWidth="75.0" text="Categorie" />
+            <TableColumn fx:id="id_m" prefWidth="100.0" text="Maintenance" />
+            <TableColumn fx:id="image" prefWidth="50.4000244140625" text="Image" />
+        </columns>
+      </TableView>
+      <Text fill="#f6f6fc" layoutX="198.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajout Equipement" wrappingWidth="214.93670654296875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="66.0" fitWidth="745.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Pidev/src/main/resources/429042001_785011366978560_3416642108147507954_n.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="65.0" prefHeight="62.0" prefWidth="737.0" style="-fx-background-color: #3c79ff;">
+         <children>
+            <Text fill="#f6f6fc" layoutX="273.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Afficher Equipement" wrappingWidth="230.13671875">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Button fx:id="supprimereq" layoutX="324.0" layoutY="434.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
+      <Button layoutX="445.0" layoutY="434.0" mnemonicParsing="false" onAction="#modifier" text="modifier" />
+   </children>
+</AnchorPane>
