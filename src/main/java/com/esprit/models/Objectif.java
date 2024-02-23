@@ -1,47 +1,65 @@
 package com.esprit.models;
 
-import java.util.Date;
+import javafx.collections.ObservableList;
 
 public class Objectif {
-    private int id_obj;
-    private String description_obj;
+    private int ID_obj;
+    private int ID_cours;
+    private Programme programme ;
+    private String description_obj ;
 
-    public Objectif(int id_obj) {
-        this.id_obj = id_obj;
+    public Objectif() {
     }
 
-    private Date date_debut;
-    private Date date_fin;
-    private String statut_obj;
-    private String progression;
-    private int id_usr;
-
-    public Objectif(int id_obj, String description_obj, Date date_debut, Date date_fin, String statut_obj, String progression, int id_usr) {
-        this.id_obj = id_obj;
+    public Objectif(int ID_obj, int ID_cours, Programme programme, String description_obj) {
+        this.ID_obj = ID_obj;
+        this.ID_cours = ID_cours;
+        this.programme = programme;
         this.description_obj = description_obj;
-        this.date_debut = date_debut;
-        this.date_fin = date_fin;
-        this.statut_obj = statut_obj;
-        this.progression = progression;
-        this.id_usr = id_usr;
     }
 
-    public Objectif(String description_obj, Date date_debut, Date date_fin, String statut_obj, String progression, int id_usr) {
+    public Objectif(int ID_cours, Programme programme, String description_obj) {
+        this.ID_cours = ID_cours;
+        this.programme = programme;
         this.description_obj = description_obj;
-        this.date_debut = date_debut;
-        this.date_fin = date_fin;
-        this.statut_obj = statut_obj;
-        this.progression = progression;
-        this.id_usr = id_usr;
     }
 
-    public int getId_obj() {
-        return id_obj;
+    public Objectif(int ID_obj) {
+        this.ID_obj = ID_obj;
     }
 
-    public void setId_obj(int id_obj) {
-        this.id_obj = id_obj;
+    public Objectif(String text) {
     }
+
+    public static void setItems(ObservableList<Objectif> objectifs) {
+    }
+
+
+    public Programme getProgramme() {
+        return programme;
+    }
+
+    public void setProgramme(Programme programme) {
+        this.programme = programme;
+    }
+
+    public int getID_obj() {
+        return ID_obj;
+    }
+
+    public void setID_obj(int ID_obj) {
+        this.ID_obj = ID_obj;
+    }
+
+    public int getID_cours() {
+        return ID_cours;
+    }
+
+    public void setID_cours(int ID_cours) {
+        this.ID_cours = ID_cours;
+    }
+
+
 
     public String getDescription_obj() {
         return description_obj;
@@ -51,56 +69,13 @@ public class Objectif {
         this.description_obj = description_obj;
     }
 
-    public Date getDate_debut() {
-        return date_debut;
-    }
-
-    public void setDate_debut(Date date_debut) {
-        this.date_debut = date_debut;
-    }
-
-    public Date getDate_fin() {
-        return date_fin;
-    }
-
-    public void setDate_fin(Date date_fin) {
-        this.date_fin = date_fin;
-    }
-
-    public String getStatut_obj() {
-        return statut_obj;
-    }
-
-    public void setStatut_obj(String statut_obj) {
-        this.statut_obj = statut_obj;
-    }
-
-    public String getProgression() {
-        return progression;
-    }
-
-    public void setProgression(String progression) {
-        this.progression = progression;
-    }
-
-    public int getId_usr() {
-        return id_usr;
-    }
-
-    public void setId_usr(int id_usr) {
-        this.id_usr = id_usr;
-    }
-
     @Override
     public String toString() {
         return "Objectif{" +
-                "id_obj=" + id_obj +
+                "ID_obj=" + ID_obj +
+                ", ID_cours=" + ID_cours +
+                ", programme=" + programme +
                 ", description_obj='" + description_obj + '\'' +
-                ", date_debut=" + date_debut +
-                ", date_fin=" + date_fin +
-                ", statut_obj='" + statut_obj + '\'' +
-                ", progression='" + progression + '\'' +
-                ", id_usr=" + id_usr +
                 '}';
     }
 }
