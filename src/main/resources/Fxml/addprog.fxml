@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="519.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ProgaddController">
+   <children>
+      <VBox layoutX="175.0" layoutY="67.0" prefHeight="386.0" prefWidth="394.0" spacing="3.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description programme" wrappingWidth="140.0" />
+            <TextArea fx:id="descrprogText" prefHeight="46.0" prefWidth="386.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" wrappingWidth="69.625" />
+            <TextField fx:id="rateText" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat initial" wrappingWidth="119.18359375" />
+            <TextField fx:id="etatintText" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat final" wrappingWidth="100.060546875" />
+            <TextField fx:id="etatfinText" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date debut " />
+            <TextField fx:id="datedebText" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" />
+            <TextField fx:id="datefinText" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_user" />
+            <TextField fx:id="iduserText" />
+         </children>
+      </VBox>
+      <Button layoutX="175.0" layoutY="453.0" mnemonicParsing="false" onAction="#ajouterProg" prefHeight="25.0" prefWidth="140.0" text="ADD PROGRAMME" />
+      <ImageView fitHeight="52.0" fitWidth="765.0" layoutX="-5.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../../../../../../../Downloads/workshopjdbc%20amine/workshopjdbc/src/Image/logo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="429.0" layoutY="453.0" mnemonicParsing="false" onAction="#RedirectToProgAfficher" prefHeight="25.0" prefWidth="140.0" text="Redirect" />
+   </children>
+</AnchorPane>
