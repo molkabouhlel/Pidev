@@ -6,6 +6,13 @@ public class Coach extends User {
         this.adresse = adresse;
     }
 
+    public Coach() {
+
+    }
+
+    public Coach(String LN, String FN, int TTF, String mail, String mdp, String role, String adresse) {
+    }
+
 
     @Override
     public String toString() {

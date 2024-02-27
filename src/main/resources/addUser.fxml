@@ -53,5 +53,10 @@
       <Label layoutX="363.0" layoutY="230.0" text="Abonnement :" />
       <TextField fx:id="adr" layoutX="439.0" layoutY="179.0" />
       <TextField fx:id="abonnement" layoutX="442.0" layoutY="226.0" />
+      <Button fx:id="retourajout" layoutX="618.0" layoutY="346.0" mnemonicParsing="false" onAction="#retourajout" text="Retour" textAlignment="JUSTIFY" textFill="#1c209e">
+         <font>
+            <Font name="Arial Narrow" size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

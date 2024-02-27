@@ -1,5 +1,7 @@
 package com.esprit.Models;
 
+import javafx.beans.binding.BooleanExpression;
+
 import java.util.Objects;
 
 public class User {
@@ -114,6 +116,7 @@ public class User {
         User user = (User) o;
         return cin == user.cin && numT == user.numT && Objects.equals(email, user.email) && Objects.equals(mdp, user.mdp) && Objects.equals(nom, user.nom) && Objects.equals(prénom, user.prénom) && Objects.equals(role, user.role);
     }
+
 
 
 }

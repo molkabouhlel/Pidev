@@ -16,7 +16,7 @@ public class Main {
 public static void main(String args[]){
     UserServices us = new UserServices();
     //us.add(new Admin("tttt","ttt","8988988898","00000046",5,"Admin"));
-    //us.add(new Membre("fff","fff","ff","54544fff6",888,"Membre","aboone"));
+    us.add(new Membre("fff","fff","ff","54544fff6",888,"Membre","aboone"));
     //us.add(new Coach("dorra.benarbi@gmail.com","cdddd","benarbi","dorra",5,"Coach","Ariana"));
 
     //us.update (new User(9,"ramiiiii","cdddd","555","545dfs446",5,"Admin"));

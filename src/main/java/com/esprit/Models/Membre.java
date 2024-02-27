@@ -12,7 +12,13 @@ public class Membre extends User{
         this.abonnement = abonnement;
     }
 
+    public Membre() {
+    }
+
     private String abonnement ;
+
+    public Membre(String LN, String FN, int TTF, String mail, String mdp, String role , String abonement) {
+    }
 
     public String getAbonnement() {
         return abonnement;

@@ -29,8 +29,8 @@
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="353.0" layoutY="230.0" text="email" textFill="#0c1143" />
-            <TextField fx:id="emailup" layoutX="420.0" layoutY="224.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="\@gmail.com" />
+            <Label layoutX="327.0" layoutY="267.0" text="email" textFill="#0c1143" />
+            <TextField fx:id="emailup" layoutX="394.0" layoutY="261.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="\@gmail.com" />
             <AnchorPane layoutX="-19.0" layoutY="-13.0" prefHeight="86.0" prefWidth="682.0">
                <children>
                   <ImageView fitHeight="62.0" fitWidth="708.0" layoutX="14.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
@@ -40,14 +40,17 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Label layoutX="33.0" layoutY="121.0" text="CIN:" />
-            <TextField fx:id="cin" layoutX="105.0" layoutY="115.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="nomadd" />
+            <Button fx:id="retourup" layoutX="420.0" layoutY="307.0" mnemonicParsing="false" onAction="#retourup" text="Retour" textAlignment="JUSTIFY" textFill="#1c209e">
+               <font>
+                  <Font name="Arial Narrow" size="17.0" />
+               </font>
+            </Button>
+            <TextField fx:id="abup" layoutX="396.0" layoutY="152.0" />
          </children>
       </AnchorPane>
       <Label layoutX="341.0" layoutY="224.0" />
-      <Label layoutX="328.0" layoutY="143.0" text="Abonnement :" />
-      <TextField fx:id="adrup" layoutX="421.0" layoutY="188.0" />
-      <Label layoutX="342.0" layoutY="183.0" text="Adresse :" />
-      <TextField fx:id="abup" layoutX="421.0" layoutY="148.0" />
+      <Label layoutX="312.0" layoutY="166.0" text="Abonnement :" />
+      <TextField fx:id="adrup" layoutX="393.0" layoutY="222.0" />
+      <Label layoutX="321.0" layoutY="227.0" text="Adresse :" />
    </children>
 </AnchorPane>

@@ -5,18 +5,26 @@ import  com.esprit.Models.Admin;
 import  com.esprit.Models.Coach;
 import  com.esprit.Models.Membre;
 import  com.esprit.Models.User;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.List;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import  com.esprit.Utils.*;
+import javafx.scene.control.TextField;
 
 
 public class UserServices implements Interface<User> {
 
 Connection cnx =Connexion.getInstance().getCnx();
+
+    public boolean login(String email, String password) throws SQLException {
+        String query = "SELECT * FROM usr WHERE email = '" + email + "' AND mdp = '" + password + "'";
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+            return rs.next(); // Returns true if there's at least one result, indicating a successful login
+        }
+    }
+
     @Override
     public  void add(User u) {
 
@@ -48,41 +56,37 @@ Connection cnx =Connexion.getInstance().getCnx();
                 }
             }
 
+    @Override
+    public void update(User user) {
+
+    }
+
+
+    public void updateAdmin(User admin) {
+        System.out.println("updating admin: " + admin);
+        String req = "UPDATE usr SET email = ?, mdp = ?, nom = ?, prenom = ?, numT = ?, role = ? WHERE cin = ?";
+
+        System.out.println("Generated SQL query: " + req);
+
+        try (PreparedStatement st = cnx.prepareStatement(req)) {
+            st.setString(1, admin.getEmail());
+            st.setString(2, admin.getMdp());
+            st.setString(3, admin.getNom());
+            st.setString(4, admin.getPrénom());
+            st.setInt(5, admin.getNumT());
+            st.setString(6, admin.getRole());
+            st.setInt(7, admin.getCin());
+
+            st.executeUpdate();
+
+            System.out.println("Admin updated successfully");
+        } catch (SQLException ex) {
+            System.err.println("Error during SQL operation: " + ex.getMessage());
+        }
+    }
 
 
     @Override
-        public void update(User u) {
-            System.out.println("updating user: " + u);
-            String req="";
-            if (u.getRole().equals("Admin")) {
-
-                req = "UPDATE usr set email = '" + u.getEmail() + "', mdp = '" + u.getMdp() + "' , nom = '" + u.getNom() + "' , prenom = '" + u.getPrénom() + "' , numT = '" + u.getNumT() + "' , role = '" + u.getRole() + "' , abonnement = '' , adresse = ''  where cin = '"+ u.getCin() + "'; ";
-            }
-            else   if (u.getRole().equals("Membre")) {
-                Membre membre = (Membre) u; // Casting to Membre
-                req = "UPDATE usr set email = '" + u.getEmail() + "', mdp = '" + u.getMdp() + "' , nom = '" + u.getNom() + "' , prenom = '" + u.getPrénom() + "' , numT = '" + u.getNumT() + "' , role = '" + u.getRole() + "' , abonnement = '" + ((Membre) u).getAbonnement() + "' , adresse = ''  where cin = '"+ u.getCin() + "'; ";
-
-            } else if (u.getRole().equals("Coach")) {
-                Coach coach = (Coach) u; // Casting to Coach
-                req = "UPDATE usr set email = '" + u.getEmail() + "', mdp = '" + u.getMdp() + "' , nom = '" + u.getNom() + "' , prenom = '" + u.getPrénom() + "' , numT = '" + u.getNumT() + "' , role = '" + u.getRole() + "' , abonnement = '' , adresse = '" + ((Coach) u).getAdresse() + "'  where cin = '"+ u.getCin() + "'; ";
-
-            }
-
-            System.out.println("Generated SQL query: " + req);
-
-            try (Statement st = cnx.createStatement()) {
-                st.executeUpdate(req);
-
-                System.out.println("User updated successfully");
-            }
-            catch (SQLException ex) {
-                System.err.println("Error during SQL operation: " + ex.getMessage());
-            }
-
-        }
-
-
-        @Override
         public void supp(User u) {
 
                 String req = "DELETE from usr where cin = " + u.getCin() + ";";
@@ -133,28 +137,76 @@ Connection cnx =Connexion.getInstance().getCnx();
 
         return userList;
     }
+    public List<User> showAdmin() {
+        List<User> userList = new ArrayList<>();
 
-    public User rechercheUser(int id) {
-        User user = null;
+        String req = "SELECT * FROM usr WHERE role = 'Admin'";
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                int cin = rs.getInt("cin");
+                String email = rs.getString("email");
+                String password = rs.getString("mdp");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                int numT = rs.getInt("numT");
+                String role = rs.getString("role");
+
+                User admin = new User(cin, email, password, nom, prenom, numT, role);
+                userList.add(admin);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return userList;
+    }
+    public Object rechercheUser(int id) {
+        Object user = null;
         String req = "SELECT * FROM usr WHERE cin = " + id;
         try {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             if (rs.next()) {
-                user = new User();
-                user.setCin(rs.getInt("cin"));
-                user.setNom(rs.getString("nom"));
-                user.setPrénom(rs.getString("prenom"));
-                user.setEmail(rs.getString("email"));
-                user.setNumT(rs.getInt("numT"));
-                user.setRole(rs.getString("role"));
+                if(((rs.getString("role")).equals("Admin"))){
+                    User admin = new User();
+                    admin.setCin(rs.getInt("cin"));
+                    admin.setNom(rs.getString("nom"));
+                    admin.setPrénom(rs.getString("prenom"));
+                    admin.setNumT(rs.getInt("numT"));
+                    admin.setRole(rs.getString("role"));
+                    return admin;
 
-                if ((rs.getString("role")).equals("Coach")) {
-                    ((Coach) user).setAdresse(rs.getString("adresse"));
-                } else if ((rs.getString("role")).equals("Membre")) {
-                    ((Membre) user).setAbonnement(rs.getString("abonnement"));
-                } else {
-                    // Handle other roles or throw an exception, depending on your requirements
+
+
+
+                } else if (((rs.getString("role")).equals("Coach"))) {
+                     Coach coach  = new Coach();
+                   coach.setCin(rs.getInt("cin"));
+                    coach.setNom(rs.getString("nom"));
+                    coach.setPrénom(rs.getString("prenom"));
+                    coach.setNumT(rs.getInt("numT"));
+                    coach.setRole(rs.getString("role"));
+                    coach.setAdresse(rs.getString("adresse"));
+                    return coach;
+
+
+
+                } else if (((rs.getString("role")).equals("Membre")))
+                {
+                    Membre membre = new Membre();
+                    membre.setCin(rs.getInt("cin"));
+                    membre.setNom(rs.getString("nom"));
+                    membre.setPrénom(rs.getString("prenom"));
+                    membre.setNumT(rs.getInt("numT"));
+                    membre.setRole(rs.getString("role"));
+                    membre.setAbonnement(rs.getString("abonnement"));
+                    return membre;
+
+                }  else{
+
+
                     throw new IllegalArgumentException("Unsupported role: " + rs.getString("role"));
                 }
             }
@@ -162,6 +214,44 @@ Connection cnx =Connexion.getInstance().getCnx();
             System.out.println(eq.getMessage());
         }
         return user;
+    }
+
+
+
+
+    public User getUserByEmail(String userEmail) {
+        String query = "SELECT * FROM usr WHERE email = '" + userEmail + "'";
+
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+            if (rs.next()) {
+                String role = rs.getString("role");
+                int cin = rs.getInt("cin");
+                String email = rs.getString("email");
+                String password = rs.getString("mdp");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                int numT = rs.getInt("numT");
+
+                switch (role) {
+                    case "Admin":
+                        return new User(cin, email, password, nom, prenom, numT, role);
+                    case "Membre":
+                        String abonnement = rs.getString("abonnement");
+                        return new Membre(cin, email, password, nom, prenom, numT, role, abonnement);
+                    case "Coach":
+                        String adresse = rs.getString("adresse");
+                        return new Coach(cin, email, password, nom, prenom, numT, role, adresse);
+                    // Add other cases if needed for different roles
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
+
+        return null; // Return null if user not found
     }
 
 }
