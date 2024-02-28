@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.upcontroller">
+   <children>
+      <AnchorPane layoutX="-1.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="46.0" layoutY="146.0" />
+            <Label layoutX="28.0" layoutY="159.0" text="Nom :" />
+            <Label layoutX="22.0" layoutY="209.0" text="Prénom :" />
+            <Label layoutX="14.0" layoutY="264.0" text="NumTeléphone:" />
+            <TextField fx:id="nomup" layoutX="105.0" layoutY="155.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="nomadd" />
+            <TextField fx:id="prenomup" layoutX="104.0" layoutY="209.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="prenomadd" />
+            <TextField fx:id="tup" layoutX="105.0" layoutY="262.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="Télephone" />
+            <Button fx:id="upp" layoutX="302.0" layoutY="306.0" mnemonicParsing="false" onAction="#update_user" text="update" textAlignment="JUSTIFY" textFill="#1c209e">
+               <font>
+                  <Font name="Arial Narrow" size="17.0" />
+               </font>
+            </Button>
+            <Label alignment="CENTER" layoutX="196.0" layoutY="50.0" prefHeight="46.0" prefWidth="327.0" text="Update Form" textFill="#4b70b9" underline="true">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="327.0" layoutY="267.0" text="email" textFill="#0c1143" />
+            <TextField fx:id="emailup" layoutX="394.0" layoutY="261.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="\@gmail.com" />
+            <AnchorPane layoutX="-19.0" layoutY="-13.0" prefHeight="86.0" prefWidth="682.0">
+               <children>
+                  <ImageView fitHeight="62.0" fitWidth="708.0" layoutX="14.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@gofit.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Button fx:id="retourup" layoutX="420.0" layoutY="307.0" mnemonicParsing="false" onAction="#retourup" text="Retour" textAlignment="JUSTIFY" textFill="#1c209e">
+               <font>
+                  <Font name="Arial Narrow" size="17.0" />
+               </font>
+            </Button>
+            <TextField fx:id="abup" layoutX="396.0" layoutY="152.0" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="341.0" layoutY="224.0" />
+      <Label layoutX="312.0" layoutY="166.0" text="Abonnement :" />
+      <TextField fx:id="adrup" layoutX="393.0" layoutY="222.0" />
+      <Label layoutX="321.0" layoutY="227.0" text="Adresse :" />
+   </children>
+</AnchorPane>

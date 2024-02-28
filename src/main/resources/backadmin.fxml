@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="393.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Backadmin">
+    <children>
+        <AnchorPane layoutX="-42.0" prefHeight="400.0" prefWidth="173.0" style="-fx-background-color: #5eaffa;">
+            <children>
+                <Button layoutX="81.0" layoutY="226.0" mnemonicParsing="false" onAction="#coachI" prefHeight="26.0" prefWidth="62.0" text="Coach" />
+                <Button layoutX="81.0" layoutY="145.0" mnemonicParsing="false" onAction="#membreI" text="Membre" />
+                <Button layoutX="86.0" layoutY="50.0" mnemonicParsing="false" onAction="#returnButton" opacity="0.0" text="Button" />
+
+            </children>
+        </AnchorPane>
+        <TableView fx:id="adminTableView" layoutX="132.0" layoutY="111.0" prefHeight="234.0" prefWidth="574.0">
+            <columns>
+                <TableColumn fx:id="emailColumn" onEditCommit="#onEditCommit" prefWidth="108.0" text="Email" />
+                <TableColumn fx:id="nom" onEditCommit="#onEditCommit" prefWidth="100.0" text="Nom" />
+                <TableColumn fx:id="prenom" onEditCommit="#onEditCommit" prefWidth="100.0" text="Prenom" />
+                <TableColumn fx:id="numT" onEditCommit="#onEditCommit" prefWidth="70.0" text="NumT" />
+                <TableColumn fx:id="role" onEditCommit="#onEditCommit" prefWidth="70.0" text="Role" />
+                <TableColumn fx:id="passwordColumn" onEditCommit="#onEditCommit" prefWidth="111.20001220703125" text="Password" />
+                <!-- Add more columns for other attributes... -->
+            </columns>
+        </TableView>
+        <Label layoutX="260.0" layoutY="43.0" text="Liste Des Admins" textFill="#589fd9">
+            <font>
+                <Font name="Ebrima Bold" size="32.0" />
+            </font>
+        </Label>
+          <Button layoutX="590.0" layoutY="72.0" mnemonicParsing="false" onAction="#addAdmin" text="Add Admin" />
+    </children>
+</AnchorPane>
