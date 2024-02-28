@@ -16,12 +16,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,14 +33,27 @@ public class AjoutMaintenanceController implements Initializable {
     @FXML
     private Button ajouterm;
 
+    //@FXML
+   // private TextField date_m;
     @FXML
-    private TextField date_m;
+    private DatePicker datePicker;
+    @FXML
+    private TableView<Maintenance_eq> tableview;
+    @FXML
+    private TableColumn<Maintenance_eq, Void> action;
+
+    @FXML
+    private HBox date_m;
 
     @FXML
     private TableColumn<Maintenance_eq, String> date_ma;
 
     @FXML
     private ChoiceBox<etat_m> choicebox;
+    @FXML
+    private Spinner<Integer> heureSpinner;
+    @FXML
+    private Spinner<Integer> minuteSpinner;
 
     @FXML
     private TableColumn<?, ?> etat_ma;
@@ -55,7 +71,7 @@ public class AjoutMaintenanceController implements Initializable {
     private Button supprimerm;
     public int id_masselected;
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    /* public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<etat_m> choices = FXCollections.observableArrayList(etat_m.values());
         choicebox.setItems(choices);
         ///
@@ -72,29 +88,109 @@ public class AjoutMaintenanceController implements Initializable {
                 id_masselected = newSelection.getId_m();
                 //
                 id_m.setText(String.valueOf(newSelection.getId_m()));
-                date_m.setText(newSelection.getDate_m().toString());
+               // date_m.setText(newSelection.getDate_m().toString());
+                date_m.getChildren().addAll(datePicker, heureSpinner, minuteSpinner);
             } else {
                 id_masselected = -1;
             }
         });
 
+    } */
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<etat_m> choices = FXCollections.observableArrayList(etat_m.values());
+        choicebox.setItems(choices);
+
+        MaintenanceService c = new MaintenanceService();
+        List<Maintenance_eq> cat = c.afficher();
+        ObservableList<Maintenance_eq> observableList = FXCollections.observableList(cat);
+        tableview.setItems(observableList);
+
+        id_ma.setCellValueFactory(new PropertyValueFactory<>("id_m"));
+        date_ma.setCellValueFactory(new PropertyValueFactory<>("date_m"));
+        etat_ma.setCellValueFactory(new PropertyValueFactory<>("etat_m"));
+
+        // Accéder aux composants à l'intérieur du HBox date_m
+        DatePicker datePicker = (DatePicker) date_m.getChildren().get(0);
+        Spinner<Integer> heureSpinner = (Spinner<Integer>) date_m.getChildren().get(1);
+        Spinner<Integer> minuteSpinner = (Spinner<Integer>) date_m.getChildren().get(2);
+
+        // Configurer les SpinnerValueFactory pour les heures (de 0 à 23)
+        SpinnerValueFactory<Integer> heureFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23);
+        heureSpinner.setValueFactory(heureFactory);
+
+        // Configurer les SpinnerValueFactory pour les minutes (de 0 à 59)
+        SpinnerValueFactory<Integer> minuteFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59);
+        minuteSpinner.setValueFactory(minuteFactory);
+
+        tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                id_masselected = newSelection.getId_m();
+                id_m.setText(String.valueOf(newSelection.getId_m()));
+
+                // Utiliser ces composants comme nécessaire
+                LocalDateTime localDateTime = newSelection.getDate_m().toLocalDateTime();
+                datePicker.setValue(localDateTime.toLocalDate());
+                heureSpinner.getValueFactory().setValue(localDateTime.getHour());
+                minuteSpinner.getValueFactory().setValue(localDateTime.getMinute());
+            } else {
+                id_masselected = -1;
+            }
+        });
+        //TODO **************BOUTON SUPPRIMER cree tableview
+
+        boutonsupp();
+
+    }
+
+
+    private void boutonsupp() {
+        action.setCellFactory(col -> new TableCell<Maintenance_eq, Void>() {
+            private final Button participerButton = new Button("supprimer");
+
+            {
+                participerButton.setOnAction(event -> {
+                    //   tableview.edit(-1, null);
+                    Maintenance_eq maintenance_eq = getTableView().getItems().get(getIndex());
+                    supprimerE(maintenance_eq);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(participerButton);
+                }
+            }
+        });
+    }
+    private void supprimerE(Maintenance_eq ev) {
+        MaintenanceService p = new MaintenanceService();
+        p.supprimer(ev);
+
+        // Actualisez la TableView pour refléter la suppression
+        tableview.getItems().remove(ev);
     }
 
 
 
     @FXML
-    private TableView<Maintenance_eq> tableview;
-
-
-
-
-    @FXML
-    void ajouter(ActionEvent event)  throws IOException {
+    void ajouter(ActionEvent event) throws IOException {
         MaintenanceService es = new MaintenanceService();
         etat_m selectedEtat = choicebox.getValue();
 
         if (selectedEtat != null) {
-            es.ajouter(new Maintenance_eq(Timestamp.valueOf(date_m.getText()), selectedEtat));
+            // Accéder aux composants à l'intérieur du HBox date_m
+            DatePicker datePicker = (DatePicker) date_m.getChildren().get(0);
+            Spinner<Integer> heureSpinner = (Spinner<Integer>) date_m.getChildren().get(1);
+            Spinner<Integer> minuteSpinner = (Spinner<Integer>) date_m.getChildren().get(2);
+
+            LocalDateTime dateTime = LocalDateTime.of(datePicker.getValue(), LocalTime.of(heureSpinner.getValue(), minuteSpinner.getValue()));
+            Timestamp timestamp = Timestamp.valueOf(dateTime);
+
+            es.ajouter(new Maintenance_eq(timestamp, selectedEtat));
 
             // Affichage de l'alerte pour la première valeur ajoutée
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
@@ -116,7 +212,7 @@ public class AjoutMaintenanceController implements Initializable {
             alerteErreur.show();
         }
 
-// Ajouter un autre if pour traiter une deuxième valeur (par exemple, la deuxième option dans l'enum)
+        // Ajouter un autre if pour traiter une deuxième valeur (par exemple, la deuxième option dans l'enum)
         etat_m deuxiemeEtat = choicebox.getValue();
         if (deuxiemeEtat != null && deuxiemeEtat.equals(etat_m.necessite_maintenance)) {
             // Traiter la deuxième valeur sélectionnée, si nécessaire
@@ -124,20 +220,24 @@ public class AjoutMaintenanceController implements Initializable {
         }
     }
 
-        @FXML
-    void modifier(ActionEvent event)  {
 
 
-            MaintenanceService es = new MaintenanceService();
-           /* Maintenance_eq maintenance_eqselected = es.recherchem_eq(id_masselected);
-            System.out.println("yo");
-            Maintenance_eq m = new Maintenance_eq();
-            int id_ma = Integer.parseInt(id_m.getText());
-            String cat = date_m.getText();
-*/
-            es.modifier(new Maintenance_eq(id_masselected,Timestamp.valueOf(date_m.getText()), choicebox.getValue()));
+    @FXML
+    void modifier(ActionEvent event) {
+        MaintenanceService es = new MaintenanceService();
 
-        }
+        // Accédez aux composants à l'intérieur du HBox date_m
+        DatePicker datePicker = (DatePicker) date_m.getChildren().get(0);
+        Spinner<Integer> heureSpinner = (Spinner<Integer>) date_m.getChildren().get(1);
+        Spinner<Integer> minuteSpinner = (Spinner<Integer>) date_m.getChildren().get(2);
+
+        LocalDateTime dateTime = LocalDateTime.of(datePicker.getValue(), LocalTime.of(heureSpinner.getValue(), minuteSpinner.getValue()));
+        Timestamp timestamp = Timestamp.valueOf(dateTime);
+
+        es.modifier(new Maintenance_eq(id_masselected, timestamp, choicebox.getValue()));
+    }
+
+
 
 
 
@@ -161,7 +261,7 @@ public class AjoutMaintenanceController implements Initializable {
             // Aucune ligne sélectionnée, affichez un message d'erreur ou prenez une autre action appropriée
             Alert alerte= new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("erreur");
-            alerte.setContentText("ma nest pas selectionner");
+            alerte.setContentText("maintenance nest pas selectionnee");
             alerte.show();
         }
 
@@ -184,4 +284,7 @@ public class AjoutMaintenanceController implements Initializable {
             // Handle exception, if any}
     }
 
-}}
+}
+
+
+}

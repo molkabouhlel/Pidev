@@ -17,10 +17,9 @@
       <TextField fx:id="description_eq" layoutX="59.0" layoutY="246.0" promptText="Description" />
       <Button fx:id="ajoutereq" layoutX="266.0" layoutY="350.0" mnemonicParsing="false" onAction="#ajouerEquipement" prefHeight="35.0" prefWidth="66.0" text="Ajouter" />
       <TextField fx:id="image" layoutX="190.0" layoutY="316.0" prefHeight="26.0" prefWidth="218.0" promptText="Image" />
-      <ChoiceBox fx:id="id_coach" layoutX="392.0" layoutY="159.0" prefHeight="26.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="id_espace" layoutX="392.0" layoutY="199.0" prefHeight="26.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="id_ceq" layoutX="392.0" layoutY="238.0" prefHeight="26.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="id_m" layoutX="392.0" layoutY="282.0" prefHeight="26.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="id_espace" layoutX="386.0" layoutY="211.0" prefHeight="26.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="id_ceq" layoutX="386.0" layoutY="245.0" prefHeight="26.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="id_m" layoutX="387.0" layoutY="282.0" prefHeight="26.0" prefWidth="150.0" />
       <AnchorPane layoutX="-3.0" layoutY="55.0" prefHeight="61.0" prefWidth="614.0" style="-fx-background-color: #3c79ff;">
          <children>
             <Text fill="#f6f6fc" layoutX="188.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajout Equipement" wrappingWidth="214.93670654296875">

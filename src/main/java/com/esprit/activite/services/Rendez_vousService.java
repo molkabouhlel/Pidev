@@ -21,7 +21,7 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
     }
     @Override
     public void ajouter(Rendez_vous r) {
-        String req = "INSERT into rendez_vous (date_rv,ref_eq ,id_coach) values ('" + r.getDate_rv() + "' ,'" + r.getRef_eq().getRef_eq() + "', '" + r.getId_coach() + "');";
+        String req = "INSERT into rendez_vous (date_rv,id_eq ,id_coach) values ('" + r.getDate_rv() + "' ,'" + r.getId_eq().getId_eq() + "', '" + r.getId_coach() + "');";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -34,7 +34,7 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
 
     @Override
     public void modifier(Rendez_vous rv) {
-        String req = "UPDATE rendez_vous set date_rv = '" + rv.getDate_rv() + "', ref_eq = '" + rv.getRef_eq().getRef_eq()+ "', id_coach = '" + rv.getId_coach()  + "' where id_rv = " + rv.getId_rv() + ";";
+        String req = "UPDATE rendez_vous set date_rv = '" + rv.getDate_rv() + "', id_eq = '" + rv.getId_eq().getRef_eq()+ "', id_coach = '" + rv.getId_coach()  + "' where id_rv = " + rv.getId_rv() + ";";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -55,24 +55,7 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
             System.out.println(ex.getMessage());
         }
     }
-/*
-    @Override
-    public List<Rendez_vous> afficher() {
-        List<Rendez_vous> rv = new ArrayList<>();
 
-        String req = "SELECT * from rendez_vous";
-        try {
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
-                rv.add(new Rendez_vous(rs.getDate("date_rv"), rs.getTime("heure_rv"), rs.getInt("id_eq"), rs.getInt("id_rv")));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return rv;
-    }*/
 
 
     public List<Rendez_vous> afficher() {
@@ -81,10 +64,10 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
         String req = "SELECT * FROM rendez_vous";
         try (Statement st = connection.createStatement(); ResultSet rs = st.executeQuery(req)) {
             while (rs.next()) {
-                Equipement ref_eq = rechercheref_eq(rs.getString("ref_eq"));
+                Equipement id_eq = rechercheid_eq(rs.getInt("id_eq"));
                //cle etrangere coach a ajouter
-                if (ref_eq != null) {
-                    c.add(new  Rendez_vous(rs.getTimestamp("date_rv"),rs.getInt("id_rv"), ref_eq,rs.getInt("id_coach")));
+                if (id_eq != null) {
+                    c.add(new  Rendez_vous(rs.getTimestamp("date_rv"),rs.getInt("id_rv"), id_eq,rs.getInt("id_coach")));
                 }
             }
         } catch (SQLException e) {
@@ -94,19 +77,21 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
         return c;
     }
     ////////////////////////////////////////////////////////
-    public Equipement rechercheref_eq (String ref_eq) {
+    public Equipement rechercheid_eq (int id_eq) {
         Equipement eqs = null;
-        String req =  "SELECT * FROM equipement WHERE ref_eq = '" + ref_eq + "'";;
+        String req =  "SELECT * FROM equipement WHERE id_eq = '" + id_eq + "'";;
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             if (rs.next()) {
                 eqs = new Equipement();
+               // eqs.setId_eq(rs.getInt("id_eq"));
                 eqs.setRef_eq(rs.getString("ref_eq"));
+
                 eqs.setNom_eq(rs.getString("nom_eq"));
                 eqs.setDescription_eq(rs.getString("description_eq"));
                 eqs.setQuantite_dispo(rs.getInt("quantite_dispo"));
-                eqs.setId_coach(rs.getInt("id_coach"));
+               // eqs.setId_coach(rs.getInt("id_coach"));
                 eqs.setId_espace(rs.getInt("id_espace"));
                 Categorie_eq categorie_eq = new Categorie_eq();
                 categorie_eq.setId_ceq(rs.getInt("id_ceq"));

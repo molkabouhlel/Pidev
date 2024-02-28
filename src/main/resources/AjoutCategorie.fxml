@@ -17,7 +17,9 @@
       <TableView fx:id="tableview" layoutX="326.0" layoutY="109.0" prefHeight="231.0" prefWidth="265.0">
         <columns>
           <TableColumn fx:id="id_cat" prefWidth="49.60003662109375" text="ID" />
-          <TableColumn fx:id="type_cat" prefWidth="191.199951171875" text="Type" />
+          <TableColumn fx:id="type_cat" prefWidth="68.0" text="Type" />
+            <TableColumn fx:id="desc_cat" prefWidth="75.199951171875" text="Description" />
+            <TableColumn fx:id="action" prefWidth="75.199951171875" text="Action" />
         </columns>
       </TableView>
       <TextField fx:id="id_ceq" layoutX="27.0" layoutY="135.0" prefHeight="32.0" prefWidth="158.0" promptText="ID" />
@@ -38,5 +40,6 @@
       </ImageView>
       <Button fx:id="supp" layoutX="409.0" layoutY="350.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="supprimer" />
       <Button layoutX="106.0" layoutY="368.0" mnemonicParsing="false" onAction="#refresh" text="Retourner" />
+      <TextField fx:id="desc_ceq" layoutX="31.0" layoutY="256.0" prefHeight="32.0" prefWidth="157.0" promptText="Description" />
    </children>
 </AnchorPane>

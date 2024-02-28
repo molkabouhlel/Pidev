@@ -4,11 +4,12 @@ package com.esprit.activite.modeles;
 import java.util.Date;
 
 public class Equipement {
+    private int id_eq;
     private String ref_eq;
     private String nom_eq;
     private String description_eq;
     private int quantite_dispo;
-    private int id_coach;
+    //private int id_coach;
     private int id_espace;
    private Categorie_eq id_ceq;
    private Maintenance_eq id_m;
@@ -16,33 +17,43 @@ public class Equipement {
 
 public Equipement(){}
     //constructeur ajout
-    public Equipement(String ref_eq, String nom_eq, String description_eq, int quantite_dispo,  int id_coach, int id_espace, Categorie_eq id_ceq, Maintenance_eq id_m, String image) {
+    public Equipement(String ref_eq, String nom_eq, String description_eq, int quantite_dispo,  int id_espace, Categorie_eq id_ceq, Maintenance_eq id_m, String image) {
         this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;
         this.description_eq = description_eq;
         this.quantite_dispo = quantite_dispo;
-        this.id_coach = id_coach;
+      //  this.id_coach= id_coach;
         this.id_espace = id_espace;
         this.id_ceq = id_ceq;
         this.id_m = id_m;
         this.image = image;
     }
 
-    public Equipement(String nom_eq, String description_eq, int quantite_dispo,  int id_coach, int id_espace, Categorie_eq id_ceq, Maintenance_eq id_m, String image) {
+    public Equipement(int id_eq, String ref_eq, String nom_eq, String description_eq, int quantite_dispo, int id_espace, Categorie_eq id_ceq, Maintenance_eq id_m, String image) {
+       this.id_eq= id_eq;
+        this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;
         this.description_eq = description_eq;
         this.quantite_dispo = quantite_dispo;
-        this.id_coach = id_coach;
+      //  this.id_coach=id_coach;
         this.id_espace = id_espace;
         this.id_ceq = id_ceq;
         this.id_m = id_m;
         this.image = image;
     }
 
-    public Equipement(String ref_eq) {
-        this.ref_eq = ref_eq;
+    public Equipement(int id_eq) {
+        this.id_eq = id_eq;
     }
 
+
+    public int getId_eq() {
+        return id_eq;
+    }
+
+    public void setId_eq(int id_eq) {
+        this.id_eq= id_eq;
+    }
     public String getRef_eq() {
         return ref_eq;
     }
@@ -75,13 +86,6 @@ public Equipement(){}
         this.quantite_dispo = quantite_dispo;
     }
 
-    public int getId_coach() {
-        return id_coach;
-    }
-
-    public void setId_coach(int id_coach) {
-        this.id_coach = id_coach;
-    }
 
     public int getId_espace() {
         return id_espace;
@@ -118,11 +122,12 @@ public Equipement(){}
     @Override
     public String toString() {
         return "Equipement{" +
+                "id_eq="+ id_eq +
                 "ref_eq=" + ref_eq +
                 ", nom_eq='" + nom_eq + '\'' +
                 ", description_eq='" + description_eq + '\'' +
                 ", quantite_dispo=" + quantite_dispo +
-                ", id_coach=" + id_coach +
+              //  ",id_coach=" + id_coach +
                 ", id_espace=" + id_espace +
                 ", id_ceq=" + id_ceq +
                 ", id_m=" + id_m +

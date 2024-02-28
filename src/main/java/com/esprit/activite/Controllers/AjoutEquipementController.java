@@ -43,9 +43,9 @@ public class AjoutEquipementController {
 
     @FXML
     private ChoiceBox<Categorie_eq> id_ceq;
+  //  @FXML
+//    private ChoiceBox<Integer> id_coach;
 
-    @FXML
-    private ChoiceBox<Integer> id_coach;
 
     @FXML
     private ChoiceBox<Integer> id_espace;
@@ -76,7 +76,7 @@ public class AjoutEquipementController {
         MaintenanceService ms = new MaintenanceService();
 
 
-        es.ajouter(new Equipement(ref_eq.getText(),nom_eq.getText(),description_eq.getText(),Integer.parseInt( quantite_dispo.getText()),id_coach.getValue(),id_espace.getValue(),id_ceq.getValue(),id_m.getValue(),image.getText()) );
+        es.ajouter(new Equipement(ref_eq.getText(),nom_eq.getText(),description_eq.getText(),Integer.parseInt( quantite_dispo.getText()),id_espace.getValue(),id_ceq.getValue(),id_m.getValue(),image.getText()) );
         Alert alerte= new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("EQ ajout");
         alerte.setContentText("EQ bien ajoutee");
@@ -107,9 +107,9 @@ public class AjoutEquipementController {
 
         List<Integer> E=eqs.RecupereridEspace();
         id_espace.setItems(FXCollections.observableArrayList(E));
+       // List<Integer> Co=eqs.RecupereridCoach();
+        //id_coach.setItems(FXCollections.observableArrayList(Co));
 
-        List<Integer> Co=eqs.RecupereridCoach();
-        id_coach.setItems(FXCollections.observableArrayList(Co));
     }
 
     private final EquipementService es = new EquipementService();

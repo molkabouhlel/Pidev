@@ -37,7 +37,8 @@ public class ModifierEquipementController {
 
     @FXML
     private URL location;
-
+    @FXML
+    private TextField id_eq;
     @FXML
     private TextField description_eq;
     @FXML
@@ -45,9 +46,10 @@ public class ModifierEquipementController {
 
     @FXML
     private ChoiceBox<Categorie_eq> id_ceq;
+  //  @FXML
+   // private ChoiceBox<Integer> id_coach;
 
-    @FXML
-    private ChoiceBox<Integer> id_coach;
+
 
     @FXML
     private ChoiceBox<Integer> id_espace;
@@ -72,15 +74,16 @@ public class ModifierEquipementController {
     private Equipement equipementtomodifier;
     public void initData(Equipement e){
         System.out.println("hello");
-        equipementtomodifier=e;
-
+      //  equipementtomodifier=e;
        quantite_dispo.setText(String.valueOf(e.getQuantite_dispo()));
+         id_eq.setText(String.valueOf(e.getId_eq()));
+        System.out.println(e.getId_eq());
         nom_eq.setText(e.getNom_eq());
         ref_eq.setText(e.getRef_eq());
         description_eq.setText(e.getDescription_eq());
         image.setText(e.getImage());
-        id_coach.setValue(e.getId_coach());
         id_ceq.setValue(e.getId_ceq());
+        //id_eq.setCache(e.getId_eq())
         id_espace.setValue(e.getId_espace());
         id_m.setValue(e.getId_m());
         System.out.println("hello");
@@ -93,6 +96,7 @@ public class ModifierEquipementController {
         Equipement equipement = new Equipement();
 
         try {
+            int id_eqq =Integer.parseInt(id_eq.getText());
             String ref = (ref_eq.getText());
             String nom = (nom_eq.getText());
             String des = (description_eq.getText());
@@ -101,26 +105,29 @@ public class ModifierEquipementController {
 
             // Supposons que ref_eq et id_coach sont des ComboBox
             Categorie_eq refEqSelected = id_ceq.getValue();
-            int idCoachSelected = id_coach.getValue();
+          //  int idcoachSelected = id_coach.getValue();
+
             int idespSelected = id_espace.getValue();
             Maintenance_eq m =id_m.getValue();
 
             // Configuration des propriétés de l'objet Rendez_vous
+equipement.setId_eq(id_eqq);
             equipement.setRef_eq(ref);
             equipement.setNom_eq(nom);
             equipement.setDescription_eq(des);
             equipement.setImage(im);
-            equipement.setId_coach(idCoachSelected);
+            equipement.setQuantite_dispo(q);
             equipement.setId_ceq(refEqSelected);
+           // equipement.setId_coach(idcoachSelected);
             equipement.setId_espace(idespSelected);
             equipement.setId_m(m);
-            // Appel à la méthode ajouter du service
+            // Appel à la méthode modifuer du service
             eq.modifier(equipement);
 
             // Affichage d'une alerte de succès
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
-            alerte.setTitle("Rendez-vous modifier");
-            alerte.setContentText("Rendez-vous bien modifier");
+            alerte.setTitle("eq modifier");
+            alerte.setContentText("eq bien modifier");
             alerte.show();
 
         } catch (NumberFormatException e) {
@@ -136,7 +143,7 @@ public class ModifierEquipementController {
             // Gestion d'autres exceptions possibles
             Alert alerteErreur = new Alert(Alert.AlertType.ERROR);
             alerteErreur.setTitle("Erreur");
-            alerteErreur.setContentText("Une erreur s'est produite lors de la modification du rendez-vous.");
+            alerteErreur.setContentText("Une erreur s'est produite lors de la modification de l'eq.");
             alerteErreur.show();
         }
     }
@@ -155,12 +162,11 @@ public class ModifierEquipementController {
         List<Maintenance_eq> M=ms.afficher();
         System.out.println(M);
         id_m.setItems(FXCollections.observableArrayList(M));
-
+        // List<Integer> Co=eqs.RecupereridCoach();
+       // id_coach.setItems(FXCollections.observableArrayList(Co));
         List<Integer> E=eqs.RecupereridEspace();
         id_espace.setItems(FXCollections.observableArrayList(E));
 
-        List<Integer> Co=eqs.RecupereridCoach();
-        id_coach.setItems(FXCollections.observableArrayList(Co));
 
     }
     @FXML

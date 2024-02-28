@@ -16,11 +16,12 @@ import java.sql.Timestamp;
 public class MainProg {
     public static void main(String[] args) {
         EquipementService eq = new EquipementService();
-      // eq.ajouter(new Equipement( "test","bike", "descc",8 ,5,1,new Categorie_eq(2),new Maintenance_eq(2),"test"));
-      //eq.modifier(new Equipement( "molka","bike", "descc",8 ,5,1,new Categorie_eq(2),new Maintenance_eq(2),"test"));
-       //eq.supprimer(new Equipement( "test"));
+      // eq.ajouter(new Equipement( "m","bike", "descc",8 ,5,1,new Categorie_eq(2),new Maintenance_eq(11),"test"));
+     // eq.modifier(new Equipement( 4,"molka","bike", "descc",8,1,new Categorie_eq(11),new Maintenance_eq(11),"khghgjhg"));
+      // eq.supprimer(new Equipement( 3));
        System.out.println(eq.afficher());
-       eq.rechercheeq("ijk");
+
+      // eq.rechercheeq("ijk");
 
     Rendez_vousService rv = new Rendez_vousService();
     //rv.ajouter(new Rendez_vous(Timestamp.valueOf("2024-02-17 12:34:56"),new Equipement("molka"),5));

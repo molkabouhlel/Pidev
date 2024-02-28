@@ -16,9 +16,8 @@
       <TextField fx:id="nom_eq" layoutX="69.0" layoutY="222.0" promptText="Nom" />
       <TextField fx:id="description_eq" layoutX="69.0" layoutY="256.0" promptText="Description" />
       <TextField fx:id="image" layoutX="200.0" layoutY="326.0" prefHeight="26.0" prefWidth="218.0" promptText="Image" />
-      <ChoiceBox fx:id="id_coach" layoutX="402.0" layoutY="169.0" prefHeight="26.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="id_espace" layoutX="402.0" layoutY="209.0" prefHeight="26.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="id_ceq" layoutX="402.0" layoutY="248.0" prefHeight="26.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="id_espace" layoutX="402.0" layoutY="221.0" prefHeight="26.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="id_ceq" layoutX="402.0" layoutY="255.0" prefHeight="26.0" prefWidth="150.0" />
       <ChoiceBox fx:id="id_m" layoutX="402.0" layoutY="292.0" prefHeight="26.0" prefWidth="150.0" />
       <AnchorPane layoutX="7.0" layoutY="65.0" prefHeight="61.0" prefWidth="614.0" style="-fx-background-color: #3c79ff;">
          <children>
@@ -38,5 +37,6 @@
       <Button fx:id="modifiereq" layoutX="283.0" layoutY="361.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
       <Button layoutX="144.0" layoutY="361.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="95.0" text="Retourner" />
       <Button fx:id="browse" layoutX="140.0" layoutY="327.0" mnemonicParsing="false" onAction="#browse" text="Browse" />
+      <TextField fx:id="id_eq" layoutX="69.0" layoutY="146.0" />
    </children>
 </AnchorPane>

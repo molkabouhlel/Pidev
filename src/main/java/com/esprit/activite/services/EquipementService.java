@@ -3,6 +3,7 @@ package com.esprit.activite.services;
 //import com.esprit.activite.modeles.Cours;
 import com.esprit.activite.modeles.*;
 import com.esprit.activite.utils.DataSource;
+import javafx.scene.control.TableColumn;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ public class EquipementService implements Iservice <Equipement>{
     }
     @Override
     public void ajouter(Equipement e) {
-        String req = "INSERT into equipement (ref_eq,nom_eq ,description_eq ,quantite_dispo , id_coach, id_espace,id_ceq,id_m,image) values ( '"+ e.getRef_eq()+"','" + e.getNom_eq() + "',  '" + e.getDescription_eq() + "','" + e.getQuantite_dispo() + "','" + e.getId_coach() + "','" + e.getId_espace()  + "','" + e.getId_ceq().getId_ceq() + "','" + e.getId_m().getId_m() + "','" + e.getImage()+ "');";
+        String req = "INSERT into equipement (ref_eq,nom_eq ,description_eq ,quantite_dispo , id_espace,id_ceq,id_m,image) values ( '"+ e.getRef_eq()+"','" + e.getNom_eq() + "',  '" + e.getDescription_eq() + "','" + e.getQuantite_dispo() +  "','" + e.getId_espace()  + "','" + e.getId_ceq().getId_ceq() + "','" + e.getId_m().getId_m() + "','" + e.getImage()+ "');";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -33,7 +34,7 @@ public class EquipementService implements Iservice <Equipement>{
 
     @Override
     public void modifier(Equipement e) {
-        String req = "UPDATE equipement set nom_eq = '" + e.getNom_eq() + "', description_eq = '" + e.getDescription_eq() + "', quantite_dispo = '" + e.getQuantite_dispo()  + "', id_coach='" + e.getId_coach() + "',id_espace = '" + e.getId_espace()+ "',id_ceq = '" + e.getId_ceq().getId_ceq() + "',id_m = '" + e.getId_m().getId_m() + "',image = '" + e.getImage()   + "' WHERE ref_eq = '" + e.getRef_eq() + "'";;
+        String req = "UPDATE equipement set id_eq='"+e.getId_eq()+"',ref_eq='"+e.getRef_eq()+"', nom_eq = '" + e.getNom_eq() + "', description_eq = '" + e.getDescription_eq() + "', quantite_dispo = '" + e.getQuantite_dispo()  + "',id_espace = '" + e.getId_espace()+ "',id_ceq = '" + e.getId_ceq().getId_ceq() + "',id_m = '" + e.getId_m().getId_m() + "',image = '" + e.getImage()   + "' WHERE id_eq = '" + e.getId_eq() + "'";;
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -45,7 +46,8 @@ public class EquipementService implements Iservice <Equipement>{
 
     @Override
     public void supprimer(Equipement e) {
-        String req = "DELETE from equipement WHERE ref_eq = '" + e.getRef_eq() + "'";;
+        String req = "DELETE from equipement WHERE id_eq = " + e.getId_eq() + ";";
+        System.out.println(e.getId_eq());
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -54,24 +56,7 @@ public class EquipementService implements Iservice <Equipement>{
             System.out.println(ex.getMessage());
         }
     }
-/*
-    @Override
-    public List<Equipement> afficher() {
-        List<Equipement> e = new ArrayList<>();
 
-        String req = "SELECT * from equipement";
-        try {
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
-                e.add(new Equipement(rs.getString("ref_eq"), rs.getString("nom_eq"), rs.getString("description_eq"), rs.getInt("quantite_dispo"), rs.getInt("id_coach"), , , rs.getInt("id_m")));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return e;
-    }*/
 public List<Equipement> afficher() {
     List<Equipement> c = new ArrayList<>();
 
@@ -83,7 +68,7 @@ public List<Equipement> afficher() {
 
             //cle etrangere coach a ajouter
             if (id_ceq != null) {
-                c.add(new Equipement(rs.getString("ref_eq"), rs.getString("nom_eq"), rs.getString("description_eq"), rs.getInt("quantite_dispo"), rs.getInt("id_coach"),rs.getInt("id_espace"),id_ceq,mat,rs.getString("image")));
+                c.add(new Equipement(rs.getInt("id_eq"), rs.getString("ref_eq"), rs.getString("nom_eq"), rs.getString("description_eq"), rs.getInt("quantite_dispo"),rs.getInt("id_espace"),id_ceq,mat,rs.getString("image")));
             }
         }
     } catch (SQLException e) {
@@ -186,7 +171,7 @@ public List<Equipement> afficher() {
                 Maintenance_eq mat = recherchemat(rs.getInt("id_m"));
 
                 if (id_ceq != null) {
-                    E.add(new Equipement(rs.getString("ref_eq"), rs.getString("nom_eq"), rs.getString("description_eq"), rs.getInt("quantite_dispo"), rs.getInt("id_coach"),rs.getInt("id_espace"),id_ceq,mat,rs.getString("image")));
+                    E.add(new Equipement(rs.getInt("id_eq"),rs.getString("ref_eq"), rs.getString("nom_eq"), rs.getString("description_eq"), rs.getInt("quantite_dispo"),rs.getInt("id_espace"),id_ceq,mat,rs.getString("image")));
                 }
             }
 
@@ -196,9 +181,9 @@ public List<Equipement> afficher() {
         return E;
     }
 
-    public Equipement rechercheeq(String id) {
+    public Equipement rechercheeq(int id) {
         Equipement C = null;
-        String req = "SELECT * FROM equipement WHERE ref_eq='" + id + "'";
+        String req = "SELECT * FROM equipement WHERE id_eq='" + id + "'";
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
@@ -208,6 +193,7 @@ public List<Equipement> afficher() {
                 Maintenance_eq id_m = recherchemat(rs.getInt("id_m"));
                 Categorie_eq cat = recherchecat_eq(rs.getInt("id_ceq"));
                 C.setRef_eq(rs.getString("ref_eq"));
+               C.setId_eq(rs.getInt("id_eq"));
                 C.setId_espace(rs.getInt("id_espace"));
                 C.setNom_eq(rs.getString("nom_eq"));
                 C.setDescription_eq(rs.getString("description_eq"));

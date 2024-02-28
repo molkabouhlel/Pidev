@@ -3,6 +3,9 @@ package com.esprit.activite.Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -21,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -29,6 +33,8 @@ public class AjoutRdvController {
 
     @FXML
     private ResourceBundle resources;
+    @FXML
+    private TableColumn<Rendez_vous, Void> action;
 
     @FXML
     private URL location;
@@ -36,8 +42,19 @@ public class AjoutRdvController {
     @FXML
     private Button ajouterrv;
 
+
+   // private TextField date_rv;
+   @FXML
+   private DatePicker datePicker;
+
     @FXML
-    private TextField date_rv;
+    private HBox date_rv;
+    @FXML
+    private Spinner<Integer> heureSpinner;
+    @FXML
+    private Spinner<Integer> minuteSpinner;
+
+
 
     @FXML
     private TableColumn<?, ?> date_rvafficher;
@@ -58,10 +75,10 @@ public class AjoutRdvController {
     private Button modifierrv;
 
     @FXML
-    private ChoiceBox<Equipement> ref_eq;
+    private ChoiceBox<Equipement> id_eq;
 
     @FXML
-    private TableColumn<?, ?> ref_eqafficher;
+    private TableColumn<?, ?> id_eqafficher;
 
     @FXML
     private Button supprimerrv;
@@ -73,17 +90,30 @@ public class AjoutRdvController {
     @FXML
     void ajouter(ActionEvent event) throws IOException {
         Rendez_vousService rs = new Rendez_vousService();
-
         EquipementService es = new EquipementService();
 
+        // Utilisez datePicker pour récupérer la date sélectionnée
+        LocalDate selectedDate = datePicker.getValue();
 
-        rs.ajouter(new Rendez_vous(Timestamp.valueOf(date_rv.getText()),ref_eq.getValue(),id_coach.getValue() ) );
-        Alert alerte= new Alert(Alert.AlertType.INFORMATION);
+        // Utilisez les spinners pour récupérer l'heure et les minutes
+        int selectedHour = heureSpinner.getValue();
+        int selectedMinute = minuteSpinner.getValue();
+
+        // Créer un objet LocalTime
+        LocalTime selectedTime = LocalTime.of(selectedHour, selectedMinute);
+
+        // Créer un objet LocalDateTime en combinant la date et l'heure
+        LocalDateTime localDateTime = LocalDateTime.of(selectedDate, selectedTime);
+
+        // Convertir LocalDateTime en Timestamp
+        Timestamp timestamp = Timestamp.valueOf(localDateTime);
+
+        // Utiliser timestamp dans votre objet Rendez_vous
+        rs.ajouter(new Rendez_vous(timestamp, id_eq.getValue(), id_coach.getValue()));
+        Alert alerte = new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("Rv ajout");
         alerte.setContentText("Rv bien ajoutee");
         alerte.show();
-
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutRdv.fxml"));
         Parent root = loader.load();
@@ -97,34 +127,42 @@ public class AjoutRdvController {
         Rendez_vous rendezVous = new Rendez_vous();
 
         try {
-            // Extraction de l'ID (supposant que id_rv est un champ de texte)
+            // Extraction de l'ID
             int idRv = Integer.parseInt(id_rv.getText());
 
-            // Extraction de la date (supposant que date_rv est un champ de texte)
-            String dateText = date_rv.getText();
-            Timestamp timestamp = Timestamp.valueOf(dateText);
+            // Utilisez datePicker pour récupérer la date sélectionnée
+            LocalDate selectedDate = datePicker.getValue();
 
-            // Supposons que ref_eq et id_coach sont des ComboBox
-            Equipement refEqSelected = ref_eq.getValue();
-            int idCoachSelected = id_coach.getValue();
+            // Utilisez les spinners pour récupérer l'heure et les minutes
+            int selectedHour = heureSpinner.getValue();
+            int selectedMinute = minuteSpinner.getValue();
 
-            // Configuration des propriétés de l'objet Rendez_vous
+            // Créer un objet LocalTime
+            LocalTime selectedTime = LocalTime.of(selectedHour, selectedMinute);
+
+            // Créer un objet LocalDateTime en combinant la date et l'heure
+            LocalDateTime localDateTime = LocalDateTime.of(selectedDate, selectedTime);
+
+            // Convertir LocalDateTime en Timestamp
+            Timestamp timestamp = Timestamp.valueOf(localDateTime);
+
+            // Utiliser timestamp dans votre objet Rendez_vous
             rendezVous.setId_rv(idRv);
             rendezVous.setDate_rv(timestamp);
-            rendezVous.setRef_eq(refEqSelected);
-            rendezVous.setId_coach(idCoachSelected);
+            rendezVous.setId_eq(id_eq.getValue());
+            rendezVous.setId_coach(id_coach.getValue());
 
-            // Appel à la méthode ajouter du service
+            // Appel à la méthode modifier du service
             rendezVousService.modifier(rendezVous);
 
             // Affichage d'une alerte de succès
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
-            alerte.setTitle("Rendez-vous ajouté");
-            alerte.setContentText("Rendez-vous bien ajouté");
+            alerte.setTitle("Rendez-vous modifié");
+            alerte.setContentText("Rendez-vous bien modifié");
             alerte.show();
 
             // Rechargement de la scène actuelle (rafraîchissement de la vue)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutRendezVous.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutRdv.fxml"));
             Parent root = loader.load();
 
             Stage currentStage = (Stage) tableview.getScene().getWindow();
@@ -142,9 +180,6 @@ public class AjoutRdvController {
             alerteErreur.setContentText("Une erreur s'est produite lors de la modification du rendez-vous.");
             alerteErreur.show();
         }
-
-
-
     }
 
 
@@ -155,35 +190,40 @@ public class AjoutRdvController {
         ObservableList<Rendez_vous> observableList = FXCollections.observableList(catr);
         tableview.setItems(observableList);
         id_rvafficher.setCellValueFactory(new PropertyValueFactory<>("id_rv"));
-        ref_eqafficher.setCellValueFactory(new PropertyValueFactory<>("ref_eq"));
+        id_eqafficher.setCellValueFactory(new PropertyValueFactory<>("id_eq"));
         date_rvafficher.setCellValueFactory(new PropertyValueFactory<>("date_rv"));
         id_coachafficher.setCellValueFactory(new PropertyValueFactory<>("id_coach"));
+        heureSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
+        minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
 
         tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-               idc  = newSelection.getId_rv();
+                idc = newSelection.getId_rv();
                 //
                 id_rv.setText(String.valueOf(newSelection.getId_rv()));
-               date_rv.setText(String.valueOf(newSelection.getDate_rv()));
+
+                // Utiliser les composants du HBox pour afficher la date
+                Timestamp timestamp = newSelection.getDate_rv();
+                LocalDate localDate = timestamp.toLocalDateTime().toLocalDate();
+                datePicker.setValue(localDate);
+                heureSpinner.getValueFactory().setValue(timestamp.toLocalDateTime().toLocalTime().getHour());
+                minuteSpinner.getValueFactory().setValue(timestamp.toLocalDateTime().toLocalTime().getMinute());
             } else {
                 idc = -1;
             }
         });
 
+        Rendez_vousService rvs = new Rendez_vousService();
+        EquipementService eqs = new EquipementService();
 
-
-
-        Rendez_vousService rvs=new Rendez_vousService();
-
-        EquipementService eqs=new EquipementService();
-
-
-        List<Integer> C=eqs.RecupereridCoach();
+        List<Integer> C = eqs.RecupereridCoach();
         id_coach.setItems(FXCollections.observableArrayList(C));
 
-        List<Equipement> eq=eqs.RecupererEquipement();
-        ref_eq.setItems(FXCollections.observableArrayList(eq));
+        List<Equipement> eq = eqs.RecupererEquipement();
+        id_eq.setItems(FXCollections.observableArrayList(eq));
+        boutonsupp();
     }
+
 
 
     @FXML
@@ -224,10 +264,42 @@ public class AjoutRdvController {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any}
         }
 
-    }}
+    }
+
+    //TODO **************BOUTON SUPPRIMER cree tableview
+    private void boutonsupp() {
+        action.setCellFactory(col -> new TableCell<Rendez_vous, Void>() {
+            private final Button participerButton = new Button("supprimer");
+
+            {
+                participerButton.setOnAction(event -> {
+                    //   tableview.edit(-1, null);
+                    Rendez_vous rendezVous = getTableView().getItems().get(getIndex());
+                    supprimerE(rendezVous);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(participerButton);
+                }
+            }
+        });
+    }
+    private void supprimerE(Rendez_vous ev) {
+        Rendez_vousService p = new Rendez_vousService();
+        p.supprimer(ev);
+        // Actualisez la TableView pour refléter la suppression
+        tableview.getItems().remove(ev);
+    }
+
+}
 
 
 

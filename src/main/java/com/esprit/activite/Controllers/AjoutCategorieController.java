@@ -7,31 +7,22 @@ import com.esprit.activite.modeles.Categorie_eq;
 import com.esprit.activite.services.CategorieService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Time;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 
@@ -43,10 +34,17 @@ public class AjoutCategorieController {
     private ResourceBundle resources;
 
     @FXML
+    private TableColumn<Categorie_eq, Void> action;
+    @FXML
     private URL location;
+    @FXML
+    private TextField desc_ceq;
 
     @FXML
     private Button ajouterceq;
+    @FXML
+    private TableColumn<Categorie_eq, String> desc_cat;
+
 
     @FXML
     private TableColumn<Categorie_eq, Integer> id_cat;
@@ -74,7 +72,7 @@ public class AjoutCategorieController {
     void ajouter(ActionEvent event) throws IOException {
 
         CategorieService es = new CategorieService();
-        es.ajouter(new Categorie_eq(type_ceq.getText()));
+        es.ajouter(new Categorie_eq(type_ceq.getText(),desc_ceq.getText()));
         Alert alerte= new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("categorie ajout");
         alerte.setContentText("categorie bien ajoutee");
@@ -93,8 +91,8 @@ public class AjoutCategorieController {
         Categorie_eq c = new Categorie_eq();
         int idCat = Integer.parseInt(id_ceq.getText());
         String cat = type_ceq.getText();
-
-        es.modifier(new Categorie_eq(idCat,cat));
+        String dcat = desc_ceq.getText();
+        es.modifier(new Categorie_eq(idCat,cat,dcat));
 
     }
 
@@ -131,17 +129,38 @@ public class AjoutCategorieController {
         tableview.setItems(observableList);
         id_cat.setCellValueFactory(new PropertyValueFactory<>("id_ceq"));
         type_cat.setCellValueFactory(new PropertyValueFactory<>("type_ceq"));
+        desc_cat.setCellValueFactory(new PropertyValueFactory<>("desc_ceq"));
+//
+        tableview.setEditable(true);
+        type_cat.setCellFactory(TextFieldTableCell.forTableColumn());
+        desc_cat.setCellFactory(TextFieldTableCell.forTableColumn());
+        CategorieService ss = new CategorieService();
+        // Save changes on commit
+        type_cat.setOnEditCommit(event -> {
+            Categorie_eq s = event.getRowValue();
+            s.setType_ceq(event.getNewValue());
+            ss.modifier(s);
+        });
 
+        desc_cat.setOnEditCommit(event -> {
+            Categorie_eq s = event.getRowValue();
+            s.setDesc_ceq(event.getNewValue());
+            ss.modifier(s);
+        });
         tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 idcatsselected = newSelection.getId_ceq();
                 //
                 id_ceq.setText(String.valueOf(newSelection.getId_ceq()));
                 type_ceq.setText(newSelection.getType_ceq());
+                desc_ceq.setText(newSelection.getDesc_ceq());
+
             } else {
                 idcatsselected = -1;
             }
         });
+        boutonsupp();
+
     }
 
     @FXML
@@ -162,4 +181,39 @@ public class AjoutCategorieController {
 
     }
 
-}}
+}
+
+    //TODO **************BOUTON SUPPRIMER cree tableview
+    private void boutonsupp() {
+        action.setCellFactory(col -> new TableCell<Categorie_eq, Void>() {
+            private final Button participerButton = new Button("supprimer");
+
+            {
+                participerButton.setOnAction(event -> {
+                    //   tableview.edit(-1, null);
+                    Categorie_eq categorie_eq = getTableView().getItems().get(getIndex());
+                    supprimerE(categorie_eq);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(participerButton);
+                }
+            }
+        });
+    }
+    private void supprimerE(Categorie_eq ev) {
+        CategorieService p = new CategorieService();
+        p.supprimer(ev);
+
+        // Actualisez la TableView pour refléter la suppression
+        tableview.getItems().remove(ev);
+    }
+
+
+}
