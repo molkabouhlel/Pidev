@@ -50,7 +50,6 @@
             </Button>
             <TextField fx:id="confirm" layoutX="365.0" layoutY="282.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="Confirm Password" />
             <AnchorPane layoutX="-61.0" layoutY="60.0" prefHeight="358.0" prefWidth="187.0" style="-fx-background-color: #5eaffa;" />
-            <TextField fx:id="abonnement" layoutX="290.0" layoutY="334.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="abonnement" />
          </children>
       </AnchorPane>
    </children>

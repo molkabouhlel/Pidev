@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Gestioncoach">
    <children>
-      <AnchorPane layoutX="17.0" layoutY="9.0" prefHeight="393.0" prefWidth="676.0">
+      <AnchorPane layoutX="17.0" layoutY="9.0" prefHeight="394.0" prefWidth="748.0">
          <children>
             <AnchorPane layoutX="-42.0" layoutY="-8.0" prefHeight="400.0" prefWidth="173.0" style="-fx-background-color: #5eaffa;">
                <children>
@@ -26,15 +25,15 @@
                   <Button layoutX="86.0" layoutY="50.0" mnemonicParsing="false" onAction="#returnButton" opacity="0.0" text="Button" />
                </children>
             </AnchorPane>
-            <TableView layoutX="132.0" layoutY="111.0" prefHeight="234.0" prefWidth="574.0">
+            <TableView fx:id="CoachTableView" layoutX="131.0" layoutY="105.0" prefHeight="240.0" prefWidth="683.0">
                <columns>
-                  <TableColumn prefWidth="94.4000244140625" text="First Name" />
-                  <TableColumn prefWidth="108.0" text="Last Name " />
-                  <TableColumn prefWidth="81.60003662109375" text="Email" />
-                  <TableColumn prefWidth="111.20001220703125" text="Password" />
-                  <TableColumn prefWidth="114.4000244140625" text="Phone Number" />
-                  <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
-                  <TableColumn prefWidth="75.0" text="Action" />
+                  <TableColumn fx:id="fn" minWidth="0.0" prefWidth="125.60002136230469" text="First Name" />
+                  <TableColumn fx:id="ln" prefWidth="135.20001220703125" text="Last Name " />
+                  <TableColumn fx:id="email" prefWidth="89.5999755859375" text="Email" />
+                  <TableColumn fx:id="pass" prefWidth="72.79998779296875" text="Password" />
+                  <TableColumn fx:id="pn" prefWidth="114.39996337890625" text="Phone Number" />
+                  <TableColumn fx:id="adresse" minWidth="0.0" prefWidth="73.60009765625" text="Adresse" />
+                  <TableColumn fx:id="action" prefWidth="77.5999755859375" text="Action" />
                </columns>
             </TableView>
             <Label layoutX="295.0" layoutY="37.0" text="Liste Des Coachs " textFill="#589fd9">
@@ -42,6 +41,7 @@
                   <Font name="Ebrima Bold" size="32.0" />
                </font>
             </Label>
+            <Button layoutX="729.0" layoutY="72.0" mnemonicParsing="false" onAction="#addcoach" text="AddCoach" />
          </children>
       </AnchorPane>
    </children>

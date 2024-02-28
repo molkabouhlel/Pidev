@@ -12,12 +12,19 @@ public class Membre extends User{
         this.abonnement = abonnement;
     }
 
-    public Membre() {
+    public Membre(String firstName, String lastName, int i, String email, String password, String membre) {
     }
 
     private String abonnement ;
 
+    public Membre(String email, String password, String firstName, String lastName, int phoneNumber, String role) {
+
+    }
     public Membre(String LN, String FN, int TTF, String mail, String mdp, String role , String abonement) {
+    }
+
+    public Membre() {
+        super();
     }
 
     public String getAbonnement() {

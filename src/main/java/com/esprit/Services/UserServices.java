@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 
 public class UserServices implements Interface<User> {
 
-Connection cnx =Connexion.getInstance().getCnx();
+    Connection cnx =Connexion.getInstance().getCnx();
 
     public boolean login(String email, String password) throws SQLException {
         String query = "SELECT * FROM usr WHERE email = '" + email + "' AND mdp = '" + password + "'";
@@ -28,33 +28,33 @@ Connection cnx =Connexion.getInstance().getCnx();
     @Override
     public  void add(User u) {
 
-            System.out.println("Adding user: " + u);
-            String req="";
-            if (u.getRole().equals("Admin")) {
-                Admin admin = (Admin) u;
-                req = "INSERT INTO usr ( email, mdp, nom, prenom, numT,role,abonnement,adresse) VALUES ('" + u.getEmail() + "','" + u.getMdp() + "','" + u.getNom() + "','" + u.getPrénom() + "','" + u.getNumT() + "','" + u.getRole() + "', '', '');";
-            }
-                 else   if (u.getRole().equals("Membre")) {
-                Membre membre = (Membre) u; // Casting to Membre
-                     req = "INSERT INTO usr ( email, mdp, nom, prenom, numT,role,abonnement,adresse) VALUES ( '" + u.getEmail() + "','" + u.getMdp() + "','" + u.getNom() + "','" + u.getPrénom() + "','" + u.getNumT() + "','" + u.getRole() + "', '"+((Membre) u).getAbonnement()+"', '');";
+        System.out.println("Adding user: " + u);
+        String req="";
+        if (u.getRole().equals("Admin")) {
+            Admin admin = (Admin) u;
+            req = "INSERT INTO usr ( email, mdp, nom, prenom, numT,role,abonnement,adresse) VALUES ('" + u.getEmail() + "','" + u.getMdp() + "','" + u.getNom() + "','" + u.getPrénom() + "','" + u.getNumT() + "','" + u.getRole() + "', '', '');";
+        }
+        else   if (u.getRole().equals("Membre")) {
+            Membre membre = (Membre) u; // Casting to Membre
+            req = "INSERT INTO usr ( email, mdp, nom, prenom, numT,role,abonnement,adresse) VALUES ( '" + u.getEmail() + "','" + u.getMdp() + "','" + u.getNom() + "','" + u.getPrénom() + "','" + u.getNumT() + "','" + u.getRole() + "', '"+((Membre) u).getAbonnement()+"', '');";
 
-                    } else if (u.getRole().equals("Coach")) {
-                        Coach coach = (Coach) u; // Casting to Coach
-                 req = "INSERT INTO usr ( email, mdp, nom, prenom, numT,role,abonnement,adresse) VALUES ('" + u.getEmail() + "','" + u.getMdp() + "','" + u.getNom() + "','" + u.getPrénom() + "','" + u.getNumT() + "','" + u.getRole() + "', '','"+((Coach) u).getAdresse()+"');";
+        } else if (u.getRole().equals("Coach")) {
+            Coach coach = (Coach) u; // Casting to Coach
+            req = "INSERT INTO usr ( email, mdp, nom, prenom, numT,role,abonnement,adresse) VALUES ('" + u.getEmail() + "','" + u.getMdp() + "','" + u.getNom() + "','" + u.getPrénom() + "','" + u.getNumT() + "','" + u.getRole() + "', '','"+((Coach) u).getAdresse()+"');";
 
-                    }
+        }
 
-                    System.out.println("Generated SQL query: " + req);
+        System.out.println("Generated SQL query: " + req);
 
-                    try (Statement st = cnx.createStatement()) {
-                        st.executeUpdate(req);
+        try (Statement st = cnx.createStatement()) {
+            st.executeUpdate(req);
 
-                        System.out.println("User added successfully");
-                    }
-                 catch (SQLException ex) {
-                    System.err.println("Error during SQL operation: " + ex.getMessage());
-                }
-            }
+            System.out.println("User added successfully");
+        }
+        catch (SQLException ex) {
+            System.err.println("Error during SQL operation: " + ex.getMessage());
+        }
+    }
 
     @Override
     public void update(User user) {
@@ -86,18 +86,71 @@ Connection cnx =Connexion.getInstance().getCnx();
     }
 
 
-    @Override
-        public void supp(User u) {
 
-                String req = "DELETE from usr where cin = " + u.getCin() + ";";
-                try {
-                    Statement st = cnx.createStatement();
-                    st.executeUpdate(req);
-                    System.out.println("user supprimer supprmiée !");
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+
+
+
+    public void updateMembre(Membre membre) {
+        System.out.println("updating coach: " + membre);
+        String req = "UPDATE usr SET email = ?, mdp = ?, nom = ?, prenom = ?, numT = ?, role = ? WHERE cin = ?";
+
+        System.out.println("Generated SQL query: " + req);
+
+        try (PreparedStatement st = cnx.prepareStatement(req)) {
+            st.setString(1, membre.getEmail());
+            st.setString(2, membre.getMdp());
+            st.setString(3, membre.getNom());
+            st.setString(4, membre.getPrénom());
+            st.setInt(5, membre.getNumT());
+            st.setString(6, membre.getRole());
+            st.setInt(7, membre.getCin());
+
+            st.executeUpdate();
+
+            System.out.println("Admin updated successfully");
+        } catch (SQLException ex) {
+            System.err.println("Error during SQL operation: " + ex.getMessage());
+        }
+    }
+
+
+
+    public void updateCoach(Coach coach) {
+        System.out.println("updating coach: " + coach);
+        String req = "UPDATE usr SET email = ?, mdp = ?, nom = ?, prenom = ?, numT = ?, role = ? WHERE cin = ?";
+
+        System.out.println("Generated SQL query: " + req);
+
+        try (PreparedStatement st = cnx.prepareStatement(req)) {
+            st.setString(1, coach.getEmail());
+            st.setString(2, coach.getMdp());
+            st.setString(3, coach.getNom());
+            st.setString(4, coach.getPrénom());
+            st.setInt(5, coach.getNumT());
+            st.setString(6, coach.getRole());
+            st.setInt(7, coach.getCin());
+
+            st.executeUpdate();
+
+            System.out.println("Admin updated successfully");
+        } catch (SQLException ex) {
+            System.err.println("Error during SQL operation: " + ex.getMessage());
+        }
+    }
+
+
+    @Override
+    public void supp(User u) {
+
+        String req = "DELETE from usr where cin = " + u.getCin() + ";";
+        try {
+            Statement st = cnx.createStatement();
+            st.executeUpdate(req);
+            System.out.println("user supprimer supprmiée !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
     @Override
@@ -137,6 +190,8 @@ Connection cnx =Connexion.getInstance().getCnx();
 
         return userList;
     }
+
+
     public List<User> showAdmin() {
         List<User> userList = new ArrayList<>();
 
@@ -154,6 +209,32 @@ Connection cnx =Connexion.getInstance().getCnx();
                 String role = rs.getString("role");
 
                 User admin = new User(cin, email, password, nom, prenom, numT, role);
+                userList.add(admin);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return userList;
+    }
+
+    public List<Membre> showMembre() {
+        List<Membre> userList = new ArrayList<>();
+
+        String req = "SELECT * FROM usr WHERE role = 'Membre'";
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                int cin = rs.getInt("cin");
+                String email = rs.getString("email");
+                String password = rs.getString("mdp");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                int numT = rs.getInt("numT");
+                String role = rs.getString("role");
+
+                Membre admin = new Membre(cin, email, password, nom, prenom, numT, role,"");
                 userList.add(admin);
             }
         } catch (SQLException e) {
@@ -182,8 +263,8 @@ Connection cnx =Connexion.getInstance().getCnx();
 
 
                 } else if (((rs.getString("role")).equals("Coach"))) {
-                     Coach coach  = new Coach();
-                   coach.setCin(rs.getInt("cin"));
+                    Coach coach  = new Coach();
+                    coach.setCin(rs.getInt("cin"));
                     coach.setNom(rs.getString("nom"));
                     coach.setPrénom(rs.getString("prenom"));
                     coach.setNumT(rs.getInt("numT"));
@@ -216,6 +297,33 @@ Connection cnx =Connexion.getInstance().getCnx();
         return user;
     }
 
+    public List<Coach> showCoach() {
+        List<Coach> coachList = new ArrayList<>();
+
+        String req = "SELECT * FROM usr WHERE role = 'Coach'";
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                int cin = rs.getInt("cin");
+                String email = rs.getString("email");
+                String password = rs.getString("mdp");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                int numT = rs.getInt("numT");
+                String role = rs.getString("role");
+                String adresse = rs.getString("adresse");
+
+                // Use the Coach constructor
+                Coach coach = new Coach(cin, email, password, nom, prenom, numT, role, adresse);
+                coachList.add(coach);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return coachList;
+    }
 
 
 

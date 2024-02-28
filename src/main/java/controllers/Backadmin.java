@@ -167,7 +167,7 @@ public class Backadmin {
         deleteColumn.setPrefWidth(70.0);
         adminTableView.getColumns().add(deleteColumn);
 
-        // Other TableColumn initializations...
+
 
         adminTableView.setEditable(true);
 
