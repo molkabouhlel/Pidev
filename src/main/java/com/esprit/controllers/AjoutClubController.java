@@ -14,8 +14,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
@@ -58,9 +60,50 @@ public class AjoutClubController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //HEDHI COMBOBOX BL LES ATTRIBUT ESPACE LKOL
         EspaceService es=new EspaceService();
-        List<Espace> l=es.afficher();                //HEDHI COMBOBOX BL LES ATTRIBUT ESPACE LKOL
+        List<Espace> l=es.afficher();
         Espace.setItems(FXCollections.observableArrayList(l));
+
+////////////////////////////////////////CONTROLE SAISIE///////////////////////////////////////////
+        //controle saisie text
+        nom_club.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches(".*\\d.*")) {
+                nom_club.setText(oldValue);
+            }
+        });
+        nom_club.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().length() <= 15) {
+                return change;
+            }
+            return null;
+        }));
+
+        adresse_club.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches(".*\\d.*")) {
+                adresse_club.setText(oldValue);
+            }
+        });
+        adresse_club.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().length() <= 15) {
+                return change;
+            }
+            return null;
+        }));
+
+        description_club.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches(".*\\d.*")) {
+                adresse_club.setText(oldValue);
+            }
+        });
+
+        //controle saisie Time
+        temp_ouverture.setPromptText("hh:mm:ss");
+        temp_ouverture.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{0,2}(:\\d{0,2}(:\\d{0,2})?)?")) {
+                temp_ouverture.setText(oldValue);
+            }
+        });
 
         /*List<Integer> l=es.Return_idEspace();                //HEDHI COMBOBOX BL ID
         Espace.setItems(FXCollections.observableArrayList(l));*/
@@ -68,6 +111,25 @@ public class AjoutClubController  implements Initializable {
     }
 
 
+    @FXML
+    void browseimage(ActionEvent event) {
+        // select a file from the dialog box
+        FileChooser fileChooser = new FileChooser();
+        // image file extensions
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files",
+                        "*.png", "*.jpg", "*.gif"));
+        fileChooser.setInitialDirectory(new File("C:/Users/thebe/OneDrive/Bureau/workshopjdbc/src/main/resources/Image"));
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            String imageFile = file.toURI().toString();
+            imageFile = imageFile.substring(8);
+            image_club.setText(imageFile);
+        }
+
+    }
+    
 
     @FXML
     void RedirectToClubAfficher(ActionEvent event)  throws IOException {

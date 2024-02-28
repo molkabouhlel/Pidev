@@ -40,8 +40,8 @@ public class MainProg {
         //lc.modifier(new ListCours(7,new Club(9),2));
         //lc.supprimer(new ListCours(2));
 
-        System.out.println("voici liste cours:");
-        System.out.println(lc.afficher());
+        /*System.out.println("voici liste cours:");
+        System.out.println(lc.afficher());*/
 
     }
 }

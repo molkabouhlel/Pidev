@@ -92,20 +92,20 @@ public class ClubService implements IService<Club>{
         return C;
     }
     public List<Integer> RecupereridCours() {
-        List<Integer> C = new ArrayList<>();
+        List<Integer> L = new ArrayList<>();
         String req = "SELECT id from cours";
 
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                    C.add(rs.getInt("id"));
+                    L.add(rs.getInt("id"));
                 }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return C;
+        return L;
     }
 
 

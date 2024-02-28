@@ -30,9 +30,10 @@
             <Image url="@../../Image/logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="63.0" layoutY="111.0" prefHeight="36.0" prefWidth="139.0" text="Ajout Espace" textFill="#4375ff" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="398.0" AnchorPane.topAnchor="111.0">
+      <Label layoutY="52.0" prefHeight="365.0" prefWidth="249.0" style="-fx-background-color: rgb(56, 122, 223);" textFill="#960b0b" />
+      <Label layoutX="24.0" layoutY="64.0" prefHeight="94.0" prefWidth="210.0" text="Ajout Espace" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font size="33.0" />
          </font>
       </Label>
    </children>

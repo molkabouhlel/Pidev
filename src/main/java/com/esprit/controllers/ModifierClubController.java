@@ -14,8 +14,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
@@ -118,5 +120,37 @@ public class ModifierClubController implements Initializable  {
             stage.show();
         }
 
+    @FXML
+    void Browse(ActionEvent event) {
+        // select a file from the dialog box
+        FileChooser fileChooser = new FileChooser();
+        // image file extensions
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files",
+                        "*.png", "*.jpg", "*.gif"));
+        fileChooser.setInitialDirectory(new File("C:/Users/thebe/OneDrive/Bureau/workshopjdbc/src/main/resources/Image"));
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            String imageFile = file.toURI().toString();
+            imageFile = imageFile.substring(8);
+            image_club.setText(imageFile);
+        }
+
+    }
+
+
+    /*@FXML
+    void RedirectToMenu(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageClub.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+*/
 }
 

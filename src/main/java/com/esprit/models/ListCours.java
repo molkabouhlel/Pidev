@@ -10,7 +10,7 @@ public class ListCours {
     }
 
     public ListCours(int id) {
-        this.id = id;
+        this.id_cours = id;
     }
 
     public ListCours(Club club, int id_cours) {
@@ -23,7 +23,6 @@ public class ListCours {
         this.club = club;
         this.id_cours = id_cours;
     }
-
 
     public int getId() {
         return id;
