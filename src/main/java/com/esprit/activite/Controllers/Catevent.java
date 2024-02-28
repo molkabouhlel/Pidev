@@ -17,11 +17,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 public class Catevent {
@@ -36,10 +34,13 @@ public class Catevent {
     private TextField catev;
 
     @FXML
-    private TableColumn<?, ?> catevent;
+    private TableColumn<type_ev, String> catevent;
 
+    //@FXML
+   // private TableColumn<?, ?> id_event;
     @FXML
-    private TableColumn<?, ?> id_event;
+    private TableColumn<type_ev, Void> action;
+
 
     @FXML
     private TextField iev;
@@ -54,9 +55,7 @@ public class Catevent {
 
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
-
-        // Load and show the new interface
+        currentStage.close();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/principale.fxml"));
             Stage newStage = new Stage();
@@ -64,12 +63,13 @@ public class Catevent {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
+
         }
     }
 
     @FXML
     void add(ActionEvent event) throws IOException {
+        if(validerChamps()){
         type_evService es = new type_evService();
 
         es.ajouter(new type_ev(catev.getText()));
@@ -83,7 +83,7 @@ public class Catevent {
         Stage currentStage = (Stage) viewevent.getScene().getWindow();
         currentStage.setScene(new Scene(root));
 
-    }
+    }}
 
     @FXML
     void delete(ActionEvent event) {
@@ -101,7 +101,7 @@ public class Catevent {
             // Mettez à jour la TableView
             viewevent.getItems().remove(selectedID);
         } else {
-            // Aucune ligne sélectionnée, affichez un message d'erreur ou prenez une autre action appropriée
+            // Aucune ligne sélectionnée
             Alert alerte= new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("erreur");
             alerte.setContentText("categorie nest pas selectioner");
@@ -112,29 +112,28 @@ public class Catevent {
 
     @FXML
     void update(ActionEvent event) {
-        type_evService es = new type_evService();
-        type_ev catselected = es.recherchecatev(idcatsselected);
-        typec c = new typec();
-        int idCat = Integer.parseInt(iev.getText());
-        String cat = catev.getText();
+        if(validerChamps()) {
+            type_evService es = new type_evService();
+            type_ev catselected = es.recherchecatev(idcatsselected);
+            typec c = new typec();
+            int idCat = Integer.parseInt(iev.getText());
+            String cat = catev.getText();
 
-        es.modifier(new type_ev(idCat,cat));
-        //
-        Node source = (Node) event.getSource();
-        Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+            es.modifier(new type_ev(idCat, cat));
+            //
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/catevent.fxml"));
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
 
-        // Load and show the new interface
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/catevent.fxml"));
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle exception, if any
+            }
         }
-
     }
 
     @FXML
@@ -143,7 +142,7 @@ public class Catevent {
         List<type_ev> cat = c.afficher();
         ObservableList<type_ev> observableList = FXCollections.observableList(cat);
         viewevent.setItems(observableList);
-        id_event.setCellValueFactory(new PropertyValueFactory<>("id_typeev"));
+       // id_event.setCellValueFactory(new PropertyValueFactory<>("id_typeev"));
         catevent.setCellValueFactory(new PropertyValueFactory<>("type_ev"));
         //System.out.println(c.afficher());
         viewevent.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -156,6 +155,71 @@ public class Catevent {
                 idcatsselected = -1;
             }
         });
+        setupActionColumn();
+        //
+        viewevent.setEditable(true);
+        catevent.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        type_evService ss = new type_evService();
+
+
+
+        // Save changes on commit
+        catevent.setOnEditCommit(event -> {
+            type_ev s = event.getRowValue();
+            s.setType_ev(event.getNewValue());
+            ss.modifier(s);
+        });
+    }
+    private void setupActionColumn() {
+        action.setCellFactory(col -> new TableCell<type_ev, Void>() {
+            private final Button participerButton = new Button("supprimer");
+
+            {
+                participerButton.setOnAction(event -> {
+                    //   tableview.edit(-1, null);
+                    type_ev e = getTableView().getItems().get(getIndex());
+                    supprimer(e);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(participerButton);
+                }
+            }
+        });
+    }
+    private void supprimer(type_ev ev) {
+        type_evService p = new type_evService();
+        p.supprimer(ev);
+        // Actualisez la TableView pour refléter la suppression
+        viewevent.getItems().remove(ev);
+    }
+    @FXML
+    public boolean validerChamps() {
+        if (catev.getText().isEmpty()) {
+            afficherAlerte("Veuillez remplir tous les champs.");
+            return false;
+        }
+
+        if (!catev.getText().matches("[a-zA-Z]+")) {
+            afficherAlerte("Le champ 'Noneve' doit contenir uniquement des lettres.");
+            return false;
+        }
+
+        return true;
+    }
+    private void afficherAlerte(String message) {
+        Alert alerte = new Alert(Alert.AlertType.ERROR);
+        alerte.setTitle("Erreur de saisie");
+        alerte.setHeaderText(null);
+        alerte.setContentText(message);
+        alerte.showAndWait();
     }
 
 }

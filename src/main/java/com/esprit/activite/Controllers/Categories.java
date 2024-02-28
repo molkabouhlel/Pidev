@@ -5,8 +5,12 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.esprit.activite.modeles.Evenement;
+import com.esprit.activite.modeles.Participer;
 import com.esprit.activite.modeles.typec;
+import com.esprit.activite.services.EvenementService;
 import com.esprit.activite.services.TypecService;
+import com.esprit.activite.services.participerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,11 +19,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 public class Categories {
@@ -33,18 +35,20 @@ public class Categories {
     @FXML
     private TextField idcatec;
 
-    @FXML
-    private TableColumn<?, ?> idtypec;
+   // @FXML
+   // private TableColumn<?, ?> idtypec;
 
     @FXML
     private TableView<typec> tableview;
 
     @FXML
-    private TableColumn<?, ?> typecours;
+    private TableColumn<typec, String> typecours;
 
     @FXML
     private TextField typectext;
     private int idcatsselected;
+    @FXML
+    private TableColumn<typec, Void> action;
 
     public void initData(typec c) {
         idcatec.setText(String.valueOf(c.getIdtypec()));
@@ -53,42 +57,44 @@ public class Categories {
     }
     @FXML
     void ajoutercatcours(ActionEvent event) throws IOException {
-        TypecService es = new TypecService();
-        es.ajouter(new typec(typectext.getText()));
-        Alert alerte= new Alert(Alert.AlertType.INFORMATION);
-        alerte.setTitle("cours ajout");
-        alerte.setContentText("cours bien ajoutee");
-        alerte.show();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/categories.fxml"));
-        Parent root = loader.load();
-        Stage currentStage = (Stage) tableview.getScene().getWindow();
-        currentStage.setScene(new Scene(root));
+        if (validerChamps()) {
+            TypecService es = new TypecService();
+            es.ajouter(new typec(typectext.getText()));
+            Alert alerte = new Alert(Alert.AlertType.INFORMATION);
+            alerte.setTitle("cours ajout");
+            alerte.setContentText("cours bien ajoutee");
+            alerte.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/categories.fxml"));
+            Parent root = loader.load();
+            Stage currentStage = (Stage) tableview.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
 
+        }
     }
-
     @FXML
     void modifiercatcours(ActionEvent event) {
-        TypecService es = new TypecService();
-        typec catselected = es.recherchecat(idcatsselected);
-        typec c = new typec();
-        int idCat = Integer.parseInt(idcatec.getText());
-        String cat = typectext.getText();
+        if(validerChamps()) {
+            TypecService es = new TypecService();
+            typec catselected = es.recherchecat(idcatsselected);
+            typec c = new typec();
+            int idCat = Integer.parseInt(idcatec.getText());
+            String cat = typectext.getText();
 
-        es.modifier(new typec(idCat,cat));
-        Node source = (Node) event.getSource();
-        Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+            es.modifier(new typec(idCat, cat));
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
 
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/categories.fxml"));
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle exception, if any
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/categories.fxml"));
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
         }
-
     }
 
     @FXML
@@ -116,10 +122,10 @@ public class Categories {
 
             c.supprimer(catASupprimer);
 
-            // Mettez à jour la TableView
+            // Mettez à jour  TableView
             tableview.getItems().remove(selectedID);
         } else {
-            // Aucune ligne sélectionnée, affichez un message d'erreur ou prenez une autre action appropriée
+            // Aucune ligne sélectionnée
             Alert alerte= new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("erreur");
             alerte.setContentText("categorie nest pas selectioner");
@@ -138,7 +144,7 @@ public class Categories {
         List<typec> cat = c.afficher();
         ObservableList<typec> observableList = FXCollections.observableList(cat);
         tableview.setItems(observableList);
-        idtypec.setCellValueFactory(new PropertyValueFactory<>("idtypec"));
+       // idtypec.setCellValueFactory(new PropertyValueFactory<>("idtypec"));
         typecours.setCellValueFactory(new PropertyValueFactory<>("typecours"));
 
         tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -151,7 +157,75 @@ public class Categories {
                 idcatsselected = -1;
             }
         });
+        setupActionColumn();
+        //
+        tableview.setEditable(true);
 
+
+        typecours.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        TypecService ss = new TypecService();
+
+
+
+        // Save changes on commit
+        typecours.setOnEditCommit(event -> {
+            typec s = event.getRowValue();
+            s.setTypecours(event.getNewValue());
+            ss.modifier(s);
+        });
     }
+    private void setupActionColumn() {
+        action.setCellFactory(col -> new TableCell<typec, Void>() {
+            private final Button participerButton = new Button("supprimer");
+
+            {
+                participerButton.setOnAction(event -> {
+                    //   tableview.edit(-1, null);
+                    typec e = getTableView().getItems().get(getIndex());
+                    supprimer(e);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(participerButton);
+                }
+            }
+        });
+    }
+    private void supprimer(typec ev) {
+         TypecService p = new TypecService();
+        p.supprimer(ev);
+        // Actualisez la TableView pour refléter la suppression
+        tableview.getItems().remove(ev);
+    }
+    @FXML
+    public boolean validerChamps() {
+        if (typecours.getText().isEmpty()) {
+            afficherAlerte("Veuillez remplir tous les champs.");
+            return false;
+        }
+
+        if (!typecours.getText().matches("[a-zA-Z]+")) {
+            afficherAlerte("Le champ 'Noneve' doit contenir uniquement des lettres.");
+            return false;
+        }
+
+        return true;
+}
+    private void afficherAlerte(String message) {
+        Alert alerte = new Alert(Alert.AlertType.ERROR);
+        alerte.setTitle("Erreur de saisie");
+        alerte.setHeaderText(null);
+        alerte.setContentText(message);
+        alerte.showAndWait();
+    }
+
+
 
 }

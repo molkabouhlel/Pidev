@@ -4,36 +4,74 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="439.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Affichercours">
+<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Affichercours">
    <children>
-      <TableView fx:id="tableview" layoutX="31.0" layoutY="93.0" prefHeight="280.0" prefWidth="548.0">
+      <ImageView fitHeight="58.0" fitWidth="66.0" layoutX="98.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/delete_7133356-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="98.0" layoutX="12.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/image-removebg-preview%20(3).png" />
+         </image>
+      </ImageView>
+      <AnchorPane prefHeight="132.0" prefWidth="822.0" style="-fx-background-color: #84c6f5;">
+         <children>
+            <ImageView fitHeight="58.0" fitWidth="61.0" layoutX="15.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/retour.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="14.0" layoutY="72.0" mnemonicParsing="false" onAction="#returnlist" prefHeight="52.0" prefWidth="61.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="retourner" textFill="#f0f1f6">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+            <Label layoutX="196.0" layoutY="78.0" prefHeight="40.0" prefWidth="405.0" text="             LISTE DES COURS               " textAlignment="CENTER" textFill="#f5f6f6" underline="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tableview" layoutX="14.0" layoutY="206.0" prefHeight="323.0" prefWidth="733.0">
         <columns>
           <TableColumn fx:id="nomc" prefWidth="75.0" text="nom" />
           <TableColumn fx:id="desc" prefWidth="138.66668701171875" text="description" />
             <TableColumn fx:id="imgc" minWidth="0.0" prefWidth="77.33338928222656" text="imagec" />
-            <TableColumn fx:id="dureec" prefWidth="46.6666259765625" text="duree" />
-            <TableColumn fx:id="idcc" prefWidth="51.99993896484375" text="idcoach" />
-            <TableColumn fx:id="idclub" prefWidth="43.99993896484375" text="idclub" />
-            <TableColumn fx:id="id_typc" prefWidth="170.66665649414062" text="id_typec" />
+            <TableColumn fx:id="dureec" prefWidth="54.6666259765625" text="duree" />
+            <TableColumn fx:id="idcc" prefWidth="56.0" text="coach" />
+            <TableColumn fx:id="idclub" prefWidth="46.0" text="club" />
+            <TableColumn fx:id="id_typc" prefWidth="148.66671752929688" text="categorie de cours" />
+            <TableColumn fx:id="action" prefWidth="131.33331298828125" text="action" />
         </columns>
       </TableView>
-      <Button layoutX="30.0" layoutY="398.0" mnemonicParsing="false" onAction="#modifiercours" text="modifier" />
-      <Button layoutX="100.0" layoutY="398.0" mnemonicParsing="false" onAction="#supprimercours" text="suprimer" />
-      <Label layoutX="102.0" layoutY="55.0" prefHeight="40.0" prefWidth="405.0" text="             LISTE DES COURS               " textAlignment="CENTER" textFill="#4c61be" underline="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="81.0" fitWidth="610.0" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="22.0" layoutY="544.0" mnemonicParsing="false" onAction="#modifiercours" prefHeight="40.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="modifier" textFill="#fbf8f8" />
+      <Button layoutX="103.0" layoutY="535.0" mnemonicParsing="false" onAction="#supprimercours" prefHeight="58.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="supprimer" textFill="#fbf8f8" />
+      <ImageView fitHeight="77.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@1.png" />
          </image>
       </ImageView>
-      <Button layoutX="34.0" layoutY="55.0" mnemonicParsing="false" onAction="#returnlist" text="retourner" textFill="#363841" />
+      <TextField fx:id="recherche" layoutX="216.0" layoutY="157.0" prefHeight="30.0" prefWidth="363.0" promptText="search" />
+      <ImageView fitHeight="58.0" fitWidth="61.0" layoutX="657.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/stat.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="666.0" layoutY="9.0" mnemonicParsing="false" onAction="#stat" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="stat" />
+      <ImageView fitHeight="58.0" fitWidth="47.0" layoutX="593.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/add-file_1090923.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="593.0" layoutY="12.0" mnemonicParsing="false" onAction="#add" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="add" />
+      <Button layoutX="513.0" layoutY="22.0" mnemonicParsing="false" onAction="#pdf" text="pdf" />
    </children>
 </AnchorPane>

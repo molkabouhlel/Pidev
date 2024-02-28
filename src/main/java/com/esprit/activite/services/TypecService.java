@@ -1,5 +1,6 @@
 package com.esprit.activite.services;
 
+import com.esprit.activite.modeles.Cours;
 import com.esprit.activite.modeles.Evenement;
 import com.esprit.activite.modeles.typec;
 import com.esprit.activite.utils.DataSource;
@@ -91,6 +92,50 @@ public class TypecService  implements Iservice <typec> {
         return evs;
     }
 
+    public List<typec> afficher2() {
+        List<typec> c = new ArrayList<>();
+
+        String req = "SELECT * from typec";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                c.add(new typec(0,rs.getString("typecours")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return c;
+    }
+    public List<String> listnomcours() {
+        List<typec> coursList = afficher2();
+        List<String> nomCoursList = new ArrayList<>();
+
+        for (typec cours : coursList) {
+            nomCoursList.add(cours.getTypecours());
+        }
+
+        return nomCoursList;
+    }
+    public typec recherchertypecParNom(String typecours) {
+        String req = "SELECT * FROM typec WHERE typecours = '" + typecours + "'";
+        typec tc = null;
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+
+            if (rs.next()) {
+                int idtypec = rs.getInt("idtypec");
+                tc = new typec(idtypec,typecours);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche du cours par nom : " + e.getMessage());
+        }
+
+        return tc;
+    }
 }
 
 

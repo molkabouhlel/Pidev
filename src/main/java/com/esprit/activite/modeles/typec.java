@@ -17,7 +17,8 @@ public class typec {
           this.idtypec = idtypec;
      }
 
-     public int getIdtypec() {
+
+    public int getIdtypec() {
           return idtypec;
      }
 

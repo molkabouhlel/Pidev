@@ -7,50 +7,64 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="454.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Principale">
+<AnchorPane prefHeight="672.0" prefWidth="925.0" style="-fx-background-color: #DCF2F1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Principale">
    <children>
-      <ImageView fitHeight="128.0" fitWidth="173.0" layoutX="14.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="159.0" fitWidth="266.0" layoutX="29.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@cat.png" />
+            <Image url="@Image/liste%20des%20cours.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="68.0" fitWidth="689.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="238.0" fitWidth="328.0" layoutX="291.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/catec-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="94.0" fitWidth="925.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="108.0" fitWidth="158.0" layoutX="217.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="212.0" fitWidth="232.0" layoutX="588.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@cours.png" />
+            <Image url="@Image/cours1-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="108.0" fitWidth="164.0" layoutX="364.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="227.0" fitWidth="246.0" layoutX="157.0" layoutY="388.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@cat.png" />
+            <Image url="@Image/catev-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="108.0" fitWidth="158.0" layoutX="560.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: 16;">
+      <ImageView fitHeight="227.0" fitWidth="227.0" layoutX="516.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: 16;">
          <image>
-            <Image url="@ev.png" />
+            <Image url="@image3/image-removebg-preview%20(2).png" />
          </image>
       </ImageView>
-      <Label layoutX="68.0" layoutY="162.0" text="COURS" textFill="RED">
+      <Button layoutX="295.0" layoutY="131.0" mnemonicParsing="false" onAction="#catcours" prefHeight="197.0" prefWidth="232.0" style="-fx-background-radius: 15; -fx-opacity: 0;" text="categorie de cours" />
+      <Button layoutX="584.0" layoutY="131.0" mnemonicParsing="false" onAction="#cours" prefHeight="197.0" prefWidth="240.0" style="-fx-background-radius: 15; -fx-opacity: 0;" text="cours">
          <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="390.0" layoutY="162.0" text="EVENEMENT" textFill="RED">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Label>
-      <Button layoutX="68.0" layoutY="268.0" mnemonicParsing="false" onAction="#catcours" style="-fx-background-radius: 15;" text="acceder" />
-      <Button layoutX="257.0" layoutY="268.0" mnemonicParsing="false" onAction="#cours" style="-fx-background-radius: 15;" text="acceder" />
-      <Button layoutX="420.0" layoutY="268.0" mnemonicParsing="false" onAction="#cateve" style="-fx-background-radius: 15;" text="acceder" />
-      <Button layoutX="588.0" layoutY="268.0" mnemonicParsing="false" onAction="#eve" style="-fx-background-radius: 15;" text="acceder">
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="156.0" layoutY="387.0" mnemonicParsing="false" onAction="#cateve" prefHeight="227.0" prefWidth="227.0" style="-fx-background-radius: 15; -fx-opacity: 0;" text="catev" />
+      <Button layoutX="527.0" layoutY="391.0" mnemonicParsing="false" onAction="#eve" prefHeight="220.0" prefWidth="227.0" style="-fx-background-radius: 15; -fx-opacity: 0;" text="event">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Button>
+      <Label layoutX="658.0" layoutY="566.0" prefHeight="17.0" prefWidth="145.0" text="EVENEMENT" textFill="#157cb7">
+         <font>
+            <Font name="Arial Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="375.0" layoutY="169.0" text="CATEGORIE">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="389.0" layoutY="185.0" prefHeight="0.0" prefWidth="44.0" text="COURS">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="67.0" layoutY="169.0" mnemonicParsing="false" onAction="#listecours" prefHeight="136.0" prefWidth="203.0" style="-fx-opacity: 0;" text="liste des cours" />
    </children>
 </AnchorPane>

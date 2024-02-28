@@ -12,12 +12,12 @@ public class Evenement {
     private Timestamp date_debut;
     private Timestamp date_fin	;
     private int capacite_max;
-    private int id_espace;
+    private espace id_espace;
     private typec id_typec;
     private type_ev id_type_ev;
     public Evenement(){}
 
-    public Evenement(int id_ev, String nom_ev, String description_ev, String image_ev, Timestamp date_debut, Timestamp date_fin, int capacite_max, int id_espace, typec id_typec, type_ev id_type_ev) {
+    public Evenement(int id_ev, String nom_ev, String description_ev, String image_ev, Timestamp date_debut, Timestamp date_fin, int capacite_max, espace id_espace, typec id_typec, type_ev id_type_ev) {
         this.id_ev = id_ev;
         this.nom_ev = nom_ev;
         this.description_ev = description_ev;
@@ -30,7 +30,7 @@ public class Evenement {
         this.id_type_ev = id_type_ev;
     }
 
-    public Evenement(String nom_ev, String description_ev, String image_ev, Timestamp date_debut, Timestamp date_fin, int capacite_max, int id_espace, typec id_typec, type_ev id_type_ev) {
+    public Evenement(String nom_ev, String description_ev, String image_ev, Timestamp date_debut, Timestamp date_fin, int capacite_max, espace id_espace, typec id_typec, type_ev id_type_ev) {
         this.nom_ev = nom_ev;
         this.description_ev = description_ev;
         this.image_ev = image_ev;
@@ -103,11 +103,12 @@ public class Evenement {
         this.capacite_max = capacite_max;
     }
 
-    public int getId_espace() {
+
+    public espace getId_espace() {
         return id_espace;
     }
 
-    public void setId_espace(int id_espace) {
+    public void setId_espace(espace id_espace) {
         this.id_espace = id_espace;
     }
 

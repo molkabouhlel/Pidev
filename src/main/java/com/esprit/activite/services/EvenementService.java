@@ -2,6 +2,9 @@ package com.esprit.activite.services;
 
 import com.esprit.activite.modeles.*;
 import com.esprit.activite.utils.DataSource;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ public class EvenementService implements Iservice <Evenement> {
     }
     @Override
     public void ajouter(Evenement e) {
-        String req = "INSERT into evenement (nom_ev,description_ev, image_ev, date_debut, date_fin, capacite_max ,id_espace ,id_typec ,id_type_ev) values ('" + e.getNom_ev() + "',  '" + e.getDescription_ev() + "','" + e.getImage_ev() + "', '" + e.getDate_debut() + "','" + e.getDate_fin() + "','" + e.getCapacite_max() + "','"+ e.getId_espace()+ "','" +e.getId_typec().getIdtypec() + "','" + e.getId_type_ev().getId_typeev() +"');";
+        String req = "INSERT into evenement (nom_ev,description_ev, image_ev, date_debut, date_fin, capacite_max ,id_espace ,id_typec ,id_type_ev) values ('" + e.getNom_ev() + "',  '" + e.getDescription_ev() + "','" + e.getImage_ev() + "', '" + e.getDate_debut() + "','" + e.getDate_fin() + "','" + e.getCapacite_max() + "','"+ e.getId_espace().getId_espace()+ "','" +e.getId_typec().getIdtypec() + "','" + e.getId_type_ev().getId_typeev() +"');";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -30,7 +33,7 @@ public class EvenementService implements Iservice <Evenement> {
 
    @Override
     public void modifier(Evenement e) {
-        String req = "UPDATE evenement set nom_ev = '" + e.getNom_ev() + "', description_ev = '" + e.getDescription_ev() + "', image_ev = '" + e.getImage_ev() + "', date_debut = '" + e.getDate_debut() + "', date_fin = '" + e.getDate_fin() + "', capacite_max ='" + e.getCapacite_max() + "', id_espace ='"+e.getId_espace() +"',id_typec ='" +e.getId_typec().getIdtypec()+"',id_type_ev ='" + e.getId_type_ev().getId_typeev()+ "'   where id_ev = " + e.getId_ev() + ";";
+        String req = "UPDATE evenement set nom_ev = '" + e.getNom_ev() + "', description_ev = '" + e.getDescription_ev() + "', image_ev = '" + e.getImage_ev() + "', date_debut = '" + e.getDate_debut() + "', date_fin = '" + e.getDate_fin() + "', capacite_max ='" + e.getCapacite_max() + "', id_espace ='"+e.getId_espace().getId_espace()+"',id_typec ='" +e.getId_typec().getIdtypec()+"',id_type_ev ='" + e.getId_type_ev().getId_typeev()+ "'   where id_ev = " + e.getId_ev() + ";";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -61,8 +64,10 @@ public class EvenementService implements Iservice <Evenement> {
             while (rs.next()) {
                 typec id_typec = recherchetypec(rs.getInt("id_typec"));
                 type_ev tv = recherchetyeev(rs.getInt("id_type_ev"));
+                espace e =recherchees(rs.getInt("id_espace"));
+
                 if (id_typec != null) {
-                    c.add(new Evenement(rs.getInt("id_ev"), rs.getString("nom_ev"), rs.getString("description_ev"), rs.getString("image_ev"), rs.getTimestamp("date_debut"), rs.getTimestamp("date_fin"), rs.getInt("capacite_max"), rs.getInt("id_espace"), id_typec, tv));
+                    c.add(new Evenement(rs.getInt("id_ev"), rs.getString("nom_ev"), rs.getString("description_ev"), rs.getString("image_ev"), rs.getTimestamp("date_debut"), rs.getTimestamp("date_fin"), rs.getInt("capacite_max"),e, id_typec, tv));
                 }
             }
         } catch (SQLException e) {
@@ -112,15 +117,17 @@ public class EvenementService implements Iservice <Evenement> {
  /////////////////////////////////////////////////////////////////
 
 
-    public List<Integer> rechercheIdEspace() {
-        List<Integer> idEspaces = new ArrayList<>();
-        String req = "SELECT id_espace FROM evenement";
+    public List<espace> rechercheIdEspace() {
+        List<espace> idEspaces = new ArrayList<>();
+        String req = "SELECT id_espace, nom_espace FROM espace";
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 int idEspace = rs.getInt("id_espace");
-                idEspaces.add(idEspace);
+                String nomClub = rs.getString("nom_espace");
+                espace clubInfo = new espace(idEspace, nomClub);
+                idEspaces.add(clubInfo);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -135,6 +142,7 @@ public class EvenementService implements Iservice <Evenement> {
             ResultSet rs = st.executeQuery(req);
             if (rs.next()) {
                 C = new Evenement();
+                C.setId_ev(rs.getInt("id_ev"));
                 C.setNom_ev(rs.getString("nom_ev"));
                 C.setDescription_ev(rs.getString("description_ev"));
                 C.setImage_ev(rs.getString("image_ev"));
@@ -142,17 +150,58 @@ public class EvenementService implements Iservice <Evenement> {
                 C.setDate_fin(rs.getTimestamp("date_fin"));
                 C.setCapacite_max(rs.getInt("capacite_max"));
                 typec id_typec = recherchetypec(rs.getInt("id_typec"));
-                C.setId_espace(rs.getInt("id_espace"));
+                C.setId_typec(id_typec);
+                espace e =recherchees(rs.getInt("id_espace"));
+                C.setId_espace(e);
                  type_ev id_evv= recherchetyeev(rs.getInt("id_type_ev"));
-                // Set other properties as needed
+                C.setId_type_ev(id_evv);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return C;
     }
+    public espace recherchees (int id_e) {
+        espace ev = null;
+        String req = "SELECT * FROM espace WHERE id_espace = " + id_e;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            if (rs.next()) {
+                ev = new espace();
+                ev.setId_espace(rs.getInt("id_espace"));
+                ev.setNom_espace(rs.getString("nom_espace"));
 
 
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return ev;
+    }
+//stat
+    public ObservableList<PieChart.Data> contc() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        try {
+            // Utilisez un Statement pour exécuter la requête SQL
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery("SELECT nom_ev, capacite_max, COUNT(*) FROM evenement GROUP BY nom_ev, capacite_max")) {
 
+                // Parcours des résultats et ajout des données au PieChart
+                while (resultSet.next()) {
+                    String nomEvenement = resultSet.getString("nom_ev");
+                    int capacite_max = resultSet.getInt("capacite_max");
+                    int nombreEvenements = resultSet.getInt(3); // Vous pouvez également utiliser le nom de la colonne "COUNT(*)"
+
+                    PieChart.Data slice = new PieChart.Data(nomEvenement + " - Capacité " + capacite_max, nombreEvenements);
+                    pieChartData.add(slice);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pieChartData;
+    }
 
 }

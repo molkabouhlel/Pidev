@@ -20,7 +20,7 @@ public class MainProgGui extends Application {
         Parent root= loader.load();
         Scene scene=new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Ajout cours");
+        primaryStage.setTitle("GoFit Application");
         primaryStage.show();
     }
     }

@@ -1,13 +1,7 @@
 package com.esprit.activite.tests;
 
-import com.esprit.activite.modeles.Cours;
-import com.esprit.activite.modeles.Evenement;
-import com.esprit.activite.modeles.type_ev;
-import com.esprit.activite.modeles.typec;
-import com.esprit.activite.services.CoursService;
-import com.esprit.activite.services.EvenementService;
-import com.esprit.activite.services.TypecService;
-import com.esprit.activite.services.type_evService;
+import com.esprit.activite.modeles.*;
+import com.esprit.activite.services.*;
 import com.esprit.activite.utils.DataSource;
 
 import java.sql.Date;
@@ -52,7 +46,19 @@ public class MainProg {
       //  ev.modifier(new Evenement(9,"danseclassique" ,"tttttt", "test", Timestamp.valueOf("2024-02-17 12:34:56"),Timestamp.valueOf("2024-02-17 12:34:56") ,1,4,new typec(2),new type_ev(2)));
       //  ev.supprimer(new Evenement(8));
     //   System.out.println(ev.afficher());
-        System.out.println(ev.rechercheIdEspace());
+      //  System.out.println(ev.rechercheIdEspace());
+       participerService s=new participerService();
+     //   s.ajouter(new Participer(new Cours(24),"Bouhlel","molka","test"));
+       // System.out.println( s.participantrecherche("test","test"));
+       // s.supprimerParticipation("test");;
+      //  System.out.println(s.afficher());
+        //s.supprimer(new Participer(8));
+      // s.modifier(new Participer(6,"test"));
+        System.out.println(   s.rechercherCoursParNom("yoga"));
+       // System.out.println(s.rechercheparticipant("testtttt","update"));
+        System.out.println( ev.rechercheIdEspace());
+
     }
+
 
 }

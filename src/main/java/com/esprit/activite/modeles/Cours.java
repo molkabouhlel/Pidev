@@ -35,8 +35,22 @@ public class Cours {
         this.id_typec = id_typec;
     }
 
+    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, int idclub) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.imagec = imagec;
+        this.duree = duree;
+        this.idcoach = idcoach;
+        this.idclub = idclub;
+    }
+
     public Cours(int id) {
         this.id = id;
+    }
+
+
+    public Cours(int id, String nomCours) {
     }
 
     public int getId() {

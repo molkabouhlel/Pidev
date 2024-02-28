@@ -3,6 +3,9 @@ package com.esprit.activite.services;
 import com.esprit.activite.modeles.Cours;
 import com.esprit.activite.modeles.typec;
 import com.esprit.activite.utils.DataSource;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 
 import java.sql.*;
 import java.util.*;
@@ -104,14 +107,67 @@ public typec recherchetypec (int id_typec) {
                 C.setDuree(rs.getTime("duree"));
                 C.setIdcoach(rs.getInt("idcoach"));
                 C.setIdclub(rs.getInt("idclub"));
-                // Set other properties as needed
+                C.setId_typec(id_typec);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return C;
     }
+////
+public List<Integer> recherchecoach() {
+    List<Integer> idC = new ArrayList<>();
+    String req = "SELECT cin FROM usr";
+    try {
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            int idcoach = rs.getInt("cin");
+            idC.add(idcoach);
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return idC;
+}
+    public List<Integer> rechercheclub() {
+        List<Integer> idCl = new ArrayList<>();
+        String req = "SELECT id_club,nom_club FROM club";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                int id_club = rs.getInt("id_club");
+                String nomclub =rs.getString("nom_club");
+                idCl.add(id_club);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return idCl;
+    }
+//stat
+public ObservableList<PieChart.Data> contc() {
+    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    try {
+        // Utilisez un Statement pour exécuter la requête SQL
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT nom, duree, COUNT(*) FROM cours GROUP BY nom, duree")) {
 
+            // Parcours des résultats et ajout des données au PieChart
+            while (resultSet.next()) {
+                String nomEvenement = resultSet.getString("nom_ev");
+                int capacite_max = resultSet.getInt("capacite_max");
+                int nombreEvenements = resultSet.getInt(3); // Vous pouvez également utiliser le nom de la colonne "COUNT(*)"
 
+                PieChart.Data slice = new PieChart.Data(nomEvenement + " - Capacité " + capacite_max, nombreEvenements);
+                pieChartData.add(slice);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 
+    return pieChartData;
+}
 }
