@@ -50,9 +50,11 @@ public class Login {
                             break;
                         case "Membre":
                             showInfoAlert("Member Login Successful!");
+                            loadMemberScene();
                             break;
                         case "Coach":
                             showInfoAlert("Coach Login Successful!");
+                            loadCoachScene();
                             break;
                         default:
                             showInfoAlert("Login Successful!");
@@ -76,6 +78,38 @@ public class Login {
     private void loadBackAdminScene() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/backadmin.fxml"));
+            Parent root = loader.load();
+
+            // Assuming you have a reference to the current stage (primaryStage)
+            Stage stage = (Stage) email.getScene().getWindow();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception (e.g., show an error alert)
+        }
+    }
+    private void loadMemberScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/profileMember.fxml"));
+            Parent root = loader.load();
+
+            // Assuming you have a reference to the current stage (primaryStage)
+            Stage stage = (Stage) email.getScene().getWindow();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception (e.g., show an error alert)
+        }
+    }
+    private void loadCoachScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/profileCoach.fxml"));
             Parent root = loader.load();
 
             // Assuming you have a reference to the current stage (primaryStage)
