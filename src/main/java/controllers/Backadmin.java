@@ -63,6 +63,28 @@ public class Backadmin {
             // Handle exception, if any
         }
     }
+
+
+
+    @FXML
+    void statButton(ActionEvent event) {
+
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close(); // Close the current stage
+
+        // Load and show the new interface
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Stat.fxml")));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception, if any
+        }
+    }
+
     @FXML
     void membreI(ActionEvent event) {
         Node source = (Node) event.getSource();

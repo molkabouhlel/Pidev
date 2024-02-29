@@ -22,7 +22,7 @@ public class Principale {
 
         // Load and show the new interface
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/addCoach.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();
@@ -40,7 +40,7 @@ public class Principale {
 
         // Load and show the new interface
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/addAdmin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();
@@ -59,7 +59,7 @@ public class Principale {
 
         // Load and show the new interface
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/addMembre.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();
