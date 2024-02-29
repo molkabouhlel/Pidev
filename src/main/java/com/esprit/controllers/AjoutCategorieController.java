@@ -39,6 +39,26 @@ public class AjoutCategorieController implements Initializable {
     @FXML
     void ajouterCategorie(ActionEvent event) throws IOException {
         CategorieService ps = new CategorieService();
+        String description = tfDescriptionC.getText().trim();
+        String nomC = tfNomC.getText().trim();
+        if (nomC.isEmpty()) {
+            // Display error message (e.g., using an Alert)
+            Alert alertVide = new Alert(Alert.AlertType.ERROR);
+            alertVide.setTitle("Erreur de Saisie");
+            alertVide.setHeaderText("Nom vide!");
+            alertVide.setContentText("Veuillez saisir le nom de la categorie.");
+            alertVide.show();
+            return; // Prevent further execution if content is empty
+        }
+        if (description.isEmpty()) {
+            // Display error message (e.g., using an Alert)
+            Alert alertVide = new Alert(Alert.AlertType.ERROR);
+            alertVide.setTitle("Erreur de Saisie");
+            alertVide.setHeaderText("Description vide!");
+            alertVide.setContentText("Veuillez saisir la description de la categorie.");
+            alertVide.show();
+            return; // Prevent further execution if content is empty
+        }
         ps.ajouter(new Categorie(tfNomC.getText(), tfDescriptionC.getText()));
         Alert alerte = new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("Categorie ajout");

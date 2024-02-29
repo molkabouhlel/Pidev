@@ -50,20 +50,84 @@ public class AjoutProduitController implements Initializable {
 
     @FXML
     private TextField tfurl;
-
+   /* void addProduit(ActionEvent event) throws IOException {
+        ProduitService ps = new ProduitService();
+        float tf_Prix = Integer.parseInt(this.tfPrix.getText());
+        int tf_Quantite = Integer.parseInt(this.tfQuantite.getText());
+        String description = tfDescription.getText();
+        String marque = tfMarque.getText();
+        String url = tfurl.getText();
+        String sku = tfsku.getText();
+        ps.ajouter(new Produit(tfDescription.getText(), tf_Prix, tf_Quantite, tfMarque.getText(), id_categorie.getValue(), tfurl.getText(), tfsku.getText()));
+        Alert alerte = new Alert(AlertType.INFORMATION);
+        alerte.setTitle("produit ajout");
+        alerte.setContentText("produit bien ajoute");
+        alerte.show();
+    }*/
     @FXML
     void addProduit(ActionEvent event) throws IOException {
         ProduitService ps = new ProduitService();
-       // Categorie cat = new Categorie();
-      //  cat.setId_cat(Integer.parseInt(this.tfcategorie.getText()));
         float tf_Prix = Integer.parseInt(this.tfPrix.getText());
         int tf_Quantite = Integer.parseInt(this.tfQuantite.getText());
+        String description = tfDescription.getText().trim();
+        String marque = tfMarque.getText().trim();
+        String url = tfurl.getText().trim();
+        String sku = tfsku.getText().trim();
+        Categorie categorie = id_categorie.getValue();
+        // String titreQuestion = tfQuestionTitre.getText().trim(); // Trim leading/trailing whitespaces
+
+        if (description.isEmpty()) {
+            // Display error message (e.g., using an Alert)
+            Alert alertVide = new Alert(Alert.AlertType.ERROR);
+            alertVide.setTitle("Erreur de Saisie");
+            alertVide.setHeaderText("Description vide!");
+            alertVide.setContentText("Veuillez saisir la description du produit.");
+            alertVide.show();
+            return; // Prevent further execution if content is empty
+        }
+        if (marque.isEmpty()) {
+            // Display error message (e.g., using an Alert)
+            Alert alertVide = new Alert(Alert.AlertType.ERROR);
+            alertVide.setTitle("Erreur de Saisie");
+            alertVide.setHeaderText("Marque vide!");
+            alertVide.setContentText("Veuillez saisir la marque du produit.");
+            alertVide.show();
+            return; // Prevent further execution if content is empty
+        }
+        if (url.isEmpty()) {
+            // Display error message (e.g., using an Alert)
+            Alert alertVide = new Alert(Alert.AlertType.ERROR);
+            alertVide.setTitle("Erreur de Saisie");
+            alertVide.setHeaderText("url vide!");
+            alertVide.setContentText("Veuillez saisir l url du produit.");
+            alertVide.show();
+            return; // Prevent further execution if content is empty
+        }
+        if (sku.isEmpty()) {
+            // Display error message (e.g., using an Alert)
+            Alert alertVide = new Alert(Alert.AlertType.ERROR);
+            alertVide.setTitle("Erreur de Saisie");
+            alertVide.setHeaderText("sku vide!");
+            alertVide.setContentText("Veuillez saisir le sku du produit.");
+            alertVide.show();
+            return; // Prevent further execution if content is empty
+        }
+        if (categorie==null) {
+            // Display error message (e.g., using an Alert)
+            Alert alertVide = new Alert(Alert.AlertType.ERROR);
+            alertVide.setTitle("Erreur de Saisie");
+            alertVide.setHeaderText("categorie vide!");
+            alertVide.setContentText("Veuillez saisir la categorie du produit.");
+            alertVide.show();
+            return; // Prevent further execution if content is empty
+        }
         ps.ajouter(new Produit(tfDescription.getText(), tf_Prix, tf_Quantite, tfMarque.getText(), id_categorie.getValue(), tfurl.getText(), tfsku.getText()));
         Alert alerte = new Alert(AlertType.INFORMATION);
         alerte.setTitle("produit ajout");
         alerte.setContentText("produit bien ajoute");
         alerte.show();
     }
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CategorieService es = new CategorieService();
         List<Categorie> l=es.afficher();                //HEDHI COMBOBOX BL LES ATTRIBUT ESPACE LKOL

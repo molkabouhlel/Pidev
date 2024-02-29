@@ -1,5 +1,7 @@
 package com.esprit.controllers;
+import com.esprit.models.Categorie;
 import com.esprit.models.Produit;
+import com.esprit.services.CategorieService;
 import com.esprit.services.ProduitService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +36,8 @@ import java.io.IOException;
 import static java.lang.Integer.parseInt;
 
 public class AffichageProduitController {
+    @FXML
+    private TableColumn<Produit, Void> action;
 
     @FXML
     private TableColumn<?,?>  id_categorie;
@@ -272,6 +276,7 @@ public class AffichageProduitController {
             pr.setPrix(event.getNewValue());
             p.modifier(pr);
         });
+        boutonsupp();
     }
     @FXML
     void modifierproduit(ActionEvent event) throws IOException{
@@ -382,6 +387,36 @@ public class AffichageProduitController {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+    }
+    //TODO **************BOUTON SUPPRIMER cree tableview
+    private void boutonsupp() {
+        action.setCellFactory(col -> new TableCell<Produit, Void>() {
+            private final Button participerButton = new Button("supprimer");
+
+            {
+                participerButton.setOnAction(event -> {
+                    //   tableview.edit(-1, null);
+                    Produit produit = getTableView().getItems().get(getIndex());
+                    supprimer(produit);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(participerButton);
+                }
+            }
+        });
+    }
+    private void supprimer(Produit ev) {
+        ProduitService p = new ProduitService();
+        p.supprimer(ev);
+        // Actualisez la TableView pour refléter la suppression
+        tableview.getItems().remove(ev);
     }
     }
 

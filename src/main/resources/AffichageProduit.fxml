@@ -20,12 +20,13 @@
       <TableView fx:id="tableview" layoutX="13.0" layoutY="143.0" prefHeight="200.0" prefWidth="577.0">
         <columns>
           <TableColumn fx:id="description_produit" prefWidth="85.5999755859375" text="Description" />
-          <TableColumn fx:id="prix" prefWidth="55.199951171875" text="Prix" />
-            <TableColumn fx:id="quantite_produit" prefWidth="76.79998779296875" text="Quantite" />
-            <TableColumn fx:id="marque" prefWidth="85.60003662109375" text="Marque" />
-            <TableColumn fx:id="id_categorie" prefWidth="75.0" text="Categorie" />
-            <TableColumn fx:id="image" prefWidth="124.0" text="image" />
-            <TableColumn fx:id="sku" prefWidth="54.4000244140625" text="sku" />
+          <TableColumn fx:id="prix" prefWidth="40.0" text="Prix" />
+            <TableColumn fx:id="quantite_produit" prefWidth="60.0" text="Quantite" />
+            <TableColumn fx:id="marque" prefWidth="81.60002136230469" text="Marque" />
+            <TableColumn fx:id="id_categorie" prefWidth="67.20001220703125" text="Categorie" />
+            <TableColumn fx:id="image" prefWidth="108.79998779296875" text="image" />
+            <TableColumn fx:id="sku" minWidth="0.0" prefWidth="54.39996337890625" text="sku" />
+            <TableColumn fx:id="action" prefWidth="120.800048828125" text="Supprimer" />
         </columns>
       </TableView>
       <Button layoutX="176.0" layoutY="365.0" mnemonicParsing="false" onAction="#modifierproduit" text="Modifier" textFill="#d9851e">

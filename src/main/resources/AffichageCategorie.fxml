@@ -20,6 +20,7 @@
         <columns>
           <TableColumn fx:id="NomC" prefWidth="75.0" text="Nom" />
           <TableColumn fx:id="DescriptionC" prefWidth="75.0" text="Description" />
+            <TableColumn fx:id="action" prefWidth="75.0" text="Supprimer" />
         </columns>
       </TableView>
       <Button fx:id="modifierC" layoutX="182.0" layoutY="343.0" mnemonicParsing="false" onAction="#modifierC" text="Modifier" textFill="#e16f04" />
