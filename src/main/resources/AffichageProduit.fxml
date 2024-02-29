@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AffichageProduitController">
+   <children>
+      <ImageView fitHeight="405.0" fitWidth="600.0" layoutX="1.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/image_2024-02-20_160108214.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tableview" layoutX="13.0" layoutY="143.0" prefHeight="200.0" prefWidth="577.0">
+        <columns>
+          <TableColumn fx:id="description_produit" prefWidth="85.5999755859375" text="Description" />
+          <TableColumn fx:id="prix" prefWidth="55.199951171875" text="Prix" />
+            <TableColumn fx:id="quantite_produit" prefWidth="76.79998779296875" text="Quantite" />
+            <TableColumn fx:id="marque" prefWidth="85.60003662109375" text="Marque" />
+            <TableColumn fx:id="id_categorie" prefWidth="75.0" text="Categorie" />
+            <TableColumn fx:id="image" prefWidth="124.0" text="image" />
+            <TableColumn fx:id="sku" prefWidth="54.4000244140625" text="sku" />
+        </columns>
+      </TableView>
+      <Button layoutX="176.0" layoutY="365.0" mnemonicParsing="false" onAction="#modifierproduit" text="Modifier" textFill="#d9851e">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="325.0" layoutY="365.0" mnemonicParsing="false" onAction="#supprimerproduit" text="Supprimer" textFill="#d98414">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <ImageView fitHeight="46.0" fitWidth="600.0" layoutX="1.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="228.0" layoutY="10.0" text="Nos Produits" textFill="#d97919">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="465.0" layoutY="365.0" mnemonicParsing="false" onAction="#returnMe" text="&lt;-" textFill="#d46820">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="80.0" layoutY="365.0" mnemonicParsing="false" onAction="#trierparquantite" text="trier" textFill="#f2520d">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="20.0" layoutY="94.0" text="Rechercher" textFill="#ff6200">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="rechP" layoutX="101.0" layoutY="90.0" onKeyTyped="#SearchByContent" />
+   </children>
+</AnchorPane>
