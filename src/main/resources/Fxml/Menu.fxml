@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="395.0" prefWidth="528.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.MenuController">
+   <children>
+      <ImageView fitHeight="54.0" fitWidth="528.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="359.0" fitWidth="528.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/img.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="gestionprogramme" layoutX="80.0" layoutY="272.0" mnemonicParsing="false" onAction="#RedirectToAffichageProgramme" prefHeight="25.0" prefWidth="138.0" text="Gestion Programme" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="74.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/machine-de-tapis-roulant.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="gestionobjectif" layoutX="314.0" layoutY="272.0" mnemonicParsing="false" onAction="#RedirectToAffichageObjectif" prefHeight="25.0" prefWidth="151.0" text="Gestion Objectif" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="325.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/faire-des-exercices.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

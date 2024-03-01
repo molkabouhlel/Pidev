@@ -8,157 +8,218 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
-import java.net.URL;
+import java.io.IOException;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class ObjectifController implements Initializable {
-
-    @FXML
-    private ResourceBundle resources;
+public class ObjectifController {
 
     @FXML
-    private URL location;
+    private TextField programmeField;
+    @FXML
+    private TextField programIdTextField;
+    @FXML
+    private Button clearButton;
 
     @FXML
-    private Button btclear;
+    private Button deleteButton;
 
     @FXML
-    private Button btdelete;
+    private Button saveButton;
 
     @FXML
-    private Button btsave;
+    private Button updateButton;
 
     @FXML
-    private Button btupdate;
+    private TableColumn<Objectif, String> colDescr;
 
     @FXML
-    private TableColumn<Objectif, String> coldescr;
+    private TableColumn<Objectif, Integer> colIdCours;
 
     @FXML
-    private TableColumn<Objectif, Integer> colidcours;
+    private TableColumn<Objectif, Integer> colIdObj;
+    @FXML
+    private TableColumn<Objectif, Integer> colId;
 
     @FXML
-    private TableColumn<Objectif, Integer> colidobj;
+    private TableColumn<Objectif, Integer> colIdProg;
 
     @FXML
-    private TableColumn<Objectif, Integer> colidprog;
-
-
-    @FXML
-    private TableView<Objectif> tableobj;
+    private DatePicker startDatePicker;
 
     @FXML
-    private TextArea tdesc_obj;
+    private DatePicker endDatePicker;
 
     @FXML
-    private TextField tid_cours;
+    private TextArea programDescriptionTextArea;
 
-
-    private ObjectifServices objectifServices;
     @FXML
-    private ComboBox<Programme> Programme ;
-    private Objectif objectifToModifier;
-    private int  List_Selected;
-    public void init(Objectif LS) {
-        objectifToModifier = LS;
+    private TextField finalStateTextField;
 
-        tid_cours.setText(String.valueOf(LS.getID_cours()));
-        Programme.setValue(LS.getProgramme());
-        tdesc_obj.setText(LS.getDescription_obj());
+    @FXML
+    private TextField initialStateTextField;
 
+    @FXML
+    private TextField userIdTextField;
+
+    @FXML
+    private TextField objectifIdTextField;
+
+    @FXML
+    private TextField rateTextField;
+
+    @FXML
+    private TableView<Objectif> objectiveTableView;
+
+    @FXML
+    private TextArea objectiveDescriptionTextArea;
+
+    @FXML
+    private ComboBox<Integer> courseIdComboBox;
+
+    private Objectif objectifToModify;
+    private int selectedProgramId;
+    private Programme programToModify;
+    private int selectedObjectiveId;
+
+    public void init(Programme program) {
+        programToModify = program;
+        programIdTextField.setText(String.valueOf(program.getID_prog()));
+        programDescriptionTextArea.setText(program.getDesc_prog());
+        rateTextField.setText(String.valueOf(program.getRate()));
+        initialStateTextField.setText(program.getEtat_initial());
+        finalStateTextField.setText(program.getEtat_final());
+        userIdTextField.setText(String.valueOf(program.getID_user()));
+        selectedProgramId = program.getID_prog();
     }
 
-    @FXML
-    void AjouterObjectif(ActionEvent event) {
-        int ID_cours = Integer.parseInt(tid_cours.getText());
-        Programme selectedProgramme = Programme.getValue();
-        String description = tdesc_obj.getText();
-
-        Objectif newObjectif = new Objectif();
-        newObjectif.setID_cours(ID_cours);
-        newObjectif.setProgramme(selectedProgramme);
-        newObjectif.setDescription_obj(description);
-
-        objectifServices.ajouter(newObjectif);
-        afficherObjectifs();
-    }
-
-    @FXML
-    void ClearObjectif(ActionEvent event) {
-        tid_cours.clear();
-        Programme.setValue(null);
-        tdesc_obj.clear();
-    }
-
-    @FXML
-    void ModifierObjectif(ActionEvent event) {
-        Objectif selectedObjectif = tableobj.getSelectionModel().getSelectedItem();
-        if (selectedObjectif != null) {
-            int ID_cours = Integer.parseInt(tid_cours.getText());
-            Programme selectedProgramme = Programme.getValue();
-            String description = tdesc_obj.getText();
-
-            selectedObjectif.setID_cours(ID_cours);
-            selectedObjectif.setProgramme(selectedProgramme);
-            selectedObjectif.setDescription_obj(description);
-
-            objectifServices.modifier(selectedObjectif);
-            afficherObjectifs();
+    public void initObjective(Objectif objective) {
+        ObjectifServices ob = new ObjectifServices();
+        objectifToModify = objective;
+        if (objectifToModify != null && objectifToModify.getID_obj() != 0) {
+            Programme programme = objectifToModify.getProgramme();
+            objectifIdTextField.setText(String.valueOf(objectifToModify.getID_obj()));
+            courseIdComboBox.setValue(objectifToModify.getID_cours());
+            programmeField.setText(String.valueOf(programme.getID_prog()));
+            objectiveDescriptionTextArea.setText(objectifToModify.getDescription_obj());
         } else {
-            System.out.println("Veuillez sélectionner un objectif à modifier.");
+            objectifIdTextField.setText(null);
+            courseIdComboBox.setValue(null);
+            programmeField.setText(null);
+            objectiveDescriptionTextArea.setText(null);
         }
     }
 
-    @FXML
-    void SupprimerObjectif(ActionEvent event) {
-        Objectif selectedObjectif = tableobj.getSelectionModel().getSelectedItem();
-        if (selectedObjectif != null) {
-            objectifServices.supprimer(selectedObjectif);
-            afficherObjectifs();
-        } else {
-            System.out.println("Veuillez sélectionner un objectif à supprimer.");
-        }
-    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        objectifServices = new ObjectifServices();
-        initialiserTableauObjectifs();
-        afficherObjectifs();
-        ProgrammeServices programmeServices = new ProgrammeServices();
-        List<Programme> programmes = programmeServices.afficher();
-        System.out.println(programmes);
-        Programme.setItems(FXCollections.observableArrayList(programmes));
+    public void initialize(Programme program) {
+        ///////////////////////////CONTROLE SAISIE/////////////////////////////////////////////////////////////////////
+        programIdTextField.setEditable(false);
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        programToModify = program;
+        ProgrammeServices programService = new ProgrammeServices();
+        // HEDHI COMBOBOX BL LES ID cours
+        List<Integer> lc = programService.RecupereridCours();
+        courseIdComboBox.setItems(FXCollections.observableArrayList(lc));
 
-        tableobj.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+        ObjectifServices objectiveService = new ObjectifServices();
+        List objectif = objectiveService.RecupererListObj(programToModify.getID_prog());
+        System.out.println(objectif);
+
+        ObservableList<Objectif> observableObjectiveList = FXCollections.observableArrayList(objectif);
+        objectiveTableView.setItems(observableObjectiveList);
+        colIdObj.setCellValueFactory(new PropertyValueFactory<>("ID_obj"));
+        colDescr.setCellValueFactory(new PropertyValueFactory<>("description_obj"));
+        // Assurez-vous de retirer les autres colonnes que vous ne souhaitez pas afficher
+        objectiveTableView.getColumns().clear();
+        objectiveTableView.getColumns().addAll(colIdObj, colDescr);
+        // ...
+
+        objectiveTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                List_Selected = newSelection.getID_obj();
-                init(newSelection);
-
+                selectedObjectiveId = newSelection.getID_obj();
+                System.out.println(selectedObjectiveId);
+                Objectif objective = objectiveService.rechercheObj(selectedObjectiveId);
+                System.out.println(objective);
+                initObjective(objective);
             } else {
-                List_Selected = -1;
+                selectedObjectiveId = -1;
             }
         });
     }
 
+    @FXML
+    void addObjective(ActionEvent event) throws IOException {
+        ProgrammeServices programService = new ProgrammeServices();
+        Programme program = programService.rechercheProgramme(Integer.parseInt(programmeField.getText()));
 
+        ObjectifServices objectiveService = new ObjectifServices();
+        objectiveService.ajouter(new Objectif((courseIdComboBox.getValue()), program, objectiveDescriptionTextArea.getText()));
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Objective Added");
+        alert.setContentText("Objective successfully added");
+        alert.show();
 
-    private void initialiserTableauObjectifs() {
-        colidobj.setCellValueFactory(new PropertyValueFactory<>("ID_obj"));
-        colidcours.setCellValueFactory(new PropertyValueFactory<>("ID_cours"));
-        colidprog.setCellValueFactory(new PropertyValueFactory<>("programme"));
-        coldescr.setCellValueFactory(new PropertyValueFactory<>("description_obj"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/AfficherProg.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
-    private void afficherObjectifs() {
-        List<Objectif> objectifs = objectifServices.afficher();
-        ObservableList<Objectif> objectifsObservableList = FXCollections.observableArrayList(objectifs);
-        tableobj.setItems(objectifsObservableList);
+    @FXML
+    void clearObjective(ActionEvent event) {
+        //courseIdComboBox.clear();
+        programmeField.clear();
+        objectiveDescriptionTextArea.clear();
     }
+
+
+    @FXML
+    void updateObjective(ActionEvent event) throws IOException {
+        ObjectifServices objectiveService = new ObjectifServices();
+        ProgrammeServices programService = new ProgrammeServices();
+        Programme program = programService.rechercheProgramme(Integer.parseInt(programmeField.getText()));
+
+        objectifToModify.setID_obj(Integer.parseInt(objectifIdTextField.getText()));
+        objectifToModify.setID_cours((courseIdComboBox.getValue()));
+        objectifToModify.setProgramme(program);
+        objectifToModify.setDescription_obj(objectiveDescriptionTextArea.getText());
+
+        objectiveService.modifier(objectifToModify);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Update Objective");
+        alert.setContentText("Modification successful");
+        alert.showAndWait();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/AfficherProg.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    void deleteObjective(ActionEvent event) {
+        ObjectifServices objectiveService = new ObjectifServices();
+        Objectif selectedObjective = objectiveTableView.getSelectionModel().getSelectedItem();
+        if (selectedObjective != null) {
+            objectiveService.supprimer(selectedObjective);
+        } else {
+            System.out.println("Please select an objective to delete.");
+        }
+    }
+
+
 }

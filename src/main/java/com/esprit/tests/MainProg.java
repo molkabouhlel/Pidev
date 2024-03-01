@@ -15,7 +15,7 @@ public class MainProg {
    public static void main(String[] args) {
         ProgrammeServices pg = new ProgrammeServices();
 
-       pg.ajouter(new Programme("kk",54,"ll","oo", Date.valueOf("2010-06-20"), Date.valueOf("2011-06-20"),1));
+       //pg.ajouter(new Programme("kk","kk",54,"ll","oo", Date.valueOf("2010-06-20"), Date.valueOf("2011-06-20"),1));
        // pg.modifier(new Programme(1, kkpLLp,54,loffl,oohh, Date.valueOf("2010-06-20"), Date.valueOf("2011-06-20"),1));
 
        // pg.supprimer(new Programme(1));

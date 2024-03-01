@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectifServices implements IService<Objectif>{
+public class ObjectifServices implements IService<Objectif> {
     private Connection connection;
 
     public ObjectifServices() {
@@ -30,7 +30,7 @@ public class ObjectifServices implements IService<Objectif>{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        Alert alerte= new Alert(Alert.AlertType.INFORMATION);
+        Alert alerte = new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("Objectif ajout");
         alerte.setContentText("Objectif bien ajoutee");
         alerte.show();
@@ -39,7 +39,7 @@ public class ObjectifServices implements IService<Objectif>{
 
     @Override
     public void modifier(Objectif O) {
-        String req = "UPDATE objectif set ID_cours = '" + O.getID_cours()+ "', ID_prog = '"  + O.getProgramme().getID_prog() + "' , description = '"  + O.getDescription_obj() + "' where ID_obj = '" + O.getID_obj() + "';";
+        String req = "UPDATE objectif set ID_cours = '" + O.getID_cours() + "', ID_prog = '" + O.getProgramme().getID_prog() + "' , description = '" + O.getDescription_obj() + "' where ID_obj = '" + O.getID_obj() + "';";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -47,7 +47,7 @@ public class ObjectifServices implements IService<Objectif>{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        Alert alerte= new Alert(Alert.AlertType.INFORMATION);
+        Alert alerte = new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("Objectif modifiee");
         alerte.setContentText("Objectif bien modifiee");
         alerte.show();
@@ -64,7 +64,7 @@ public class ObjectifServices implements IService<Objectif>{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        Alert alerte= new Alert(Alert.AlertType.INFORMATION);
+        Alert alerte = new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("Objectif supprime");
         alerte.setContentText("Objectif bien supprimee");
         alerte.show();
@@ -80,10 +80,10 @@ public class ObjectifServices implements IService<Objectif>{
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                ProgrammeServices es=new ProgrammeServices();
+                ProgrammeServices es = new ProgrammeServices();
                 Programme programme = es.rechercheProgramme(rs.getInt("ID_prog"));
                 if (programme != null) {
-                    O.add(new Objectif(rs.getInt("ID_obj"), rs.getInt("ID_cours"),programme,  rs.getString("description")));
+                    O.add(new Objectif(rs.getInt("ID_obj"), rs.getInt("ID_cours"), programme, rs.getString("description")));
                 }
             }
         } catch (SQLException e) {
@@ -101,20 +101,64 @@ public class ObjectifServices implements IService<Objectif>{
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             if (rs.next()) {
-                objectif  = new Objectif();
-                objectif.setID_obj (rs.getInt("ID_obj"));
+                ProgrammeServices Pg = new ProgrammeServices() ;
+                objectif = new Objectif();
+                ProgrammeServices es = new ProgrammeServices();
+                objectif.setID_obj(rs.getInt("ID_obj"));
                 objectif.setID_cours(rs.getInt("ID_cours"));
+                objectif.setProgramme(Pg.rechercheProgramme(rs.getInt("ID_prog")));
                 objectif.setDescription_obj(rs.getString("description"));
 
-                ProgrammeServices es=new ProgrammeServices();;
-                Programme programme = es.rechercheProgramme(rs.getInt("ID_prog"));
-                objectif.setProgramme(programme);
                 // Set other properties as needed
             }
         } catch (SQLException eq) {
             System.out.println(eq.getMessage());
         }
         return objectif;
+
+    }
+    public List<Objectif> RecupererListObj(int id) {
+
+        List<Objectif> L = new ArrayList<>();
+        String req = "SELECT * FROM objectif where ID_prog = " + id;
+
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+
+            while (rs.next()) {
+                ProgrammeServices cs=new ProgrammeServices();
+                Programme C =cs.rechercheProgramme(rs.getInt("ID_prog"));
+                L.add(new Objectif(rs.getInt("ID_obj"),rs.getInt("ID_cours"),C,rs.getString("description")));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return L;
+    }
+    public List<Objectif> RecupererIdCours(int id) {
+
+        List<Objectif> L = new ArrayList<>();
+        String req = "SELECT id_cours FROM objectif where id_club = " + id;
+
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                L.add(new Objectif(rs.getInt("ID_cours")));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return L;
+
     }
 
 }
+
+
+

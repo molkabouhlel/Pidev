@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Programme {
     private int ID_prog;
+    private String nom_prog;
     private String desc_prog;
     private float rate;
     private String etat_initial;
@@ -14,7 +15,7 @@ public class Programme {
     private Date date_fin;
     private int ID_user;
 
-    public Programme(int ID_prog, String desc_prog, float rate, String etat_initial, String etat_final, Date date_debut, Date date_fin,int ID_user) {
+    public Programme(int ID_prog, String desc_prog, float rate, String etat_initial, String etat_final, Date date_debut, Date date_fin, int ID_user) {
         this.ID_prog = ID_prog;
         this.desc_prog = desc_prog;
         this.rate = rate;
@@ -25,7 +26,39 @@ public class Programme {
         this.ID_user = ID_user;
     }
 
-    public Programme(String desc_prog, float rate, String etat_initial, String etat_final, Date date_debut, Date date_fin, int ID_user) {
+    public Programme(String nom_prog, String desc_prog, String etat_initial, Date date_debut, Date date_fin, int ID_user) {
+        this.nom_prog = nom_prog;
+        this.desc_prog = desc_prog;
+        this.etat_initial = etat_initial;
+        this.date_debut = date_debut;
+        this.date_fin = date_fin;
+        this.ID_user = ID_user;
+    }
+
+    public Programme(int ID_prog, String nom_prog, String desc_prog, String etat_initial, Date date_debut, Date date_fin, int ID_user) {
+        this.ID_prog = ID_prog;
+        this.nom_prog = nom_prog;
+        this.desc_prog = desc_prog;
+        this.etat_initial = etat_initial;
+        this.date_debut = date_debut;
+        this.date_fin = date_fin;
+        this.ID_user = ID_user;
+    }
+
+    public Programme(int ID_prog, String nom_prog , String desc_prog, float rate, String etat_initial, String etat_final, Date date_debut, Date date_fin, int ID_user) {
+        this.ID_prog = ID_prog;
+        this.nom_prog = nom_prog;
+        this.desc_prog = desc_prog;
+        this.rate = rate;
+        this.etat_initial = etat_initial;
+        this.etat_final = etat_final;
+        this.date_debut = date_debut;
+        this.date_fin = date_fin;
+        this.ID_user = ID_user;
+    }
+
+    public Programme(String nom_prog , String desc_prog, float rate, String etat_initial, String etat_final, Date date_debut, Date date_fin, int ID_user) {
+        this.nom_prog = nom_prog;
         this.desc_prog = desc_prog;
         this.rate = rate;
         this.etat_initial = etat_initial;
@@ -55,6 +88,14 @@ public class Programme {
 
     public String getDesc_prog() {
         return desc_prog;
+    }
+
+    public String getNom_prog() {
+        return nom_prog;
+    }
+
+    public void setNom_prog(String nom_prog) {
+        this.nom_prog = nom_prog;
     }
 
     public void setDesc_prog(String desc_prog) {
@@ -109,10 +150,15 @@ public class Programme {
         this.ID_user = ID_user;
     }
 
+
+
+
+
     @Override
     public String toString() {
         return "Programme{" +
                 "ID_prog=" + ID_prog +
+                ", nom_prog ='" + nom_prog + '\'' +
                 ", desc_prog='" + desc_prog + '\'' +
                 ", rate=" + rate +
                 ", etat_initial='" + etat_initial + '\'' +

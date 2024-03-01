@@ -29,7 +29,16 @@
             <artifactId>javafx-fxml</artifactId>
             <version>21.0.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>kernel</artifactId>
+            <version>8.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+            <version>8.0.2</version>
+        </dependency>
 
 
     </dependencies>

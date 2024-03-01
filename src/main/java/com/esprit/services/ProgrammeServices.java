@@ -19,7 +19,7 @@ public class ProgrammeServices implements IService<Programme> {
 
     @Override
     public void ajouter(Programme P) {
-        String req = "INSERT into Programme( description,rate,etat_initial,etat_final,date_debut,date_fin,ID_user) values ('" + P.getDesc_prog()+ "', '" + P.getRate() + "', '" + P.getEtat_initial() + "' , '" + P.getEtat_final() + "'   , '" + P.getDate_debut() + "'  , '" + P.getDate_fin() + "'  , '" +P.getID_user()+"');";
+        String req = "INSERT into Programme( nom_prog,description,etat_initial,date_debut,date_fin,ID_user) values ('" + P.getNom_prog()+ "', '" + P.getDesc_prog()+ "','" +P.getEtat_initial() +"' , '" + P.getDate_debut() + "'  , '" + P.getDate_fin() + "'  , '" +P.getID_user()+"');";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -31,7 +31,7 @@ public class ProgrammeServices implements IService<Programme> {
 
     @Override
     public void modifier(Programme P) {
-        String req = "UPDATE programme set description = '" + P.getDesc_prog() + "', rate = '"  + P.getRate() + "' , etat_initial = '"  + P.getEtat_initial() + "' , etat_final = '" + P.getEtat_final() + "', date_debut = '" + P.getDate_debut() + "', date_fin = '" + P.getDate_fin() + "',ID_user ='"+P.getID_user()+ "' where ID_prog = '" + P.getID_prog() + "';";
+        String req = "UPDATE programme set nom_prog = '" + P.getNom_prog() +"',description='" +P.getNom_prog()+ "', rate= '" + P.getRate() + " ', etat_initial = '"  + P.getEtat_initial() + "' , etat_final = '" + P.getEtat_final() + "', date_debut = '" + P.getDate_debut() + "', date_fin = '" + P.getDate_fin() + "',ID_user ='"+P.getID_user()+ "' where ID_prog = '" + P.getID_prog() + "';";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -64,7 +64,7 @@ public class ProgrammeServices implements IService<Programme> {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next())
-                    P.add(new Programme(rs.getInt("ID_prog"),rs.getString("description"), rs.getFloat("rate"), rs.getString("etat_initial"), rs.getString("etat_final"), rs.getDate("date_debut"), rs.getDate("date_fin"), rs.getInt("ID_user")));
+                P.add(new Programme(rs.getString("nom_prog"),rs.getString("description"), rs.getFloat("rate"), rs.getString("etat_initial"), rs.getString("etat_final"), rs.getDate("date_debut"), rs.getDate("date_fin"), rs.getInt("ID_user")));
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -95,4 +95,21 @@ public class ProgrammeServices implements IService<Programme> {
         }
         return Programme;
     }
+    public List<Integer> RecupereridCours() {
+        List<Integer> L = new ArrayList<>();
+        String req = "SELECT id from cours";
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                L.add(rs.getInt("id"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return L;
+    }
+
 }

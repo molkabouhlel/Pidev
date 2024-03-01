@@ -22,7 +22,7 @@ import java.sql.Date;
 public class ModifyProgController {
 
     @FXML
-    private TextField ID_prog;
+    private TextField nom_prog;
 
     @FXML
     private TextField datedeb;
@@ -51,7 +51,7 @@ public class ModifyProgController {
 
     public void initData(Programme P) {
         ProgrammeToModifier = P;
-        ID_prog.setText(String.valueOf(P.getID_prog()));
+        nom_prog.setText(P.getNom_prog());
         descrprog.setText(P.getDesc_prog());
         rate.setText(String.valueOf(P.getRate()));
         etatint.setText(P.getEtat_initial());
@@ -64,21 +64,34 @@ public class ModifyProgController {
 
     @FXML
     void ModifierProg(ActionEvent event) throws IOException {
+        /////////////////////////////// CONTROLE SAISIE //////////////////////////////////////
+        ////////////////////////////// RATE /////////////////////////////////////////////
+        try {
+            float rateValue = Float.parseFloat(rate.getText());
+            if (rateValue < 0.0f || rateValue > 10.0f) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Taux invalide");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez saisir un taux valide entre 0 et 10.");
+            alert.showAndWait();
+            return;
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+
         ProgrammeServices es = new ProgrammeServices();
 
-        ProgrammeToModifier.setID_prog(Integer.parseInt(ID_prog.getText()));
+        ProgrammeToModifier.setNom_prog(nom_prog.getText());
         ProgrammeToModifier.setDesc_prog(descrprog.getText());
         ProgrammeToModifier.setRate(Float.parseFloat(rate.getText()));
         ProgrammeToModifier.setEtat_initial(etatint.getText());
         ProgrammeToModifier.setEtat_final(etatfin.getText());
-
-            Date dateDebut = Date.valueOf(datedeb.getText());
-            ProgrammeToModifier.setDate_debut(dateDebut);
-
-            Date dateFin = Date.valueOf(datefin.getText());
-            ProgrammeToModifier.setDate_fin(dateFin);
-
-
+        Date dateDebut = Date.valueOf(datedeb.getText());
+        ProgrammeToModifier.setDate_debut(dateDebut);
+        Date dateFin = Date.valueOf(datefin.getText());
+        ProgrammeToModifier.setDate_fin(dateFin);
         ProgrammeToModifier.setID_user(Integer.parseInt(iduser.getText()));
 
         es.modifier(ProgrammeToModifier);
@@ -87,7 +100,7 @@ public class ModifyProgController {
         alert.setContentText("Modification avec succès");
         alert.showAndWait();
 
-        Stage currentStage = (Stage) ID_prog.getScene().getWindow();
+        Stage currentStage = (Stage) nom_prog.getScene().getWindow();
         currentStage.close();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/AfficherProg.fxml"));
