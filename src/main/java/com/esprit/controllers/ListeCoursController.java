@@ -82,6 +82,8 @@ public class ListeCoursController {
 
     @FXML
     private TableColumn<ListCours, Integer> id_liste;
+    @FXML
+    private TableColumn<ListCours, String> Clubcolonne;
 
     @FXML
     private TextField id_ListeCours;
@@ -101,7 +103,7 @@ public class ListeCoursController {
 
 
         ClubToModifier = C;
-        id_club.setText(String.valueOf(C.getId_club()));
+        //id_club.setText(String.valueOf(C.getId_club()));
         nom_club.setText(C.getNom_club());
         adresse_club.setText(C.getAdresse_club());
         description_club.setText(C.getDescription_club());
@@ -125,11 +127,12 @@ public class ListeCoursController {
         // System.out.println(ListCoursToModifier);
 
         if (ListCoursToModifier.getId() != 0) {
-            id_ListeCours.setText(String.valueOf(ListCoursToModifier.getId()));
-            Club.setText(String.valueOf(ListCoursToModifier.getClub().getId_club()));
+           // id_ListeCours.setText(String.valueOf(ListCoursToModifier.getId()));
+            System.out.println("this is id club "+ListCoursToModifier.getClub().getId_club());
+            Club.setText(String.valueOf(ListCoursToModifier.getClub().getNom_club()));
             id_cours.setValue(ListCoursToModifier.getId_cours());
         } else {
-            id_ListeCours.setText(null);
+           // id_ListeCours.setText(null);
             Club.setText(null);
             id_cours.setValue(null);
         }
@@ -138,7 +141,8 @@ public class ListeCoursController {
 
         public void initialize(Club C) {
             ///////////////////////////CONTROLE SAISIE//////////////////////////
-            id_club.setEditable(false);
+            Club.setEditable(false);
+            Club.setText(C.getNom_club());
             //controle saisie text
             nom_club.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue.matches(".*\\d.*")) {
@@ -178,6 +182,12 @@ public class ListeCoursController {
                 }
             });
 
+            Espace.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    temp_ouverture.setText(String.valueOf(newValue.getHeure_debut()));
+                    temp_ouverture.setEditable(false);
+                }
+            });
 
 
         //////////////////////////////////////////////////////////////////////////////
@@ -203,8 +213,8 @@ public class ListeCoursController {
 
         ObservableList<ListCours> ListCoursObservableList = FXCollections.observableArrayList(listCours);
         ListeCourd_TableView.setItems(ListCoursObservableList);
-        id_liste.setCellValueFactory(new PropertyValueFactory<>("id"));
-        //id_club.setCellValueFactory(new PropertyValueFactory<>("club"));
+        //id_liste.setCellValueFactory(new PropertyValueFactory<>("id"));
+        Clubcolonne.setCellValueFactory(new PropertyValueFactory<>("club"));
         cours.setCellValueFactory(new PropertyValueFactory<>("id_cours"));
 
 
@@ -214,7 +224,7 @@ public class ListeCoursController {
         ListeCourd_TableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 List_Selected = newSelection.getId();
-                System.out.println(List_Selected);
+                System.out.println("Id List selected "+List_Selected);
                 ListCours l=ls.rechercheListeCours(List_Selected) ;
 
 
@@ -261,7 +271,7 @@ public class ListeCoursController {
     void Ajout_ListeCours(ActionEvent event) throws IOException {
         ClubService cs = new ClubService();
 
-        Club C=cs.rechercheClub(Integer.parseInt(Club.getText()));
+        Club C=cs.rechercheClub(ListCoursToModifier.getClub().getId_club());
 
         ListCoursService LS=new ListCoursService();
 
@@ -271,15 +281,12 @@ public class ListeCoursController {
         alerte.setTitle("ListCours ajout");
         alerte.setContentText("ListCours bien ajoutee");
         alerte.show();
-        id_ListeCours.setText("");
-        Club.setText(null);
-        id_cours.setValue(null);
 
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageClub.fxml"));
         Parent root = loader.load();
-        Stage currentStage = (Stage) id_ListeCours.getScene().getWindow();
+        Stage currentStage = (Stage) Club.getScene().getWindow();
         currentStage.setScene(new Scene(root));
 
     }
@@ -313,8 +320,8 @@ public class ListeCoursController {
     void ModifyClub(ActionEvent event) throws IOException {
         ClubService cs = new ClubService();
         Espace espace = Espace.getValue();
-        //int numberOfQuestions = Integer.parseInt(nbr_questionstf.getText());
-        ClubToModifier.setId_club(Integer.parseInt(id_club.getText()));
+
+       // ClubToModifier.setId_club(Integer.parseInt(id_club.getText()));
         ClubToModifier.setNom_club(nom_club.getText());
         ClubToModifier.setAdresse_club(adresse_club.getText());
         ClubToModifier.setDescription_club(description_club.getText());
@@ -343,9 +350,9 @@ public class ListeCoursController {
     void ModifyListeCours(ActionEvent event) throws IOException {
         ListCoursService LS = new ListCoursService();
         ClubService cs =new ClubService();
-        Club C=cs.rechercheClub(Integer.parseInt(Club.getText()));
-
-        ListCoursToModifier.setId(Integer.parseInt(id_ListeCours.getText()));
+        Club C=cs.rechercheClub(ListCoursToModifier.getClub().getId_club());
+        System.out.println(ListCoursToModifier);
+        //ListCoursToModifier.setId(Integer.parseInt(id_ListeCours.getText()));
         ListCoursToModifier.setClub(C);
         ListCoursToModifier.setId_cours(id_cours.getValue());
 

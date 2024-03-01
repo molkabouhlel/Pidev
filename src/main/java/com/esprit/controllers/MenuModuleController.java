@@ -46,17 +46,7 @@ public class MenuModuleController {
         stage.show();
     }
 
-    @FXML
-    void RedirectToAffichageListeCours(ActionEvent event) throws IOException {
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeCours.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
 
 }
 

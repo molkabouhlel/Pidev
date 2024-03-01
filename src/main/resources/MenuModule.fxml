@@ -5,7 +5,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.MenuModuleController">
    <children>
       <ImageView fitHeight="54.0" fitWidth="605.0" pickOnBounds="true" preserveRatio="true">
@@ -24,17 +23,11 @@
             <Image url="@../../Image/gym.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="252.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="399.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Image/machine-de-tapis-roulant.png" />
          </image>
       </ImageView>
-      <Button fx:id="GestionEspace" layoutX="263.0" layoutY="277.0" mnemonicParsing="false" onAction="#RedirectToAffichageEspace" prefHeight="32.0" prefWidth="128.0" text="Gestion des Espace" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="424.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Image/faire-des-exercices.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="ListeCour" layoutX="429.0" layoutY="276.0" mnemonicParsing="false" onAction="#RedirectToAffichageListeCours" prefHeight="32.0" prefWidth="128.0" text="Liste des cours" />
+      <Button fx:id="GestionEspace" layoutX="420.0" layoutY="278.0" mnemonicParsing="false" onAction="#RedirectToAffichageEspace" prefHeight="32.0" prefWidth="128.0" text="Gestion des Espace" />
    </children>
 </AnchorPane>

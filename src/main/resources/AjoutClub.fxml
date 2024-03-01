@@ -19,16 +19,16 @@
             <TextArea fx:id="description_club" layoutX="188.0" layoutY="139.0" prefHeight="52.0" prefWidth="150.0" />
             <Label layoutX="85.0" layoutY="143.0" text="Description :" />
             <TextField fx:id="image_club" layoutX="188.0" layoutY="200.0" />
-            <TextField fx:id="temp_ouverture" layoutX="188.0" layoutY="262.0" />
+            <TextField fx:id="temp_ouverture" layoutX="190.0" layoutY="297.0" />
             <Label layoutX="89.0" layoutY="201.0" text="Image :" />
-            <Label layoutX="87.0" layoutY="261.0" text="Temp:ouverture" />
+            <Label layoutX="86.0" layoutY="301.0" text="Temp:ouverture" />
             <Button fx:id="ajoutclub" layoutX="159.0" layoutY="349.0" mnemonicParsing="false" onAction="#ajouterclub" prefHeight="26.0" prefWidth="61.0" text="ADD" />
             <Button fx:id="Return" layoutX="251.0" layoutY="349.0" mnemonicParsing="false" onAction="#RedirectToClubAfficher" prefHeight="26.0" prefWidth="61.0" text="Return" />
             <TextField fx:id="adresse_club" layoutX="190.0" layoutY="101.0" />
             <Label layoutX="85.0" layoutY="100.0" text="Adresse :" />
 
-            <Label layoutX="87.0" layoutY="301.0" text="Espace" />
-            <ComboBox fx:id="Espace" layoutX="188.0" layoutY="297.0" prefWidth="150.0" />
+            <Label layoutX="85.0" layoutY="270.0" text="Espace" />
+            <ComboBox fx:id="Espace" layoutX="187.0" layoutY="266.0" prefWidth="150.0" />
             <Button fx:id="Browse" layoutX="265.0" layoutY="229.0" mnemonicParsing="false" onAction="#browseimage" prefHeight="26.0" prefWidth="74.0" text="Browse" />
          </children>
       </AnchorPane>

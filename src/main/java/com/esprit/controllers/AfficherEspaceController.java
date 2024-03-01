@@ -121,6 +121,7 @@ public class AfficherEspaceController {
             }
         }));
 
+
         /////////////////////////////////////////Recupere text TABLE et modifie////////////////////////////////////////////
         EspaceService Es = new EspaceService();
         // Save changes on commit

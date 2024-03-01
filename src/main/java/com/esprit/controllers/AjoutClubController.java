@@ -64,6 +64,14 @@ public class AjoutClubController  implements Initializable {
         EspaceService es=new EspaceService();
         List<Espace> l=es.afficher();
         Espace.setItems(FXCollections.observableArrayList(l));
+        Espace.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                temp_ouverture.setText(String.valueOf(newValue.getHeure_debut()));
+                temp_ouverture.setEditable(false);
+            }
+        });
+
+
 
 ////////////////////////////////////////CONTROLE SAISIE///////////////////////////////////////////
         //controle saisie text
@@ -97,13 +105,6 @@ public class AjoutClubController  implements Initializable {
             }
         });
 
-        //controle saisie Time
-        temp_ouverture.setPromptText("hh:mm:ss");
-        temp_ouverture.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d{0,2}(:\\d{0,2}(:\\d{0,2})?)?")) {
-                temp_ouverture.setText(oldValue);
-            }
-        });
 
         /*List<Integer> l=es.Return_idEspace();                //HEDHI COMBOBOX BL ID
         Espace.setItems(FXCollections.observableArrayList(l));*/
