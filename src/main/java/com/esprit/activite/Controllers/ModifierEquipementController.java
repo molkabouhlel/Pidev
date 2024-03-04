@@ -45,7 +45,7 @@ public class ModifierEquipementController {
     private Button browse;
 
     @FXML
-    private ChoiceBox<Categorie_eq> id_ceq;
+    private ChoiceBox<String> id_ceq;
   //  @FXML
    // private ChoiceBox<Integer> id_coach;
 
@@ -72,23 +72,28 @@ public class ModifierEquipementController {
     @FXML
     private TextField ref_eq;
     private Equipement equipementtomodifier;
-    public void initData(Equipement e){
+    public void initData(Equipement e) {
         System.out.println("hello");
-      //  equipementtomodifier=e;
-       quantite_dispo.setText(String.valueOf(e.getQuantite_dispo()));
-         id_eq.setText(String.valueOf(e.getId_eq()));
+        quantite_dispo.setText(String.valueOf(e.getQuantite_dispo()));
+        id_eq.setText(String.valueOf(e.getId_eq()));
         System.out.println(e.getId_eq());
         nom_eq.setText(e.getNom_eq());
         ref_eq.setText(e.getRef_eq());
         description_eq.setText(e.getDescription_eq());
         image.setText(e.getImage());
-        id_ceq.setValue(e.getId_ceq());
+        // Vérifier si getId_ceq() n'est pas null avant d'accéder à getType_ceq()
+        if (e.getId_ceq() != null) {
+            id_ceq.setValue(e.getId_ceq().getType_ceq());
+        } else {
+            // Gérer le cas où getId_ceq() est null, par exemple, en définissant une valeur par défaut
+            id_ceq.setValue("Valeur par défaut");
+        }
         //id_eq.setCache(e.getId_eq())
         id_espace.setValue(e.getId_espace());
         id_m.setValue(e.getId_m());
         System.out.println("hello");
-
     }
+
 
     @FXML
     void modifier(ActionEvent event) {
@@ -103,8 +108,12 @@ public class ModifierEquipementController {
             String im = (image.getText());
             int q=Integer.parseInt(quantite_dispo.getText());
 
-            Categorie_eq refEqSelected = id_ceq.getValue();
-          //  int idcoachSelected = id_coach.getValue();
+
+            String cat=id_ceq.getValue();
+            Categorie_eq c=eq.rechercherCatParNom(cat);
+
+         //   Categorie_eq refEqSelected = id_ceq.getValue();
+          // int idcoachSelected = id_coach.getValue();
 
             int idespSelected = id_espace.getValue();
             Maintenance_eq m =id_m.getValue();
@@ -115,7 +124,7 @@ public class ModifierEquipementController {
             equipement.setDescription_eq(des);
             equipement.setImage(im);
             equipement.setQuantite_dispo(q);
-            equipement.setId_ceq(refEqSelected);
+            equipement.setId_ceq(c);
            // equipement.setId_coach(idcoachSelected);
             equipement.setId_espace(idespSelected);
             equipement.setId_m(m);
@@ -159,7 +168,7 @@ public class ModifierEquipementController {
         EquipementService eqs=new EquipementService();
 
         CategorieService es=new CategorieService();
-        List<Categorie_eq> C=es.afficher();
+        List<String> C=eqs.listcat();
         System.out.println(C);
         id_ceq.setItems(FXCollections.observableArrayList(C));
 

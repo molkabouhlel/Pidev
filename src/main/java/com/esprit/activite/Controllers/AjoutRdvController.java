@@ -106,6 +106,7 @@ public class AjoutRdvController {
         ///
         String cat=id_eq.getValue();
         Equipement eq=rs.rechercherEqParNom(cat);
+
 ///
         rs.ajouter(new Rendez_vous(timestamp,eq, id_coach.getValue()));
         Alert alerte = new Alert(Alert.AlertType.INFORMATION);

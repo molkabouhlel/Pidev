@@ -120,6 +120,7 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
 
         return nomEqList;
     }
+
     public Equipement rechercherEqParNom(String nom_eq) {
         String req = "SELECT * FROM equipement WHERE nom_eq = '" + nom_eq + "'";
         Equipement equipement = null;

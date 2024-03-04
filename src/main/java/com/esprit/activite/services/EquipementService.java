@@ -207,4 +207,92 @@ public List<Equipement> afficher() {
         return C;
     }
 
+
+    public List<String> listcat() {
+        List<Categorie_eq> catList = listcatnom();
+        List<String> nomCatList = new ArrayList<>();
+
+        for (Categorie_eq categorie_eq : catList) {
+            nomCatList.add(categorie_eq.getType_ceq());
+        }
+
+        return nomCatList;
+    }
+
+    public Categorie_eq rechercherCatParNom(String type_ceq) {
+        String req = "SELECT * FROM categorie_eq WHERE type_ceq = '" + type_ceq + "'";
+        Categorie_eq categorie_eq = null;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                categorie_eq=new Categorie_eq(rs.getInt("id_ceq"), rs.getString("type_ceq"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return categorie_eq;
+    }
+    public List<Categorie_eq> listcatnom() {
+        List<Categorie_eq> catList = new ArrayList<>();
+        String req = "SELECT type_ceq FROM categorie_eq";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                Categorie_eq c = new Categorie_eq();
+                c.setType_ceq(rs.getString("type_ceq"));
+                catList.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return catList;
+    }
+   /* public List<String> listm() {
+        List<Maintenance_eq> mList = listmnom();
+        List<String> nomMList = new ArrayList<>();
+
+        for (Maintenance_eq maintenance_eq : mList) {
+            nomMList.add(String.valueOf(maintenance_eq.getEtat_m()));
+        }
+
+        return nomMList;
+    }*/
+
+    public Maintenance_eq rechercherMParNom(etat_m etat_m) {
+        String req = "SELECT * FROM maintenance WHERE etat_m = '" + etat_m + "'";
+        Maintenance_eq maintenance_eq = null;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                maintenance_eq=new Maintenance_eq(rs.getInt("id_m"), com.esprit.activite.modeles.etat_m.valueOf(rs.getString("etat_m")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return maintenance_eq;
+    }
+    public List<etat_m> listmnom() {
+        List<etat_m> mList = new ArrayList<>();
+        String req = "SELECT etat_m FROM maintenance";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                Maintenance_eq m = new Maintenance_eq();
+                m.setEtat_m(etat_m.valueOf(rs.getString("etat_m")));
+                mList.add(m.getEtat_m());
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return mList;
+    }
+
 }

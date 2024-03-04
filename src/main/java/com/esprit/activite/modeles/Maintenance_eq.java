@@ -22,6 +22,11 @@ public class Maintenance_eq {
         this.id_m = id_m;
     }
 
+    public Maintenance_eq(int id_m, com.esprit.activite.modeles.etat_m etat_m) {
+        this.id_m = id_m;
+        this.etat_m = etat_m;
+    }
+
     public int getId_m() {
         return id_m;
     }

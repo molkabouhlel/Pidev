@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.image.Image;
@@ -53,7 +54,7 @@ public class AfficherEquipementController {
     private TableColumn<?, ?> description_eq;
 
     @FXML
-    private TableColumn<?, ?> id_ceq;
+    private TableColumn<Equipement, String> id_ceq;
     // @FXML
    // private TableColumn<?, ?> id_coach;
 
@@ -118,7 +119,11 @@ private int id_eqq;
        // id_coach.setCellValueFactory(new PropertyValueFactory<>("id_coach"));
 
         id_espace.setCellValueFactory(new PropertyValueFactory<>("id_espace"));
-        id_ceq.setCellValueFactory(new PropertyValueFactory<>("id_ceq"));
+       // id_ceq.setCellValueFactory(new PropertyValueFactory<>("id_ceq"));
+        id_ceq.setCellValueFactory(cellData -> {
+            SimpleObjectProperty<Object> property = new SimpleObjectProperty<>(cellData.getValue().getId_ceq().getType_ceq());
+            return property.asString();
+        });
         id_m.setCellValueFactory(new PropertyValueFactory<>("id_m"));
         image.setCellValueFactory(new PropertyValueFactory<>("image"));
         image.setCellFactory(column -> {
@@ -274,6 +279,7 @@ private int id_eqq;
         tableview.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Equipement selectedItem = tableview.getSelectionModel().getSelectedItem();
+                System.out.println(selectedItem);
                 try {
                     afficherFormulaireModification();
                 } catch (IOException e) {

@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.esprit.activite.modeles.etat_m;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,7 +43,7 @@ public class AjoutEquipementController {
     private TextField description_eq;
 
     @FXML
-    private ChoiceBox<Categorie_eq> id_ceq;
+    private ChoiceBox<String> id_ceq;
   //  @FXML
 //    private ChoiceBox<Integer> id_coach;
 
@@ -51,7 +52,7 @@ public class AjoutEquipementController {
     private ChoiceBox<Integer> id_espace;
 
     @FXML
-    private ChoiceBox<Maintenance_eq> id_m;
+    private ChoiceBox<etat_m> id_m;
     @FXML
     private Button browse;
 
@@ -82,7 +83,11 @@ public class AjoutEquipementController {
             alerteA.show();}
 
 if (controlSaisie(ref_eq) && controlSaisie(nom_eq) && controlSaisie(description_eq) && controlSaisie(quantite_dispo) && estNumerique(quantite_dispo.getText()) && controlSaisie(image)) {
-    es.ajouter(new Equipement(ref_eq.getText(), nom_eq.getText(), description_eq.getText(), Integer.parseInt(quantite_dispo.getText()), id_espace.getValue(), id_ceq.getValue(), id_m.getValue(), image.getText()));
+    String cat=id_ceq.getValue();
+    Categorie_eq eq=es.rechercherCatParNom(cat);
+    etat_m m=id_m.getValue();
+    Maintenance_eq mq=es.rechercherMParNom(m);
+    es.ajouter(new Equipement(ref_eq.getText(), nom_eq.getText(), description_eq.getText(), Integer.parseInt(quantite_dispo.getText()), id_espace.getValue(), eq, mq, image.getText()));
     Alert alerte = new Alert(Alert.AlertType.INFORMATION);
     alerte.setTitle("EQ ajout");
     alerte.setContentText("EQ bien ajoutee");
@@ -103,12 +108,14 @@ if (controlSaisie(ref_eq) && controlSaisie(nom_eq) && controlSaisie(description_
         EquipementService eqs=new EquipementService();
 
         CategorieService es=new CategorieService();
-        List<Categorie_eq> C=es.afficher();
-        System.out.println(C);
-        id_ceq.setItems(FXCollections.observableArrayList(C));
+       // List<Categorie_eq> C=es.afficher();
+        List<String> nomcatList = eqs.listcat();
+        id_ceq.setItems(FXCollections.observableArrayList(nomcatList));
+        System.out.println(nomcatList);
+       // id_ceq.setItems(FXCollections.observableArrayList(nomcatList));
 
         MaintenanceService ms=new MaintenanceService();
-        List<Maintenance_eq> M=ms.afficher();
+        List<etat_m> M=eqs.listmnom();
         System.out.println(M);
         id_m.setItems(FXCollections.observableArrayList(M));
 
