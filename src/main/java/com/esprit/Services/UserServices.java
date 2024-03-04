@@ -378,7 +378,7 @@ public class UserServices implements Interface<User> {
                 s.setEmail(res.getString("email"));
                 s.setMdp(res.getString("mdp"));
                 s.setRole(res.getString("role"));
-                s.setRole(res.getString("role"));
+
 
                 System.out.println("Found");
                 System.out.println(s);}
@@ -387,6 +387,18 @@ public class UserServices implements Interface<User> {
         }
 
         return s;
+    }
+    public void updatepassword(User u) {
+        String req = "UPDATE usr SET mdp = ? WHERE cin = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1,u.getMdp());
+            ps.setInt(2,u.getCin());
+            ps.executeUpdate();
+            System.out.println("mot de passe modifié!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

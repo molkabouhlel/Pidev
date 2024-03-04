@@ -39,7 +39,7 @@ public class PutCode {
             Stage primaryStage=new Stage();
             Parent root= null;
             try {
-                root = FXMLLoader.load(getClass().getResource("/FXML/Signin.fxml"));
+                root = FXMLLoader.load(getClass().getResource("/login.fxml"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -52,7 +52,7 @@ public class PutCode {
         else
         {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ChangePassword.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChangePassword.fxml"));
             Parent root = null;
             try {
                 root = loader.load();

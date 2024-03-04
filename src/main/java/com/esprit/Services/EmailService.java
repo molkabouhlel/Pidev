@@ -13,7 +13,7 @@ public class EmailService {
     private Properties properties;
 
     public EmailService() {
-        this.senderEmail = "drayankurma@gmail.com";
+        this.senderEmail = "rayankurma@gmail.com";
         this.senderPassword = "scpp lrjv jwvd yriw";
     }
 

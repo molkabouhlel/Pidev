@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PutEmail">
    <children>
       <Label layoutX="165.0" layoutY="178.0" text="Email :" />
-      <TextField fx:id="mail" layoutX="222.0" layoutY="177.0" prefHeight="26.0" prefWidth="195.0" text=" " />
-      <Button layoutX="283.0" layoutY="220.0" mnemonicParsing="false" onAction="#envoi" text="Submit" />
+      <TextField fx:id="emailenvoi" layoutX="222.0" layoutY="177.0" prefHeight="26.0" prefWidth="195.0" text=" " />
+      <Button fx:id="envoiB" layoutX="283.0" layoutY="220.0" mnemonicParsing="false" onAction="#envoi" text="Submit" />
    </children>
 </AnchorPane>
