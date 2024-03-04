@@ -21,6 +21,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import java.util.Random;
 
@@ -74,7 +76,7 @@ public class AddAdmin {
             } else {
 
                 String email = mail.getText();
-                String password = mdp.getText();
+                String password = hashPassword(mdp.getText());
                 String confirmPassword = confirm.getText();  // New line to get confirm password
                 String firstName = FN.getText();
                 String lastName = LN.getText();
@@ -123,7 +125,7 @@ public class AddAdmin {
 
                 // Now you can proceed to add the admin
                 UserServices us = new UserServices();
-                us.add(new Admin(email, password, firstName, lastName, Integer.parseInt(phoneText), "Admin"));
+                us.add(new Admin(email,password, firstName, lastName, Integer.parseInt(phoneText), "Admin"));
                 System.out.println("Adding Admin: ");
             }
 
@@ -241,6 +243,28 @@ public class AddAdmin {
             stringBuilder.append(characters.charAt(random.nextInt(characters.length())));
         }
         return stringBuilder.toString();
+    }
+    public String hashPassword(String password) {
+        try {
+
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+
+            md.update(password.getBytes());
+
+
+            byte[] bytes = md.digest();
+
+
+            StringBuilder sb = new StringBuilder();
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error hashing password", e);
+        }
     }
 
 }

@@ -54,7 +54,7 @@ public class ChangePassword {
         u=us.findemail(email);
         System.out.println(u);
         try {
-            u.setMdp(newpassword.getText());
+            u.setMdp(hashPassword(newpassword.getText()));
             us.updatepassword(u);
             Stage stage = (Stage) newpassword.getScene().getWindow();
             stage.close();

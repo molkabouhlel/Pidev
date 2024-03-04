@@ -23,8 +23,7 @@
                 <TableColumn fx:id="nom" onEditCommit="#onEditCommit" prefWidth="100.0" text="Nom" />
                 <TableColumn fx:id="prenom" onEditCommit="#onEditCommit" prefWidth="100.0" text="Prenom" />
                 <TableColumn fx:id="numT" onEditCommit="#onEditCommit" prefWidth="70.0" text="NumT" />
-                <TableColumn fx:id="role" onEditCommit="#onEditCommit" prefWidth="70.0" text="Role" />
-                <TableColumn fx:id="passwordColumn" onEditCommit="#onEditCommit" prefWidth="111.20001220703125" text="Password" />
+                <TableColumn fx:id="role" onEditCommit="#onEditCommit" prefWidth="160.7999267578125" text="Role" />
                 <!-- Add more columns for other attributes... -->
             </columns>
         </TableView>

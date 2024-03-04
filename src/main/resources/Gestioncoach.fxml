@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -18,9 +17,7 @@
                   <Button layoutX="81.0" layoutY="145.0" mnemonicParsing="false" onAction="#membreI" text="Membre" />
                   <Button layoutX="81.0" layoutY="226.0" mnemonicParsing="false" onAction="#coachI" prefHeight="26.0" prefWidth="62.0" text="Coach" />
                   <ImageView fitHeight="36.0" fitWidth="74.0" layoutX="75.0" layoutY="48.0">
-                     <image>
-                        <Image url="@fleche%20.png" />
-                     </image>
+
                   </ImageView>
                   <Button layoutX="86.0" layoutY="50.0" mnemonicParsing="false" onAction="#returnButton" opacity="0.0" text="Button" />
                </children>
@@ -30,7 +27,6 @@
                   <TableColumn fx:id="fn" minWidth="0.0" prefWidth="125.60002136230469" text="First Name" />
                   <TableColumn fx:id="ln" prefWidth="135.20001220703125" text="Last Name " />
                   <TableColumn fx:id="email" prefWidth="89.5999755859375" text="Email" />
-                  <TableColumn fx:id="pass" prefWidth="72.79998779296875" text="Password" />
                   <TableColumn fx:id="pn" prefWidth="114.39996337890625" text="Phone Number" />
                   <TableColumn fx:id="adresse" minWidth="0.0" prefWidth="73.60009765625" text="Adresse" />
                   <TableColumn fx:id="action" prefWidth="77.5999755859375" text="Action" />

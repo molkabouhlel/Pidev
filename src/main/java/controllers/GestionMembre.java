@@ -145,7 +145,7 @@ public class GestionMembre {
         fn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         ln.setCellValueFactory(new PropertyValueFactory<>("prénom"));
         mail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        mdp.setCellValueFactory(new PropertyValueFactory<>("mdp"));
+       // mdp.setCellValueFactory(new PropertyValueFactory<>("mdp"));
         pn.setCellValueFactory(new PropertyValueFactory<>("numT"));
 
         MemberTableView.setItems(u);
@@ -159,7 +159,7 @@ public class GestionMembre {
         fn.setCellFactory(TextFieldTableCell.forTableColumn());
         ln.setCellFactory(TextFieldTableCell.forTableColumn());
         mail.setCellFactory(TextFieldTableCell.forTableColumn());
-        mdp.setCellFactory(TextFieldTableCell.forTableColumn());
+        //mdp.setCellFactory(TextFieldTableCell.forTableColumn());
         pn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
 
@@ -186,11 +186,11 @@ public class GestionMembre {
         });
 
 
-        mdp.setOnEditCommit(event -> {
+       /* mdp.setOnEditCommit(event -> {
             Membre m = event.getRowValue();
             m.setMdp(event.getNewValue());
             Es.updateMembre(m);
-        });
+        });*/
 
 
         pn.setOnEditCommit(event -> {

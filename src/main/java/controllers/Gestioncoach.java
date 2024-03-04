@@ -130,7 +130,7 @@ public class Gestioncoach {
         ln.setCellValueFactory(new PropertyValueFactory<>("nom"));
         pn.setCellValueFactory(new PropertyValueFactory<>("numT"));
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
-        pass.setCellValueFactory(new PropertyValueFactory<>("mdp"));
+       // pass.setCellValueFactory(new PropertyValueFactory<>("mdp"));
         adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
 
         CoachTableView.setItems((ObservableList<Coach>) u);
@@ -151,7 +151,7 @@ public class Gestioncoach {
         fn.setCellFactory(TextFieldTableCell.forTableColumn());
         ln.setCellFactory(TextFieldTableCell.forTableColumn());
         email.setCellFactory(TextFieldTableCell.forTableColumn());
-        pass.setCellFactory(TextFieldTableCell.forTableColumn());
+       // pass.setCellFactory(TextFieldTableCell.forTableColumn());
         adresse.setCellFactory(TextFieldTableCell.forTableColumn());
         pn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
@@ -179,11 +179,6 @@ public class Gestioncoach {
         });
 
 
-        pass.setOnEditCommit(event -> {
-            Coach c = event.getRowValue();
-            c.setMdp(event.getNewValue());
-            Es.updateCoach(c);
-        });
 
 
         pn.setOnEditCommit(event -> {

@@ -30,7 +30,6 @@
                   <TableColumn fx:id="fn" prefWidth="94.4000244140625" text="First Name" />
                   <TableColumn fx:id="ln" prefWidth="108.0" text="Last Name " />
                   <TableColumn fx:id="mail" prefWidth="81.60003662109375" text="Email" />
-                  <TableColumn fx:id="mdp" prefWidth="111.20001220703125" text="Password" />
                   <TableColumn fx:id="pn" prefWidth="114.4000244140625" text="Phone Number" />
                   <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
                   <TableColumn fx:id="action" prefWidth="75.0" text="Action" />

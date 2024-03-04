@@ -165,7 +165,7 @@ public class Backadmin {
             userServices.updateAdmin(editedUser);
         });
        numT.setEditable(true); // Set editable to true
-
+/*
         passwordColumn = new TableColumn<>("Password");
         passwordColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getMdp()));
         passwordColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -175,7 +175,7 @@ public class Backadmin {
             editedUser.setMdp(event.getNewValue());
             userServices.updateAdmin(editedUser);
         });
-
+*/
         role = new TableColumn<>("Role");
         role.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getRole()));
         role.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -218,11 +218,11 @@ public class Backadmin {
         nom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getNom()));
         prenom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getPrénom()));
         numT.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> Integer.toString(cellData.getValue().getNumT())));
-        passwordColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getMdp()));
+     //   passwordColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getMdp()));
         role.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getRole()));
 
         // Add columns to the table
-        adminTableView.getColumns().addAll(emailColumn, nom, prenom, numT, role, passwordColumn);
+        adminTableView.getColumns().addAll(emailColumn, nom, prenom, numT, role);
         adminTableView.getColumns().add(deleteColumn);
 
         // Set items to the table
