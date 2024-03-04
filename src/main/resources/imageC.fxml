@@ -11,32 +11,31 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="583.0" prefWidth="797.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.ImageC">
-   <AnchorPane layoutY="60.0" prefHeight="55.0" prefWidth="804.0" style="-fx-background-color: #84c6f5;">
+<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.ImageC">
+   <AnchorPane layoutY="60.0" prefHeight="57.0" prefWidth="822.0" style="-fx-background-color: #84c6f5;">
       <children>
          <ImageView fitHeight="55.0" fitWidth="49.0" layoutX="33.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@Image/retour.png" />
             </image>
          </ImageView>
-         <Label layoutX="314.0" layoutY="13.0" text="NOS COURS" textFill="#f7f9fb" underline="true">
+         <Label layoutX="335.0" layoutY="18.0" text="NOS COURS" textFill="#f7f9fb" underline="true">
             <font>
                <Font name="Arial" size="25.0" />
             </font>
          </Label>
          <Button layoutX="19.0" layoutY="13.0" mnemonicParsing="false" onAction="#goback" prefHeight="40.0" prefWidth="63.0" style="-fx-background-color: #84c6f5; -fx-opacity: 0;" text="RETOURNER" textFill="WHITE" />
-         <TextField fx:id="recherche" layoutX="539.0" layoutY="13.0" />
-         <ComboBox fx:id="filtre" layoutX="94.0" layoutY="19.0" prefWidth="150.0" />
-         <Button layoutX="251.0" layoutY="20.0" mnemonicParsing="false" onAction="#trier" text="trier" />
+         <TextField fx:id="recherche" layoutX="587.0" layoutY="19.0" promptText="search" style="-fx-background-color: #bbe3fb;" />
+         <ComboBox fx:id="filtre" layoutX="94.0" layoutY="19.0" onAction="#trier" prefWidth="150.0" style="-fx-background-color: #bbe3fb;" />
       </children>
    </AnchorPane>
 
-    <ScrollPane layoutX="7.0" layoutY="120.0" prefHeight="454.0" prefWidth="793.0" style="-fx-background-color: #edf6f9;">
+    <ScrollPane layoutX="7.0" layoutY="120.0" prefHeight="496.0" prefWidth="815.0" style="-fx-background-color: #edf6f9;">
       <content>
-          <FlowPane fx:id="flowPane" prefHeight="441.0" prefWidth="805.0" style="-fx-background-color: #bbe3fb;" />
+          <FlowPane fx:id="flowPane" prefHeight="495.0" prefWidth="809.0" style="-fx-background-color: #bbe3fb;" />
       </content>
     </ScrollPane>
-   <ImageView fitHeight="72.0" fitWidth="821.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="76.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@1.png" />
       </image>

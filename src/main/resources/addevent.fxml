@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -47,7 +47,7 @@
             <Image url="@1.png" />
          </image>
       </ImageView>
-      <Label layoutX="418.0" layoutY="103.0" text="CAPACITER :" />
+      <Label layoutX="418.0" layoutY="103.0" text="CAPACITE :" />
       <Label layoutX="186.0" layoutY="103.0" text="NOM DE L'EVENEMENT :" textFill="#232424" />
       <Label layoutX="419.0" layoutY="288.0" text=" CATEGORIE COURS :" />
       <Label layoutX="185.0" layoutY="284.0" prefHeight="25.0" prefWidth="79.0" text="URL IMAGE :" />
@@ -76,8 +76,8 @@
       <Spinner fx:id="mindeb" layoutX="280.0" layoutY="434.0" prefHeight="25.0" prefWidth="68.0" />
       <Spinner fx:id="timefin" layoutX="170.0" layoutY="563.0" prefHeight="25.0" prefWidth="109.0" />
       <Spinner fx:id="timefinmin" layoutX="280.0" layoutY="563.0" prefHeight="25.0" prefWidth="68.0" />
-      <ListView fx:id="listev" layoutX="423.0" layoutY="491.0" prefHeight="91.0" prefWidth="209.0" />
-      <ListView fx:id="listcat" layoutX="423.0" layoutY="322.0" prefHeight="91.0" prefWidth="209.0" />
-      <ListView fx:id="listespace" layoutX="417.0" layoutY="205.0" prefHeight="75.0" prefWidth="209.0" />
+      <ComboBox fx:id="listeespace" layoutX="420.0" layoutY="217.0" prefWidth="150.0" />
+      <ComboBox fx:id="listcateve" layoutX="420.0" layoutY="488.0" prefWidth="150.0" />
+      <ComboBox fx:id="listcatcours" layoutX="420.0" layoutY="332.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

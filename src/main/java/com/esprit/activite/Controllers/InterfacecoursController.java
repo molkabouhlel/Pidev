@@ -1,12 +1,10 @@
 package com.esprit.activite.Controllers;
 
 import com.esprit.activite.modeles.Cours;
+import com.esprit.activite.modeles.club;
 import com.esprit.activite.modeles.type_ev;
 import com.esprit.activite.modeles.typec;
-import com.esprit.activite.services.CoursService;
-import com.esprit.activite.services.EvenementService;
-import com.esprit.activite.services.TypecService;
-import com.esprit.activite.services.type_evService;
+import com.esprit.activite.services.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Time;
 import java.util.List;
 
@@ -35,13 +35,15 @@ public class InterfacecoursController {
     private TextField duree;
 
     @FXML
-    private ComboBox<Integer> id_club;
+    private ComboBox<String> id_club;
 
     @FXML
     private ComboBox<Integer> id_coach;
 
+    /*@FXML
+    private ComboBox<typec> id_typec;*/
     @FXML
-    private ComboBox<typec> id_typec;
+    private ComboBox<String> id_typec;
 
 
     @FXML
@@ -54,12 +56,17 @@ public class InterfacecoursController {
     void addcours(ActionEvent event) {
         if (validerChamps()) {
             CoursService es = new CoursService();
-            es.ajouter(new Cours(nom_c.getText(), description_c.getText(), image_c.getText(), Time.valueOf(duree.getText()), id_coach.getValue(), id_club.getValue(), id_typec.getValue()));
+            String catSelectionne = id_typec.getValue();
+            String clubselect =id_club.getValue();
+                typec categoSelectionne = es.rechercherCatParNom(catSelectionne);
+                club clubselectionid =es.rechercherClubparnom(clubselect);
+                if (categoSelectionne != null) {
+            es.ajouter(new Cours(nom_c.getText(), description_c.getText(), image_c.getText(), Time.valueOf(duree.getText()), id_coach.getValue(),clubselectionid,categoSelectionne));
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("cours ajout");
             alerte.setContentText("cours bien ajoutee");
             alerte.show();
-        }
+        }}
     }
 
     @FXML
@@ -76,7 +83,7 @@ public class InterfacecoursController {
     void retourner(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
 
         try {
@@ -101,11 +108,20 @@ void browse(ActionEvent event) {
             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 
 
-    fileChooser.setInitialDirectory(new File("C:/Users/molka/Desktop/crud_entite_1_v1/crud_entite_1_v1/src/main/resources"));
+  //  fileChooser.setInitialDirectory(new File("C:/xampp/htdocs/Image"));
 
     File file = fileChooser.showOpenDialog(null);
+    String xamppHtdocsPath = "C:/xampp/htdocs/Image/";
+    File destinationFile = new File(xamppHtdocsPath + file.getName());
+    try {
+        // Copy the selected file to the htdocs directory
+        Files.copy(file.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("File copied successfully to: " + destinationFile.getAbsolutePath());
+    }catch (IOException e){
+        System.out.println("Error copying file: " + e.getMessage());
+    }
 
-    if (file != null) {
+        if (destinationFile != null) {
         String imageFile = file.toURI().toString();
         imageFile = imageFile.substring(8);
         image_c.setText(imageFile);
@@ -118,13 +134,17 @@ void browse(ActionEvent event) {
         CoursService c = new CoursService();
         List<Integer> l = c.recherchecoach();
         id_coach.setItems(FXCollections.observableArrayList(l));
-
-        List<Integer> ev = c.rechercheclub();
-        id_club.setItems(FXCollections.observableArrayList(ev));/// ll cat ev
-        EvenementService evv =new EvenementService();
-        TypecService tc =new TypecService();
+       // CoursService cs =new CoursService();
+      //List<Integer> ev = c.rechercheclub();
+        //id_club.setItems(FXCollections.observableArrayList(ev));/// ll cat ev
+        List<String> nomClubList = c.listclub();
+        id_club.setItems(FXCollections.observableArrayList(nomClubList));
+       /* TypecService tc =new TypecService();
         List<typec> lc =tc.afficher();
-        id_typec.setItems(FXCollections.observableArrayList(lc));
+        id_typec.setItems(FXCollections.observableArrayList(lc));*/
+
+        List<String> nomCatList = c.listcategorie();
+        id_typec.setItems(FXCollections.observableArrayList(nomCatList));
 
     }
     @FXML

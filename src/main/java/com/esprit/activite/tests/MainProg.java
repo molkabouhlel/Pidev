@@ -37,7 +37,7 @@ public class MainProg {
        //  ps.modifier(new Cours(12,"dansec" ,"tttttt", "C:/Users/molka/Desktop/R.jpg", Time.valueOf("12:34:56"),1,5,new typec(2)));
        // System.out.println(ps.afficher());
 //ps.rechercheCours(16);
-
+        System.out.println(ps.rechercheclub(5));
 /////////////////:evenement ////////////////////////////
 
         EvenementService ev = new EvenementService();

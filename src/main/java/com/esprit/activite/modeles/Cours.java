@@ -10,11 +10,11 @@ public class Cours {
    private String imagec;
    private Time duree;
   private int idcoach;
-  private int   idclub;
+  private club   idclub;
   private  typec id_typec;
   public Cours(){}
 
-    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, int idclub, typec id_typec) {
+    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, club idclub, typec id_typec) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -25,7 +25,7 @@ public class Cours {
         this.id_typec = id_typec;
     }
 
-    public Cours(String nom, String description, String imagec, Time duree, int idcoach, int idclub, typec id_typec) {
+    public Cours(String nom, String description, String imagec, Time duree, int idcoach, club idclub, typec id_typec) {
         this.nom = nom;
         this.description = description;
         this.imagec = imagec;
@@ -35,7 +35,7 @@ public class Cours {
         this.id_typec = id_typec;
     }
 
-    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, int idclub) {
+    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, club idclub) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -51,6 +51,14 @@ public class Cours {
 
 
     public Cours(int id, String nomCours) {
+    }
+
+    public Cours(int id, String nom, String description, String imagec, Time duree) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.imagec = imagec;
+        this.duree = duree;
     }
 
     public int getId() {
@@ -109,11 +117,11 @@ public class Cours {
         this.idcoach = idcoach;
     }
 
-    public int getIdclub() {
+    public club getIdclub() {
         return idclub;
     }
 
-    public void setIdclub(int idclub) {
+    public void setIdclub(club idclub) {
         this.idclub = idclub;
     }
 

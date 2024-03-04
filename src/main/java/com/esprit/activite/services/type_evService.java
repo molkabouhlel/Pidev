@@ -71,7 +71,7 @@ public class type_evService implements Iservice <type_ev> {
         return c;
     }
 
-    public type_ev recherchecatev (int id_typeev) {
+   /* public type_ev recherchecatev (int id_typeev) {
         type_ev ev = null;
         String req = "SELECT * FROM type_ev WHERE id_typeev = " + id_typeev;
         try {
@@ -88,6 +88,6 @@ public class type_evService implements Iservice <type_ev> {
             System.out.println(e.getMessage());
         }
         return ev;
-    }
+    }*/
 
 }

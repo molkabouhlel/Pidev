@@ -34,6 +34,8 @@ public class Categories {
 
     @FXML
     private TextField idcatec;
+    @FXML
+    private TextField recherche;
 
    // @FXML
    // private TableColumn<?, ?> idtypec;
@@ -49,6 +51,8 @@ public class Categories {
     private int idcatsselected;
     @FXML
     private TableColumn<typec, Void> action;
+    @FXML
+
 
     public void initData(typec c) {
         idcatec.setText(String.valueOf(c.getIdtypec()));
@@ -75,8 +79,8 @@ public class Categories {
     void modifiercatcours(ActionEvent event) {
         if(validerChamps()) {
             TypecService es = new TypecService();
-            typec catselected = es.recherchecat(idcatsselected);
-            typec c = new typec();
+           // typec catselected = es.recherchecat(idcatsselected);
+            //typec c = new typec();
             int idCat = Integer.parseInt(idcatec.getText());
             String cat = typectext.getText();
 
@@ -122,11 +126,11 @@ public class Categories {
 
             c.supprimer(catASupprimer);
 
-            // Mettez à jour  TableView
+
             tableview.getItems().remove(selectedID);
         } else {
-            // Aucune ligne sélectionnée
-            Alert alerte= new Alert(Alert.AlertType.INFORMATION);
+
+            Alert alerte= new Alert(Alert.AlertType.ERROR);
             alerte.setTitle("erreur");
             alerte.setContentText("categorie nest pas selectioner");
             alerte.show();
@@ -168,19 +172,24 @@ public class Categories {
 
 
 
-        // Save changes on commit
+
         typecours.setOnEditCommit(event -> {
             typec s = event.getRowValue();
             s.setTypecours(event.getNewValue());
             ss.modifier(s);
         });
+        recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Call a method to handle real-time search
+            handleSearch(newValue);
+        });
+
     }
     private void setupActionColumn() {
         action.setCellFactory(col -> new TableCell<typec, Void>() {
-            private final Button participerButton = new Button("supprimer");
+            private final Button catButton = new Button("supprimer");
 
             {
-                participerButton.setOnAction(event -> {
+                catButton.setOnAction(event -> {
                     //   tableview.edit(-1, null);
                     typec e = getTableView().getItems().get(getIndex());
                     supprimer(e);
@@ -193,7 +202,7 @@ public class Categories {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(participerButton);
+                    setGraphic(catButton);
                 }
             }
         });
@@ -201,18 +210,18 @@ public class Categories {
     private void supprimer(typec ev) {
          TypecService p = new TypecService();
         p.supprimer(ev);
-        // Actualisez la TableView pour refléter la suppression
+
         tableview.getItems().remove(ev);
     }
     @FXML
     public boolean validerChamps() {
-        if (typecours.getText().isEmpty()) {
+        if (typectext.getText().isEmpty()) {
             afficherAlerte("Veuillez remplir tous les champs.");
             return false;
         }
 
-        if (!typecours.getText().matches("[a-zA-Z]+")) {
-            afficherAlerte("Le champ 'Noneve' doit contenir uniquement des lettres.");
+        if (!typectext.getText().matches("[a-zA-Z]+")) {
+            afficherAlerte("Le champ 'type' doit contenir uniquement des lettres.");
             return false;
         }
 
@@ -226,6 +235,13 @@ public class Categories {
         alerte.showAndWait();
     }
 
+    //petit prob de retour
+    private void handleSearch(String searchText) {
+        // Create a filtered list based on the search text
+        ObservableList<typec> filteredList = tableview.getItems().filtered(typec -> typec.getTypecours().toLowerCase().contains(searchText.toLowerCase()) );
 
+        // Update the TableView with the filtered list
+        tableview.setItems(filteredList);
+    }
 
 }

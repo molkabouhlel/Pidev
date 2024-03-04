@@ -12,16 +12,6 @@
 
 <AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Affichercours">
    <children>
-      <ImageView fitHeight="58.0" fitWidth="66.0" layoutX="98.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Image/delete_7133356-removebg-preview.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="69.0" fitWidth="98.0" layoutX="12.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Image/image-removebg-preview%20(3).png" />
-         </image>
-      </ImageView>
       <AnchorPane prefHeight="132.0" prefWidth="822.0" style="-fx-background-color: #84c6f5;">
          <children>
             <ImageView fitHeight="58.0" fitWidth="61.0" layoutX="15.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
@@ -40,6 +30,26 @@
             </Label>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="77.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="47.0" layoutX="527.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/pdf_4726010-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="66.0" layoutX="98.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/delete_7133356-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="98.0" layoutX="12.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/image-removebg-preview%20(3).png" />
+         </image>
+      </ImageView>
       <TableView fx:id="tableview" layoutX="14.0" layoutY="206.0" prefHeight="323.0" prefWidth="733.0">
         <columns>
           <TableColumn fx:id="nomc" prefWidth="75.0" text="nom" />
@@ -54,11 +64,6 @@
       </TableView>
       <Button layoutX="22.0" layoutY="544.0" mnemonicParsing="false" onAction="#modifiercours" prefHeight="40.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="modifier" textFill="#fbf8f8" />
       <Button layoutX="103.0" layoutY="535.0" mnemonicParsing="false" onAction="#supprimercours" prefHeight="58.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="supprimer" textFill="#fbf8f8" />
-      <ImageView fitHeight="77.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@1.png" />
-         </image>
-      </ImageView>
       <TextField fx:id="recherche" layoutX="216.0" layoutY="157.0" prefHeight="30.0" prefWidth="363.0" promptText="search" />
       <ImageView fitHeight="58.0" fitWidth="61.0" layoutX="657.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -72,6 +77,6 @@
          </image>
       </ImageView>
       <Button layoutX="593.0" layoutY="12.0" mnemonicParsing="false" onAction="#add" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="add" />
-      <Button layoutX="513.0" layoutY="22.0" mnemonicParsing="false" onAction="#pdf" text="pdf" />
+      <Button layoutX="528.0" layoutY="9.0" mnemonicParsing="false" onAction="#pdf" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="pdf" />
    </children>
 </AnchorPane>

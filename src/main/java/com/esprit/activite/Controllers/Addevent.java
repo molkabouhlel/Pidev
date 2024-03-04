@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -34,13 +36,13 @@ public class Addevent {
 
 
     @FXML
-    private ListView<typec> listcat;
+    private ComboBox<String> listcatcours;
 
     @FXML
-    private ListView<espace> listespace;
+    private ComboBox<String> listcateve;
 
     @FXML
-    private ListView<type_ev> listev;
+    private ComboBox<String> listeespace;
 
 
     @FXML
@@ -68,63 +70,36 @@ public class Addevent {
 
     @FXML
     private Spinner<Integer> timefinmin;
-    private int  idSelectionneev;
-    private int idSelectionne;
-    private  int idSelectionnees;
 
     @FXML
     void initialize() {
         TypecService c = new TypecService();
+        EvenementService ev =new EvenementService();
+       CoursService cours =new CoursService();
 
-       // List<typec> l = c.afficher();
-        //comboidcat.setItems(FXCollections.observableArrayList(l));//combo box ll att mta3 type cours
-
-        type_evService s = new type_evService();
-       // List<type_ev> ev = s.afficher();
-       // comboidcatev.setItems(FXCollections.observableArrayList(ev));/// ll cat ev
             EvenementService evv =new EvenementService();
         timedeb.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         mindeb.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
         timefin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         timefinmin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+
+        List<String> nomCatList = cours.listcategorie();
+        listcatcours.setItems(FXCollections.observableArrayList(nomCatList));
+
+        List<String> espaceList = ev.listespace();
+        listeespace.setItems(FXCollections.observableArrayList(espaceList));
+
+        List<String> catevList = ev.listcategorieevent();
+        listcateve.setItems(FXCollections.observableArrayList(catevList));
+
         //
-        List<typec> list = c.afficher();
-        ObservableList<typec> items = FXCollections.observableArrayList(list);
-        listcat.setItems(items);
 
-        List<espace> lc =evv.rechercheIdEspace();
-        ObservableList<espace> items2 = FXCollections.observableArrayList(lc);
-        listespace.setItems(items2);
-
-        List<type_ev> ev = s.afficher();
-        ObservableList<type_ev> items3 = FXCollections.observableArrayList(ev);
-        listev.setItems(items3);
-        listespace.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                // Récupérez l'ID de l'élément sélectionné
-                idSelectionnees = newValue.getId_espace();
-
-            }
-        });
-        listev.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                // Récupérez l'ID de l'élément sélectionné
-                idSelectionneev = newValue.getId_typeev();
-              //  System.out.println("ID sélectionné : " + idSelectionne);
-            }
-        });
-        listcat.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                // Récupérez l'ID de l'élément sélectionné
-                idSelectionne = newValue.getIdtypec();
-               // System.out.println("ID sélectionné : " + idSelectionne);
-            }
-        });
 
     }
 
     @FXML
     void addev(ActionEvent event) {
+        CoursService c =new CoursService();
         EvenementService es = new EvenementService();
         if (validerChamps()) {
             //1  /// debut
@@ -133,9 +108,9 @@ public class Addevent {
             LocalTime selectedTime = LocalTime.of(selectedHour, selectedMinute);
 
             LocalDate date = datedebcomb.getValue();
-            // Créer un objet LocalDateTime en combinant la date et l'heure
+
             LocalDateTime localDateTime = LocalDateTime.of(date, selectedTime);
-            // Convertir LocalDateTime en Timestamp
+
             Timestamp t = Timestamp.valueOf(localDateTime);
             ////fin
             LocalDate datef = datefincom.getValue();
@@ -143,16 +118,20 @@ public class Addevent {
             int selectedHour2 = timefin.getValue();
             int selectedMinute2 = timefinmin.getValue();
             LocalTime selectedTime2 = LocalTime.of(selectedHour2, selectedMinute2);
-            LocalDateTime localDateTime2 = LocalDateTime.of(datef, selectedTime);
+            LocalDateTime localDateTime2 = LocalDateTime.of(datef, selectedTime2);
             Timestamp tf = Timestamp.valueOf(localDateTime2);
             ///int
-            EvenementService esss = new EvenementService();
-            espace ess = esss.recherchees(idSelectionnees);
-            type_ev evvvv = esss.recherchetyeev(idSelectionneev);
-            typec tcc = esss.recherchetypec(idSelectionne);
+            String catCSelectionne = listcatcours.getValue();
+            String espaceselect =listeespace.getValue();
+            String CatEveselect =listcateve.getValue();
+
+            typec categoSelectionne = c.rechercherCatParNom(catCSelectionne);
+            espace espaceselectionid =es.rechercherespaceparnom(espaceselect);
+            type_ev evecatidselected =es.rechercherCateveParNom(CatEveselect);
+            ///
 
             int capa = Integer.parseInt(capeve.getText());
-            es.ajouter(new Evenement(nomeve.getText(), deseve.getText(), imeve.getText(), t, tf, capa, ess, tcc, evvvv));
+            es.ajouter(new Evenement(nomeve.getText(), deseve.getText(), imeve.getText(), t, tf, capa, espaceselectionid, categoSelectionne, evecatidselected));
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("confirmation");
             alerte.setContentText("evenement ajoutee");
@@ -172,6 +151,11 @@ public class Addevent {
                 e.printStackTrace();
 
             }
+        }else {
+            Alert alerte = new Alert(Alert.AlertType.ERROR);
+            alerte.setTitle("erreur");
+            alerte.setContentText("evenement non ajoutee");
+            alerte.show();
         }
 
     }
@@ -222,17 +206,24 @@ public class Addevent {
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 
 
-        fileChooser.setInitialDirectory(new File("C:/Users/molka/Desktop/crud_entite_1_v1/crud_entite_1_v1/src/main/resources"));
+        //  fileChooser.setInitialDirectory(new File("C:/xampp/htdocs/Image"));
 
         File file = fileChooser.showOpenDialog(null);
+        String xamppHtdocsPath = "C:/xampp/htdocs/Image/";
+        File destinationFile = new File(xamppHtdocsPath + file.getName());
+        try {
+            // Copy the selected file to the htdocs directory
+            Files.copy(file.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File copied successfully to: " + destinationFile.getAbsolutePath());
+        }catch (IOException e){
+            System.out.println("Error copying file: " + e.getMessage());
+        }
 
-        if (file != null) {
+        if (destinationFile != null) {
             String imageFile = file.toURI().toString();
             imageFile = imageFile.substring(8);
             imeve.setText(imageFile);
             System.out.println(imageFile);
-
-
         }}
 
     @FXML

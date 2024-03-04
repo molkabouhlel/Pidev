@@ -116,10 +116,10 @@ public class EvenementService implements Iservice <Evenement> {
 
  /////////////////////////////////////////////////////////////////
 
-
-    public List<espace> rechercheIdEspace() {
-        List<espace> idEspaces = new ArrayList<>();
-        String req = "SELECT id_espace, nom_espace FROM espace";
+//non
+   public List<espace> rechercheIdEspace() {
+      List<espace> idEspaces = new ArrayList<>();
+        /*  String req = "SELECT id_espace, nom_espace FROM espace";
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
@@ -131,9 +131,10 @@ public class EvenementService implements Iservice <Evenement> {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
         return idEspaces;
     }
+    //selectid
     public Evenement rechercheEV(int id_ev) {
         Evenement C = null;
         String req = "SELECT * FROM evenement WHERE id_ev= " + id_ev;
@@ -203,5 +204,93 @@ public class EvenementService implements Iservice <Evenement> {
 
         return pieChartData;
     }
+///
+public List<String> listcategorieevent() {
+    List<type_ev> catList = listedecateve();
+    List<String> nomcatevList = new ArrayList<>();
+
+    for (type_ev categorie : catList) {
+        nomcatevList.add(categorie.getType_ev());
+    }
+
+    return nomcatevList;
+}
+    public type_ev rechercherCateveParNom(String type_ev) {
+        String req = "SELECT * FROM type_ev WHERE type_ev = '" + type_ev + "'";
+        type_ev cat = null;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                cat=new type_ev(rs.getInt("id_typeev"), rs.getString("type_ev"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return cat;
+    }
+    public List<type_ev> listedecateve() {
+        List<type_ev> catevList = new ArrayList<>();
+        String req = "SELECT type_ev FROM type_ev";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                type_ev c = new type_ev();
+                c.setType_ev(rs.getString("type_ev"));
+                catevList.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return catevList;
+    }
+    //espace
+    public List<String> listespace() {
+        List<espace> catesList = listedeespacedenom();
+        List<String> nomespaceList = new ArrayList<>();
+
+        for (espace c : catesList) {
+            nomespaceList.add(c.getNom_espace());
+        }
+
+        return nomespaceList;
+    }
+    public espace rechercherespaceparnom(String nom_espace) {
+        String req = "SELECT * FROM espace WHERE nom_espace = '" + nom_espace + "'";
+        espace es = null;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                es =new espace(rs.getInt("id_espace"),rs.getString("nom_espace"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return es;
+    }
+    public List<espace> listedeespacedenom() {
+        List<espace> esList = new ArrayList<>();
+        String req = "SELECT nom_espace FROM espace";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                espace c = new espace();
+                c.setNom_espace(rs.getString("nom_espace"));
+                esList.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return esList;
+    }
+
+
 
 }

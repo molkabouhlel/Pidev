@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Afficherevent">
    <children>
-      <AnchorPane layoutX="1.0" layoutY="-27.0" prefHeight="763.0" prefWidth="839.0" style="-fx-background-color: #bbe3fb; -fx-pref-height: 720px; -fx-pref-width: 1280px;">
+      <AnchorPane layoutX="1.0" layoutY="-27.0" prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb; -fx-pref-height: 822px; -fx-pref-width: 615px;">
          <children>
             <ImageView fitHeight="75.0" fitWidth="70.0" layoutX="657.0" layoutY="637.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -24,7 +24,7 @@
                   <Image url="@Image/delete_7133356-removebg-preview.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="-2.0" prefHeight="178.0" prefWidth="1280.0" style="-fx-background-color: #84c6f5;">
+            <AnchorPane layoutX="-2.0" prefHeight="185.0" prefWidth="944.0" style="-fx-background-color: #84c6f5;">
                <children>
                   <ImageView fitHeight="56.0" fitWidth="70.0" layoutX="14.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,7 +37,7 @@
                      </font>
                   </Label>
                   <Button layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#retourner" prefHeight="37.0" prefWidth="70.0" style="-fx-background-color: #4ba6f2; -fx-opacity: 0;" text="RETOURNER" textAlignment="CENTER" textFill="#f7f8fb" underline="true" />
-                  <ImageView fitHeight="119.0" fitWidth="1281.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="103.0" fitWidth="944.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@1.png" />
                      </image>
@@ -56,7 +56,7 @@
                   <Button layoutX="597.0" layoutY="40.0" mnemonicParsing="false" onAction="#addev" prefHeight="47.0" prefWidth="51.0" style="-fx-opacity: 0;" text="addev" />
                </children>
             </AnchorPane>
-            <TableView fx:id="viewev" layoutX="117.0" layoutY="276.0" prefHeight="336.0" prefWidth="825.0">
+            <TableView fx:id="viewev" layoutX="34.0" layoutY="274.0" prefHeight="336.0" prefWidth="825.0">
                <columns>
                   <TableColumn fx:id="evnom" prefWidth="72.0000331401825" text="evenement" />
                   <TableColumn fx:id="deseven" prefWidth="139.33330535888672" text="description" />

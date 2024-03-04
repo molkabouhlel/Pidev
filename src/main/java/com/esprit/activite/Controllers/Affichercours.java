@@ -68,6 +68,8 @@ public class Affichercours {
     private TableView<Cours> tableview;
     private int idcoursselected;
     @FXML
+    private TextField recherche;
+    @FXML
     private PieChart pieChart;
     @FXML
     void returnlist(ActionEvent event) {
@@ -161,6 +163,11 @@ public class Affichercours {
         ///
         boutonsupp();
         modif();
+        //search
+        recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Call a method to handle real-time search
+            handleSearch(newValue);
+        });
     }
     @FXML
     void modifiercours(ActionEvent event) throws IOException {
@@ -193,10 +200,10 @@ public class Affichercours {
 
             c.supprimer(coursASupprimer);
 
-            // Mettez à jour la TableView
+
             tableview.getItems().remove(selectedID);
         } else {
-            // Aucune ligne sélectionnée, affichez un message d'erreur ou prenez une autre action appropriée
+
             Alert alerte= new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("erreur");
             alerte.setContentText("cours nest pas selectioner");
@@ -207,10 +214,10 @@ public class Affichercours {
     //TODO **************BOUTON SUPPRIMER cree tableview
     private void boutonsupp() {
         action.setCellFactory(col -> new TableCell<Cours, Void>() {
-            private final Button participerButton = new Button("supprimer");
+            private final Button supprimerButton = new Button("supprimer");
 
             {
-                participerButton.setOnAction(event -> {
+                supprimerButton.setOnAction(event -> {
                  //   tableview.edit(-1, null);
                     Cours cours = getTableView().getItems().get(getIndex());
                     supprimer(cours);
@@ -223,7 +230,7 @@ public class Affichercours {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(participerButton);
+                    setGraphic(supprimerButton);
                 }
             }
         });
@@ -232,7 +239,7 @@ public class Affichercours {
     private void supprimer(Cours cours) {
       CoursService p = new CoursService();
         p.supprimer(cours);
-        // Actualisez la TableView pour refléter la suppression
+
         tableview.getItems().remove(cours);
     }
 
@@ -310,6 +317,16 @@ public class Affichercours {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    //petit prob de retour
+    private void handleSearch(String searchText) {
+        // Create a filtered list based on the search text
+        ObservableList<Cours> filteredList = tableview.getItems().filtered(cours ->
+                cours.getNom().toLowerCase().contains(searchText.toLowerCase()) ||
+                        cours.getDescription().toLowerCase().contains(searchText.toLowerCase()));
+
+        // Update the TableView with the filtered list
+        tableview.setItems(filteredList);
     }
 
 }

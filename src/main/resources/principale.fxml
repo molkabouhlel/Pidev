@@ -7,8 +7,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="672.0" prefWidth="925.0" style="-fx-background-color: #DCF2F1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Principale">
+<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Principale">
    <children>
+      <ImageView fitHeight="186.0" fitWidth="203.0" layoutX="60.0" layoutY="372.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image3/image-removebg-preview%20(2).png" />
+         </image>
+      </ImageView>
       <ImageView fitHeight="159.0" fitWidth="266.0" layoutX="29.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/liste%20des%20cours.png" />
@@ -29,12 +34,12 @@
             <Image url="@Image/cours1-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="227.0" fitWidth="246.0" layoutX="157.0" layoutY="388.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="227.0" fitWidth="246.0" layoutX="310.0" layoutY="372.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/catev-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="227.0" fitWidth="227.0" layoutX="516.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: 16;">
+      <ImageView fitHeight="227.0" fitWidth="227.0" layoutX="606.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: 16;">
          <image>
             <Image url="@image3/image-removebg-preview%20(2).png" />
          </image>
@@ -44,13 +49,13 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button layoutX="156.0" layoutY="387.0" mnemonicParsing="false" onAction="#cateve" prefHeight="227.0" prefWidth="227.0" style="-fx-background-radius: 15; -fx-opacity: 0;" text="catev" />
-      <Button layoutX="527.0" layoutY="391.0" mnemonicParsing="false" onAction="#eve" prefHeight="220.0" prefWidth="227.0" style="-fx-background-radius: 15; -fx-opacity: 0;" text="event">
+      <Button layoutX="297.0" layoutY="372.0" mnemonicParsing="false" onAction="#cateve" prefHeight="227.0" prefWidth="227.0" style="-fx-background-radius: 15; -fx-opacity: 0;" text="catev" />
+      <Button layoutX="596.0" layoutY="387.0" mnemonicParsing="false" onAction="#eve" prefHeight="220.0" prefWidth="227.0" style="-fx-background-radius: 15; -fx-opacity: 0;" text="event">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="658.0" layoutY="566.0" prefHeight="17.0" prefWidth="145.0" text="EVENEMENT" textFill="#157cb7">
+      <Label layoutX="663.0" layoutY="547.0" prefHeight="17.0" prefWidth="145.0" text="EVENEMENT" textFill="#157cb7">
          <font>
             <Font name="Arial Bold Italic" size="18.0" />
          </font>
@@ -66,5 +71,21 @@
          </font>
       </Label>
       <Button layoutX="67.0" layoutY="169.0" mnemonicParsing="false" onAction="#listecours" prefHeight="136.0" prefWidth="203.0" style="-fx-opacity: 0;" text="liste des cours" />
+      <Label layoutX="93.0" layoutY="281.0" text="LISTE DES COURS">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="69.0" layoutY="378.0" mnemonicParsing="false" onAction="#listeeve" prefHeight="155.0" prefWidth="183.0" style="-fx-opacity: 0;" text="listeeve" />
+      <Label layoutX="135.0" layoutY="503.0" prefHeight="17.0" prefWidth="145.0" text="liste " textFill="#157cb7">
+         <font>
+            <Font name="Arial Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="115.0" layoutY="525.0" prefHeight="15.0" prefWidth="137.0" text="EVENEMENT" textFill="#157cb7">
+         <font>
+            <Font name="Arial Bold Italic" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -23,9 +23,7 @@ public class Principale {
     void catcours(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
-
-        // Load and show the new interface
+        currentStage.close();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/categories.fxml"));
             Stage newStage = new Stage();
@@ -33,7 +31,7 @@ public class Principale {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
+
         }
     }
 
@@ -41,9 +39,8 @@ public class Principale {
     void cateve(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/catevent.fxml"));
             Stage newStage = new Stage();
@@ -51,7 +48,7 @@ public class Principale {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
+
         }
 
     }
@@ -60,9 +57,7 @@ public class Principale {
     void cours(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
-
-        // Load and show the new interface
+        currentStage.close();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/interfacecours.fxml"));
             Stage newStage = new Stage();
@@ -70,7 +65,7 @@ public class Principale {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
+
         }
 
     }
@@ -87,7 +82,7 @@ public class Principale {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
+
         }
 
     }
@@ -105,9 +100,24 @@ public class Principale {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
+
         }
     }
 
+    @FXML
+    void listeeve(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/imageeve.fxml"));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
 
+        }
+
+    }
 }

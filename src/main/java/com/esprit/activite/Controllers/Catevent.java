@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.esprit.activite.modeles.Evenement;
 import com.esprit.activite.modeles.type_ev;
 import com.esprit.activite.modeles.typec;
 import com.esprit.activite.services.TypecService;
@@ -48,6 +49,8 @@ public class Catevent {
     @FXML
     private TableView<type_ev> viewevent;
     private int idcatsselected;
+    @FXML
+    private TextField recherche;
 
     @FXML
     void retourner(ActionEvent event) {
@@ -98,7 +101,7 @@ public class Catevent {
 
             c.supprimer(catASupprimer);
 
-            // Mettez à jour la TableView
+
             viewevent.getItems().remove(selectedID);
         } else {
             // Aucune ligne sélectionnée
@@ -114,8 +117,8 @@ public class Catevent {
     void update(ActionEvent event) {
         if(validerChamps()) {
             type_evService es = new type_evService();
-            type_ev catselected = es.recherchecatev(idcatsselected);
-            typec c = new typec();
+           // type_ev catselected = es.recherchecatev(idcatsselected);
+            //typec c = new typec();
             int idCat = Integer.parseInt(iev.getText());
             String cat = catev.getText();
 
@@ -164,19 +167,23 @@ public class Catevent {
 
 
 
-        // Save changes on commit
+
         catevent.setOnEditCommit(event -> {
             type_ev s = event.getRowValue();
             s.setType_ev(event.getNewValue());
             ss.modifier(s);
         });
+        recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Call a method to handle real-time search
+            handleSearch(newValue);
+        });
     }
     private void setupActionColumn() {
         action.setCellFactory(col -> new TableCell<type_ev, Void>() {
-            private final Button participerButton = new Button("supprimer");
+            private final Button eveButton = new Button("supprimer");
 
             {
-                participerButton.setOnAction(event -> {
+                eveButton.setOnAction(event -> {
                     //   tableview.edit(-1, null);
                     type_ev e = getTableView().getItems().get(getIndex());
                     supprimer(e);
@@ -189,7 +196,7 @@ public class Catevent {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(participerButton);
+                    setGraphic(eveButton);
                 }
             }
         });
@@ -197,7 +204,7 @@ public class Catevent {
     private void supprimer(type_ev ev) {
         type_evService p = new type_evService();
         p.supprimer(ev);
-        // Actualisez la TableView pour refléter la suppression
+
         viewevent.getItems().remove(ev);
     }
     @FXML
@@ -220,6 +227,15 @@ public class Catevent {
         alerte.setHeaderText(null);
         alerte.setContentText(message);
         alerte.showAndWait();
+    }
+    //petit prob de retour
+    private void handleSearch(String searchText) {
+        // Create a filtered list based on the search text
+        ObservableList<type_ev> filteredList = viewevent.getItems().filtered(type_ev ->
+                type_ev.getType_ev().toLowerCase().contains(searchText.toLowerCase()) );
+
+        // Update the TableView with the filtered list
+        viewevent.setItems(filteredList);
     }
 
 }

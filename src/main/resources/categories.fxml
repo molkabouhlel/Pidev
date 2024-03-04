@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="548.0" prefWidth="766.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Categories">
+<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Categories">
    <children>
       <ImageView fitHeight="54.0" fitWidth="67.0" layoutX="433.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -27,14 +27,14 @@
             <Image url="@Image/add_4210903-removebg-preview.png" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="110.0" prefWidth="766.0" style="-fx-background-color: #84c6f5;">
+      <AnchorPane prefHeight="130.0" prefWidth="829.0" style="-fx-background-color: #84c6f5;">
          <children>
             <ImageView fitHeight="54.0" fitWidth="92.0" layoutX="20.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Image/retour.png" />
                </image>
             </ImageView>
-            <Button layoutX="14.0" layoutY="70.0" mnemonicParsing="false" onAction="#retourner" prefHeight="54.0" prefWidth="66.0" style="-fx-background-color: #4ba6f2; -fx-opacity: 0;" text="retourner" />
+            <Button layoutX="14.0" layoutY="71.0" mnemonicParsing="false" onAction="#retourner" prefHeight="54.0" prefWidth="66.0" style="-fx-background-color: #4ba6f2; -fx-opacity: 0;" text="retourner" />
             <Label layoutX="258.0" layoutY="83.0" text="CATEGORIE DE COURS " textFill="WHITE" underline="true">
                <font>
                   <Font name="Arial" size="25.0" />
@@ -42,7 +42,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="70.0" fitWidth="766.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="77.0" fitWidth="829.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@1.png" />
          </image>

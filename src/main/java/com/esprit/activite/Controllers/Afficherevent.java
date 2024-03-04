@@ -38,6 +38,8 @@ public class Afficherevent {
     @FXML
     private URL location;
     @FXML
+    private TextField recherche;
+    @FXML
     private TableColumn<Evenement, Void> action;
     @FXML
     private TableColumn<Evenement, Integer> capacite;
@@ -123,7 +125,7 @@ Node source = (Node) event.getSource();
             // Mettez à jour TableView
             viewev.getItems().remove(selectedID);
         } else {
-            // Aucune ligne sélectionnée, affichez un message d'erreur ou prenez une autre action appropriée
+
             Alert alerte= new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("erreur");
             alerte.setContentText("cours nest pas selectioner");
@@ -194,7 +196,7 @@ Node source = (Node) event.getSource();
 
         evnom.setCellFactory(TextFieldTableCell.forTableColumn());
         EvenementService ss = new EvenementService();
-        // Save changes on commit
+
         evnom.setOnEditCommit(event -> {
             Evenement s = event.getRowValue();
             s.setNom_ev(event.getNewValue());
@@ -202,11 +204,16 @@ Node source = (Node) event.getSource();
         });
         deseven.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        // Save changes on commit
+
         deseven.setOnEditCommit(event -> {
             Evenement s = event.getRowValue();
             s.setDescription_ev(event.getNewValue());
             ss.modifier(s);
+        });
+
+        recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Call a method to handle real-time search
+            handleSearch(newValue);
         });
 
     }
@@ -236,7 +243,7 @@ Node source = (Node) event.getSource();
     private void supprimer(Evenement ev) {
         EvenementService p = new EvenementService();
         p.supprimer(ev);
-        // Actualisez la TableView pour refléter la suppression
+
         viewev.getItems().remove(ev);
     }
 
@@ -285,7 +292,16 @@ Node source = (Node) event.getSource();
         newStage.setScene(new Scene(root));
         newStage.show();
     }
+    //petit prob de retour
+    private void handleSearch(String searchText) {
+        // Create a filtered list based on the search text
+        ObservableList<Evenement> filteredList = viewev.getItems().filtered(evenement ->
+                evenement.getNom_ev().toLowerCase().contains(searchText.toLowerCase()) ||
+                        evenement.getDescription_ev().toLowerCase().contains(searchText.toLowerCase()));
 
+        // Update the TableView with the filtered list
+        viewev.setItems(filteredList);
+    }
 }
 
 

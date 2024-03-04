@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -35,12 +37,12 @@ public class Updateevent {
     private TextField capeveup;
 
     @FXML
-    private ComboBox<type_ev> comboidcatevup;
+    private ComboBox<String> comboidcatevup;
 
     @FXML
-    private ComboBox<typec> comboidcatup;
-   // @FXML
-   // private ComboBox<espace> comboidesup;
+    private ComboBox<String> comboidcatup;
+    @FXML
+    private ComboBox<String> listeespace;
 
     @FXML
     private DatePicker datedebcombo;
@@ -71,8 +73,7 @@ public class Updateevent {
 
     @FXML
     private Spinner<Integer> timefinup;
-    @FXML
-    private ListView<espace> comboidesup;
+
     private Evenement tomodify;
 
     public void initData(Evenement c) {
@@ -82,10 +83,11 @@ public class Updateevent {
         nomeveup.setText(c.getNom_ev());
         deseveup.setText(c.getDescription_ev());
         imeveup.setText(c.getImage_ev());
-        comboidcatup.setValue(c.getId_typec());
-        comboidcatevup.setValue(c.getId_type_ev());
-        comboidesup.getItems().clear(); // Effacez les anciennes données
-        comboidesup.getItems().addAll(c.getId_espace());
+
+        comboidcatup.setValue(c.getId_typec().getTypecours());
+        comboidcatevup.setValue(c.getId_type_ev().getType_ev());
+        listeespace.setValue(c.getId_espace().getNom_espace());
+
         capeveup.setText(String.valueOf(c.getCapacite_max()));
         //
         timedebup.getValueFactory().setValue(c.getDate_debut().toLocalDateTime().getHour());
@@ -101,24 +103,23 @@ public class Updateevent {
     }
     @FXML
     void initialize() {
-        TypecService ct = new TypecService();
-        List<typec> l = ct.afficher();
+        CoursService c = new CoursService();
+
+        EvenementService ev=new EvenementService();
+
+        List<String> l = c.listcategorie();
         comboidcatup.setItems(FXCollections.observableArrayList(l));//combo box ll att mta3 type cours
 
-        type_evService s = new type_evService();
-        List<type_ev> ev = s.afficher();
-        comboidcatevup.setItems(FXCollections.observableArrayList(ev));/// ll cat ev
+        List<String> cateve = ev.listcategorieevent();
+        comboidcatevup.setItems(FXCollections.observableArrayList(cateve));/// ll cat ev
 
-        EvenementService evs = new EvenementService();
-        List<espace> lc = evs.rechercheIdEspace();
+        List<String> le = ev.listespace();
+        listeespace.setItems(FXCollections.observableArrayList(le));
 
-        // Utilisez FXCllections.observableArrayList pour créer une ObservableList d'objets espace
-        ObservableList<espace> espaceList = FXCollections.observableArrayList(lc);
-        comboidesup.setItems(espaceList);
 
-        timedebup.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
+        timedebup.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 5, 0));
         timedebupmin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
-        timefinup.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
+        timefinup.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 5, 0));
         timefinminup.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
 
     }
@@ -128,14 +129,16 @@ public class Updateevent {
         if (validerChamps()){
             EvenementService es = new EvenementService();
         Evenement e =new Evenement();
+        CoursService cours =new CoursService();
         //1
         LocalDate date = datedebcombo.getValue();
         int selectedHour = timedebup.getValue();
         int selectedMinute = timedebupmin.getValue();
         LocalTime selectedTime = LocalTime.of(selectedHour, selectedMinute);
         LocalDateTime localDateTime = LocalDateTime.of(date, selectedTime);
-        // Convertir LocalDateTime en Timestamp
+
         Timestamp t = Timestamp.valueOf(localDateTime);
+        //setdate
           e.setDate_debut(t);
           //2
         LocalDate datef = datefincombo.getValue();
@@ -143,8 +146,8 @@ public class Updateevent {
         int selectedMinute2 = timedebupmin.getValue();
         LocalTime selectedTime2 = LocalTime.of(selectedHour2, selectedMinute2);
         LocalDateTime localDateTime2 = LocalDateTime.of(datef, selectedTime2);
-        // Convertir LocalDateTime en Timestamp
         Timestamp tf = Timestamp.valueOf(localDateTime2);
+        //setdate
         e.setDate_fin(tf);
         ///int
         int capa = Integer.parseInt(capeveup.getText());
@@ -152,16 +155,23 @@ public class Updateevent {
         String nomev =nomeveup.getText();
         String des= deseveup.getText();
         String img=imeveup.getText();
+            String catCSelectionne = comboidcatup.getValue();
+            String CatEveSelectionne = comboidcatevup.getValue();
+            String espaceSelectionne = listeespace.getValue();
+
+            // Rechercher la catégorie par son nom
+            typec selectedTypec = cours.rechercherCatParNom(catCSelectionne);
+            espace selectedespaceid = es.rechercherespaceparnom(espaceSelectionne);
+            type_ev catEveid = es.rechercherCateveParNom(CatEveSelectionne);
+
+        //set
         e.setImage_ev(img);
         e.setCapacite_max(capa);
         e.setNom_ev(nomev);
         e.setDescription_ev(des);
-        List<espace> selectedEspaces = comboidesup.getSelectionModel().getSelectedItems();
-        for (espace selectedEspace : selectedEspaces) {
-            e.setId_espace(selectedEspace);
-        }
-        e.setId_type_ev(comboidcatevup.getValue());
-        e.setId_typec(comboidcatup.getValue());
+      e.setId_type_ev(catEveid);
+      e.setId_typec(selectedTypec);
+      e.setId_espace(selectedespaceid);
         e.setId_ev(ice);
 
 //
@@ -176,9 +186,7 @@ public class Updateevent {
     void retourner(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
-
-        // Load and show the new interface
+        currentStage.close();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/afficherevent.fxml"));
             Stage newStage = new Stage();
@@ -186,30 +194,38 @@ public class Updateevent {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
+
         }
     }
 
     @FXML
     void browse(ActionEvent event) {
+
         FileChooser fileChooser = new FileChooser();
 
-        // Image file extensions
+
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 
-        // Set initial directory
-        fileChooser.setInitialDirectory(new File("C:/Users/molka/Desktop/crud_entite_1_v1/crud_entite_1_v1/src/main/resources"));
+
+        //  fileChooser.setInitialDirectory(new File("C:/xampp/htdocs/Image"));
 
         File file = fileChooser.showOpenDialog(null);
+        String xamppHtdocsPath = "C:/xampp/htdocs/Image/";
+        File destinationFile = new File(xamppHtdocsPath + file.getName());
+        try {
+            // Copy the selected file to the htdocs directory
+            Files.copy(file.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File copied successfully to: " + destinationFile.getAbsolutePath());
+        }catch (IOException e){
+            System.out.println("Error copying file: " + e.getMessage());
+        }
 
-        if (file != null) {
+        if (destinationFile != null) {
             String imageFile = file.toURI().toString();
             imageFile = imageFile.substring(8);
             imeveup.setText(imageFile);
             System.out.println(imageFile);
-
-
         }}
     @FXML
     public boolean validerChamps() {
