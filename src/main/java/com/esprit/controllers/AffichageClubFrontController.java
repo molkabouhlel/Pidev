@@ -51,7 +51,7 @@ import java.time.format.DateTimeFormatter;
 
 import java.awt.TrayIcon.MessageType;
 
-public class AffichageClubController {
+public class AffichageClubFrontController {
 
     @FXML
     private AnchorPane anchorpane;
@@ -61,8 +61,6 @@ public class AffichageClubController {
     @FXML
     private ComboBox<String> Trie;
 
-    @FXML
-    private Button retour;
 
     @FXML
     private FlowPane flowPane;
@@ -97,31 +95,31 @@ public class AffichageClubController {
             Label Nom_club = (Label) ((VBox) flowPane.getChildren().get(i)).getChildren().get(0);
             String NomText = Nom_club.getText();
 
-       // Define a DateTimeFormatter for parsing the time
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            // Define a DateTimeFormatter for parsing the time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-         timeline = new Timeline(
-                new KeyFrame(Duration.seconds(10), event -> {
-                    // Get the current time
-                    LocalTime currentTime = LocalTime.now();
+            timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(10), event -> {
+                        // Get the current time
+                        LocalTime currentTime = LocalTime.now();
 
-                    // Get the time from the label and parse it
-                    String timeText = Temps_ouverture.getText();
-                    LocalTime labelTime = LocalTime.parse(timeText, formatter);
+                        // Get the time from the label and parse it
+                        String timeText = Temps_ouverture.getText();
+                        LocalTime labelTime = LocalTime.parse(timeText, formatter);
 
-                    // Compare the times
-                    if (labelTime.isAfter(currentTime) && labelTime.isBefore(currentTime.plusMinutes(10))) {
-                        System.out.println("Before.");
-                        try {
-                            notif(NomText);
-                        } catch (AWTException e) {
-                            throw new RuntimeException(e);
+                        // Compare the times
+                        if (labelTime.isAfter(currentTime) && labelTime.isBefore(currentTime.plusMinutes(10))) {
+                            System.out.println("Before.");
+                            try {
+                                notif(NomText);
+                            } catch (AWTException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
-                    }
-                })
-        );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+                    })
+            );
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.play();
         }
     }
 
@@ -151,14 +149,14 @@ public class AffichageClubController {
                 });
             }
 
-            Button deleteButton = (Button) Vbox.getChildren().stream()
-                    .filter(node -> node instanceof Button && "deleteButton".equals(((Button) node).getId()))
+            Button participer = (Button) Vbox.getChildren().stream()
+                    .filter(node -> node instanceof Button && "participer".equals(((Button) node).getId()))
                     .findFirst()
                     .orElse(null);
-            if (deleteButton != null) {
-                deleteButton.setOnAction(event -> {
+            if (participer != null) {
+                participer.setOnAction(event -> {
                     Id_Club_Selected = club.getId_club();
-                    Delete();
+                    //Participer();
                 });
             }
             flowPane.getChildren().add(Vbox);
@@ -221,41 +219,22 @@ public class AffichageClubController {
         Details.setStyle("-fx-content-display: LEFT;");
 
 
-        Button Delete = new Button("Delete");
-        Delete.setId("deleteButton");
-        Delete.setPrefWidth(150);
-        Delete.setStyle("-fx-content-display: LEFT;");
+        Button Participer = new Button("Participer");
+        Participer.setId("participer");
+        Participer.setPrefWidth(150);
+        Participer.setStyle("-fx-content-display: LEFT;");
         //Delete.setOnAction(this::Delete);ew
 
         Label label3 = new Label(String.valueOf(C.getTemp_ouverture()));
 
         // Ajoute l'ImageView et le bouton "Détails" à la VBox
-        Vbox.getChildren().addAll(nom_club,separator1,imageView,separator2,label2,label3,Details,separator3,Delete);
+        Vbox.getChildren().addAll(nom_club,separator1,imageView,separator2,label2,label3,Details,separator3,Participer);
 
         return Vbox;
     }
 
-    private void Delete() {
-        System.out.println("Deleting  club ID: " + Id_Club_Selected);
+    private void Participer() {
 
-        if (Id_Club_Selected != -1) {
-            ClubService C = new ClubService();
-
-            Club clubSelected = C.rechercheClub(Id_Club_Selected);
-            C.supprimer(clubSelected);
-            Alert alerte= new Alert(Alert.AlertType.INFORMATION);
-            alerte.setTitle("suppresion Club");
-            alerte.setContentText("Club  supprime");
-            alerte.show();
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageClub.fxml"));
-                Parent root = loader.load();
-                Stage currentStage = (Stage) flowPane.getScene().getWindow();
-                currentStage.setScene(new Scene(root));
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
     }
 
     private void showDetails() {
@@ -265,15 +244,15 @@ public class AffichageClubController {
         if (Id_Club_Selected != -1) {
             ClubService cs = new ClubService();
             Club clubSelected = cs.rechercheClub(Id_Club_Selected);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeCours.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailClub.fxml"));
             try {
                 Parent root = loader.load();
-                ListeCoursController LCC = loader.getController();
-                LCC.initClub(clubSelected);
-                LCC.initialize(clubSelected);
+                DetailClubController DCC = loader.getController();
+                DCC.initClub(clubSelected);
+                DCC.initialize(clubSelected);
                 Stage currentStage = (Stage) flowPane.getScene().getWindow();
                 currentStage.setScene(new Scene(root));
-                System.out.println("Navigating to ListeCours.fxml");
+                System.out.println("Navigating to Detail.fxml");
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -328,14 +307,7 @@ public class AffichageClubController {
 
 
 
-    @FXML
-    void RedirectToAjoutClub(ActionEvent event) throws IOException {
-        timeline.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutClub.fxml"));
-        Parent root = loader.load();
-        Stage currentStage = (Stage) flowPane.getScene().getWindow();
-        currentStage.setScene(new Scene(root));
-    }
+
 
 
     @FXML

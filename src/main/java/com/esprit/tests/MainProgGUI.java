@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
+
+
 public class MainProgGUI extends Application {
 
     public static void main(String[] args) {
@@ -23,5 +26,6 @@ public class MainProgGUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Menu");
         primaryStage.show();
+
     }
 }

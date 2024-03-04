@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Time;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -128,12 +130,22 @@ public class ModifierClubController implements Initializable  {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files",
                         "*.png", "*.jpg", "*.gif"));
-        fileChooser.setInitialDirectory(new File("C:/Users/thebe/OneDrive/Bureau/workshopjdbc/src/main/resources/Image"));
-        File file = fileChooser.showOpenDialog(null);
+        //fileChooser.setInitialDirectory(new File("C:/Users/thebe/OneDrive/Bureau/workshopjdbc/src/main/resources/Image"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        String xamppHtdocsPath = "C:/xampp/htdocs/";
 
-        if (file != null) {
-            String imageFile = file.toURI().toString();
-            imageFile = imageFile.substring(8);
+        File destinationFile = new File(xamppHtdocsPath + selectedFile.getName());
+        try {
+            // Copy the selected file to the htdocs directory
+            Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File copied successfully to: " + destinationFile.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("Error copying file: " + e.getMessage());
+        }
+
+        if (destinationFile != null) {
+            String imageFile = destinationFile.toURI().toString();
+            //imageFile = imageFile.substring(8);
             image_club.setText(imageFile);
         }
 

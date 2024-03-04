@@ -28,6 +28,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Time;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -37,7 +39,7 @@ public class ListeCoursController {
 
 
     @FXML
-    private ComboBox<Espace> Espace;
+    private ComboBox<String> Espace;
     @FXML
     private TextField adresse_club;
 
@@ -109,7 +111,7 @@ public class ListeCoursController {
         description_club.setText(C.getDescription_club());
         image_club.setText(C.getImage_club());
         temp_ouverture.setText(String.valueOf(C.getTemp_ouverture()));
-        Espace.setValue(C.getEspace());
+        Espace.setValue(C.getEspace().getNom_espace());
 
         String imageUrl = image_club.getText();
         System.out.println(imageUrl);
@@ -140,6 +142,7 @@ public class ListeCoursController {
     }
 
         public void initialize(Club C) {
+        EspaceService es=new EspaceService();
             ///////////////////////////CONTROLE SAISIE//////////////////////////
             Club.setEditable(false);
             Club.setText(C.getNom_club());
@@ -184,7 +187,9 @@ public class ListeCoursController {
 
             Espace.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
-                    temp_ouverture.setText(String.valueOf(newValue.getHeure_debut()));
+                    String e=Espace.getValue();
+                    Espace E=es.rechercheEspacenom(e);
+                    temp_ouverture.setText(String.valueOf(E.getHeure_debut()));
                     temp_ouverture.setEditable(false);
                 }
             });
@@ -195,8 +200,7 @@ public class ListeCoursController {
         ClubService cs=new ClubService();
 
         //HEDHI COMBOBOX BL LES ATTRIBUT ESPACE LKOL
-            EspaceService es=new EspaceService();
-            List<Espace> LIST=es.afficher();
+            List<String> LIST=es.affichernomEspace();
             Espace.setItems(FXCollections.observableArrayList(LIST));
 
             //HEDHI COMBOBOX BL LES ID cours
@@ -249,11 +253,20 @@ public class ListeCoursController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files",
                         "*.png", "*.jpg", "*.gif"));
-        fileChooser.setInitialDirectory(new File("C:/Users/thebe/OneDrive/Bureau/workshopjdbc/src/main/resources/Image"));
-        File file = fileChooser.showOpenDialog(null);
+        File selectedFile = fileChooser.showOpenDialog(null);
+        String xamppHtdocsPath = "C:/xampp/htdocs/Image/";
 
-        if (file != null) {
-            String imageFile = file.toURI().toString();
+        File destinationFile = new File(xamppHtdocsPath + selectedFile.getName());
+        try {
+            // Copy the selected file to the htdocs directory
+            Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File copied successfully to: " + destinationFile.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("Error copying file: " + e.getMessage());
+        }
+
+        if (destinationFile != null) {
+            String imageFile = destinationFile.toURI().toString();
             imageFile = imageFile.substring(8);
             image_club.setText(imageFile);
         }
@@ -319,7 +332,8 @@ public class ListeCoursController {
     @FXML
     void ModifyClub(ActionEvent event) throws IOException {
         ClubService cs = new ClubService();
-        Espace espace = Espace.getValue();
+        EspaceService es = new EspaceService();
+        String espace = Espace.getValue();
 
        // ClubToModifier.setId_club(Integer.parseInt(id_club.getText()));
         ClubToModifier.setNom_club(nom_club.getText());
@@ -327,8 +341,7 @@ public class ListeCoursController {
         ClubToModifier.setDescription_club(description_club.getText());
         ClubToModifier.setImage_club(image_club.getText());
         ClubToModifier.setTemp_ouverture(Time.valueOf(temp_ouverture.getText()));
-
-        ClubToModifier.setEspace(espace);
+        ClubToModifier.setEspace(es.rechercheEspacenom(espace));
 
         cs.modifier(ClubToModifier);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

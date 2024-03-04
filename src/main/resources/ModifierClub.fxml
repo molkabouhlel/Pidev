@@ -30,6 +30,9 @@
                   <Label layoutX="90.0" layoutY="211.0" text="Image" />
                   <ComboBox fx:id="Espace" layoutX="187.0" layoutY="301.0" prefWidth="150.0" />
                   <Label layoutX="89.0" layoutY="303.0" text="Espace" />
+
+
+
                   <TextField fx:id="adresse_club" layoutX="189.0" layoutY="117.0" />
                   <Label layoutX="94.0" layoutY="120.0" text="Adresse" />
                   <Button fx:id="Browse" layoutX="264.0" layoutY="237.0" mnemonicParsing="false" onAction="#Browse" prefHeight="26.0" prefWidth="66.0" text="Browse" />

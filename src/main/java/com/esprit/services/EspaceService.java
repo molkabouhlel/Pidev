@@ -90,6 +90,45 @@ public class EspaceService implements IService<Espace> {
     }
 
 
+    public Espace rechercheEspacenom(String nom_espace) {
+        Espace Espace = null;
+        String req = "SELECT * FROM espace WHERE nom_espace = '" + nom_espace + "'";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            if (rs.next()) {
+                Espace = new Espace();
+                Espace.setId_espace(rs.getInt("id_espace"));
+                Espace.setNom_espace(rs.getString("nom_espace"));
+                Espace.setDescription_espace(rs.getString("description_espace"));
+                Espace.setHeure_debut(rs.getTime("heure_debut"));
+                Espace.setHeure_fin(rs.getTime("heure_fin"));
+                // Set other properties as needed
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Espace;
+    }
+
+
+    public List<String> affichernomEspace() {
+        List<String> E = new ArrayList<>();
+        String req = "SELECT nom_espace from espace ";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                E.add(rs.getString("nom_espace"));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return E;
+    }
+
+
 
 
     public List<Integer>  Return_idEspace() {

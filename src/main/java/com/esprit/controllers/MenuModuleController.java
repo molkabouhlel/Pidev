@@ -22,16 +22,28 @@ public class MenuModuleController {
     @FXML
     private Button gestionClub;
 
+    private String test="front";
+
     @FXML
     void RedirectToAffichageClub(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageClub.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        if(test=="back") {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageClub.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/affichageClubFront.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+
     }
 
     @FXML
