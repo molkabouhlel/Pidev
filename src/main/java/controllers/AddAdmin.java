@@ -10,12 +10,24 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
+import java.util.Optional;
+import java.util.Random;
 
 public class AddAdmin {
 
+    @FXML
+    private Pane panecaptcha;
     @FXML
     private TextField FN;
 
@@ -41,63 +53,81 @@ public class AddAdmin {
     private Button retourajout;
 
 
-
-
     @FXML
     void addAdmin(ActionEvent event) {
         // Get input values from the form
-        String email = mail.getText();
-        String password = mdp.getText();
-        String confirmPassword = confirm.getText();  // New line to get confirm password
-        String firstName = FN.getText();
-        String lastName = LN.getText();
-        String phoneText = TTF.getText();
+        String captcha = generateCaptcha();
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("CAPTCHA Verification");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Please enter the CAPTCHA code:\n");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            String userInput = result.get();
 
-        // Validate  all fields
-        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || phoneText.isEmpty()) {
-            showAlert(AlertType.ERROR, "Input Error", "Please fill in all fields.");
-            return;
-        }
+            if (!userInput.equals(captcha)) {
+                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                alert1.setTitle("CAPTCHA Verification Failed");
+                alert1.setHeaderText(null);
+                alert1.setContentText("The CAPTCHA code you entered is incorrect. Please try again.");
+                alert1.showAndWait();
+            } else {
 
-        // Validate email format
-        if (!isValidEmail(email)) {
-            showAlert(AlertType.ERROR, "Input Error", "Invalid email format. Please enter a valid email address.");
-            return;
-        }
+                String email = mail.getText();
+                String password = mdp.getText();
+                String confirmPassword = confirm.getText();  // New line to get confirm password
+                String firstName = FN.getText();
+                String lastName = LN.getText();
+                String phoneText = TTF.getText();
 
-        // Validate password
-        if (!isValidPassword(password)) {
-            showAlert(AlertType.ERROR,"Invalid Password", "Password must be at least 5 characters long and contain at least one special character.");
-            return; // Stop processing if the password is invalid
-        }
+                // Validate  all fields
+                if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || phoneText.isEmpty()) {
+                    showAlert(AlertType.ERROR, "Input Error", "Please fill in all fields.");
+                    return;
+                }
 
-        // Validate password confirmation
-        if (!password.equals(confirmPassword)) {
-            showAlert(AlertType.ERROR,"Password Mismatch", "Password and confirm password do not match.");
-            return; // Stop processing if passwords do not match
-        }
-        // Validate first name contains only alphabetic characters
-        if (!isValidName(firstName)) {
-            showAlert(AlertType.ERROR, "Input Error", "Invalid first name. Please enter only alphabetic characters.");
-            return;
-        }
+                // Validate email format
+                if (!isValidEmail(email)) {
+                    showAlert(AlertType.ERROR, "Input Error", "Invalid email format. Please enter a valid email address.");
+                    return;
+                }
 
-        // Validate last name contains only alphabetic characters
-        if (!isValidName(lastName)) {
-            showAlert(AlertType.ERROR, "Input Error", "Invalid last name. Please enter only alphabetic characters.");
-            return;
-        }
+                // Validate password
+                if (!isValidPassword(password)) {
+                    showAlert(AlertType.ERROR, "Invalid Password", "Password must be at least 5 characters long and contain at least one special character.");
+                    return; // Stop processing if the password is invalid
+                }
 
-        // Validate phone number is a valid integer and has a length of 8
-        if (!isValidPhoneNumber(phoneText)) {
-            showAlert(AlertType.ERROR, "Input Error", "Invalid phone number. Please enter a valid 8-digit number.");
-            return;
-        }
+                // Validate password confirmation
+                if (!password.equals(confirmPassword)) {
+                    showAlert(AlertType.ERROR, "Password Mismatch", "Password and confirm password do not match.");
+                    return; // Stop processing if passwords do not match
+                }
+                // Validate first name contains only alphabetic characters
+                if (!isValidName(firstName)) {
+                    showAlert(AlertType.ERROR, "Input Error", "Invalid first name. Please enter only alphabetic characters.");
+                    return;
+                }
 
-        // Now you can proceed to add the admin
-        UserServices us = new UserServices();
-        us.add(new Admin(email, password, firstName, lastName, Integer.parseInt(phoneText), "Admin"));
-        System.out.println("Adding Admin: ");
+                // Validate last name contains only alphabetic characters
+                if (!isValidName(lastName)) {
+                    showAlert(AlertType.ERROR, "Input Error", "Invalid last name. Please enter only alphabetic characters.");
+                    return;
+                }
+
+                // Validate phone number is a valid integer and has a length of 8
+                if (!isValidPhoneNumber(phoneText)) {
+                    showAlert(AlertType.ERROR, "Input Error", "Invalid phone number. Please enter a valid 8-digit number.");
+                    return;
+                }
+
+                // Now you can proceed to add the admin
+                UserServices us = new UserServices();
+                us.add(new Admin(email, password, firstName, lastName, Integer.parseInt(phoneText), "Admin"));
+                System.out.println("Adding Admin: ");
+            }
+
+        }
     }
 
     private boolean isValidPassword(String password) {
@@ -162,6 +192,55 @@ public class AddAdmin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private String generateCaptcha() {
+        String captcha = generateRandomString(4);
+        panecaptcha.getChildren().clear();
+        Random random = new Random();
+        for (int i = 0; i < captcha.length(); i++) {
+            char character = captcha.charAt(i);
+            Shape shape;
+            if (Character.isDigit(character)) {
+                shape = new Rectangle(30, 30);
+            } else {
+                shape = null;
+            }
+
+            if (shape != null) {
+
+
+
+                shape.setLayoutX(i * 50 + 20);
+                shape.setLayoutY(30);
+
+                shape.setRotate(random.nextInt(40) - 20);
+
+                panecaptcha.getChildren().add(shape);
+            }
+            Text text = new Text(String.valueOf(character));
+            text.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+            text.setFill(Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
+
+            text.setLayoutX(i * 50 + 30);
+            text.setLayoutY(50);
+
+            text.setRotate(random.nextInt(40) - 15);
+
+            panecaptcha.getChildren().add(text);
+        }
+
+        return captcha;
+    }
+
+
+    private String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder stringBuilder = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            stringBuilder.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return stringBuilder.toString();
     }
 
 }

@@ -66,7 +66,7 @@ public class AddMembre {
         Stage currentStage = (Stage) source.getScene().getWindow();
         currentStage.close(); // Close the current stage
 
-        // Load and show the new interface
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/gestionMembre.fxml"));
             Stage newStage = new Stage();
@@ -110,19 +110,19 @@ public class AddMembre {
             return false;
         }
 
-        // Validation for Email (valid email format)
+
         if (!isValidEmail(mail.getText())) {
             showAlert("Invalid Email", "Please enter a valid email address.");
             return false;
         }
 
-        // Validation for Password (at least 6 characters)
+
         if (mdp.getText().length() < 6) {
             showAlert("Invalid Password", "Password should be at least 6 characters.");
             return false;
         }
 
-        // Validation for Confirm Password
+
         if (!mdp.getText().equals(confirm.getText())) {
             showAlert("Password Mismatch", "Passwords do not match.");
             return false;

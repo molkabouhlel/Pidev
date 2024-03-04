@@ -70,6 +70,22 @@ public class Gestioncoach {
 
     @FXML
     void membreI(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionMembre.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller instance
+            //AddMembre addMembreController = loader.getController();
+
+            // You can perform additional setup or pass data to the new controller if needed
+
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception, if any
+        }
 
     }
 

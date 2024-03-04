@@ -52,7 +52,7 @@ public class AddCoach {
         Stage currentStage = (Stage) source.getScene().getWindow();
         currentStage.close(); // Close the current stage
 
-        // Load and show the new interface
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/principale.fxml"));
             Stage newStage = new Stage();
@@ -70,7 +70,7 @@ public class AddCoach {
 
     @FXML
     void addCoach(ActionEvent event) {
-        // Validation checks
+
         if (validateFields() && validateFormat()) {
             UserServices us = new UserServices();
             us.add(new Coach(mail.getText(), mdp.getText(), FN.getText(), LN.getText(), Integer.parseInt(TTF.getText()), "Coach", adresse.getText()));
@@ -78,7 +78,7 @@ public class AddCoach {
     }
 
     private boolean validateFields() {
-        // Validation for Empty Fields
+
         if (FN.getText().isEmpty() || LN.getText().isEmpty() || TTF.getText().isEmpty() || mail.getText().isEmpty() || mdp.getText().isEmpty() || confirm.getText().isEmpty() || adresse.getText().isEmpty()) {
             showAlert("Empty Fields", "Please fill in all fields.");
             return false;
@@ -100,19 +100,19 @@ public class AddCoach {
             return false;
         }
 
-        // Validation for Email (valid email format)
+
         if (!isValidEmail(mail.getText())) {
             showAlert("Invalid Email", "Please enter a valid email address.");
             return false;
         }
 
-        // Validation for Password (at least 6 characters)
+
         if (mdp.getText().length() < 6) {
             showAlert("Invalid Password", "Password should be at least 6 characters.");
             return false;
         }
 
-        // Validation for Confirm Password
+
         if (!mdp.getText().equals(confirm.getText())) {
             showAlert("Password Mismatch", "Passwords do not match.");
             return false;

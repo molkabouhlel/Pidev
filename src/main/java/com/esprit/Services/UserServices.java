@@ -361,6 +361,33 @@ public class UserServices implements Interface<User> {
 
         return null; // Return null if user not found
     }
+    public User findemail(String email)
+    {
+        User s=new User();
+        try {
+            String req="SELECT * FROM usr WHERE `email`='"+email+"'";
+            Statement stat=cnx.createStatement();
+            ResultSet res=stat.executeQuery(req);
+            while(res.next())
+            {
+
+                s.setCin(res.getInt("cin"));
+                s.setNom(res.getString("nom"));
+                s.setPrénom(res.getString("prenom"));
+                s.setNumT(res.getInt("NumT"));
+                s.setEmail(res.getString("email"));
+                s.setMdp(res.getString("mdp"));
+                s.setRole(res.getString("role"));
+                s.setRole(res.getString("role"));
+
+                System.out.println("Found");
+                System.out.println(s);}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return s;
+    }
 
 }
 
