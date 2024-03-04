@@ -34,7 +34,7 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
 
     @Override
     public void modifier(Rendez_vous rv) {
-        String req = "UPDATE rendez_vous set date_rv = '" + rv.getDate_rv() + "', id_eq = '" + rv.getId_eq().getRef_eq()+ "', id_coach = '" + rv.getId_coach()  + "' where id_rv = " + rv.getId_rv() + ";";
+        String req = "UPDATE rendez_vous set date_rv = '" + rv.getDate_rv() + "', id_eq = '" + rv.getId_eq().getId_eq()+ "', id_coach = '" + rv.getId_coach()  + "' where id_rv = " + rv.getId_rv() + ";";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -79,13 +79,13 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
     ////////////////////////////////////////////////////////
     public Equipement rechercheid_eq (int id_eq) {
         Equipement eqs = null;
-        String req =  "SELECT * FROM equipement WHERE id_eq = '" + id_eq + "'";;
+        String req =  "SELECT * FROM equipement WHERE id_eq = '" + id_eq + "'";
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             if (rs.next()) {
                 eqs = new Equipement();
-               // eqs.setId_eq(rs.getInt("id_eq"));
+                eqs.setId_eq(rs.getInt("id_eq"));
                 eqs.setRef_eq(rs.getString("ref_eq"));
 
                 eqs.setNom_eq(rs.getString("nom_eq"));
@@ -109,6 +109,48 @@ public class Rendez_vousService implements Iservice <Rendez_vous>{
             System.out.println(e.getMessage());
         }
         return eqs;
+    }
+    public List<String> listeq() {
+        List<Equipement> eqList = listeqnom();
+        List<String> nomEqList = new ArrayList<>();
+
+        for (Equipement equipement : eqList) {
+            nomEqList.add(equipement.getNom_eq());
+        }
+
+        return nomEqList;
+    }
+    public Equipement rechercherEqParNom(String nom_eq) {
+        String req = "SELECT * FROM equipement WHERE nom_eq = '" + nom_eq + "'";
+        Equipement equipement = null;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                equipement=new Equipement(rs.getInt("id_eq"), rs.getString("nom_eq"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return equipement;
+    }
+   public List<Equipement> listeqnom() {
+        List<Equipement> eqList = new ArrayList<>();
+        String req = "SELECT nom_eq FROM equipement";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                Equipement e = new Equipement();
+                e.setNom_eq(rs.getString("nom_eq"));
+                eqList.add(e);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return eqList;
     }
 
 }

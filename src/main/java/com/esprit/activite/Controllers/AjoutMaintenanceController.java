@@ -1,10 +1,17 @@
 package com.esprit.activite.Controllers;
 
-import com.esprit.activite.modeles.Categorie_eq;
-import com.esprit.activite.modeles.Maintenance_eq;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import com.esprit.activite.modeles.etat_m;
-import com.esprit.activite.services.CategorieService;
+import com.esprit.activite.modeles.Maintenance_eq;
 import com.esprit.activite.services.MaintenanceService;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,26 +26,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.ResourceBundle;
-
 public class AjoutMaintenanceController implements Initializable {
 
     @FXML
     private Button ajouterm;
 
-    //@FXML
-   // private TextField date_m;
     @FXML
     private DatePicker datePicker;
+
     @FXML
     private TableView<Maintenance_eq> tableview;
+
     @FXML
     private TableColumn<Maintenance_eq, Void> action;
 
@@ -50,8 +48,10 @@ public class AjoutMaintenanceController implements Initializable {
 
     @FXML
     private ChoiceBox<etat_m> choicebox;
+
     @FXML
     private Spinner<Integer> heureSpinner;
+
     @FXML
     private Spinner<Integer> minuteSpinner;
 
@@ -69,33 +69,9 @@ public class AjoutMaintenanceController implements Initializable {
 
     @FXML
     private Button supprimerm;
+
     public int id_masselected;
 
-    /* public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<etat_m> choices = FXCollections.observableArrayList(etat_m.values());
-        choicebox.setItems(choices);
-        ///
-        MaintenanceService c = new MaintenanceService();
-        List<Maintenance_eq> cat = c.afficher();
-        ObservableList<Maintenance_eq> observableList = FXCollections.observableList(cat);
-        tableview.setItems(observableList);
-        id_ma.setCellValueFactory(new PropertyValueFactory<>("id_m"));
-        date_ma.setCellValueFactory(new PropertyValueFactory<>("date_m"));
-        etat_ma.setCellValueFactory(new PropertyValueFactory<>("etat_m"));
-
-        tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                id_masselected = newSelection.getId_m();
-                //
-                id_m.setText(String.valueOf(newSelection.getId_m()));
-               // date_m.setText(newSelection.getDate_m().toString());
-                date_m.getChildren().addAll(datePicker, heureSpinner, minuteSpinner);
-            } else {
-                id_masselected = -1;
-            }
-        });
-
-    } */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<etat_m> choices = FXCollections.observableArrayList(etat_m.values());
         choicebox.setItems(choices);
@@ -109,16 +85,13 @@ public class AjoutMaintenanceController implements Initializable {
         date_ma.setCellValueFactory(new PropertyValueFactory<>("date_m"));
         etat_ma.setCellValueFactory(new PropertyValueFactory<>("etat_m"));
 
-        // Accéder aux composants à l'intérieur du HBox date_m
         DatePicker datePicker = (DatePicker) date_m.getChildren().get(0);
         Spinner<Integer> heureSpinner = (Spinner<Integer>) date_m.getChildren().get(1);
         Spinner<Integer> minuteSpinner = (Spinner<Integer>) date_m.getChildren().get(2);
 
-        // Configurer les SpinnerValueFactory pour les heures (de 0 à 23)
         SpinnerValueFactory<Integer> heureFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23);
         heureSpinner.setValueFactory(heureFactory);
 
-        // Configurer les SpinnerValueFactory pour les minutes (de 0 à 59)
         SpinnerValueFactory<Integer> minuteFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59);
         minuteSpinner.setValueFactory(minuteFactory);
 
@@ -127,7 +100,6 @@ public class AjoutMaintenanceController implements Initializable {
                 id_masselected = newSelection.getId_m();
                 id_m.setText(String.valueOf(newSelection.getId_m()));
 
-                // Utiliser ces composants comme nécessaire
                 LocalDateTime localDateTime = newSelection.getDate_m().toLocalDateTime();
                 datePicker.setValue(localDateTime.toLocalDate());
                 heureSpinner.getValueFactory().setValue(localDateTime.getHour());
@@ -136,12 +108,9 @@ public class AjoutMaintenanceController implements Initializable {
                 id_masselected = -1;
             }
         });
-        //TODO **************BOUTON SUPPRIMER cree tableview
 
         boutonsupp();
-
     }
-
 
     private void boutonsupp() {
         action.setCellFactory(col -> new TableCell<Maintenance_eq, Void>() {
@@ -149,7 +118,6 @@ public class AjoutMaintenanceController implements Initializable {
 
             {
                 participerButton.setOnAction(event -> {
-                    //   tableview.edit(-1, null);
                     Maintenance_eq maintenance_eq = getTableView().getItems().get(getIndex());
                     supprimerE(maintenance_eq);
                 });
@@ -166,15 +134,13 @@ public class AjoutMaintenanceController implements Initializable {
             }
         });
     }
+
     private void supprimerE(Maintenance_eq ev) {
         MaintenanceService p = new MaintenanceService();
         p.supprimer(ev);
 
-        // Actualisez la TableView pour refléter la suppression
         tableview.getItems().remove(ev);
     }
-
-
 
     @FXML
     void ajouter(ActionEvent event) throws IOException {
@@ -182,7 +148,6 @@ public class AjoutMaintenanceController implements Initializable {
         etat_m selectedEtat = choicebox.getValue();
 
         if (selectedEtat != null) {
-            // Accéder aux composants à l'intérieur du HBox date_m
             DatePicker datePicker = (DatePicker) date_m.getChildren().get(0);
             Spinner<Integer> heureSpinner = (Spinner<Integer>) date_m.getChildren().get(1);
             Spinner<Integer> minuteSpinner = (Spinner<Integer>) date_m.getChildren().get(2);
@@ -190,43 +155,37 @@ public class AjoutMaintenanceController implements Initializable {
             LocalDateTime dateTime = LocalDateTime.of(datePicker.getValue(), LocalTime.of(heureSpinner.getValue(), minuteSpinner.getValue()));
             Timestamp timestamp = Timestamp.valueOf(dateTime);
 
-            es.ajouter(new Maintenance_eq(timestamp, selectedEtat));
+            //if (!es.idMaintenanceExiste(Integer.parseInt(id_m.getText()))) {
+                es.ajouter(new Maintenance_eq(timestamp, selectedEtat));
+                // Affichage de l'alerte pour la première valeur ajoutée
+                Alert alerte = new Alert(Alert.AlertType.INFORMATION);
+                alerte.setTitle("Maintenance ajoutée");
+                alerte.setContentText("Maintenance bien ajoutée");
+                alerte.show();
 
-            // Affichage de l'alerte pour la première valeur ajoutée
-            Alert alerte = new Alert(Alert.AlertType.INFORMATION);
-            alerte.setTitle("Maintenance ajoutée");
-            alerte.setContentText("Maintenance bien ajoutée");
-            alerte.show();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutMaintenance.fxml"));
+                Parent root = loader.load();
 
-            // Charger le FXML correctement (vérifiez le chemin)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutMaintenance.fxml"));
-            Parent root = loader.load();
-
-            Stage currentStage = (Stage) tableview.getScene().getWindow();
-            currentStage.setScene(new Scene(root));
-        } else {
-            // Gérer le cas où la valeur de choicebox est nulle (non sélectionnée)
+                Stage currentStage = (Stage) tableview.getScene().getWindow();
+                currentStage.setScene(new Scene(root));
+            } else {
+                Alert alerteErreur = new Alert(Alert.AlertType.ERROR);
+                alerteErreur.setTitle("Erreur");
+                alerteErreur.setContentText("L'ID de maintenance existe déjà.");
+                alerteErreur.show();
+            }}
+       /* } else {
             Alert alerteErreur = new Alert(Alert.AlertType.ERROR);
             alerteErreur.setTitle("Erreur");
             alerteErreur.setContentText("Veuillez sélectionner une valeur dans la ChoiceBox.");
             alerteErreur.show();
-        }
-
-        // Ajouter un autre if pour traiter une deuxième valeur (par exemple, la deuxième option dans l'enum)
-        etat_m deuxiemeEtat = choicebox.getValue();
-        if (deuxiemeEtat != null && deuxiemeEtat.equals(etat_m.necessite_maintenance)) {
-            // Traiter la deuxième valeur sélectionnée, si nécessaire
-            // ...
-        }
-    }
-
+        } */
 
 
     @FXML
     void modifier(ActionEvent event) {
         MaintenanceService es = new MaintenanceService();
 
-        // Accédez aux composants à l'intérieur du HBox date_m
         DatePicker datePicker = (DatePicker) date_m.getChildren().get(0);
         Spinner<Integer> heureSpinner = (Spinner<Integer>) date_m.getChildren().get(1);
         Spinner<Integer> minuteSpinner = (Spinner<Integer>) date_m.getChildren().get(2);
@@ -237,43 +196,32 @@ public class AjoutMaintenanceController implements Initializable {
         es.modifier(new Maintenance_eq(id_masselected, timestamp, choicebox.getValue()));
     }
 
-
-
-
-
-
     @FXML
     void supprimer(ActionEvent event) {
-        MaintenanceService c=new MaintenanceService();
-
+        MaintenanceService c = new MaintenanceService();
 
         int selectedID = tableview.getSelectionModel().getSelectedIndex();
 
         if (selectedID >= 0) {
             Maintenance_eq catASupprimer = tableview.getItems().get(selectedID);
 
-
             c.supprimer(catASupprimer);
 
-            // Mettez à jour la TableView
             tableview.getItems().remove(selectedID);
         } else {
-            // Aucune ligne sélectionnée, affichez un message d'erreur ou prenez une autre action appropriée
-            Alert alerte= new Alert(Alert.AlertType.INFORMATION);
+            Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("erreur");
             alerte.setContentText("maintenance nest pas selectionnee");
             alerte.show();
         }
-
-
     }
+
     @FXML
     void refresh(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
         currentStage.close(); // Close the current stage
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Principale.fxml"));
             Stage newStage = new Stage();
@@ -281,10 +229,7 @@ public class AjoutMaintenanceController implements Initializable {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any}
+        }
     }
-
-}
-
 
 }

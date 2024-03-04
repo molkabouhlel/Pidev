@@ -116,6 +116,20 @@ public class MaintenanceService implements Iservice<Maintenance_eq>
        }
        return eqs;
     }
+    public boolean idMaintenanceExiste(int id_m) {
+        String req = "SELECT COUNT(*) AS count FROM maintenance WHERE id_m = " + id_m;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 
 }
 

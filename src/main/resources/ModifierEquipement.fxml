@@ -37,6 +37,6 @@
       <Button fx:id="modifiereq" layoutX="283.0" layoutY="361.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
       <Button layoutX="144.0" layoutY="361.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="95.0" text="Retourner" />
       <Button fx:id="browse" layoutX="140.0" layoutY="327.0" mnemonicParsing="false" onAction="#browse" text="Browse" />
-      <TextField fx:id="id_eq" layoutX="69.0" layoutY="146.0" />
+      <TextField fx:id="id_eq" layoutX="69.0" layoutY="146.0" opacity="0.0" />
    </children>
 </AnchorPane>

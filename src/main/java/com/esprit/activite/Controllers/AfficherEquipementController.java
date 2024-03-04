@@ -3,10 +3,13 @@ package com.esprit.activite.Controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import com.esprit.activite.modeles.Equipement;
@@ -36,7 +39,7 @@ public class AfficherEquipementController {
     @FXML
     private URL location;
     @FXML
-    private ComboBox<?> combobox;
+    private ComboBox<String> combobox;
     @FXML
     private TextField recherche;
     @FXML
@@ -151,7 +154,6 @@ private int id_eqq;
 
         ObservableList<Equipement> reponsesData = FXCollections.observableArrayList(rs.afficher());
 
-        // Create FilteredList for real-time search
         FilteredList<Equipement> filteredData = new FilteredList<>(reponsesData, b -> true);
         tableview.setItems(filteredData);
 
@@ -170,7 +172,13 @@ private int id_eqq;
         });
 
 
+        List<String> sortTypes = new ArrayList<>();
+        sortTypes.add("quantite");
+        sortTypes.add("nom");
 
+
+
+        combobox.getItems().addAll(sortTypes);
 
 
         tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -201,7 +209,7 @@ private int id_eqq;
 
             c.supprimer(catASupprimer);
 
-            // Mettez à jour la TableView
+
             tableview.getItems().remove(selectedID);
         } else {
             // Aucune ligne sélectionnée, affichez un message d'erreur ou prenez une autre action appropriée
@@ -219,7 +227,6 @@ private int id_eqq;
 
             {
                 participerButton.setOnAction(event -> {
-                    //   tableview.edit(-1, null);
                     Equipement equipement = getTableView().getItems().get(getIndex());
                  // supprimer(equipement);
 
@@ -243,9 +250,9 @@ private int id_eqq;
     void refresh(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
-        // Load and show the new interface
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AjoutEquipement.fxml"));
             Stage newStage = new Stage();
@@ -253,7 +260,6 @@ private int id_eqq;
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
 
     }
 }
@@ -261,8 +267,7 @@ private int id_eqq;
         EquipementService p = new EquipementService();
         p.supprimer(ev);
 
-        // Actualisez la TableView pour refléter la suppression
-        tableview.getItems().remove(ev);
+//        tableview.getItems().remove(ev);
     }
 
     private void modif() {
@@ -298,7 +303,6 @@ private int id_eqq;
 
         ObservableList<Equipement> reponsesData = FXCollections.observableArrayList(rs.afficher());
 
-        // Create FilteredList for real-time search
         FilteredList<Equipement> filteredData = new FilteredList<>(reponsesData, b -> true);
         tableview.setItems(filteredData);
 
@@ -315,6 +319,44 @@ private int id_eqq;
                 }
             });
         });
+
+    }
+
+    @FXML
+    void trie(ActionEvent event) {
+        FilteredList<Equipement> filteredData = (FilteredList<Equipement>) tableview.getItems();
+
+        SortedList<Equipement> sortedData = new SortedList<>(filteredData);
+
+        Comparator<Equipement> nomComparator = Comparator.comparing(Equipement::getNom_eq);
+        Comparator<Equipement> quantiteComparator = Comparator.comparingInt(Equipement::getQuantite_dispo).reversed();
+
+        sortedData.comparatorProperty().bind(combobox.getSelectionModel().selectedItemProperty().asString().map(s -> {
+            if (s.equals("quantite")) {
+                return quantiteComparator;
+            }
+            return nomComparator;
+        }));
+
+        tableview.setItems(sortedData);
+    }
+
+    @FXML
+    void stat(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close();
+
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Stat.fxml"));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
 
     }
 

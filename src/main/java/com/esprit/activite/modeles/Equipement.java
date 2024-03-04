@@ -46,6 +46,12 @@ public Equipement(){}
         this.id_eq = id_eq;
     }
 
+    public Equipement(int id_eq, String nom_eq) {
+        this.id_eq = id_eq;
+        this.nom_eq = nom_eq;
+    }
+
+
 
     public int getId_eq() {
         return id_eq;

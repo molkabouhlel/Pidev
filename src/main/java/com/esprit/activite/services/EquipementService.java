@@ -183,7 +183,7 @@ public List<Equipement> afficher() {
 
     public Equipement rechercheeq(int id) {
         Equipement C = null;
-        String req = "SELECT * FROM equipement WHERE id_eq='" + id + "'";
+        String req = "SELECT * FROM equipement WHERE id_eq="+ id ;
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
@@ -206,4 +206,5 @@ public List<Equipement> afficher() {
         }
         return C;
     }
+
 }

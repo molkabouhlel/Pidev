@@ -72,15 +72,17 @@ public class AjoutCategorieController {
     void ajouter(ActionEvent event) throws IOException {
 
         CategorieService es = new CategorieService();
-        es.ajouter(new Categorie_eq(type_ceq.getText(),desc_ceq.getText()));
-        Alert alerte= new Alert(Alert.AlertType.INFORMATION);
-        alerte.setTitle("categorie ajout");
-        alerte.setContentText("categorie bien ajoutee");
-        alerte.show();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutCategorie.fxml"));
-        Parent root = loader.load();
-        Stage currentStage = (Stage) tableview.getScene().getWindow();
-        currentStage.setScene(new Scene(root));
+        if (controlSaisie(type_ceq) && controlSaisie(desc_ceq)) {
+            es.ajouter(new Categorie_eq(type_ceq.getText(), desc_ceq.getText()));
+            Alert alerte = new Alert(Alert.AlertType.INFORMATION);
+            alerte.setTitle("categorie ajout");
+            alerte.setContentText("categorie bien ajoutee");
+            alerte.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutCategorie.fxml"));
+            Parent root = loader.load();
+            Stage currentStage = (Stage) tableview.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+        }
 
     }
 
@@ -92,7 +94,10 @@ public class AjoutCategorieController {
         int idCat = Integer.parseInt(id_ceq.getText());
         String cat = type_ceq.getText();
         String dcat = desc_ceq.getText();
-        es.modifier(new Categorie_eq(idCat,cat,dcat));
+        if (controlSaisie(type_ceq) && controlSaisie(desc_ceq)) {
+
+            es.modifier(new Categorie_eq(idCat, cat, dcat));
+        }
 
     }
 
@@ -109,7 +114,6 @@ public class AjoutCategorieController {
 
             c.supprimer(catASupprimer);
 
-            // Mettez à jour la TableView
             tableview.getItems().remove(selectedID);
         } else {
             // Aucune ligne sélectionnée, affichez un message d'erreur ou prenez une autre action appropriée
@@ -167,9 +171,8 @@ public class AjoutCategorieController {
     void refresh(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Principale.fxml"));
             Stage newStage = new Stage();
@@ -177,11 +180,10 @@ public class AjoutCategorieController {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
+
+        }
 
     }
-
-}
 
     //TODO **************BOUTON SUPPRIMER cree tableview
     private void boutonsupp() {
@@ -211,9 +213,17 @@ public class AjoutCategorieController {
         CategorieService p = new CategorieService();
         p.supprimer(ev);
 
-        // Actualisez la TableView pour refléter la suppression
         tableview.getItems().remove(ev);
     }
-
+    public boolean controlSaisie (TextField field){
+        if (field.getText().isEmpty() ) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Form not full");
+            alert.setContentText("you must fill all the Form");
+            alert.show();
+            return false;
+        }
+        return true;
+    }
 
 }

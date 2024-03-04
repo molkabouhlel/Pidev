@@ -74,20 +74,27 @@ public class AjoutEquipementController {
 
         CategorieService cs = new CategorieService();
         MaintenanceService ms = new MaintenanceService();
+        if (!estNumerique(quantite_dispo.getText())) {
+     //alerte
+            Alert alerteA = new Alert(Alert.AlertType.ERROR);
+            alerteA.setTitle("EQ ajout");
+            alerteA.setContentText("qt non valide");
+            alerteA.show();}
+
+if (controlSaisie(ref_eq) && controlSaisie(nom_eq) && controlSaisie(description_eq) && controlSaisie(quantite_dispo) && estNumerique(quantite_dispo.getText()) && controlSaisie(image)) {
+    es.ajouter(new Equipement(ref_eq.getText(), nom_eq.getText(), description_eq.getText(), Integer.parseInt(quantite_dispo.getText()), id_espace.getValue(), id_ceq.getValue(), id_m.getValue(), image.getText()));
+    Alert alerte = new Alert(Alert.AlertType.INFORMATION);
+    alerte.setTitle("EQ ajout");
+    alerte.setContentText("EQ bien ajoutee");
+    alerte.show();
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipement.fxml"));
+    Parent root = loader.load();
+    Stage currentStage = (Stage) nom_eq.getScene().getWindow();
+    currentStage.setScene(new Scene(root));
+}
 
 
-        es.ajouter(new Equipement(ref_eq.getText(),nom_eq.getText(),description_eq.getText(),Integer.parseInt( quantite_dispo.getText()),id_espace.getValue(),id_ceq.getValue(),id_m.getValue(),image.getText()) );
-        Alert alerte= new Alert(Alert.AlertType.INFORMATION);
-        alerte.setTitle("EQ ajout");
-        alerte.setContentText("EQ bien ajoutee");
-        alerte.show();
 
-
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipement.fxml"));
-        Parent root = loader.load();
-        Stage currentStage = (Stage) nom_eq.getScene().getWindow();
-        currentStage.setScene(new Scene(root));
 
     }
 
@@ -117,9 +124,8 @@ public class AjoutEquipementController {
     void refresh(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Principale.fxml"));
             Stage newStage = new Stage();
@@ -127,7 +133,6 @@ public class AjoutEquipementController {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
 
 
         }}
@@ -135,9 +140,8 @@ public class AjoutEquipementController {
     void afficher(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipement.fxml"));
             Stage newStage = new Stage();
@@ -145,7 +149,6 @@ public class AjoutEquipementController {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
 
 
         }
@@ -188,6 +191,24 @@ public class AjoutEquipementController {
     }
 
 
+    public boolean controlSaisie (TextField field){
+        if (field.getText().isEmpty() ) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Form not full");
+            alert.setContentText("you must fill all the Form");
+            alert.show();
+            return false;
+        }
+        return true;
+    }
 
-}
+
+        public static boolean estNumerique(String input) {
+
+        return input.matches("\\d+");
+        }
+
+
+    }
+
 

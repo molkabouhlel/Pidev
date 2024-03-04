@@ -103,15 +103,13 @@ public class ModifierEquipementController {
             String im = (image.getText());
             int q=Integer.parseInt(quantite_dispo.getText());
 
-            // Supposons que ref_eq et id_coach sont des ComboBox
             Categorie_eq refEqSelected = id_ceq.getValue();
           //  int idcoachSelected = id_coach.getValue();
 
             int idespSelected = id_espace.getValue();
             Maintenance_eq m =id_m.getValue();
 
-            // Configuration des propriétés de l'objet Rendez_vous
-equipement.setId_eq(id_eqq);
+            equipement.setId_eq(id_eqq);
             equipement.setRef_eq(ref);
             equipement.setNom_eq(nom);
             equipement.setDescription_eq(des);
@@ -121,17 +119,25 @@ equipement.setId_eq(id_eqq);
            // equipement.setId_coach(idcoachSelected);
             equipement.setId_espace(idespSelected);
             equipement.setId_m(m);
-            // Appel à la méthode modifuer du service
-            eq.modifier(equipement);
+/////////////////
+            if (!estNumerique(quantite_dispo.getText())) {
+                //alerte
+                Alert alerteA = new Alert(Alert.AlertType.ERROR);
+                alerteA.setTitle("EQ modif");
+                alerteA.setContentText("qt non valide");
+                alerteA.show();}
 
-            // Affichage d'une alerte de succès
+            //////////
+            if (controlSaisie(ref_eq) && controlSaisie(nom_eq) && controlSaisie(description_eq) && controlSaisie(quantite_dispo) && estNumerique(quantite_dispo.getText()) && controlSaisie(image)) {
+                eq.modifier(equipement);
+            }
+
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("eq modifier");
             alerte.setContentText("eq bien modifier");
             alerte.show();
 
         } catch (NumberFormatException e) {
-            // Gestion d'une exception si la conversion de l'ID échoue
             System.out.println(e.getMessage());
             Alert alerteErreur = new Alert(Alert.AlertType.ERROR);
             alerteErreur.setTitle("Erreur");
@@ -140,7 +146,6 @@ equipement.setId_eq(id_eqq);
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
-            // Gestion d'autres exceptions possibles
             Alert alerteErreur = new Alert(Alert.AlertType.ERROR);
             alerteErreur.setTitle("Erreur");
             alerteErreur.setContentText("Une erreur s'est produite lors de la modification de l'eq.");
@@ -171,34 +176,24 @@ equipement.setId_eq(id_eqq);
     }
     @FXML
     void browse(ActionEvent event) {
-        // Sélectionnez un fichier à partir de la boîte de dialogue
         FileChooser fileChooser = new FileChooser();
 
-        // Ajoutez un filtre pour les fichiers d'image
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 
-        // Définissez le répertoire initial
         fileChooser.setInitialDirectory(new File("C:/Users/Asus/OneDrive/Desktop/crud_entite_1_v1/Pidev/src/main/resources/Image"));
 
-        // Affichez la boîte de dialogue et obtenez le fichier sélectionné
         File file = fileChooser.showOpenDialog(null);
 
         if (file != null) {
             try {
-                // Obtenez le chemin absolu du fichier
                 String imageFile = file.toURI().toURL().toString();
                 imageFile = imageFile.substring(8);
 
-                // Mettez à jour le texte ou l'image comme nécessaire
-                // Par exemple, si vous avez un objet ImageView nommé "imageView" dans votre FXML :
-                // imageView.setImage(new Image(imageFile));
 
-                // Si vous mettez à jour un composant texte (par exemple, un Label ou un Text)
                 image.setText(imageFile);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-                // Gérez l'exception en conséquence (par exemple, affichez un message d'erreur)
             }
         }
     }
@@ -210,9 +205,7 @@ equipement.setId_eq(id_eqq);
     void refresh(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
-
-        // Load and show the new interface
+        currentStage.close();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipement.fxml"));
             Stage newStage = new Stage();
@@ -220,9 +213,21 @@ equipement.setId_eq(id_eqq);
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any}
         }
 
+    }
+    public boolean controlSaisie (TextField field){
+        if (field.getText().isEmpty() ) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Form not full");
+            alert.setContentText("you must fill all the Form");
+            alert.show();
+            return false;
+        }
+        return true;
+    }
+    public static boolean estNumerique(String input) {
+        return input.matches("\\d+");
     }
 }
 

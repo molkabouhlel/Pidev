@@ -20,6 +20,11 @@ public class Categorie_eq {
         this.desc_ceq=desc_ceq;
     }
 
+    public Categorie_eq(int id_ceq, String type_ceq) {
+        this.id_ceq = id_ceq;
+        this.type_ceq = type_ceq;
+    }
+
     public int getId_ceq() {
         return id_ceq;
     }

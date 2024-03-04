@@ -22,7 +22,7 @@
             <TableColumn fx:id="action" prefWidth="75.199951171875" text="Action" />
         </columns>
       </TableView>
-      <TextField fx:id="id_ceq" layoutX="27.0" layoutY="135.0" prefHeight="32.0" prefWidth="158.0" promptText="ID" />
+      <TextField fx:id="id_ceq" layoutX="27.0" layoutY="135.0" opacity="0.1" prefHeight="32.0" prefWidth="158.0" promptText="ID" />
       <Button fx:id="modifierceq" layoutX="139.0" layoutY="315.0" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="99.0" text="Modifier" />
       <AnchorPane prefHeight="97.0" prefWidth="600.0" style="-fx-background-color: #3c79ff;">
          <children>

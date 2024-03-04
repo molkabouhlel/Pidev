@@ -16,9 +16,8 @@ public class PrincipaleController {
     void categorie(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AjoutCategorie.fxml"));
             Stage newStage = new Stage();
@@ -26,7 +25,6 @@ public class PrincipaleController {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
         }
     }
 
@@ -34,9 +32,8 @@ public class PrincipaleController {
     void equipement(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AjoutEquipement.fxml"));
             Stage newStage = new Stage();
@@ -44,7 +41,6 @@ public class PrincipaleController {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
         }
     }
 
@@ -54,7 +50,6 @@ public class PrincipaleController {
         Stage currentStage = (Stage) source.getScene().getWindow();
         currentStage.close(); // Close the current stage
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AjoutMaintenance.fxml"));
             Stage newStage = new Stage();
@@ -62,7 +57,6 @@ public class PrincipaleController {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
         }
     }
 
@@ -70,9 +64,8 @@ public class PrincipaleController {
     void rdv(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
-        currentStage.close(); // Close the current stage
+        currentStage.close();
 
-        // Load and show the new interface
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AjoutRdv.fxml"));
             Stage newStage = new Stage();
@@ -80,7 +73,6 @@ public class PrincipaleController {
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception, if any
         }
     }
 
