@@ -27,12 +27,12 @@
                 <!-- Add more columns for other attributes... -->
             </columns>
         </TableView>
-        <Label layoutX="260.0" layoutY="43.0" text="Liste Des Admins" textFill="#589fd9">
+        <Label layoutX="254.0" layoutY="48.0" text="Liste Des Admins" textFill="#589fd9">
             <font>
                 <Font name="Ebrima Bold" size="32.0" />
             </font>
         </Label>
-          <Button layoutX="589.0" layoutY="73.0" mnemonicParsing="false" onAction="#addAdmin" text="Add Admin" />
-      <Button layoutX="588.0" layoutY="43.0" mnemonicParsing="false" onAction="#statButton" prefHeight="26.0" prefWidth="76.0" text="Statstic" />
+          <Button layoutX="616.0" layoutY="77.0" mnemonicParsing="false" onAction="#addAdmin" text="Add Admin" />
+      <Button layoutX="616.0" layoutY="42.0" mnemonicParsing="false" onAction="#statButton" prefHeight="26.0" prefWidth="76.0" text="Statstic" />
     </children>
 </AnchorPane>

@@ -2,14 +2,13 @@ package controllers;
 
 import com.esprit.Models.User;
 import com.esprit.Services.UserServices;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -25,18 +24,38 @@ public class Login {
     private PasswordField password;
 
     private UserServices userServices;
+    @FXML
+    private ToggleButton togglePasswordBtn;
+    @FXML
+    private Label shownPassword;
 
     public Login() {
 
         this.userServices = new UserServices();
     }
 
+    @FXML
+    private void initialize() {
+        shownPassword.setVisible(false);
 
+    }
+
+    @FXML
+    void togglePasswordVisibility(ActionEvent event) {
+        if(togglePasswordBtn.isSelected()){
+            shownPassword.setVisible(true);
+            shownPassword.textProperty().bind(Bindings.concat(password.getText()));
+            togglePasswordBtn.setText("hide");
+        }
+        else {
+            shownPassword.setVisible(false);
+            togglePasswordBtn.setText("show");
+        }
+    }
     @FXML
     void loginbutton(ActionEvent event) {
         String userEmail = email.getText();
         String userPassword = password.getText();
-
         try {
             if (userServices.login(userEmail, userPassword)) {
                 User loggedInUser = userServices.getUserByEmail(userEmail);
@@ -137,6 +156,8 @@ public class Login {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
     @FXML
     void forget(MouseEvent event) {
         try {
