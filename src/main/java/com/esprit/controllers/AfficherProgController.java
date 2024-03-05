@@ -1,39 +1,34 @@
 package com.esprit.controllers;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
-import javafx.collections.ObservableList;
-import java.io.File;
-import java.io.IOException;
 
-
+import com.esprit.models.Objectif;
+import com.esprit.models.PdfExporter;
+import com.esprit.models.Programme;
+import com.esprit.services.ObjectifServices;
+import com.esprit.services.ProgrammeServices;
 import javafx.collections.FXCollections;
-
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
-import java.util.List;
-
-import com.esprit.models.Programme;
-import com.esprit.services.ProgrammeServices;
-
-import javafx.fxml.Initializable;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AfficherProgController implements Initializable {
@@ -230,26 +225,91 @@ public class AfficherProgController implements Initializable {
                 new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
         File file = fileChooser.showSaveDialog(null);
         if (file != null) {
-            exportToPDF(EspaceObservableList, file);
+            PdfExporter.exportToPDF(EspaceObservableList, file);
         }
 
     }
-    public void exportToPDF(ObservableList<Programme> tableView, File filename){
-        try {
-            PdfWriter writer = new PdfWriter(filename.getAbsolutePath());
-            PdfDocument pdf = new PdfDocument(writer);
-            Document document = new Document(pdf);
+    @FXML
+    public void save1(ActionEvent event) {
+        ProgrammeServices es = new ProgrammeServices();
+        List<Programme> listEspace = es.afficher();
+        ObservableList<Programme> EspaceObservableList = FXCollections.observableArrayList(listEspace);
 
-            for (Programme espace : tableView) {
-                document.add(new Paragraph(espace.toString()));
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            exportToExcel(EspaceObservableList, file);
+        }
+    }
+
+    private void exportToExcel(ObservableList<Programme> data, File file) {
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Data");
+
+            // Create cell styles for header and bold text
+            CellStyle headerStyle = workbook.createCellStyle();
+            Font headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            headerStyle.setFont(headerFont);
+
+            // Create header row
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("ID Programme");
+            headerRow.createCell(1).setCellValue("Nom Programme");
+            headerRow.createCell(2).setCellValue("Description Programme");
+            headerRow.createCell(3).setCellValue("Rate Programme");
+            headerRow.createCell(4).setCellValue("Etat Initial Programme");
+            headerRow.createCell(5).setCellValue("Etat Final Programme");
+            headerRow.createCell(6).setCellValue("Date Début Programme");
+            headerRow.createCell(7).setCellValue("Date Fin Programme");
+            headerRow.createCell(8).setCellValue("ID Utilisateur Programme");
+            headerRow.createCell(9).setCellValue("ID Objectif");
+            headerRow.createCell(10).setCellValue("Description Objectif");
+
+            // Apply header style to header row
+            for (Cell cell : headerRow) {
+                cell.setCellStyle(headerStyle);
             }
 
-            document.close();
-            writer.close();
+            // Populate data rows
+            int rowIndex = 1;
+            for (Programme programme : data) {
+                Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(programme.getID_prog());
+                row.createCell(1).setCellValue(programme.getNom_prog());
+                row.createCell(2).setCellValue(programme.getDesc_prog());
+                row.createCell(3).setCellValue(programme.getRate());
+                row.createCell(4).setCellValue(programme.getEtat_initial());
+                row.createCell(5).setCellValue(programme.getEtat_final());
+                row.createCell(6).setCellValue(programme.getDate_debut().toString());
+                row.createCell(7).setCellValue(programme.getDate_fin().toString());
+                row.createCell(8).setCellValue(programme.getID_user());
+
+                // Add Objectifs for the Programme
+                ObjectifServices obj = new ObjectifServices();
+                List<Objectif> allobject = obj.RecupererListObj(programme.getID_prog());
+                for (Objectif objectif : allobject) {
+                    Row objectifRow = sheet.createRow(rowIndex++);
+                    objectifRow.createCell(9).setCellValue(objectif.getID_obj());
+                    objectifRow.createCell(10).setCellValue(objectif.getDescription_obj());
+                }
+            }
+
+            // Write the workbook to the file
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                workbook.write(fos);
+                System.out.println("Data exported to Excel successfully.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
+
+
 
     @FXML
     void RedirectToMenu(ActionEvent event) throws IOException {

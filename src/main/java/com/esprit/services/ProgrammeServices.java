@@ -64,7 +64,7 @@ public class ProgrammeServices implements IService<Programme> {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next())
-                P.add(new Programme(rs.getString("nom_prog"),rs.getString("description"), rs.getFloat("rate"), rs.getString("etat_initial"), rs.getString("etat_final"), rs.getDate("date_debut"), rs.getDate("date_fin"), rs.getInt("ID_user")));
+                P.add(new Programme(rs.getInt("ID_prog"),rs.getString("nom_prog"),rs.getString("description"), rs.getFloat("rate"), rs.getString("etat_initial"), rs.getString("etat_final"), rs.getDate("date_debut"), rs.getDate("date_fin"), rs.getInt("ID_user")));
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -112,4 +112,18 @@ public class ProgrammeServices implements IService<Programme> {
         return L;
     }
 
+
+
+
+    public void mettreAJourProgramme(Programme programme) {
+        String requete = "UPDATE programme SET rate = ? WHERE ID_prog = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(requete)) {
+            preparedStatement.setFloat(1, programme.getRate());
+            preparedStatement.setInt(2, programme.getID_prog());
+            preparedStatement.executeUpdate();
+            System.out.println("Programme mis à jour avec succès dans la base de données.");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour du programme dans la base de données : " + e.getMessage());
+        }
+    }
 }
