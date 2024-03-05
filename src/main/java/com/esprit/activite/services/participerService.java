@@ -21,7 +21,7 @@ public class participerService implements Iservice<Participer> {
         }
         @Override
         public void ajouter(Participer c) {
-            String req = "INSERT into participant (idcours,nomCours,nom, prenom, email) values ('" + c.getIdcours().getId() + "', '"+ c.getNomCours()+"', '" + c.getNom() + "','" + c.getPrenom() + "', '" + c.getEmail() + "');";
+            String req = "INSERT into participant (idcours,nomCours,nom, prenom, email ,numT) values ('" + c.getIdcours().getId() + "', '"+ c.getNomCours()+"', '" + c.getNom() + "','" + c.getPrenom() + "', '" + c.getEmail() + "', '"+c.getNumT()+"');";
             try {
                 Statement st = connection.createStatement();
                 st.executeUpdate(req);
@@ -161,7 +161,8 @@ public class participerService implements Iservice<Participer> {
                         rs.getString("nomCours"),  // Ne pas inclure l'objet Cours
                         rs.getString("nom"),
                         rs.getString("prenom"),
-                        rs.getString("email")
+                        rs.getString("email"),
+                        rs.getInt("numT")
                 ));
             }
 
