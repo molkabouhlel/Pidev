@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.esprit.activite.modeles.Evenement;
 import com.esprit.activite.modeles.type_ev;
@@ -33,7 +35,9 @@ public class Catevent {
 
     @FXML
     private TextField catev;
-
+    @FXML
+    private ChoiceBox<String> choice;
+    private ObservableList<type_ev> observableList1 = FXCollections.observableArrayList();
     @FXML
     private TableColumn<type_ev, String> catevent;
 
@@ -144,6 +148,7 @@ public class Catevent {
         type_evService c = new type_evService();
         List<type_ev> cat = c.afficher();
         ObservableList<type_ev> observableList = FXCollections.observableList(cat);
+        observableList1 = FXCollections.observableList(cat);
         viewevent.setItems(observableList);
        // id_event.setCellValueFactory(new PropertyValueFactory<>("id_typeev"));
         catevent.setCellValueFactory(new PropertyValueFactory<>("type_ev"));
@@ -173,10 +178,32 @@ public class Catevent {
             s.setType_ev(event.getNewValue());
             ss.modifier(s);
         });
+        //search
         recherche.textProperty().addListener((observable, oldValue, newValue) -> {
             // Call a method to handle real-time search
             handleSearch(newValue);
         });
+
+        //filtre
+        ObservableList<String> categories = getCategorieList();
+        choice.setItems(categories);
+        choice.setValue(null);
+
+        choice.setOnAction(event -> {
+            String selectedCategorie = choice.getValue();
+            if (selectedCategorie == null) {
+                viewevent.setItems(observableList);
+            } else {
+                ObservableList<type_ev> filteredList = observableList.filtered(cc -> cc.getType_ev().equals(selectedCategorie));
+                viewevent.setItems(filteredList);
+            }
+        });
+    }
+    private ObservableList<String> getCategorieList() {
+        Set<String> categorieSet = observableList1.stream()
+                .map(type_ev -> type_ev.getType_ev())
+                .collect(Collectors.toSet());
+        return FXCollections.observableArrayList(categorieSet);
     }
     private void setupActionColumn() {
         action.setCellFactory(col -> new TableCell<type_ev, Void>() {

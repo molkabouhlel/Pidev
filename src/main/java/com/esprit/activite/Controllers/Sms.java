@@ -14,7 +14,7 @@ public class Sms {
 
     // Remplacez ces valeurs par les informations de votre compte Twilio
     private static final String ACCOUNT_SID = "ACa3f28d6690879f251648777668908995";
-    private static final String AUTH_TOKEN = "9bceef077a57ab4902a4675e4b6d330d";
+    private static final String AUTH_TOKEN = "8aa630d189241f55e7c7a4dcb3e6c290";
     private static final String TWILIO_PHONE_NUMBER = "+15134481071";
     private static final String VOTRE_NUMERO = "+21655020753";
 

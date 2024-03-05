@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import com.esprit.activite.modeles.*;
 import com.esprit.activite.services.CoursService;
@@ -16,6 +16,8 @@ import com.esprit.activite.services.EvenementService;
 import com.esprit.activite.services.participerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,11 +72,15 @@ public class Afficherevent {
 
     @FXML
     private TableView<Evenement> viewev;
+    @FXML
+    private ChoiceBox<String> choice;
     private int idevselected;
     //stat
     @FXML
     private PieChart pieChart;
-
+    @FXML
+    private ComboBox<String> trie;
+    private ObservableList<Evenement> observableList1 = FXCollections.observableArrayList();
 
     @FXML
     void modifaffich(ActionEvent event) throws IOException {
@@ -95,7 +101,7 @@ public class Afficherevent {
     void retourner(ActionEvent event) {
 
 
-Node source = (Node) event.getSource();
+        Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
         currentStage.close();
         try {
@@ -111,7 +117,7 @@ Node source = (Node) event.getSource();
 
     @FXML
     void supp(ActionEvent event) {
-        EvenementService c=new EvenementService();
+        EvenementService c = new EvenementService();
 
 
         int selectedID = viewev.getSelectionModel().getSelectedIndex();
@@ -126,7 +132,7 @@ Node source = (Node) event.getSource();
             viewev.getItems().remove(selectedID);
         } else {
 
-            Alert alerte= new Alert(Alert.AlertType.INFORMATION);
+            Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("erreur");
             alerte.setContentText("cours nest pas selectioner");
             alerte.show();
@@ -136,9 +142,15 @@ Node source = (Node) event.getSource();
 
     @FXML
     void initialize() {
+        List<String> sortTypes = new ArrayList<>();
+        sortTypes.add("date_debut");
+        sortTypes.add("nom_ev");
+        trie.getItems().addAll(sortTypes);
+
         EvenementService c = new EvenementService();
         List<Evenement> EV = c.afficher();
         ObservableList<Evenement> observableList = FXCollections.observableList(EV);
+        observableList1 = FXCollections.observableList(EV);
         viewev.setItems(observableList);
         evnom.setCellValueFactory(new PropertyValueFactory<>("nom_ev"));
         deseven.setCellValueFactory(new PropertyValueFactory<>("description_ev"));
@@ -153,7 +165,9 @@ Node source = (Node) event.getSource();
         //
 
         imageurl.setCellFactory(column -> {
-            return new TableCell<Evenement, String>() { private final ImageView imageView = new ImageView();
+            return new TableCell<Evenement, String>() {
+                private final ImageView imageView = new ImageView();
+
                 {
 
                     imageView.setFitWidth(60);
@@ -210,13 +224,35 @@ Node source = (Node) event.getSource();
             s.setDescription_ev(event.getNewValue());
             ss.modifier(s);
         });
-
+//recherche
         recherche.textProperty().addListener((observable, oldValue, newValue) -> {
             // Call a method to handle real-time search
             handleSearch(newValue);
         });
+///filtre
+        //filtre
+        ObservableList<String> categories = getCategorieList();
+        choice.setItems(categories);
+        choice.setValue(null);
 
+        choice.setOnAction(event -> {
+            String selectedCategorie = choice.getValue();
+            if (selectedCategorie == null) {
+                viewev.setItems(observableList);
+            } else {
+                ObservableList<Evenement> filteredList = observableList.filtered(cc -> cc.getId_type_ev().getType_ev().equals(selectedCategorie));
+                viewev.setItems(filteredList);
+            }
+        });
     }
+
+    private ObservableList<String> getCategorieList() {
+        Set<String> categorieSet = observableList1.stream()
+                .map(evenement -> evenement.getId_type_ev().getType_ev())
+                .collect(Collectors.toSet());
+        return FXCollections.observableArrayList(categorieSet);
+    }
+
     private void SUPP() {
         action.setCellFactory(col -> new TableCell<Evenement, Void>() {
             private final Button participerButton = new Button("supprimer");
@@ -240,6 +276,7 @@ Node source = (Node) event.getSource();
             }
         });
     }
+
     private void supprimer(Evenement ev) {
         EvenementService p = new EvenementService();
         p.supprimer(ev);
@@ -252,7 +289,7 @@ Node source = (Node) event.getSource();
     private void modif() {
         viewev.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-              //  Cours selectedItem = viewev.getSelectionModel().getSelectedItem();
+                //  Cours selectedItem = viewev.getSelectionModel().getSelectedItem();
                 try {
                     afficherFormulaireModification();
                 } catch (IOException e) {
@@ -262,6 +299,7 @@ Node source = (Node) event.getSource();
         });
 
     }
+
     private void afficherFormulaireModification() throws IOException {
         if (idevselected != -1) {
             EvenementService es = new EvenementService();
@@ -275,6 +313,7 @@ Node source = (Node) event.getSource();
         }
 
     }
+
     @FXML
     void addev(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/addevent.fxml"));
@@ -292,6 +331,7 @@ Node source = (Node) event.getSource();
         newStage.setScene(new Scene(root));
         newStage.show();
     }
+
     //petit prob de retour
     private void handleSearch(String searchText) {
         // Create a filtered list based on the search text
@@ -302,6 +342,29 @@ Node source = (Node) event.getSource();
         // Update the TableView with the filtered list
         viewev.setItems(filteredList);
     }
+
+    @FXML
+    void trier(ActionEvent event) {
+        FilteredList<Evenement> filteredData = new FilteredList<>(viewev.getItems());
+
+        SortedList<Evenement> sortedData = new SortedList<>(filteredData);
+        // Trié par date par défaut
+        Comparator<Evenement> dateComparator = Comparator.comparing(Evenement::getDate_debut).reversed();
+        // Trié par nom
+        Comparator<Evenement> nomComparator = Comparator.comparing(Evenement::getNom_ev, String.CASE_INSENSITIVE_ORDER);
+
+        sortedData.comparatorProperty().bind(trie.getSelectionModel().selectedItemProperty().asString().map(s -> {
+            if (s.equals("nom_ev")) {
+                return nomComparator;
+            } else if (s.equals("date_debut")) {
+                return dateComparator;
+            }
+            return null; // Ajustez cela selon vos besoins
+        }));
+
+        viewev.setItems(sortedData);
+    }
+
 }
 
 

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.esprit.activite.modeles.Evenement;
 import com.esprit.activite.modeles.Participer;
@@ -31,7 +33,9 @@ public class Categories {
 
     @FXML
     private URL location;
-
+    @FXML
+    private ChoiceBox<String> choice;
+    private ObservableList<typec> observableList1 = FXCollections.observableArrayList();
     @FXML
     private TextField idcatec;
     @FXML
@@ -39,6 +43,7 @@ public class Categories {
 
    // @FXML
    // private TableColumn<?, ?> idtypec;
+
 
     @FXML
     private TableView<typec> tableview;
@@ -147,6 +152,8 @@ public class Categories {
         TypecService c = new TypecService();
         List<typec> cat = c.afficher();
         ObservableList<typec> observableList = FXCollections.observableList(cat);
+        observableList1 = FXCollections.observableList(cat);
+
         tableview.setItems(observableList);
        // idtypec.setCellValueFactory(new PropertyValueFactory<>("idtypec"));
         typecours.setCellValueFactory(new PropertyValueFactory<>("typecours"));
@@ -183,6 +190,26 @@ public class Categories {
             handleSearch(newValue);
         });
 
+        //filtre
+        ObservableList<String> categories = getCategorieList();
+        choice.setItems(categories);
+        choice.setValue(null);
+
+        choice.setOnAction(event -> {
+            String selectedCategorie = choice.getValue();
+            if (selectedCategorie == null) {
+                tableview.setItems(observableList);
+            } else {
+                ObservableList<typec> filteredList = observableList.filtered(cc -> cc.getTypecours().equals(selectedCategorie));
+                tableview.setItems(filteredList);
+            }
+        });
+    }
+    private ObservableList<String> getCategorieList() {
+        Set<String> categorieSet = observableList1.stream()
+                .map(typec -> typec.getTypecours())
+                .collect(Collectors.toSet());
+        return FXCollections.observableArrayList(categorieSet);
     }
     private void setupActionColumn() {
         action.setCellFactory(col -> new TableCell<typec, Void>() {

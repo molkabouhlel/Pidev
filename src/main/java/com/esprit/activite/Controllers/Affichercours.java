@@ -1,12 +1,10 @@
 package com.esprit.activite.Controllers;
 
 import com.esprit.activite.modeles.Cours;
-import com.esprit.activite.modeles.Participer;
-import com.esprit.activite.modeles.typec;
+
 import com.esprit.activite.services.CoursService;
 import com.esprit.activite.services.EvenementService;
-import com.esprit.activite.services.participerService;
-import javafx.beans.Observable;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,21 +19,20 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import javafx.util.converter.LocalTimeStringConverter;
-import javafx.util.converter.TimeStringConverter;
+
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
+
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -70,7 +67,10 @@ public class Affichercours {
     @FXML
     private TextField recherche;
     @FXML
+    private ChoiceBox<String> valcat;
+    @FXML
     private PieChart pieChart;
+   private ObservableList<Cours> observableList1 = FXCollections.observableArrayList();
     @FXML
     void returnlist(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -92,7 +92,8 @@ public class Affichercours {
     void initialize() {
         CoursService c = new CoursService();
         List<Cours> cours = c.afficher();
-        ObservableList<Cours> observableList = FXCollections.observableList(cours);
+       ObservableList<Cours> observableList = FXCollections.observableList(cours);
+       observableList1 = FXCollections.observableList(cours);
         tableview.setItems(observableList);
         nomc.setCellValueFactory(new PropertyValueFactory<>("nom"));
         desc.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -168,7 +169,30 @@ public class Affichercours {
             // Call a method to handle real-time search
             handleSearch(newValue);
         });
+        //filtre
+        ObservableList<String> categories = getCategorieList();
+        valcat.setItems(categories);
+        valcat.setValue(null);
+
+        valcat.setOnAction(event -> {
+            String selectedCategorie = valcat.getValue();
+            if (selectedCategorie == null) {
+                tableview.setItems(observableList);
+            } else {
+                ObservableList<Cours> filteredList = observableList.filtered(cc -> cc.getId_typec().getTypecours().equals(selectedCategorie));
+                tableview.setItems(filteredList);
+            }
+        });
+
     }
+    private ObservableList<String> getCategorieList() {
+        Set<String> categorieSet = observableList1.stream()
+                .map(cours -> cours.getId_typec().getTypecours())
+                .collect(Collectors.toSet());
+        return FXCollections.observableArrayList(categorieSet);
+    }
+
+
     @FXML
     void modifiercours(ActionEvent event) throws IOException {
         if (idcoursselected != -1) {
@@ -322,8 +346,7 @@ public class Affichercours {
     private void handleSearch(String searchText) {
         // Create a filtered list based on the search text
         ObservableList<Cours> filteredList = tableview.getItems().filtered(cours ->
-                cours.getNom().toLowerCase().contains(searchText.toLowerCase()) ||
-                        cours.getDescription().toLowerCase().contains(searchText.toLowerCase()));
+                cours.getNom().toLowerCase().contains(searchText.toLowerCase()));
 
         // Update the TableView with the filtered list
         tableview.setItems(filteredList);
