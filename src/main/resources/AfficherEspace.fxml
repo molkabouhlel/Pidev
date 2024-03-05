@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +14,7 @@
 
 <AnchorPane prefHeight="426.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AfficherEspaceController">
    <children>
-      <TableView fx:id="Espace_TableView" layoutX="22.0" layoutY="72.0" prefHeight="294.0" prefWidth="650.0">
+      <TableView fx:id="Espace_TableView" layoutX="22.0" layoutY="83.0" prefHeight="294.0" prefWidth="650.0">
         <columns>
 
           <TableColumn fx:id="nom_espace" prefWidth="92.80001831054688" text="Nom">
@@ -48,7 +50,7 @@
 
         </columns>
       </TableView>
-      <Button fx:id="AjoutEspace" layoutX="57.0" layoutY="373.0" mnemonicParsing="false" onAction="#redirecttoAjoutForm" text="ADD" />
+      <Button fx:id="AjoutEspace" layoutX="48.0" layoutY="382.0" mnemonicParsing="false" onAction="#redirecttoAjoutForm" text="ADD" />
       <ImageView fitHeight="52.0" fitWidth="700.0" layoutX="-12.0" layoutY="-3.0" pickOnBounds="true">
          <image>
             <Image url="@../../Image/logo.png" />
@@ -65,6 +67,8 @@
          </image>
       </ImageView>
       <Button fx:id="retour" layoutX="604.0" layoutY="-5.0" mnemonicParsing="false" onAction="#RedirectToMenu" opacity="0.0" prefHeight="56.0" prefWidth="83.0" />
-       <Button fx:id="" layoutX="588.0" layoutY="373.0" mnemonicParsing="false" onAction="#save" opacity="1" prefHeight="26.0" prefWidth="68.0" text="Save PDF" />
+       <Button fx:id="" layoutX="588.0" layoutY="389.0" mnemonicParsing="false" onAction="#save" opacity="1" prefHeight="26.0" prefWidth="68.0" text="Save PDF" />
+      <TextField fx:id="Recherche" layoutX="514.0" layoutY="51.0" promptText="recherche" />
+      <ComboBox fx:id="trie" layoutX="407.0" layoutY="51.0" onAction="#Trier" prefHeight="26.0" prefWidth="90.0" />
    </children>
 </AnchorPane>

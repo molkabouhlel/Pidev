@@ -149,16 +149,6 @@ public class AffichageClubFrontController {
                 });
             }
 
-            Button participer = (Button) Vbox.getChildren().stream()
-                    .filter(node -> node instanceof Button && "participer".equals(((Button) node).getId()))
-                    .findFirst()
-                    .orElse(null);
-            if (participer != null) {
-                participer.setOnAction(event -> {
-                    Id_Club_Selected = club.getId_club();
-                    //Participer();
-                });
-            }
             flowPane.getChildren().add(Vbox);
         }
         originalNodes.addAll(flowPane.getChildren());
@@ -202,8 +192,6 @@ public class AffichageClubFrontController {
         separator1.setPrefWidth(120);
         Separator separator2 = new Separator(Orientation.HORIZONTAL);
         separator2.setPrefWidth(120);
-        Separator separator3 = new Separator(Orientation.HORIZONTAL);
-        separator3.setPrefWidth(120);
 
         Label nom_club = new Label( C.getNom_club());
         nom_club.setAlignment(Pos.CENTER);
@@ -219,23 +207,14 @@ public class AffichageClubFrontController {
         Details.setStyle("-fx-content-display: LEFT;");
 
 
-        Button Participer = new Button("Participer");
-        Participer.setId("participer");
-        Participer.setPrefWidth(150);
-        Participer.setStyle("-fx-content-display: LEFT;");
-        //Delete.setOnAction(this::Delete);ew
-
         Label label3 = new Label(String.valueOf(C.getTemp_ouverture()));
 
         // Ajoute l'ImageView et le bouton "Détails" à la VBox
-        Vbox.getChildren().addAll(nom_club,separator1,imageView,separator2,label2,label3,Details,separator3,Participer);
+        Vbox.getChildren().addAll(nom_club,separator1,imageView,separator2,label2,label3,Details);
 
         return Vbox;
     }
 
-    private void Participer() {
-
-    }
 
     private void showDetails() {
         timeline.stop();

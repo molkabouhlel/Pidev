@@ -75,6 +75,7 @@ public class ListCoursService {
     }
 
 
+
     public ListCours rechercheListeCours(int id) {
         ListCours L = null;
         String req = "SELECT * FROM liste_cours WHERE id = " + id;
@@ -118,7 +119,6 @@ public class ListCoursService {
             System.out.println(e.getMessage());
         }
         return L;
-
     }
 
 

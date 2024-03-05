@@ -269,7 +269,7 @@ public class AffichageClubController {
             try {
                 Parent root = loader.load();
                 ListeCoursController LCC = loader.getController();
-                LCC.initClub(clubSelected);
+                //LCC.initClub(clubSelected);
                 LCC.initialize(clubSelected);
                 Stage currentStage = (Stage) flowPane.getScene().getWindow();
                 currentStage.setScene(new Scene(root));
@@ -298,10 +298,8 @@ public class AffichageClubController {
 
     @FXML
     void Trier() {
-        // Assuming your flowPane contains Club objects
         ObservableList<Node> children = flowPane.getChildren();
 
-        // Assuming cbSort is a ComboBox<String> containing sorting options
         Comparator<Club> comparator = null;
 
         if ("nom".equals(Trie.getValue())) {

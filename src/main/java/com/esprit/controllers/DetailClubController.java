@@ -21,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -32,69 +33,54 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.Time;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
+
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 public class DetailClubController {
 
 
-
-    @FXML
-    private ComboBox<String> Espace;
-    @FXML
-    private TextField adresse_club;
-
-    @FXML
-    private TextArea description_club;
-
-    @FXML
-    private TextField id_club;
-
-    @FXML
-    private TextField image_club;
-
-    @FXML
-    private TextField nom_club;
-
-    @FXML
-    private TextField temp_ouverture;
-
     @FXML
     private ImageView imageClub;
 
+    @FXML
+    private Label adresse_club;
+
+
+    @FXML
+    private Label description_club;
+
+    @FXML
+    private Label espace_club;
+
+    @FXML
+    private Label heure_ouverture;
+
+    @FXML
+    private Label nom_club;
+
 
 ///////////////////////////////////////////////////////////////////////////
+@FXML
+private TextField user_mail;
 
     @FXML
-    private Button Ajout_ListeCours;
+    private TextField user_nom;
 
     @FXML
-    private TextField Club;
+    private TextField user_prenom;
+
+    private String captcha;
 
     @FXML
-    private Button DeleteListeCours;
-
+    private Canvas captchaCanvas;
     @FXML
-    private TableView<ListCours> ListeCourd_TableView;
+    private TextField captchaTextfield;
 
-    @FXML
-    private Button ModifyListeCours;
 
-    @FXML
-    private TableColumn<ListCours, Integer> cours;
-
-    @FXML
-    private TableColumn<ListCours, Integer> id_liste;
-    @FXML
-    private TableColumn<ListCours, String> Clubcolonne;
-
-    @FXML
-    private TextField id_ListeCours;
-
-    @FXML
-    private ComboBox<Integer> id_cours;
-
-    private int  List_Selected;
-    private int Club_selected;
+    private int Id_Club_Selected;
     private ListCours ListCoursToModifier;
 
     private Club ClubToModifier;
@@ -105,22 +91,27 @@ public class DetailClubController {
 
 
         ClubToModifier = C;
-        //id_club.setText(String.valueOf(C.getId_club()));
-        nom_club.setText(C.getNom_club());
-        adresse_club.setText(C.getAdresse_club());
-        description_club.setText(C.getDescription_club());
-        image_club.setText(C.getImage_club());
-        temp_ouverture.setText(String.valueOf(C.getTemp_ouverture()));
-        Espace.setValue(C.getEspace().getNom_espace());
+        nom_club.setStyle("-fx-font-family: 'Montserrat';");
+        adresse_club.setStyle("-fx-font-family: 'Montserrat';");
+        description_club.setStyle("-fx-font-family: 'Montserrat';");
+        heure_ouverture.setStyle("-fx-font-family: 'Montserrat';");
+        espace_club.setStyle("-fx-font-family: 'Montserrat';");
 
-        String imageUrl = image_club.getText();
+
+        nom_club.setText("Name:              "+C.getNom_club());
+        adresse_club.setText("address:            "+C.getAdresse_club());
+        description_club.setText("description:      "+C.getDescription_club());
+        heure_ouverture.setText("Time-Open:     "+String.valueOf(C.getTemp_ouverture()));
+        espace_club.setText("Space:               "+C.getEspace().getNom_espace());
+
+        String imageUrl = C.getImage_club();
         System.out.println(imageUrl);
 
         Image image = new Image(new File(imageUrl).toURI().toString());
         imageClub.setImage(image);
         imageClub.setStyle("-fx-border-color: black; -fx-border-width: 5px;");
 
-        Club_selected=C.getId_club();
+        Id_Club_Selected=C.getId_club();
     }
 
 
@@ -128,96 +119,93 @@ public class DetailClubController {
         EspaceService es = new EspaceService();
         ///////////////////////////CONTROLE SAISIE//////////////////////////
         //controle saisie text
-        nom_club.textProperty().addListener((observable, oldValue, newValue) -> {
+       /* nom_club.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches(".*\\d.*")) {
                 nom_club.setText(oldValue);
             }
-        });
-        nom_club.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().length() <= 15) {
-                return change;
-            }
-            return null;
-        }));
+        });*/
+        generateCaptcha();
+        drawCaptcha();
+    }
 
-        adresse_club.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.matches(".*\\d.*")) {
-                adresse_club.setText(oldValue);
-            }
-        });
-        adresse_club.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().length() <= 15) {
-                return change;
-            }
-            return null;
-        }));
-
-        description_club.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.matches(".*\\d.*")) {
-                adresse_club.setText(oldValue);
-            }
-        });
-
-        //controle saisie Time
-        temp_ouverture.setPromptText("hh:mm:ss");
-        temp_ouverture.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d{0,2}(:\\d{0,2}(:\\d{0,2})?)?")) {
-                temp_ouverture.setText(oldValue);
-            }
-        });
-
-        Espace.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                String e = Espace.getValue();
-                Espace E = es.rechercheEspacenom(e);
-                temp_ouverture.setText(String.valueOf(E.getHeure_debut()));
-                temp_ouverture.setEditable(false);
-            }
-        });
-
-
-        //////////////////////////////////////////////////////////////////////////////
-        ClubToModifier = C;
-        ClubService cs = new ClubService();
+    @FXML
+    void refresh(ActionEvent event) {
+        generateCaptcha();
+        drawCaptcha();
     }
 
 
 
+    private void generateCaptcha() {
+        captcha = generateRandomString(6); // Change 6 to the desired length
+    }
 
+    private void drawCaptcha() {
+        GraphicsContext gc = captchaCanvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, captchaCanvas.getWidth(), captchaCanvas.getHeight());
+        gc.setFont(Font.font("Arial", 20));
+        gc.setStroke(javafx.scene.paint.Color.BLACK);
+        gc.setLineWidth(2.0);
+
+        Random random = new Random();
+        for (int i = 0; i < captcha.length(); i++) {
+            gc.save();
+            gc.translate(30 * i + 10, 30);
+            gc.rotate(random.nextInt(20) - 10);
+            gc.strokeText(String.valueOf(captcha.charAt(i)), 0, 0);
+            gc.restore();
+        }
+        gc.beginPath();
+        gc.moveTo(0, 25);
+        for (int i = 0; i < captcha.length() * 30; i += 5)
+            gc.lineTo(i, 25 + (random.nextInt(6) - 3));
+        gc.stroke();
+    }
+
+    private String generateRandomString(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            int index = (int) (Math.random() * chars.length());
+            sb.append(chars.charAt(index));
+        }
+        return sb.toString();
+    }
 
 
     @FXML
-    void Browse(ActionEvent event) {
-        // select a file from the dialog box
-        FileChooser fileChooser = new FileChooser();
-        // image file extensions
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files",
-                        "*.png", "*.jpg", "*.gif"));
-        File selectedFile = fileChooser.showOpenDialog(null);
-        String xamppHtdocsPath = "C:/xampp/htdocs/Image/";
-
-        File destinationFile = new File(xamppHtdocsPath + selectedFile.getName());
-        try {
-            // Copy the selected file to the htdocs directory
-            Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("File copied successfully to: " + destinationFile.getAbsolutePath());
-        } catch (IOException e) {
-            System.out.println("Error copying file: " + e.getMessage());
+    private void check() {
+        String userInput = captchaTextfield.getText();
+        if (userInput.equals(captcha)) {
+            System.out.println("CAPTCHA matched!");
+            // You can add further actions here, like enabling a submit button
+        } else {
+            System.out.println("CAPTCHA did not match!");
+            // You can add further actions here, like displaying an error message
         }
+    }
 
-        if (destinationFile != null) {
-            String imageFile = destinationFile.toURI().toString();
-            imageFile = imageFile.substring(8);
-            image_club.setText(imageFile);
+
+    @FXML
+    void RedicrectionListeCours(ActionEvent event) throws IOException {
+        Id_Club_Selected=ClubToModifier.getId_club();
+        System.out.println("Navigating to List Cour Club ID"+Id_Club_Selected);
+        if (Id_Club_Selected != -1) {
+            ClubService cs = new ClubService();
+            Club clubSelected = cs.rechercheClub(Id_Club_Selected);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeCoursFront.fxml"));
+            try {
+                Parent root = loader.load();
+                ListeCoursFrontController LCFC = loader.getController();
+               // LCFC.initClub(clubSelected);
+                LCFC.initialize(clubSelected);
+                Stage currentStage = (Stage) imageClub.getScene().getWindow();
+                currentStage.setScene(new Scene(root));
+                System.out.println("Navigating to ListeCours.fxml");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        String imageUrl = image_club.getText();
-        System.out.println(imageUrl);
-
-        Image image = new Image(new File(imageUrl).toURI().toString());
-        imageClub.setImage(image);
-        imageClub.setStyle("-fx-border-color: black; -fx-border-width: 5px;");
-
     }
 
 
@@ -228,9 +216,10 @@ public class DetailClubController {
         Parent root = loader.load();
         Stage currentStage = (Stage) imageClub.getScene().getWindow();
         currentStage.setScene(new Scene(root));
-
-
     }
+
+
+
 }
 
 

@@ -13,7 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -60,6 +59,9 @@ public class AjoutClubController  implements Initializable {
     private Espace espace;
 
 
+    @FXML
+    private Label timeLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //HEDHI COMBOBOX BL LES ATTRIBUT ESPACE LKOL
@@ -76,6 +78,8 @@ public class AjoutClubController  implements Initializable {
         timePicker.valueProperty().addListener((obs, oldVal, newVal) -> {
             System.out.println("Selected time: " + newVal);
         });*/
+
+
 
 
 ////////////////////////////////////////CONTROLE SAISIE///////////////////////////////////////////
@@ -186,6 +190,8 @@ public class AjoutClubController  implements Initializable {
         currentStage.setScene(new Scene(root));
 
     }
+
+
 
 }
 
