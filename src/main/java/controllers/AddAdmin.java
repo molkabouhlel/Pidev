@@ -33,8 +33,7 @@ import java.util.ResourceBundle;
 
 public class AddAdmin implements Initializable {
 
-    @FXML
-    private Pane panecaptcha;
+
     @FXML
     private TextField FN;
 
@@ -49,8 +48,6 @@ public class AddAdmin implements Initializable {
     @FXML
     private TextField TTF;
 
-    @FXML
-    private Button add;
 
     @FXML
     private TextField confirm;
@@ -90,7 +87,7 @@ public class AddAdmin implements Initializable {
 
                 String email = mail.getText();
                 String password = hashPassword(mdp.getText());
-                String confirmPassword = confirm.getText();  // New line to get confirm password
+                String confirmPassword = hashPassword(confirm.getText());  // New line to get confirm password
                 String firstName = FN.getText();
                 String lastName = LN.getText();
                 String phoneText = TTF.getText();
@@ -114,10 +111,10 @@ public class AddAdmin implements Initializable {
                 }
 
                 // Validate password confirmation
-                /*if (!password.equals(confirmPassword)) {
+                if (!password.equals(confirmPassword)) {
                     showAlert(AlertType.ERROR, "Password Mismatch", "Password and confirm password do not match.");
                     return; // Stop processing if passwords do not match
-                }*/
+                }
                 // Validate first name contains only alphabetic characters
                 if (!isValidName(firstName)) {
                     showAlert(AlertType.ERROR, "Input Error", "Invalid first name. Please enter only alphabetic characters.");
