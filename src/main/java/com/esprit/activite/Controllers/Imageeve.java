@@ -2,8 +2,10 @@ package com.esprit.activite.Controllers;
 
 import com.esprit.activite.modeles.Cours;
 import com.esprit.activite.modeles.Evenement;
+import com.esprit.activite.modeles.typec;
 import com.esprit.activite.services.CoursService;
 import com.esprit.activite.services.EvenementService;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,12 +37,13 @@ public class Imageeve {
     private TextField search;
     @FXML
     private ComboBox<String> trie;
-    private int likes = 0;
-    private int dislikes = 0;
-    private long lastClickTime = 0;
+    @FXML
+    private ChoiceBox<String> choice;
+
     @FXML
     private FlowPane flowPane;
     private List<Node> originalNodes = new ArrayList<>();
+
 
     public void initialize() {
         trie.setValue("nom");
@@ -67,6 +70,19 @@ public class Imageeve {
                 flowPane.getChildren().setAll(originalNodes);
             }
         });
+        //filtre
+        List<String> types = evenementliste.stream()
+                .map(evenement -> evenement.getId_type_ev().getType_ev())
+                .distinct()
+                .collect(Collectors.toList());
+        choice.getItems().addAll(types);
+
+        // Ajouter un écouteur pour la ChoiceBox
+        choice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                filterByType(newValue);
+            }
+        });
     }
 
     private VBox createImageWithButtonVBox(Evenement evenement) {
@@ -90,6 +106,10 @@ public class Imageeve {
         Separator separator4 = new Separator(Orientation.HORIZONTAL);
         separator2.setPrefWidth(120);
         Label nomev = new Label(evenement.getNom_ev());
+        // Bouton "Plus de détails"
+        Button detailsButton = new Button("Plus de détails");
+        detailsButton.setOnAction(event -> showDetails(evenement));
+        detailsButton.setStyle("-fx-background-radius: 15");
         //style
         nomev.setAlignment(Pos.CENTER);
         //stackpane
@@ -99,59 +119,13 @@ public class Imageeve {
         Label label2 = new Label("Description: " + evenement.getDescription_ev());
 
 
-
-        Button like = new Button("like");
-        like.setOnAction(e -> likeaction(e, vBox));
-
-        Button dislike = new Button("dislike");
-        dislike.setOnAction(e -> dislikeaction(e, vBox));
-        HBox likeDislikeBox = new HBox(10, like, dislike);
-        Label likesDislikesLabel = new Label("");
-//style
-
-        like.setStyle("-fx-content-display: CENTER;");
-        like.setStyle("-fx-background-radius: 12; -fx-background-color: pink;");
-
-        dislike.setStyle("-fx-content-display: CENTER;");
-        dislike.setStyle("-fx-background-radius: 15;-fx-background-color: #87CEEB;");
-
-        //style
-
         // Ajoute l'ImageView et le bouton
-        vBox.getChildren().addAll(labelPane, separator1, imageView, separator2, label2,separator3,likeDislikeBox,separator4, likesDislikesLabel);
+        vBox.getChildren().addAll(labelPane, separator1, imageView, separator2, label2,separator3,detailsButton);
 
         return vBox;
 
     }
 
-    private void dislikeaction(ActionEvent e, VBox vBox) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastClickTime < 1000) {
-            if (dislikes > 0)
-                dislikes--;
-            else
-                dislikes = 0;
-        } else {
-            dislikes++;
-        }
-        lastClickTime = currentTime;
-        updateLikesDislikesLabel(vBox);
-
-    }
-
-    private void likeaction(ActionEvent e, VBox vBox) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastClickTime < 1000) {
-            if (likes > 0)
-                likes--;
-            else
-                likes = 0;
-        } else {
-            likes++;
-        }
-        lastClickTime = currentTime;
-        updateLikesDislikesLabel(vBox);
-    }
 
     private ImageView createImageView(String imageUrl) {
         ImageView imageView = new ImageView();
@@ -184,10 +158,6 @@ public class Imageeve {
         }
     }
 
-    private void updateLikesDislikesLabel(VBox vBox) {
-        Label likesDislikesLabel = (Label) vBox.getChildren().get(vBox.getChildren().size() - 1);
-        likesDislikesLabel.setText("Likes: " + likes + " Dislikes: " + dislikes);
-    }
     private void rechercher() {
         String searchText = search.getText().toLowerCase();
 
@@ -244,4 +214,42 @@ public class Imageeve {
 
         flowPane.getChildren().setAll(sortedChildren);
     }
+    private void filterByType(String selectedType) {
+        List<Node> filteredNodes = originalNodes.stream()
+                .filter(node -> {
+                    if (node instanceof VBox) {
+                        Evenement evenement = (Evenement) ((VBox) node).getUserData();
+                        return evenement.getId_type_ev().getType_ev().equals(selectedType);
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
+
+        flowPane.getChildren().setAll(filteredNodes);
+    }
+    private void showDetails(Evenement evenement) {
+        try {
+            // Chargez le fichier FXML pour l'interface de détails
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/detaille.fxml"));
+            Parent root = loader.load();
+
+            // Obtenez le contrôleur du détail
+            Detaille detailsController = loader.getController();
+
+            // Passez les informations détaillées au contrôleur
+            detailsController.setEventDetails(
+                    evenement.getNom_ev(),
+                    evenement.getDate_debut().toString(),
+
+                    evenement.getDescription_ev()
+            );
+
+            // Créez une nouvelle fenêtre pour les détails
+            Stage detailsStage = new Stage();
+            detailsStage.setScene(new Scene(root));
+            detailsStage.setTitle("Détails de l'événement");
+            detailsStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }}
 }

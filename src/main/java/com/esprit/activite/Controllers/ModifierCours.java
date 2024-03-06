@@ -1,9 +1,6 @@
 package com.esprit.activite.Controllers;
 
-import com.esprit.activite.modeles.Cours;
-import com.esprit.activite.modeles.Evenement;
-import com.esprit.activite.modeles.club;
-import com.esprit.activite.modeles.typec;
+import com.esprit.activite.modeles.*;
 import com.esprit.activite.services.CoursService;
 import com.esprit.activite.services.EvenementService;
 import com.esprit.activite.services.TypecService;
@@ -48,7 +45,7 @@ public class ModifierCours {
     private TextField nomc;
 
     @FXML
-    private ComboBox<Integer> idc;
+    private ComboBox<String> idc;
 
     @FXML
     private ComboBox<String> idcat;
@@ -65,7 +62,7 @@ public class ModifierCours {
         imc.setText(c.getImagec());
         drc.setText(String.valueOf(c.getDuree()));
         imc.setText(c.getImagec());
-        idc.setValue(c.getIdcoach());
+        idc.setValue(c.getIdcoach().getNom());
         idcl.setValue(c.getIdclub().getNom_club());
        idcat.setValue(c.getId_typec().getTypecours());
         //idcl.setValue(c.getIdclub());
@@ -89,7 +86,7 @@ public class ModifierCours {
     @FXML
     void initialize() {
         CoursService c = new CoursService();
-        List<Integer> l = c.recherchecoach();
+        List<String> l = c.listCoach();
         idc.setItems(FXCollections.observableArrayList(l));
 
         List<String> ev = c.listclub();
@@ -119,9 +116,11 @@ public class ModifierCours {
         //
         String catSelectionne = idcat.getValue();
         String clSelectionne = idcl.getValue();
+        String coachCSelectionne = idc.getValue();
             // Rechercher la catégorie par son nom
             typec selectedTypec = es.rechercherCatParNom(catSelectionne);
         club selectedcl = es.rechercherClubparnom(clSelectionne);
+        Coach selectedcoach = es.rechercherCatParNomCoach(coachCSelectionne);
         c.setId(idCours);
         c.setNom(nom);
         c.setDuree(duree);
@@ -129,7 +128,7 @@ public class ModifierCours {
         c.setDescription(description);
         c.setId_typec(selectedTypec);
         c.setIdclub(selectedcl);
-        c.setIdcoach(idc.getValue());
+        c.setIdcoach(selectedcoach);
 
         es.modifier(c);
         Alert alerte = new Alert(Alert.AlertType.INFORMATION);

@@ -1,9 +1,6 @@
 package com.esprit.activite.Controllers;
 
-import com.esprit.activite.modeles.Cours;
-import com.esprit.activite.modeles.club;
-import com.esprit.activite.modeles.type_ev;
-import com.esprit.activite.modeles.typec;
+import com.esprit.activite.modeles.*;
 import com.esprit.activite.services.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -38,7 +35,7 @@ public class InterfacecoursController {
     private ComboBox<String> id_club;
 
     @FXML
-    private ComboBox<Integer> id_coach;
+    private ComboBox<String> id_coach;
 
     /*@FXML
     private ComboBox<typec> id_typec;*/
@@ -58,10 +55,12 @@ public class InterfacecoursController {
             CoursService es = new CoursService();
             String catSelectionne = id_typec.getValue();
             String clubselect =id_club.getValue();
+            String id_caoch =id_coach.getValue();
                 typec categoSelectionne = es.rechercherCatParNom(catSelectionne);
                 club clubselectionid =es.rechercherClubparnom(clubselect);
+            Coach coachselectid=es.rechercherCatParNomCoach(id_caoch);
                 if (categoSelectionne != null) {
-            es.ajouter(new Cours(nom_c.getText(), description_c.getText(), image_c.getText(), Time.valueOf(duree.getText()), id_coach.getValue(),clubselectionid,categoSelectionne));
+            es.ajouter(new Cours(nom_c.getText(), description_c.getText(), image_c.getText(), Time.valueOf(duree.getText()), coachselectid,clubselectionid,categoSelectionne));
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("cours ajout");
             alerte.setContentText("cours bien ajoutee");
@@ -132,7 +131,7 @@ void browse(ActionEvent event) {
     @FXML
     void initialize() {
         CoursService c = new CoursService();
-        List<Integer> l = c.recherchecoach();
+        List<String> l = c.listCoach();
         id_coach.setItems(FXCollections.observableArrayList(l));
        // CoursService cs =new CoursService();
       //List<Integer> ev = c.rechercheclub();

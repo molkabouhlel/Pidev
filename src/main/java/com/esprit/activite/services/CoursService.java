@@ -1,5 +1,6 @@
 package com.esprit.activite.services;
 
+import com.esprit.activite.modeles.Coach;
 import com.esprit.activite.modeles.Cours;
 import com.esprit.activite.modeles.club;
 import com.esprit.activite.modeles.typec;
@@ -19,7 +20,7 @@ private typec t =new typec();
     }
     @Override
     public void ajouter(Cours c) {
-        String req = "INSERT into cours (nom, description, imagec, duree, idcoach, idclub, id_typec) values ('" + c.getNom() + "',  '" + c.getDescription() + "','" + c.getImagec() + "', '" + c.getDuree() + "','" + c.getIdcoach() + "','" + c.getIdclub().getId_club() + "', '" + c.getId_typec().getIdtypec() +"');";
+        String req = "INSERT into cours (nom, description, imagec, duree, idcoach, idclub, id_typec) values ('" + c.getNom() + "',  '" + c.getDescription() + "','" + c.getImagec() + "', '" + c.getDuree() + "','" + c.getIdcoach().getCin() + "','" + c.getIdclub().getId_club() + "', '" + c.getId_typec().getIdtypec() +"');";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -33,7 +34,7 @@ private typec t =new typec();
 
     @Override
     public void modifier(Cours c) {
-        String req = "UPDATE cours set nom = '" + c.getNom() + "', description = '" + c.getDescription() + "', imagec = '" + c.getImagec() + "', duree = '" + c.getDuree() + "', idcoach = '" + c.getIdcoach() + "', idclub='" + c.getIdclub().getId_club() + "',id_typec = '" + c.getId_typec().getIdtypec() + "' where id = " + c.getId() + ";";
+        String req = "UPDATE cours set nom = '" + c.getNom() + "', description = '" + c.getDescription() + "', imagec = '" + c.getImagec() + "', duree = '" + c.getDuree() + "', idcoach = '" + c.getIdcoach().getCin() + "', idclub='" + c.getIdclub().getId_club() + "',id_typec = '" + c.getId_typec().getIdtypec() + "' where id = " + c.getId() + ";";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -67,7 +68,8 @@ private typec t =new typec();
             while (rs.next()) {
                 typec id_typec = recherchetypec(rs.getInt("id_typec"));
                 club  id_club =rechercheclubaffich(rs.getInt("idclub"));
-                c.add(new Cours(rs.getInt("id"), rs.getString("nom"), rs.getString("description"), rs.getString("imagec"), rs.getTime("duree"), rs.getInt("idcoach"), id_club,id_typec));
+                Coach id_coach =rechercheCoachaffich(rs.getInt("idcoach"));
+                c.add(new Cours(rs.getInt("id"), rs.getString("nom"), rs.getString("description"), rs.getString("imagec"), rs.getTime("duree"), id_coach, id_club,id_typec));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -105,6 +107,12 @@ public typec recherchetypec (int id_typec) {
                //  evs.setId_club(rs.getInt("idclub"));
                 evs.setId_club(rs.getInt("id_club"));
                 evs.setNom_club(rs.getString("nom_club"));
+               evs.setAdresse_club(rs.getString("adresse_club"));
+                evs.setDescription_club(rs.getString("description_club"));
+                evs.setImage_club(rs.getString("image_club"));
+               evs.setTemp_ouverture(rs.getTime("temp_ouverture"));
+              evs.setId_espace( rs.getInt("id_espace"));
+
 
 
             }
@@ -123,11 +131,12 @@ public typec recherchetypec (int id_typec) {
                 C = new Cours();
                 typec id_typec = recherchetypec(rs.getInt("id_typec"));
                 club id_club =rechercheclub(rs.getInt("idclub"));
+               Coach id_coach = rechercheCoach(rs.getInt("idcoach"));
                 C.setId(rs.getInt("id"));
                 C.setNom(rs.getString("nom"));
                 C.setDescription(rs.getString("description"));
                 C.setDuree(rs.getTime("duree"));
-                C.setIdcoach(rs.getInt("idcoach"));
+                C.setIdcoach(id_coach);
                 C.setIdclub(id_club);
                 C.setId_typec(id_typec);
             }
@@ -139,7 +148,7 @@ public typec recherchetypec (int id_typec) {
 ////
 public List<Integer> recherchecoach() {
     List<Integer> idC = new ArrayList<>();
-    String req = "SELECT cin FROM usr";
+    String req = "SELECT * FROM usr";
     try {
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(req);
@@ -318,7 +327,107 @@ public String getDescriptionAndDureeById(int coursId) {
 
     return null;
 }
+//coach
+public Coach rechercheCoachaffich(int cin) {
+    Coach evs = null;
+    String req = "SELECT * FROM usr WHERE cin = '" + cin + "' AND role = 'coach'";
+    try {
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        if (rs.next()) {
+            evs = new Coach();
+            evs.setCin(rs.getInt("cin"));
+            evs.setNom(rs.getString("nom"));
+            evs.setRole(rs.getString("role"));
+            evs.setMdp(rs.getString("mdp"));
+            evs.setAdresse(rs.getString("adresse"));
+            evs.setEmail(rs.getString("email"));
+            evs.setNumT(rs.getInt("numT"));
+            evs.setPrénom(rs.getString("prenom"));
 
+
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return evs;
+}
+public Coach rechercheCoach (int cin) {
+    Coach evs = null;
+    String req = "SELECT nom FROM usr WHERE cin = '" + cin + "' AND role = 'coach'";
+    try {
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        if (rs.next()) {
+            evs = new Coach();
+            evs.setCin(rs.getInt("cin"));
+            evs.setNom(rs.getString("nom"));
+            evs.setRole(rs.getString("role"));
+            evs.setMdp(rs.getString("mdp"));
+            evs.setAdresse(rs.getString("adresse"));
+            evs.setEmail(rs.getString("email"));
+            evs.setNumT(rs.getInt("numT"));
+            evs.setPrénom(rs.getString("prenom"));
+
+
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return evs;
+}
+//coach combo
+public Coach rechercherCatParNomCoach(String nom) {
+    String req = "SELECT * FROM usr WHERE nom = '" + nom + "' AND role = 'coach'";
+    Coach coach = null;
+    try {
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        if (rs.next()) {
+            coach = new Coach(
+                    rs.getInt("cin"),
+                    rs.getString("email"),
+                    rs.getString("mdp"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getInt("numT"),
+                    rs.getString("role"),
+                    rs.getString("adresse")
+            );
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return coach;
+}
+
+    public List<String> listCoach() {
+        List<Coach> coachList = listNomCoach();
+        List<String> nomCoachList = new ArrayList<>();
+
+        for (Coach coach : coachList) {
+            nomCoachList.add(coach.getNom());
+        }
+
+        return nomCoachList;
+    }
+
+    public List<Coach> listNomCoach() {
+        List<Coach> coachList = new ArrayList<>();
+        String req = "SELECT nom FROM usr WHERE role = 'coach'";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                Coach coach = new Coach();
+                coach.setNom(rs.getString("nom"));
+                coachList.add(coach);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return coachList;
+    }
 
 
 }

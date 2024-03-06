@@ -81,6 +81,6 @@
       <Button layoutX="593.0" layoutY="12.0" mnemonicParsing="false" onAction="#add" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="add" />
       <Button layoutX="528.0" layoutY="9.0" mnemonicParsing="false" onAction="#pdf" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="pdf" />
       <ChoiceBox fx:id="valcat" layoutX="28.0" layoutY="159.0" prefWidth="150.0" />
-      <ComboBox layoutX="583.0" layoutY="161.0" onAction="#trier" prefWidth="150.0" />
+      <ComboBox fx:id="trie" layoutX="583.0" layoutY="161.0" onAction="#trier" prefWidth="150.0" />
    </children>
 </AnchorPane>

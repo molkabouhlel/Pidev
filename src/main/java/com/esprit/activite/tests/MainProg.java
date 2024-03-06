@@ -38,6 +38,8 @@ public class MainProg {
        // System.out.println(ps.afficher());
 //ps.rechercheCours(16);
         System.out.println(ps.rechercheclub(5));
+        System.out.println(ps.listCoach());
+
 /////////////////:evenement ////////////////////////////
 
         EvenementService ev = new EvenementService();
@@ -54,10 +56,12 @@ public class MainProg {
       //  System.out.println(s.afficher());
         //s.supprimer(new Participer(8));
       // s.modifier(new Participer(6,"test"));
-        System.out.println(   s.rechercherCoursParNom("yoga"));
+        //System.out.println(   s.rechercherCoursParNom("yoga"));
        // System.out.println(s.rechercheparticipant("testtttt","update"));
-        System.out.println( ev.rechercheIdEspace());
-
+       // System.out.println( ev.rechercheIdEspace());
+likeService l= new likeService();
+System.out.println(l.getlikeCountsForCours(46));
+        System.out.println(l.getDislikeCountsForCours(46));
     }
 
 

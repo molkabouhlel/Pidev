@@ -104,7 +104,7 @@ public class EvenementService implements Iservice <Evenement> {
             if (rs.next()) {
                 ev = new type_ev();
                 ev.setId_typeev(rs.getInt("id_typeev"));
-                ev.setType_ev(rs.getString("type_ev"));
+                ev.setType_ev(String.valueOf(rs.getString("type_ev")));
 
 
             }

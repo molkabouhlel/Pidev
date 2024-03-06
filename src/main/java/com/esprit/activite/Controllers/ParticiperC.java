@@ -198,7 +198,7 @@ public class ParticiperC {
     private void envoyerSMSConfirmation() {
         String nom = nomp.getText();
         String prenom = prenomp.getText();
-        String numeroTelephone = numT.getText();
+        int numeroTelephone = Integer.parseInt(numT.getText());
 
         String message = "Bonjour " + prenom + " " + nom + "! Merci de confirmer  votre participation.";
 
@@ -207,12 +207,12 @@ public class ParticiperC {
 
         // Envoyez le SMS de confirmation
         Message twilioMessage = Message.creator(
-                        new PhoneNumber("+216" + numeroTelephone), // Remplacez par le numéro du participant
+                        new PhoneNumber("+216" + numeroTelephone),
                         new PhoneNumber(TWILIO_PHONE_NUMBER),
                         message)
                 .create();
 
         // Affichez le SID du message Twilio dans la console
-        System.out.println("SID du message Twilio : " + twilioMessage.getSid());
+      //  System.out.println("SID du message Twilio : " + twilioMessage.getSid());
     }
 }

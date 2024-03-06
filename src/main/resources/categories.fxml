@@ -67,6 +67,6 @@
       <TextField fx:id="idcatec" layoutX="41.0" layoutY="110.0" style="-fx-opacity: 0;" />
       <TextField fx:id="recherche" layoutX="332.0" layoutY="143.0" prefHeight="30.0" prefWidth="363.0" promptText="search" />
       <ChoiceBox fx:id="choice" layoutX="165.0" layoutY="145.0" prefWidth="150.0" />
-      <ComboBox layoutX="165.0" layoutY="170.0" onAction="#trier" prefWidth="150.0" />
+      <ComboBox fx:id="trier" layoutX="165.0" layoutY="170.0" onAction="#trier" prefWidth="150.0" />
    </children>
 </AnchorPane>

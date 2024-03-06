@@ -1,8 +1,11 @@
 package com.esprit.activite.Controllers;
 
 import com.esprit.activite.modeles.Cours;
+import com.esprit.activite.modeles.Evenement;
+import com.esprit.activite.modeles.likeanddislike;
 import com.esprit.activite.services.CoursService;
 
+import com.esprit.activite.services.likeService;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -10,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -20,17 +24,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ImageC {
@@ -45,6 +44,9 @@ public class ImageC {
     @FXML
     private FlowPane flowPane;
     private List<Node> originalNodes = new ArrayList<>();
+    //
+    @FXML
+    private ChoiceBox<String> choice;
 
     public void initialize() {
         filtre.setValue("nom");
@@ -57,6 +59,7 @@ public class ImageC {
         // Parcours la liste d'images et crée des VBox pour chaque image
         for (Cours cours : coursList) {
             VBox vBox = createImageWithButtonVBox(cours);
+            vBox.setId(String.valueOf(cours.getId()));//recuper id pour licke et dislike
             vBox.setUserData(cours);
 
             flowPane.getChildren().add(vBox);
@@ -72,7 +75,37 @@ public class ImageC {
                 flowPane.getChildren().setAll(originalNodes);
             }
         });
+        //filtre
+        List<String> types = coursList.stream()
+                .map(evenement -> evenement.getId_typec().getTypecours())
+                .distinct()
+                .collect(Collectors.toList());
+        choice.getItems().addAll(types);
+
+        // Ajouter un écouteur pour la ChoiceBox
+        choice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                filterByType(newValue);
+            }
+        });
     }
+    //image bouton
+    private Button createStyledButton(String text, String imageUrl, String backgroundColor, double imageWidth, double imageHeight) {
+        Button button = new Button(text);
+
+        Image buttonImage = new Image(imageUrl, imageWidth, imageHeight, false, true);
+        BackgroundImage backgroundImage = new BackgroundImage(buttonImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundImage);
+
+        button.setBackground(background);
+        button.setPadding(new Insets(10));
+        button.setStyle("-fx-content-display: CENTER;");
+        button.setStyle("-fx-background-radius: 15;");
+        button.setStyle("-fx-background-color: " + backgroundColor + ";");
+
+        return button;
+    }
+
 
     private VBox createImageWithButtonVBox(Cours cours) {
         VBox vBox = new VBox();
@@ -102,32 +135,50 @@ public class ImageC {
 
         //label description
 
+        Label description = new Label(cours.getDescription());
+        //style
+        description.setAlignment(Pos.CENTER);
+        //time
+        //label nom cours
+        Label duree = new Label(cours.getDuree().toString());
+        //style
+        duree.setAlignment(Pos.CENTER);
 
         // Crée le bouton "Détails" pour chaque image
         Button detailsButton = new Button("PARTICIPER");
         detailsButton.setOnAction(this::showDetails);
+
         //
-        // Crée le bouton "Détails" pour chaque image
-        Button like = new Button("like");
+
+
+// Crée le bouton "like" avec l'image de fond
+        Button like = createStyledButton("", "file:C:/Users/molka/Desktop/qr et sms - Copie/crud_entite_1_v1/src/main/resources/img/ic_love_.png", "pink", 30, 30);
         like.setOnAction(e -> likeaction(e, vBox));
-        // Crée le bouton "Détails" pour chaque image
-        Button dislike = new Button("dislike");
+
+        Button dislike = createStyledButton("", "file:C:/Users/molka/Desktop/qr et sms - Copie/crud_entite_1_v1/src/main/resources/img/ic_angry.png", "#87CEEB", 30, 30);
         dislike.setOnAction(e -> dislikeaction(e, vBox));
+
         HBox likeDislikeBox = new HBox(10, like, dislike);
         Label likesDislikesLabel = new Label("");
+        likeService l =new likeService();
+        int likeCount = l.getlikeCountsForCours(cours.getId());
+        int dislikeCount = l.getDislikeCountsForCours(cours.getId());
+        likesDislikesLabel.setText("Likes: " + likeCount + " Dislikes: " + dislikeCount);
         //
         // Bouton QR Code
-        Button qrCodeButton = new Button("plus de detaille ");
-        qrCodeButton.setOnAction(event -> generateQRCode(cours));
-        HBox qrCodeBox = new HBox(qrCodeButton);
-        HBox buttonsBox = new HBox(10, detailsButton, qrCodeBox);
+        //Button qrCodeButton = new Button("plus de detaille ");
+        //qrCodeButton.setOnAction(event -> generateQRCode(cours));
+        //HBox qrCodeBox = new HBox(qrCodeButton);
+        //HBox buttonsBox = new HBox(10, detailsButton, qrCodeBox);
 //style
 
         like.setStyle("-fx-content-display: CENTER;");
-        like.setStyle("-fx-background-radius: 12; -fx-background-color: pink;");
+        like.setPrefWidth(50);
+      //  like.setStyle("-fx-background-radius: 12; -fx-background-color: pink;");
 
         dislike.setStyle("-fx-content-display: CENTER;");
-        dislike.setStyle("-fx-background-radius: 15;-fx-background-color: #87CEEB;");
+        dislike.setPrefWidth(50);
+        //dislike.setStyle("-fx-background-radius: 15;-fx-background-color: #87CEEB;");
 
         //style
         detailsButton.setPrefWidth(90);
@@ -135,46 +186,66 @@ public class ImageC {
         detailsButton.setStyle("-fx-background-radius: 15;");
 
         //qr style
-        qrCodeButton.setPrefWidth(90);
+      //  qrCodeButton.setPrefWidth(90);
        // detailsButton.setStyle("-fx-content-display: LEFT;");
-        qrCodeButton.setStyle("-fx-background-radius: 15;");
+      //  qrCodeButton.setStyle("-fx-background-radius: 15;");
         // Ajoute l'ImageView et le bouton "Détails" à la VBox
-        vBox.getChildren().addAll(nomcours, separator1, imageView, separator2, buttonsBox,separator3,likeDislikeBox,separator4, likesDislikesLabel);
-
+        vBox.getChildren().addAll(nomcours, separator1, imageView, separator2, description,duree,separator3,detailsButton,separator4,likeDislikeBox, likesDislikesLabel);
         return vBox;
+
 
     }
 
     private void dislikeaction(ActionEvent e, VBox vBox) {
+        likeService l = new likeService();
+        Cours cours = (Cours) vBox.getUserData();
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastClickTime < 1000) {
             if (dislikes > 0)
-                dislikes--;
+                dislikes=l.getDislikeCountsForCours(cours.getId())-1;
             else
                 dislikes = 0;
         } else {
-            dislikes++;
+            dislikes=l.getDislikeCountsForCours(cours.getId())+1;
         }
         lastClickTime = currentTime;
-        updateLikesDislikesLabel(vBox);
+
+        // Récupère le cours depuis la VBox
+        int currentlikes = l.getlikeCountsForCours(cours.getId());
+        likeanddislike likeAndDislike = new likeanddislike(currentlikes, dislikes, cours);
+
+        if (!l.isCoursLiked(cours.getId())){
+            l.ajouter(likeAndDislike);}
+        else{
+            l.updateLikesDislikes(likeAndDislike);}
+        updateLikesDislikesLabel(vBox,cours.getId());
 
     }
 
     private void likeaction(ActionEvent e, VBox vBox) {
+        Cours cours = (Cours) vBox.getUserData();
         long currentTime = System.currentTimeMillis();
+        likeService l= new likeService();
         if (currentTime - lastClickTime < 1000) {
             if (likes > 0)
-                likes--;
+                likes= l.getlikeCountsForCours(cours.getId())-1;
             else
                 likes = 0;
         } else {
-            likes++;
+            likes=l.getlikeCountsForCours(cours.getId())+1;
         }
         lastClickTime = currentTime;
-        updateLikesDislikesLabel(vBox);
+        int currentDislikes = l.getDislikeCountsForCours(cours.getId());
+        likeanddislike likeAndDislike = new likeanddislike(likes, currentDislikes, cours);
+    if (!l.isCoursLiked(cours.getId())){
+        l.ajouter(likeAndDislike);}
+    else{
+        l.updateLikesDislikes(likeAndDislike);}
+        updateLikesDislikesLabel(vBox,cours.getId());
     }
 
     private ImageView createImageView(String imageUrl) {
+        VBox vBox = new VBox();
         ImageView imageView = new ImageView();
         imageView.setFitWidth(200);
         imageView.setFitHeight(130);
@@ -220,9 +291,15 @@ public class ImageC {
         }
     }
 
-    private void updateLikesDislikesLabel(VBox vBox) {
+    private void updateLikesDislikesLabel(VBox vBox, int idCours) {
         Label likesDislikesLabel = (Label) vBox.getChildren().get(vBox.getChildren().size() - 1);
-        likesDislikesLabel.setText("Likes: " + likes + " Dislikes: " + dislikes);
+        likeService l =new likeService();
+
+        int likeCount = l.getlikeCountsForCours(idCours);
+        int dislikeCount = l.getDislikeCountsForCours(idCours);
+
+        // Met à jour le texte de likesDislikesLabel avec les valeurs obtenues
+        likesDislikesLabel.setText("Likes: " + likeCount + " Dislikes: " + dislikeCount);
     }
     private void rechercher() {
         String searchText = recherche.getText().toLowerCase();
@@ -273,7 +350,7 @@ public class ImageC {
 
         flowPane.getChildren().setAll(sortedChildren);
     }
-    private void generateQRCode(Cours cours) {
+    /*private void generateQRCode(Cours cours) {
         try {
             int coursId = cours.getId();
 
@@ -333,6 +410,20 @@ public class ImageC {
             System.out.println("Description du Cours non trouvée");
         }
         return description;
+    }*/
+    private void filterByType(String selectedType) {
+        List<Node> filteredNodes = originalNodes.stream()
+                .filter(node -> {
+                    if (node instanceof VBox) {
+                        Cours cours = (Cours) ((VBox) node).getUserData();
+                        return cours.getId_typec().getTypecours().equals(selectedType);
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
+
+        flowPane.getChildren().setAll(filteredNodes);
     }
+
     }
 

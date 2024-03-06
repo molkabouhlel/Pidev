@@ -2,9 +2,7 @@ package com.esprit.activite.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.esprit.activite.modeles.Evenement;
@@ -15,6 +13,8 @@ import com.esprit.activite.services.TypecService;
 import com.esprit.activite.services.participerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +43,8 @@ public class Categories {
 
    // @FXML
    // private TableColumn<?, ?> idtypec;
-
+   @FXML
+   private ComboBox<String> trier;
 
     @FXML
     private TableView<typec> tableview;
@@ -149,6 +150,10 @@ public class Categories {
 
     @FXML
     void initialize() {
+        List<String> sortTypes = new ArrayList<>();
+        sortTypes.add("id");
+        sortTypes.add("par categorie");
+        trier.getItems().addAll(sortTypes);
         TypecService c = new TypecService();
         List<typec> cat = c.afficher();
         ObservableList<typec> observableList = FXCollections.observableList(cat);
@@ -270,5 +275,27 @@ public class Categories {
         // Update the TableView with the filtered list
         tableview.setItems(filteredList);
     }
+    @FXML
+    void trier(ActionEvent event) {
+        FilteredList<typec> filteredData = new FilteredList<>(tableview.getItems());
 
-}
+        SortedList<typec> sortedData = new SortedList<>(filteredData);
+        // Trié par date par défaut
+        Comparator<typec> dateComparator = Comparator.comparing(typec::getIdtypec);
+        // Trié par nom
+        Comparator<typec> nomComparator = Comparator.comparing(typec::getTypecours);
+
+        sortedData.comparatorProperty().bind(trier.getSelectionModel().selectedItemProperty().asString().map(s -> {
+            if (s.equals("id")) {
+                return nomComparator;
+            } else if (s.equals("par categorie")) {
+                return dateComparator;
+            }
+            return null; // Ajustez cela selon vos besoins
+        }));
+
+        tableview.setItems(sortedData);
+    }
+
+    }
+

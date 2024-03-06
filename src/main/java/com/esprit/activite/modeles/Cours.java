@@ -3,18 +3,19 @@ package com.esprit.activite.modeles;
 import java.sql.Date;
 import java.sql.Time;
 
+
 public class Cours {
    private int id;
    private String nom;
    private String description;
    private String imagec;
    private Time duree;
-  private int idcoach;
+  private Coach idcoach;
   private club   idclub;
   private  typec id_typec;
   public Cours(){}
 
-    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, club idclub, typec id_typec) {
+    public Cours(int id, String nom, String description, String imagec, Time duree, Coach idcoach, club idclub, typec id_typec) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -25,7 +26,7 @@ public class Cours {
         this.id_typec = id_typec;
     }
 
-    public Cours(String nom, String description, String imagec, Time duree, int idcoach, club idclub, typec id_typec) {
+    public Cours(String nom, String description, String imagec, Time duree, Coach idcoach, club idclub, typec id_typec) {
         this.nom = nom;
         this.description = description;
         this.imagec = imagec;
@@ -35,7 +36,7 @@ public class Cours {
         this.id_typec = id_typec;
     }
 
-    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, club idclub) {
+    public Cours(int id, String nom, String description, String imagec, Time duree, Coach idcoach, club idclub) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -109,11 +110,11 @@ public class Cours {
         this.duree = duree;
     }
 
-    public int getIdcoach() {
+    public Coach getIdcoach() {
         return idcoach;
     }
 
-    public void setIdcoach(int idcoach) {
+    public void setIdcoach(Coach idcoach) {
         this.idcoach = idcoach;
     }
 

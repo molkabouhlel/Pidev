@@ -1,12 +1,14 @@
 package com.esprit.activite.Controllers;
-
 import com.esprit.activite.modeles.Cours;
-
 import com.esprit.activite.services.CoursService;
-import com.esprit.activite.services.EvenementService;
-
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.layout.borders.SolidBorder;
+import com.itextpdf.layout.properties.TextAlignment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -26,17 +28,22 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Cell;
 
+import java.net.MalformedURLException;
 import java.sql.Time;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+
 public class Affichercours {
     @FXML
     private TableColumn<Cours,Void> action;
@@ -51,6 +58,8 @@ public class Affichercours {
 
     @FXML
     private TableColumn<Cours,Integer> idcc;
+    @FXML
+    private ComboBox<String> trie;
 
     @FXML
     private TableColumn<Cours,Integer> idclub;
@@ -90,6 +99,11 @@ public class Affichercours {
 
     @FXML
     void initialize() {
+        List<String> sortTypes = new ArrayList<>();
+        sortTypes.add("duree");
+        sortTypes.add("nom");
+
+        trie.getItems().addAll(sortTypes);
         CoursService c = new CoursService();
         List<Cours> cours = c.afficher();
        ObservableList<Cours> observableList = FXCollections.observableList(cours);
@@ -166,7 +180,6 @@ public class Affichercours {
         modif();
         //search
         recherche.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Call a method to handle real-time search
             handleSearch(newValue);
         });
         //filtre
@@ -303,14 +316,14 @@ public class Affichercours {
         newStage.show();
     }
     @FXML
-    void stat(ActionEvent event) {
+    void stat(ActionEvent event) throws IOException {
 
-        EvenementService e=new EvenementService();
-        ObservableList<PieChart.Data> pieChartData = e.contc();
-        pieChart.setData(pieChartData);
+        Parent root = FXMLLoader.load(getClass().getResource("/statcours.fxml"));
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
 
     }
-
     @FXML
     void pdf(ActionEvent event) {
         CoursService es = new CoursService();
@@ -324,19 +337,54 @@ public class Affichercours {
         if (file != null) {
             exportToPDF(EspaceObservableList, file);
         }
-
     }
+
     public void exportToPDF(ObservableList<Cours> tableView, File filename) {
         try {
             PdfWriter writer = new PdfWriter(filename.getAbsolutePath());
-            PdfDocument pdf = new PdfDocument(writer);
+            PdfDocument pdf = new PdfDocument(writer); // Créez un objet PdfDocument à partir de PdfWriter
             Document document = new Document(pdf);
 
+            Paragraph title = new Paragraph("liste des cours")
+                    .setFontSize(25)
+                    .setBold()
+                    .setFontColor(new DeviceRgb(0, 0, 255))
+                    .setTextAlignment(TextAlignment.CENTER);
+            document.add(title);
+
+            // Ajout de la bordure bleue
+            Table outerTable = new Table(1);
+            outerTable.addCell(new Cell().setBorder(new SolidBorder(new DeviceRgb(0, 0, 255), 2)).add(new Paragraph("")));
+            // Création du tableau avec 3 colonnes
+           // Table table = new Table(3);
+            Table table = new Table(4);
+
+            // Ajout des en-têtes de colonnes
+            table.addCell(new Cell().add(new Paragraph("Nom")));
+            table.addCell(new Cell().add(new Paragraph("Description")));
+            table.addCell(new Cell().add(new Paragraph("duree"))); // Ajoutez autant de colonnes que nécessaire
+            table.addCell(new Cell().add(new Paragraph("categorie cours")));
+            table.addCell(new Cell().add(new Paragraph("club")));
+            table.addCell(new Cell().add(new Paragraph("coach")));
+            // Ajout des données à chaque ligne du tableau
             for (Cours cours : tableView) {
-                document.add(new Paragraph(cours.toString()));
+                table.addCell(new Cell().add(new Paragraph(cours.getNom())));
+                table.addCell(new Cell().add(new Paragraph(cours.getDescription())));
+                table.addCell(new Cell().add(new Paragraph(cours.getDuree().toString())));
+                table.addCell(new Cell().add(new Paragraph(cours.getId_typec().getTypecours())));
+                table.addCell(new Cell().add(new Paragraph(cours.getIdclub().getNom_club())));
+                // table.addCell(new Cell().add(new Paragraph(cours.getIdcoach().toString())));
             }
 
+// Appliquer une bordure bleue autour du tableau
+            table.setBorder(new SolidBorder(new DeviceRgb(0, 0, 255), 2));
+            Paragraph centeredTableParagraph = new Paragraph().add(table);
+                  centeredTableParagraph.setTextAlignment(TextAlignment.CENTER);
+            // Ajout du tableau au document
+            document.add(table);
+
             document.close();
+            pdf.close();
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -352,6 +400,28 @@ public class Affichercours {
         tableview.setItems(filteredList);
     }
 
-}
+    @FXML
+    void trier(ActionEvent event) {
+        FilteredList<Cours> filteredData = new FilteredList<>(tableview.getItems());
+
+        SortedList<Cours> sortedData = new SortedList<>(filteredData);
+        // Trié par date par défaut
+        Comparator<Cours> nomComparator = Comparator.comparing(Cours::getNom);
+        // Trié par nom
+        Comparator<Cours> dureeComparator = Comparator.comparing(Cours::getDuree);
+
+        sortedData.comparatorProperty().bind(trie.getSelectionModel().selectedItemProperty().asString().map(s -> {
+            if (s.equals("nom")) {
+                return nomComparator;
+            } else if (s.equals("duree")) {
+                return dureeComparator;
+            }
+            return null; // Ajustez cela selon vos besoins
+        }));
+
+        tableview.setItems(sortedData);
+    }
+    }
+
 
 

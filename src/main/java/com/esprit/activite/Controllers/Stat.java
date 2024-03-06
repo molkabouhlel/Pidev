@@ -27,32 +27,51 @@ public class Stat {
 
     }
 
-    private ObservableList<PieChart.Data> contc() {
+    public ObservableList<PieChart.Data> generatePieChartForTypeEvEvents() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
         try {
+            if (connection != null && !connection.isClosed()) {
+                try (Statement statement = connection.createStatement();
+                     ResultSet resultSet = statement.executeQuery("SELECT te.type_ev, COUNT(*) as count " +
+                             "FROM evenement e " +
+                             "INNER JOIN type_ev te ON e.id_type_ev = te.id_typeev " +
+                             "GROUP BY te.type_ev")) {
 
-            try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery("SELECT nom_ev, capacite_max, COUNT(*) FROM evenement GROUP BY nom_ev, capacite_max")) {
+                    int totalCount = 0;
 
+                    while (resultSet.next()) {
+                        String typeEv = resultSet.getString("type_ev");
+                        int count = resultSet.getInt("count");
 
-                while (resultSet.next()) {
-                    String nomEvenement = resultSet.getString("nom_ev");
-                    int capacite_max = resultSet.getInt("capacite_max");
-                    int nombreEvenements = resultSet.getInt(3);
+                        totalCount += count;
 
-                    PieChart.Data slice = new PieChart.Data(nomEvenement + " - Capacité " + capacite_max, nombreEvenements);
-                    pieChartData.add(slice);
+                        PieChart.Data slice = new PieChart.Data(typeEv, count);
+                        pieChartData.add(slice);
+                    }
+
+                    // Calculer le pourcentage pour chaque tranche
+                    for (PieChart.Data slice : pieChartData) {
+                        double percentage = (slice.getPieValue() / totalCount) * 100;
+                        slice.setName(slice.getName() + " - " + String.format("%.2f%%", percentage));
+                    }
                 }
+            } else {
+                System.out.println("La connexion à la base de données n'est pas établie correctement.");
+                // Affichez un message à l'utilisateur ou journalisez l'erreur.
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            // Affichez un message à l'utilisateur ou journalisez l'erreur.
         }
 
         return pieChartData;
     }
+
+    // Méthode d'initialisation du contrôleur
     @FXML
     void initialize() {
-        ObservableList<PieChart.Data> pieChartData = contc();
+        ObservableList<PieChart.Data> pieChartData = generatePieChartForTypeEvEvents();
         pieChart.setData(pieChartData);
     }
     }

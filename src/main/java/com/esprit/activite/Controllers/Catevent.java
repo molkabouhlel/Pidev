@@ -2,9 +2,7 @@ package com.esprit.activite.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.esprit.activite.modeles.Evenement;
@@ -14,6 +12,8 @@ import com.esprit.activite.services.TypecService;
 import com.esprit.activite.services.type_evService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,8 +53,9 @@ public class Catevent {
     @FXML
     private TableView<type_ev> viewevent;
     private int idcatsselected;
-    @FXML
     private TextField recherche;
+    @FXML
+    private ComboBox<String> trier;
 
     @FXML
     void retourner(ActionEvent event) {
@@ -145,6 +146,10 @@ public class Catevent {
 
     @FXML
     void initialize() {
+        List<String> sortTypes = new ArrayList<>();
+        sortTypes.add("id");
+        sortTypes.add("par categorie");
+
         type_evService c = new type_evService();
         List<type_ev> cat = c.afficher();
         ObservableList<type_ev> observableList = FXCollections.observableList(cat);
@@ -264,5 +269,29 @@ public class Catevent {
         // Update the TableView with the filtered list
         viewevent.setItems(filteredList);
     }
+    @FXML
+    void trier(ActionEvent event) {
 
-}
+        FilteredList<type_ev> filteredData = new FilteredList<>(viewevent.getItems());
+
+        SortedList<type_ev> sortedData = new SortedList<>(filteredData);
+        // Trié par date par défaut
+        Comparator<type_ev> dateComparator = Comparator.comparing(type_ev::getId_typeev);
+        // Trié par nom
+        Comparator<type_ev> nomComparator = Comparator.comparing(type_ev::getType_ev);
+
+        sortedData.comparatorProperty().bind(trier.getSelectionModel().selectedItemProperty().asString().map(s -> {
+            if (s.equals("id")) {
+                return nomComparator;
+            } else if (s.equals("par categorie")) {
+                return dateComparator;
+            }
+            return null; // Ajustez cela selon vos besoins
+        }));
+
+        viewevent.setItems(sortedData);
+    }
+
+    }
+
+

@@ -229,7 +229,6 @@ public class Afficherevent {
             // Call a method to handle real-time search
             handleSearch(newValue);
         });
-///filtre
         //filtre
         ObservableList<String> categories = getCategorieList();
         choice.setItems(categories);
@@ -245,7 +244,7 @@ public class Afficherevent {
             }
         });
     }
-
+//filtre
     private ObservableList<String> getCategorieList() {
         Set<String> categorieSet = observableList1.stream()
                 .map(evenement -> evenement.getId_type_ev().getType_ev())
