@@ -1,6 +1,7 @@
 package com.esprit.controllers;
 
 import com.esprit.models.Club;
+import com.esprit.models.Cours;
 import com.esprit.models.ListCours;
 import com.esprit.services.ClubService;
 import com.esprit.services.ListCoursService;
@@ -36,52 +37,46 @@ public class ListeCoursFrontController {
     private FlowPane flowPane;
 
 
+    private Club clubselected;
 
-
-    public void initialize(Club C) {
-
-        initFlowpane(C);
+    public void initialize(List<Cours> LC,Club club) {
+        clubselected=club;
+        initFlowpane(LC);
     }
 
-    public void initFlowpane(Club C){
-       /* ListCoursService lcs=new ListCoursService();
+    public void initFlowpane(List<Cours> LC){
+        ListCoursService lcs=new ListCoursService();
 
-        List<ListCours> ListCours = lcs.RecupererListeCours(C.getId_club());
         flowPane.setHgap(30);
         flowPane.setVgap(30);
 
 
         // Parcours la liste d'images et crée des VBox pour chaque image
-        for (ListCours lc : ListCours) {
-            System.out.println(lc.getId_cours());
+        for (Cours c : LC) {
+            System.out.println(c.getId());
 
-            VBox Vbox = createVBox(lc);
-            Vbox.setUserData(lc); // Set the Club object as user data for the VBox
+            VBox Vbox = createVBox(c);
+            Vbox.setUserData(c); // Set the Club object as user data for the VBox
 
             // Handle the Details button click
             javafx.scene.control.Button Details = (javafx.scene.control.Button) Vbox.getChildren().stream()
                     .filter(node -> node instanceof Button)
                     .findFirst()
                     .orElse(null);
-            if (Details != null) {
-                Details.setOnAction(event -> {
-                   Id_Club_Selected = club.getId_club();
-                    showDetails();
-                });
-            }
+
             flowPane.getChildren().add(Vbox);
-        }*/
+        }
     }
 
 
-   /* private VBox createVBox(ListCours lc) {
+    private VBox createVBox(Cours lc) {
         VBox Vbox = new VBox();
         Vbox.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2px;");
 
 
 
         // Crée l'ImageView pour l'image
-        String imageUrl = lc.getImage_club();
+        String imageUrl = lc.getImagec();
         ImageView imageView = createImageView(imageUrl);
         imageView.setStyle("-fx-border-color: black; -fx-border-width: 5px;");
 
@@ -90,13 +85,13 @@ public class ListeCoursFrontController {
         Separator separator2 = new Separator(Orientation.HORIZONTAL);
         separator2.setPrefWidth(120);
 
-        Label nom_club = new Label( C.getNom_club());
+        Label nom_club = new Label( lc.getNom());
         nom_club.setAlignment(Pos.CENTER);
         //StackPane labelPane = new StackPane();
         //labelPane.getChildren().add(nom_club);
 
 
-        Label label2 = new Label("Description: "+C.getDescription_club());
+        Label label2 = new Label("Description: "+lc.getDescription());
 
         // Crée le bouton "Détails" pour chaque image
         Button Details = new Button("Details");
@@ -104,15 +99,14 @@ public class ListeCoursFrontController {
         Details.setStyle("-fx-content-display: LEFT;");
 
 
-        Label label3 = new Label(String.valueOf(C.getTemp_ouverture()));
+        Label label3 = new Label(String.valueOf(lc.getDuree()));
 
         // Ajoute l'ImageView et le bouton "Détails" à la VBox
         Vbox.getChildren().addAll(nom_club,separator1,imageView,separator2,label2,label3,Details);
 
         return Vbox;
     }
-*/
-  /*  private ImageView createImageView(String imageUrl) {
+    private ImageView createImageView(String imageUrl) {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(150);
         imageView.setFitHeight(130);
@@ -126,13 +120,16 @@ public class ListeCoursFrontController {
         }
 
         return imageView;
-    }*/
+    }
 
 
     @FXML
     void RedirectToClubDetail(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailClub.fxml"));
         Parent root = loader.load();
+        DetailClubController DCC = loader.getController();
+        DCC.initClub(clubselected);
+        DCC.initialize(clubselected);
         Stage currentStage = (Stage) flowPane.getScene().getWindow();
         currentStage.setScene(new Scene(root));
     }

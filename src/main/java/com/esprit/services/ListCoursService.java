@@ -2,6 +2,7 @@ package com.esprit.services;
 
 
 import com.esprit.models.Club;
+import com.esprit.models.Cours;
 import com.esprit.models.Espace;
 import com.esprit.models.ListCours;
 import com.esprit.services.EspaceService;
@@ -74,8 +75,6 @@ public class ListCoursService {
         return L;
     }
 
-
-
     public ListCours rechercheListeCours(int id) {
         ListCours L = null;
         String req = "SELECT * FROM liste_cours WHERE id = " + id;
@@ -122,7 +121,23 @@ public class ListCoursService {
     }
 
 
+    public List<Cours> RecupererCours(int id){
+        List<Cours> L = new ArrayList<>();
+        String req = "SELECT * FROM cours JOIN liste_cours ON cours.id = liste_cours.id_cours WHERE liste_cours.id_club = "+id;
 
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                L.add(new Cours(rs.getInt("id"), rs.getString("nom") , rs.getString("description") , rs.getString("imagec"), rs.getTime("duree") ));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return L;
+    }
 
 
 }

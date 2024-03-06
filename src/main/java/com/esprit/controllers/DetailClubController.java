@@ -2,6 +2,7 @@ package com.esprit.controllers;
 
 import com.esprit.models.Club;
 
+import com.esprit.models.Cours;
 import com.esprit.models.Espace;
 import com.esprit.models.ListCours;
 import com.esprit.services.ClubService;
@@ -35,6 +36,7 @@ import java.sql.Time;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -178,7 +180,7 @@ private TextField user_mail;
         String userInput = captchaTextfield.getText();
         if (userInput.equals(captcha)) {
             System.out.println("CAPTCHA matched!");
-            // You can add further actions here, like enabling a submit button
+
         } else {
             System.out.println("CAPTCHA did not match!");
             // You can add further actions here, like displaying an error message
@@ -191,14 +193,17 @@ private TextField user_mail;
         Id_Club_Selected=ClubToModifier.getId_club();
         System.out.println("Navigating to List Cour Club ID"+Id_Club_Selected);
         if (Id_Club_Selected != -1) {
-            ClubService cs = new ClubService();
-            Club clubSelected = cs.rechercheClub(Id_Club_Selected);
+            ListCoursService ls = new ListCoursService();
+            ClubService cs =new ClubService();
+            Club C=cs.rechercheClub(Id_Club_Selected);
+            List<Cours> Lcours =ls.RecupererCours(Id_Club_Selected);
+            System.out.println(Lcours);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeCoursFront.fxml"));
             try {
                 Parent root = loader.load();
                 ListeCoursFrontController LCFC = loader.getController();
-               // LCFC.initClub(clubSelected);
-                LCFC.initialize(clubSelected);
+                //LCFC.initclub(clubSelected);
+                LCFC.initialize(Lcours,C);
                 Stage currentStage = (Stage) imageClub.getScene().getWindow();
                 currentStage.setScene(new Scene(root));
                 System.out.println("Navigating to ListeCours.fxml");
