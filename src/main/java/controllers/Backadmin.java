@@ -5,6 +5,8 @@ import com.esprit.Services.UserServices;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +18,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.scene.control.*;
 
 import java.io.Console;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 public class Backadmin {
@@ -27,6 +32,8 @@ public class Backadmin {
     @FXML
     private TableView<User> adminTableView;
 
+    @FXML
+    private TextField rechercher;
 
     @FXML
     private TableColumn<User, String> emailColumn;
@@ -202,6 +209,28 @@ public class Backadmin {
                 }
             }
         });
+        UserServices rs = new UserServices();
+
+        ObservableList<User> reponsesData = FXCollections.observableArrayList(rs.show());
+
+        FilteredList<User> filteredData = new FilteredList<>(reponsesData, b -> true);
+        adminTableView.setItems(filteredData);
+
+        rechercher.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(user -> {
+                System.out.println("Nom: " + user.getNom());
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true; // Show all data if the search field is empty
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+                return user.getNom().toLowerCase().contains(lowerCaseFilter);
+            });
+            adminTableView.setItems(filteredData);
+
+        });
+
         // Call showAdmin method during initialization
         showAdmin();
     }
@@ -254,7 +283,7 @@ public class Backadmin {
     // Event handler for editing cells
     @FXML
     void onEditCommit(TableColumn.CellEditEvent<User, String> event) {
-        System.out.println("here " );
+        System.out.println("here ");
 
         User editedUser = adminTableView.getSelectionModel().getSelectedItem();
         String newValue = event.getNewValue();
@@ -283,5 +312,24 @@ public class Backadmin {
 
         }
     }
-}
+        @FXML
+        void trier(ActionEvent event) {
+            // Get the current sorting order of the "Nom" column
+            TableColumn.SortType currentSortType = nom.getSortType();
+
+            // If the column is not sorted or currently sorted in ascending order, sort in descending order
+            if (currentSortType == null || currentSortType == TableColumn.SortType.ASCENDING) {
+                nom.setSortType(TableColumn.SortType.ASCENDING);
+                adminTableView.getSortOrder().setAll(nom);
+            } else {
+                // If the column is currently sorted in descending order, clear the sorting
+                nom.setSortType(null);
+                adminTableView.getSortOrder().clear();
+            }
+
+            // Apply the sorting to the TableView
+            adminTableView.sort();
+        }
+    }
+
 

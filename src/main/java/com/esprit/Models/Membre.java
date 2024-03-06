@@ -1,5 +1,7 @@
 package com.esprit.Models;
 
+import java.util.Date;
+
 public class Membre extends User{
 
     public Membre(int cin, String email, String mdp, String nom, String prénom, int numT, String role, String abonnement) {
@@ -16,6 +18,8 @@ public class Membre extends User{
     }
 
     private String abonnement ;
+    private int ban ;
+    private Date BanDuration  ;
 
     public Membre(String email, String password, String firstName, String lastName, int phoneNumber, String role) {
 

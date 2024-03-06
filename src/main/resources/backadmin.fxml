@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -27,12 +28,14 @@
                 <!-- Add more columns for other attributes... -->
             </columns>
         </TableView>
-        <Label layoutX="254.0" layoutY="48.0" text="Liste Des Admins" textFill="#589fd9">
+        <Label layoutX="252.0" layoutY="21.0" text="Liste Des Admins" textFill="#589fd9">
             <font>
                 <Font name="Ebrima Bold" size="32.0" />
             </font>
         </Label>
           <Button layoutX="616.0" layoutY="77.0" mnemonicParsing="false" onAction="#addAdmin" text="Add Admin" />
       <Button layoutX="616.0" layoutY="42.0" mnemonicParsing="false" onAction="#statButton" prefHeight="26.0" prefWidth="76.0" text="Statstic" />
+      <TextField fx:id="rechercher" layoutX="305.0" layoutY="64.0" />
+      <Button layoutX="189.0" layoutY="64.0" mnemonicParsing="false" onAction="#trier" prefHeight="26.0" prefWidth="62.0" text="Trie" />
     </children>
 </AnchorPane>
