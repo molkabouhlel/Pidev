@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -132,6 +133,8 @@ public class Backadmin {
     @FXML
     void initialize() {
         // Initialize TableColumn manually
+        nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+
         emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getEmail()));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
