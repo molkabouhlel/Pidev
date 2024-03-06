@@ -7,16 +7,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.esprit.activite.modeles.etat_m;
+import com.esprit.activite.modeles.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import com.esprit.activite.modeles.Categorie_eq;
-import com.esprit.activite.modeles.Equipement;
-import com.esprit.activite.modeles.Maintenance_eq;
 import com.esprit.activite.services.CategorieService;
 import com.esprit.activite.services.EquipementService;
 import com.esprit.activite.services.MaintenanceService;
@@ -72,7 +69,6 @@ public class AjoutEquipementController {
     @FXML
     void ajouerEquipement(ActionEvent event) throws IOException {
         EquipementService es = new EquipementService();
-
         CategorieService cs = new CategorieService();
         MaintenanceService ms = new MaintenanceService();
         if (!estNumerique(quantite_dispo.getText())) {
@@ -87,6 +83,14 @@ if (controlSaisie(ref_eq) && controlSaisie(nom_eq) && controlSaisie(description_
     Categorie_eq eq=es.rechercherCatParNom(cat);
     etat_m m=id_m.getValue();
     Maintenance_eq mq=es.rechercherMParNom(m);
+    try {
+        boolean containsBadWords = BadWordsChecker.checkForBadWords(description_eq.getText());
+        if (containsBadWords) {
+            Alert alerteA = new Alert(Alert.AlertType.ERROR);
+            alerteA.setTitle("bad words");
+            alerteA.setContentText("bad words");
+            alerteA.show();
+        } else {
     es.ajouter(new Equipement(ref_eq.getText(), nom_eq.getText(), description_eq.getText(), Integer.parseInt(quantite_dispo.getText()), id_espace.getValue(), eq, mq, image.getText()));
     Alert alerte = new Alert(Alert.AlertType.INFORMATION);
     alerte.setTitle("EQ ajout");
@@ -96,6 +100,10 @@ if (controlSaisie(ref_eq) && controlSaisie(nom_eq) && controlSaisie(description_
     Parent root = loader.load();
     Stage currentStage = (Stage) nom_eq.getScene().getWindow();
     currentStage.setScene(new Scene(root));
+        }
+    } catch (IOException e) {
+        System.err.println("An error occurred while checking for bad words: " + e.getMessage());
+    }
 }
 
 

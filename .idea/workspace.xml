@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2bac3cfe-a9c5-46f1-9c60-62fa6e8f1a9b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AjoutRdvController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AjoutRdvController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjoutRdv.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjoutRdv.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AjoutEquipementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AjoutEquipementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/DatabaseCalendarApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/DatabaseCalendarApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +80,7 @@
       <workItem from="1709668724440" duration="1957000" />
       <workItem from="1709712979311" duration="1026000" />
       <workItem from="1709728030234" duration="420000" />
+      <workItem from="1709728609118" duration="15545000" />
     </task>
     <servers />
   </component>
