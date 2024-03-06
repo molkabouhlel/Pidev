@@ -43,9 +43,9 @@ public class AjoutRdvController {
     private Button ajouterrv;
 
 
-   // private TextField date_rv;
-   @FXML
-   private DatePicker datePicker;
+    // private TextField date_rv;
+    @FXML
+    private DatePicker datePicker;
 
     @FXML
     private HBox date_rv;
@@ -53,7 +53,6 @@ public class AjoutRdvController {
     private Spinner<Integer> heureSpinner;
     @FXML
     private Spinner<Integer> minuteSpinner;
-
 
 
     @FXML
@@ -73,7 +72,7 @@ public class AjoutRdvController {
 
     @FXML
     private Button modifierrv;
-////
+    ////
     @FXML
     private ChoiceBox<String> id_eq;
 
@@ -104,11 +103,11 @@ public class AjoutRdvController {
 
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
         ///
-        String cat=id_eq.getValue();
-        Equipement eq=rs.rechercherEqParNom(cat);
+        String cat = id_eq.getValue();
+        Equipement eq = rs.rechercherEqParNom(cat);
 
 ///
-        rs.ajouter(new Rendez_vous(timestamp,eq, id_coach.getValue()));
+        rs.ajouter(new Rendez_vous(timestamp, eq, id_coach.getValue()));
         Alert alerte = new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("Rv ajout");
         alerte.setContentText("Rv bien ajoutee");
@@ -120,6 +119,7 @@ public class AjoutRdvController {
         currentStage.setScene(new Scene(root));
 
     }
+
     @FXML
     void modifier(ActionEvent event) {
         Rendez_vousService rendezVousService = new Rendez_vousService();
@@ -140,8 +140,8 @@ public class AjoutRdvController {
 
             Timestamp timestamp = Timestamp.valueOf(localDateTime);
 ///
-            String cat=id_eq.getValue();
-            Equipement eq=rendezVousService.rechercherEqParNom(cat);
+            String cat = id_eq.getValue();
+            Equipement eq = rendezVousService.rechercherEqParNom(cat);
 
             rendezVous.setId_rv(idRv);
             rendezVous.setDate_rv(timestamp);
@@ -206,9 +206,8 @@ public class AjoutRdvController {
 
 ///
 
-       List<String> nomeqList = c.listeq();
+        List<String> nomeqList = c.listeq();
         id_eq.setItems(FXCollections.observableArrayList(nomeqList));
-
 
 
         Rendez_vousService rvs = new Rendez_vousService();
@@ -223,10 +222,9 @@ public class AjoutRdvController {
     }
 
 
-
     @FXML
     void supprimer(ActionEvent event) {
-        Rendez_vousService c=new Rendez_vousService();
+        Rendez_vousService c = new Rendez_vousService();
 
 
         int selectedID = tableview.getSelectionModel().getSelectedIndex();
@@ -239,13 +237,14 @@ public class AjoutRdvController {
 
             tableview.getItems().remove(selectedID);
         } else {
-            Alert alerte= new Alert(Alert.AlertType.INFORMATION);
+            Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("erreur");
             alerte.setContentText("rdv nest pas selectioner");
             alerte.show();
         }
 
     }
+
     @FXML
     void refresh(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -286,13 +285,24 @@ public class AjoutRdvController {
             }
         });
     }
+
     private void supprimerE(Rendez_vous ev) {
         Rendez_vousService p = new Rendez_vousService();
         p.supprimer(ev);
         tableview.getItems().remove(ev);
     }
 
+    @FXML
+    void calendarbutton(ActionEvent event) {
+
+            DatabaseCalendarApp calendarApp = new DatabaseCalendarApp();
+            Stage stage = new Stage();
+            calendarApp.start(stage);
+
+    }
 }
+
+
 
 
 
