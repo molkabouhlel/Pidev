@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Affichp">
+   <children>
+      <TableView fx:id="tableview" layoutX="35.0" layoutY="279.0" prefHeight="241.0" prefWidth="716.0">
+        <columns>
+          <TableColumn fx:id="nomc" editable="true" prefWidth="297.9999694824219" text="course name" />
+          <TableColumn fx:id="action" prefWidth="414.66668701171875" text="action" />
+        </columns>
+      </TableView>
+      <ImageView fitHeight="76.0" fitWidth="828.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@1.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="53.0" prefHeight="347.0" prefWidth="129.0" />
+      <TextField fx:id="nom" layoutX="150.0" layoutY="201.0" promptText="last name" />
+      <TextField fx:id="prenom" layoutX="150.0" layoutY="240.0" promptText="first name" />
+      <Button layoutX="351.0" layoutY="214.0" mnemonicParsing="false" onAction="#recherche" style="-fx-background-radius: 15; -fx-background-color: #84c6f5;" text="search" />
+      <AnchorPane layoutY="64.0" prefHeight="64.0" prefWidth="828.0" style="-fx-background-color: #84c6f5;">
+         <children>
+            <Label layoutX="247.0" layoutY="12.0" prefHeight="25.0" prefWidth="288.0" text="my participations" textFill="WHITE" underline="true">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="61.0" fitWidth="82.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/retour.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="15.0" layoutY="5.0" mnemonicParsing="false" onAction="#goback" prefHeight="61.0" prefWidth="75.0" style="-fx-opacity: 0;" text="return" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

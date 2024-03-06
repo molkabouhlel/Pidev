@@ -19,10 +19,9 @@
             <Label layoutX="85.0" layoutY="147.0" text="Description" />
             <TextField fx:id="heure_debut" layoutX="189.0" layoutY="230.0" />
             <TextField fx:id="heure_fin" layoutX="187.0" layoutY="297.0" />
-            <Label layoutX="82.0" layoutY="234.0" text="Heure:debut" />
-            <Label layoutX="91.0" layoutY="299.0" text="Heure:fin" />
+            <Label layoutX="82.0" layoutY="234.0" text="Open Hour" />
+            <Label layoutX="85.0" layoutY="299.0" text="Close Hour" />
             <Button fx:id="ajoutespace" layoutX="159.0" layoutY="349.0" mnemonicParsing="false" onAction="#ajouterespace" prefHeight="26.0" prefWidth="61.0" text="ADD" />
-            <Button fx:id="Return" layoutX="251.0" layoutY="349.0" mnemonicParsing="false" onAction="#RedirectToEspaceAfficher" prefHeight="26.0" prefWidth="61.0" text="Return" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="52.0" fitWidth="600.0" pickOnBounds="true">
@@ -31,10 +30,16 @@
          </image>
       </ImageView>
       <Label layoutY="52.0" prefHeight="365.0" prefWidth="249.0" style="-fx-background-color: rgb(56, 122, 223);" textFill="#960b0b" />
-      <Label layoutX="24.0" layoutY="64.0" prefHeight="94.0" prefWidth="210.0" text="Ajout Espace" textFill="WHITE">
+      <Label layoutX="24.0" layoutY="64.0" prefHeight="94.0" prefWidth="210.0" text="Add Espace" textFill="WHITE">
          <font>
             <Font size="33.0" />
          </font>
       </Label>
+      <ImageView fitHeight="56.0" fitWidth="103.0" layoutX="541.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/retour.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="retour" layoutX="515.0" layoutY="-2.0" mnemonicParsing="false" onAction="#RedirectToEspaceAfficher" opacity="0.0" prefHeight="56.0" prefWidth="83.0" />
    </children>
 </AnchorPane>

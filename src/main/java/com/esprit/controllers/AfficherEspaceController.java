@@ -1,6 +1,5 @@
 package com.esprit.controllers;
 
-import com.esprit.models.Club;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -23,24 +22,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-
-import java.io.*;
 
 import java.sql.Time;
 import java.util.Comparator;
@@ -275,7 +269,7 @@ public class AfficherEspaceController {
 
     @FXML
     void RedirectToMenu(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MenuModule.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MenuModuleClub.fxml"));
         Parent root = loader.load();
         Stage currentStage = (Stage) Espace_TableView.getScene().getWindow();
         currentStage.setScene(new Scene(root));

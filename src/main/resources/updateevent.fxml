@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Updateevent">
+   <children>
+      <AnchorPane prefHeight="625.0" prefWidth="815.0" style="-fx-background-color: #bbe3fb;">
+         <children>
+            <ImageView fitHeight="61.0" fitWidth="67.0" layoutX="721.0" layoutY="533.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/image-removebg-preview%20(3).png" />
+               </image>
+            </ImageView>
+            <AnchorPane prefHeight="619.0" prefWidth="151.0" style="-fx-background-color: #84c6f5;">
+               <children>
+                  <Label layoutX="23.0" layoutY="242.0" text="EVENT " textFill="#f6f5f5">
+                     <font>
+                        <Font name="AGA Arabesque" size="36.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="73.0" fitWidth="61.0" layoutX="23.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Image/retour.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="23.0" layoutY="82.0" mnemonicParsing="false" onAction="#retourner" prefHeight="57.0" prefWidth="67.0" style="-fx-background-color: #4ba6f2; -fx-opacity: 0;" text="Retourner" textFill="#efecec" />
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="73.0" fitWidth="830.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@1.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="436.0" layoutY="112.0" text="CAPACITY" />
+            <Label layoutX="173.0" layoutY="112.0" text="EVENT NAME :" textFill="#232424" />
+            <Label layoutX="439.0" layoutY="356.0" text="COURSE CATEGORY" />
+            <Label layoutX="178.0" layoutY="288.0" text="IMAGE URL :" />
+            <Label layoutX="439.0" layoutY="191.0" text="SPACE" />
+            <Label layoutX="184.0" layoutY="191.0" text="DESCRIPTION :" />
+            <Label layoutX="184.0" layoutY="498.0" text="END DATE-TIME :" />
+            <Label layoutX="436.0" layoutY="449.0" text="EVENT CATEGORY" />
+            <Label layoutX="180.0" layoutY="365.0" text="START DATE-TIME :" />
+            <TextArea fx:id="deseveup" layoutX="176.0" layoutY="228.0" prefHeight="46.0" prefWidth="151.0" />
+            <TextField fx:id="nomeveup" layoutX="177.0" layoutY="150.0" />
+            <TextField fx:id="imeveup" layoutX="177.0" layoutY="316.0" />
+            <TextField fx:id="capeveup" layoutX="436.0" layoutY="150.0" />
+            <Button layoutX="724.0" layoutY="539.0" mnemonicParsing="false" onAction="#modifier" prefHeight="46.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #2f85b3; -fx-opacity: 0;" text="modifier" textFill="#f8f7f7" />
+            <DatePicker fx:id="datedebcombo" layoutX="177.0" layoutY="418.0" />
+            <DatePicker fx:id="datefincombo" layoutX="186.0" layoutY="545.0" prefHeight="25.0" prefWidth="175.0" />
+            <ComboBox fx:id="comboidcatup" layoutX="436.0" layoutY="405.0" prefWidth="150.0" />
+            <ComboBox fx:id="comboidcatevup" layoutX="436.0" layoutY="485.0" prefWidth="150.0" />
+            <TextField fx:id="idev" layoutX="290.0" layoutY="69.0" style="-fx-opacity: 0;" />
+            <Button layoutX="333.0" layoutY="316.0" mnemonicParsing="false" onAction="#browse" style="-fx-background-radius: 15;" text="BROWSE" />
+            <Spinner fx:id="timedebup" layoutX="178.0" layoutY="445.0" prefHeight="25.0" prefWidth="108.0" />
+            <Spinner fx:id="timedebupmin" layoutX="282.0" layoutY="445.0" prefHeight="17.0" prefWidth="67.0" />
+            <Spinner fx:id="timefinminup" layoutX="283.0" layoutY="571.0" prefHeight="25.0" prefWidth="79.0" />
+            <Spinner fx:id="timefinup" layoutX="185.0" layoutY="571.0" prefHeight="25.0" prefWidth="108.0" />
+            <ComboBox fx:id="listeespace" layoutX="436.0" layoutY="238.0" prefWidth="150.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

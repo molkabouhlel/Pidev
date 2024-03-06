@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Affichercours">
+   <children>
+      <AnchorPane prefHeight="132.0" prefWidth="822.0" style="-fx-background-color: #84c6f5;">
+         <children>
+            <ImageView fitHeight="58.0" fitWidth="61.0" layoutX="15.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/retour.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="14.0" layoutY="72.0" mnemonicParsing="false" onAction="#returnlist" prefHeight="52.0" prefWidth="61.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="retourner" textFill="#f0f1f6">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+            <Label layoutX="196.0" layoutY="78.0" prefHeight="40.0" prefWidth="405.0" text="             LISTE DES COURS               " textAlignment="CENTER" textFill="#f5f6f6" underline="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="77.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="47.0" layoutX="527.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/pdf_4726010-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="66.0" layoutX="98.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/delete_7133356-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="98.0" layoutX="12.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/image-removebg-preview%20(3).png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tableview" layoutX="14.0" layoutY="206.0" prefHeight="323.0" prefWidth="733.0">
+        <columns>
+          <TableColumn fx:id="nomc" prefWidth="75.0" text="name" />
+          <TableColumn fx:id="desc" prefWidth="138.66668701171875" text="description" />
+            <TableColumn fx:id="imgc" minWidth="0.0" prefWidth="77.33338928222656" text="image" />
+            <TableColumn fx:id="dureec" prefWidth="54.6666259765625" text="duration" />
+            <TableColumn fx:id="idcc" prefWidth="56.0" text="coach" />
+            <TableColumn fx:id="idclub" prefWidth="46.0" text="club" />
+            <TableColumn fx:id="id_typc" prefWidth="148.66671752929688" text="COURSE CATEGORY" />
+            <TableColumn fx:id="action" prefWidth="131.33331298828125" text="action" />
+        </columns>
+      </TableView>
+      <Button layoutX="22.0" layoutY="544.0" mnemonicParsing="false" onAction="#modifiercours" prefHeight="40.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="modifier" textFill="#fbf8f8" />
+      <Button layoutX="103.0" layoutY="535.0" mnemonicParsing="false" onAction="#supprimercours" prefHeight="58.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="supprimer" textFill="#fbf8f8" />
+      <TextField fx:id="recherche" layoutX="216.0" layoutY="157.0" prefHeight="30.0" prefWidth="363.0" promptText="search" />
+      <ImageView fitHeight="58.0" fitWidth="61.0" layoutX="657.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/stat.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="666.0" layoutY="9.0" mnemonicParsing="false" onAction="#stat" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="stat" />
+      <ImageView fitHeight="58.0" fitWidth="47.0" layoutX="593.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/add-file_1090923.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="593.0" layoutY="12.0" mnemonicParsing="false" onAction="#add" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="add" />
+      <Button layoutX="528.0" layoutY="9.0" mnemonicParsing="false" onAction="#pdf" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="pdf" />
+      <ChoiceBox fx:id="valcat" layoutX="28.0" layoutY="159.0" prefWidth="150.0" />
+      <ComboBox fx:id="trie" layoutX="608.0" layoutY="159.0" onAction="#trier" prefWidth="150.0" />
+      <Label layoutX="616.0" layoutY="139.0" text="sort :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="139.0" text="filtre :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

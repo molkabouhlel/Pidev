@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
@@ -29,9 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -41,9 +37,7 @@ import java.util.List;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -292,7 +286,7 @@ public class AffichageClubFrontController {
     @FXML
     void RedirectToMenu()  throws IOException {
         timeline.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MenuModule.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MenuModuleClub.fxml"));
         Parent root = loader.load();
         Stage currentStage = (Stage) flowPane.getScene().getWindow();
         currentStage.setScene(new Scene(root));

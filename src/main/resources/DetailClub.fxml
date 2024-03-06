@@ -73,9 +73,9 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <TextField fx:id="user_nom" layoutX="24.0" layoutY="279.0" promptText="First Name" />
-      <TextField fx:id="user_prenom" layoutX="25.0" layoutY="316.0" promptText="Last Name" />
-      <TextField fx:id="user_mail" layoutX="26.0" layoutY="355.0" promptText="Email" />
+      <TextField fx:id="user_nom" editable="false" layoutX="24.0" layoutY="279.0" promptText="First Name" />
+      <TextField fx:id="user_prenom" editable="false" layoutX="25.0" layoutY="316.0" promptText="Last Name" />
+      <TextField fx:id="user_mail" editable="false" layoutX="26.0" layoutY="355.0" promptText="Email" />
       <Button layoutX="471.0" layoutY="151.0" mnemonicParsing="false" onAction="#RedicrectionListeCours" text="Liste Cours" />
    </children>
 </AnchorPane>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="526.0" prefWidth="765.0" styleClass="form_container" stylesheets="@../../../../../Pidev-suivi/src/main/resources/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ObjectifController">
+
+    <children>
+        <Label layoutX="288.0" layoutY="13.0" prefHeight="27.0" prefWidth="189.0" style="-fx-font-size: 18px;" styleClass="title" text="Gestion des Objectifs" />
+        <VBox layoutX="482.0" layoutY="109.0" prefHeight="280.0" prefWidth="269.0" spacing="15.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+                <TextField fx:id="objectifIdTextField" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_cours" />
+                <ComboBox fx:id="courseIdComboBox" prefHeight="43.0" prefWidth="268.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_programme " />
+                <TextField fx:id="programmeField" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                <TextArea fx:id="objectiveDescriptionTextArea" prefHeight="77.0" prefWidth="293.0" />
+            </children>
+        </VBox>
+        <TableView fx:id="objectiveTableView" layoutX="290.0" layoutY="120.0" prefHeight="259.0" prefWidth="169.0" AnchorPane.rightAnchor="306.0" AnchorPane.topAnchor="120.0">
+            <columns>
+                <TableColumn fx:id="colIdObj" prefWidth="89.0" text="ID" />
+                <TableColumn fx:id="colDescr" prefWidth="89.0" text="Description" />
+            </columns>
+        </TableView>
+        <ButtonBar layoutX="401.0" layoutY="405.0" prefHeight="40.0" prefWidth="317.0" AnchorPane.leftAnchor="401.0">
+            <buttons>
+                <Button fx:id="btsave" layoutX="135.0" layoutY="18.0" minWidth="55.0" mnemonicParsing="false" onAction="#addObjective" prefHeight="34.0" text="Save" />
+                <Button fx:id="btupdate" mnemonicParsing="false" onAction="#updateObjective" text="Update" />
+                <Button fx:id="btdelete" layoutX="50.0" layoutY="18.0" mnemonicParsing="false" onAction="#deleteObjective" text="Delete" />
+                <Button fx:id="btclear" layoutX="147.0" layoutY="18.0" mnemonicParsing="false" onAction="#clearObjective" text="Clear" />
+            </buttons>
+        </ButtonBar>
+        <ImageView fitHeight="52.0" fitWidth="765.0" pickOnBounds="true">
+            <image>
+            </image>
+        </ImageView>
+        <VBox layoutX="31.0" layoutY="38.0" prefHeight="446.0" prefWidth="231.0" spacing="3.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+                <TextField fx:id="programIdTextField" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description programme" wrappingWidth="140.0" />
+                <TextArea fx:id="programDescriptionTextArea" prefHeight="29.0" prefWidth="230.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" wrappingWidth="69.625" />
+                <TextField fx:id="rateTextField" prefHeight="9.0" prefWidth="230.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat initial" wrappingWidth="119.18359375" />
+                <TextField fx:id="initialStateTextField" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat final" wrappingWidth="100.060546875" />
+                <TextField fx:id="finalStateTextField" prefHeight="5.0" prefWidth="20.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_user" />
+                <TextField fx:id="userIdTextField" prefHeight="16.0" prefWidth="230.0" />
+            </children>
+        </VBox>
+      <Button fx:id="ReturntoAffichage" layoutX="640.0" layoutY="21.0" mnemonicParsing="false" onAction="#ReturnToAffichage" opacity="0.0" prefHeight="0.0" prefWidth="54.0" text="Return" />
+      <ImageView fitHeight="71.0" fitWidth="70.0" layoutX="670.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Pidev-suivi/src/images/429637005_772930231416567_4989761362167058879_n.png" />
+         </image>
+      </ImageView>
+    </children>
+
+</AnchorPane>
