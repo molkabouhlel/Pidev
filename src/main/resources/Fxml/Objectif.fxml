@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -63,6 +64,12 @@
                 <TextField fx:id="userIdTextField" prefHeight="16.0" prefWidth="230.0" />
             </children>
         </VBox>
+      <Button fx:id="ReturntoAffichage" layoutX="640.0" layoutY="21.0" mnemonicParsing="false" onAction="#ReturnToAffichage" opacity="0.0" prefHeight="0.0" prefWidth="54.0" text="Return" />
+      <ImageView fitHeight="71.0" fitWidth="70.0" layoutX="670.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/429637005_772930231416567_4989761362167058879_n.png" />
+         </image>
+      </ImageView>
     </children>
 
 </AnchorPane>

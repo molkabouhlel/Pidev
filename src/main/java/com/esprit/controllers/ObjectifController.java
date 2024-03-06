@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class ObjectifController {
+    @FXML
+    private Button ReturntoAffichage;
 
     @FXML
     private TextField programmeField;
@@ -168,7 +170,7 @@ public class ObjectifController {
         alert.setContentText("Objective successfully added");
         alert.show();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/AfficherProg.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/AffichageProg1.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -203,7 +205,7 @@ public class ObjectifController {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/AfficherProg.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/AffichageProg1.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -219,6 +221,14 @@ public class ObjectifController {
         } else {
             System.out.println("Please select an objective to delete.");
         }
+    }
+    @FXML
+    void ReturnToAffichage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/AffichageProg1.fxml"));
+        Parent root = loader.load();
+        Stage currentStage = (Stage) objectiveTableView.getScene().getWindow();
+        currentStage.setScene(new Scene(root));
+
     }
 
 

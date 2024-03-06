@@ -57,7 +57,7 @@ public class AffichageProg1Controller {
 
     public void initialize() {
         cbSort.setValue("nom");
-        cbSort.getItems().addAll("nom", "temps", "");
+        cbSort.getItems().addAll("nom", "date", "");
         initFlowpane();
         /////////////////////////////////RECHERCHE/////////////////////////////////
         recherche.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -123,13 +123,13 @@ public class AffichageProg1Controller {
                 .filter(node -> {
                     if (node instanceof VBox) {
                         VBox vBox = (VBox) node;
-                        Label clubNameLabel = (Label) vBox.getChildren().get(0);
+                        Label clubNameLabel = (Label) vBox.getChildren().get(1);
                         String clubName = clubNameLabel.getText().toLowerCase();
                         return clubName.startsWith(searchText);
                     }
                     return false;
                 })
-                .collect(Collectors.toList());
+                 .collect(Collectors.toList());
 
         flowPane.getChildren().clear();
         flowPane.getChildren().addAll(filteredNodes);
@@ -243,38 +243,50 @@ public class AffichageProg1Controller {
     }
 
     @FXML
-    void trier(ActionEvent event) {
-        // Assuming your flowPane contains Club objects
+    void trier() {
+        // Assuming your flowPane contains Programme objects
         ObservableList<Node> children = flowPane.getChildren();
 
-        // Assuming cbSort is a ComboBox<String> containing sorting options
+// Assuming cbSort is a ComboBox<String> containing sorting options
         Comparator<Programme> comparator = null;
 
         if ("nom".equals(cbSort.getValue())) {
             comparator = Comparator.comparing(Programme::getNom_prog);
         }
 
-        if ("temps".equals(cbSort.getValue())) {
-            comparator = Comparator.comparing(Programme::getDate_debut);
+        if ("date".equals(cbSort.getValue())) {
+            comparator = Comparator.comparing(Programme::getDate_debut, Comparator.nullsLast(Comparator.naturalOrder()));
         }
 
-        List<Node> sortedChildren = new ArrayList<>(children);
-        Comparator<Programme> finalComparator = comparator;
-        sortedChildren.sort(new Comparator<Node>() {
-            @Override
-            public int compare(Node n1, Node n2) {
-                Programme club1 = (Programme) n1.getUserData();
-                Programme club2 = (Programme) n2.getUserData();
-                return finalComparator.compare(club1, club2);
-            }
-        });
+        if (comparator != null) {
+            List<Node> sortedChildren = new ArrayList<>(children);
+            Comparator<Programme> finalComparator = comparator;
+            sortedChildren.sort(new Comparator<Node>() {
+                @Override
+                public int compare(Node n1, Node n2) {
+                    Programme programme1 = (Programme) n1.getUserData();
+                    Programme programme2 = (Programme) n2.getUserData();
+                    // Check for null references
+                    if (programme1 == null && programme2 == null) {
+                        return 0;
+                    }
+                    if (programme1 == null) {
+                        return 1;
+                    }
+                    if (programme2 == null) {
+                        return -1;
+                    }
+                    // Use the finalComparator to compare Programme objects
+                    return finalComparator.compare(programme1, programme2);
+                }
+            });
 
-        flowPane.getChildren().setAll(sortedChildren);
+            flowPane.getChildren().setAll(sortedChildren);
+        }
     }
 
 
-
-    @FXML
+        @FXML
     void RedirectToAjoutClub(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutClub.fxml"));
         Parent root = loader.load();
