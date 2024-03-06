@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddAdmin">
@@ -52,7 +52,13 @@
             </Button>
             <PasswordField fx:id="confirm" layoutX="365.0" layoutY="282.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0" promptText="Confirm Password" />
             <AnchorPane layoutX="-61.0" layoutY="60.0" prefHeight="358.0" prefWidth="187.0" style="-fx-background-color: #5eaffa;" />
-            <Pane fx:id="panecaptcha" layoutX="258.0" layoutY="339.0" prefHeight="44.0" prefWidth="200.0" />
+            <Canvas fx:id="capchac" height="39.0" layoutX="258.0" layoutY="327.0" width="200.0" />
+            <Button fx:id="retourajout1" layoutX="578.0" layoutY="324.0" mnemonicParsing="false" onAction="#refreshbutton" prefHeight="31.0" prefWidth="74.0" text="Refresh" textAlignment="JUSTIFY" textFill="#5eaffe">
+               <font>
+                  <Font name="Arial Narrow" size="17.0" />
+               </font>
+            </Button>
+            <TextField fx:id="captchaText" layoutX="273.0" layoutY="378.0" />
          </children>
       </AnchorPane>
    </children>

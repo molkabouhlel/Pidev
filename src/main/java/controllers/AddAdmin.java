@@ -4,9 +4,12 @@ import com.esprit.Services.UserServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -21,12 +24,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import java.util.Random;
+import java.util.ResourceBundle;
 
-public class AddAdmin {
+public class AddAdmin implements Initializable {
 
     @FXML
     private Pane panecaptcha;
@@ -36,6 +41,11 @@ public class AddAdmin {
     @FXML
     private TextField LN;
 
+    @FXML
+    private Canvas capchac;
+
+    @FXML
+    private TextField captchaText;
     @FXML
     private TextField TTF;
 
@@ -53,21 +63,24 @@ public class AddAdmin {
 
     @FXML
     private Button retourajout;
+    private String captcha;
+
 
 
     @FXML
     void addAdmin(ActionEvent event) {
         // Get input values from the form
-        String captcha = generateCaptcha();
-        TextInputDialog dialog = new TextInputDialog();
+        //String captcha = generateCaptcha();
+        String captchatext = captchaText.getText();
+      /*  TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("CAPTCHA Verification");
         dialog.setHeaderText(null);
         dialog.setContentText("Please enter the CAPTCHA code:\n");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            String userInput = result.get();
+            String userInput = result.get();*/
 
-            if (!userInput.equals(captcha)) {
+            if (!captchatext.equals(captcha)) {
                 Alert alert1 = new Alert(Alert.AlertType.ERROR);
                 alert1.setTitle("CAPTCHA Verification Failed");
                 alert1.setHeaderText(null);
@@ -101,10 +114,10 @@ public class AddAdmin {
                 }
 
                 // Validate password confirmation
-                if (!password.equals(confirmPassword)) {
+                /*if (!password.equals(confirmPassword)) {
                     showAlert(AlertType.ERROR, "Password Mismatch", "Password and confirm password do not match.");
                     return; // Stop processing if passwords do not match
-                }
+                }*/
                 // Validate first name contains only alphabetic characters
                 if (!isValidName(firstName)) {
                     showAlert(AlertType.ERROR, "Input Error", "Invalid first name. Please enter only alphabetic characters.");
@@ -130,7 +143,7 @@ public class AddAdmin {
             }
 
         }
-    }
+    //}
 
     private boolean isValidPassword(String password) {
         // Add your password validation logic here
@@ -180,6 +193,12 @@ public class AddAdmin {
     }
 
     @FXML
+    void refreshbutton(ActionEvent event) {
+        generateCaptcha();
+        drawCaptcha();
+    }
+
+    @FXML
     void showAdmin(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage currentStage = (Stage) source.getScene().getWindow();
@@ -195,55 +214,42 @@ public class AddAdmin {
             e.printStackTrace();
         }
     }
-    private String generateCaptcha() {
-        String captcha = generateRandomString(4);
-        panecaptcha.getChildren().clear();
+    private void generateCaptcha() {
+        captcha = generateRandomString(6); // Change 6 to the desired length
+    }
+
+    private void drawCaptcha() {
+        GraphicsContext gc = capchac.getGraphicsContext2D();
+        gc.clearRect(0, 0, capchac.getWidth(), capchac.getHeight());
+        gc.setFont(Font.font("Arial", 20));
+        gc.setStroke(javafx.scene.paint.Color.BLACK);
+        gc.setLineWidth(2.0);
+
         Random random = new Random();
         for (int i = 0; i < captcha.length(); i++) {
-            char character = captcha.charAt(i);
-            Shape shape;
-            if (Character.isDigit(character)) {
-                shape = new Rectangle(30, 30);
-            } else {
-                shape = null;
-            }
-
-            if (shape != null) {
-
-
-
-                shape.setLayoutX(i * 50 + 20);
-                shape.setLayoutY(30);
-
-                shape.setRotate(random.nextInt(40) - 20);
-
-                panecaptcha.getChildren().add(shape);
-            }
-            Text text = new Text(String.valueOf(character));
-            text.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-            text.setFill(Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-
-            text.setLayoutX(i * 50 + 30);
-            text.setLayoutY(50);
-
-            text.setRotate(random.nextInt(40) - 15);
-
-            panecaptcha.getChildren().add(text);
+            gc.save();
+            gc.translate(30 * i + 10, 30);
+            gc.rotate(random.nextInt(20) - 10);
+            gc.strokeText(String.valueOf(captcha.charAt(i)), 0, 0);
+            gc.restore();
         }
-
-        return captcha;
+        gc.beginPath();
+        gc.moveTo(0, 25);
+        for (int i = 0; i < captcha.length() * 30; i += 5)
+            gc.lineTo(i, 25 + (random.nextInt(6) - 3));
+        gc.stroke();
     }
-
 
     private String generateRandomString(int length) {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        StringBuilder stringBuilder = new StringBuilder();
-        Random random = new Random();
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
-            stringBuilder.append(characters.charAt(random.nextInt(characters.length())));
+            int index = (int) (Math.random() * chars.length());
+            sb.append(chars.charAt(index));
         }
-        return stringBuilder.toString();
+        return sb.toString();
     }
+
     public String hashPassword(String password) {
         try {
 
@@ -267,5 +273,10 @@ public class AddAdmin {
         }
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        generateCaptcha();
+        drawCaptcha();
+    }
 }
 
