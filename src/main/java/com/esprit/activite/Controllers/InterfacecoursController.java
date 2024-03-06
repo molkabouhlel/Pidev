@@ -2,6 +2,9 @@ package com.esprit.activite.Controllers;
 
 import com.esprit.activite.modeles.*;
 import com.esprit.activite.services.*;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,6 +52,7 @@ public class InterfacecoursController {
     @FXML
     private TextField nom_c;
 
+
     @FXML
     void addcours(ActionEvent event) {
         if (validerChamps()) {
@@ -61,6 +65,7 @@ public class InterfacecoursController {
             Coach coachselectid=es.rechercherCatParNomCoach(id_caoch);
                 if (categoSelectionne != null) {
             es.ajouter(new Cours(nom_c.getText(), description_c.getText(), image_c.getText(), Time.valueOf(duree.getText()), coachselectid,clubselectionid,categoSelectionne));
+            envoyerSMSConfirmation();
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("cours ajout");
             alerte.setContentText("cours bien ajoutee");
@@ -176,6 +181,24 @@ void browse(ActionEvent event) {
         alerte.setHeaderText(null);
         alerte.setContentText(message);
         alerte.showAndWait();
+    }
+    private void envoyerSMSConfirmation() {
+
+
+        String message = "Bonjour  merci de verifier la liste des cours ";
+
+        // Initialisez Twilio avec vos informations d'identification
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        // Envoyez le SMS de confirmation
+        Message twilioMessage = Message.creator(
+                        new PhoneNumber(VOTRE_NUMERO),
+                        new PhoneNumber(TWILIO_PHONE_NUMBER),
+                        message)
+                .create();
+
+        // Affichez le SID du message Twilio dans la console
+        //  System.out.println("SID du message Twilio : " + twilioMessage.getSid());
     }
 
 }

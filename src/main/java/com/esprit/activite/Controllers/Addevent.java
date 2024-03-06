@@ -1,12 +1,18 @@
 package com.esprit.activite.Controllers;
 
-import com.esprit.activite.modeles.*;
+import com.esprit.activite.modeles.Evenement;
+import com.esprit.activite.modeles.espace;
+import com.esprit.activite.modeles.type_ev;
+import com.esprit.activite.modeles.typec;
 import com.esprit.activite.services.CoursService;
 import com.esprit.activite.services.EvenementService;
 import com.esprit.activite.services.TypecService;
-import com.esprit.activite.services.type_evService;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,21 +20,28 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 
 public class Addevent {
@@ -72,6 +85,8 @@ public class Addevent {
 
     @FXML
     private Spinner<Integer> timefinmin;
+    @FXML
+    private Pane panee;
 
 
     @FXML
@@ -134,26 +149,44 @@ public class Addevent {
             ///
 
             int capa = Integer.parseInt(capeve.getText());
-            es.ajouter(new Evenement(nomeve.getText(), deseve.getText(), imeve.getText(), t, tf, capa, espaceselectionid, categoSelectionne, evecatidselected));
+
+//
+            //captcha
+            String captcha = generateCaptcha();
+
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("CAPTCHA Verification");
+            dialog.setHeaderText(null);
+            dialog.setContentText("Please enter the CAPTCHA code:\n");
+
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(15), timerEvent -> {
+                dialog.setResult("");
+                dialog.close();
+            }));
+            timeline.setCycleCount(1);
+            timeline.play();
+
+            Optional<String> result = dialog.showAndWait();
+            timeline.stop();
+
+            if (result.isPresent()) {
+                String userInput = result.get();
+
+                if (!userInput.equals(captcha)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("CAPTCHA Verification Failed");
+                    alert.setHeaderText(null);
+                    alert.setContentText("The CAPTCHA code you entered is incorrect. Please try again.");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+          es.ajouter(new Evenement(nomeve.getText(), deseve.getText(), imeve.getText(), t, tf, capa, espaceselectionid, categoSelectionne, evecatidselected));
+            envoyerSMSConfirmation();
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("confirmation");
             alerte.setContentText("evenement ajoutee");
             alerte.show();
-//
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
-
-
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/addevent.fxml"));
-                Stage newStage = new Stage();
-                newStage.setScene(new Scene(root));
-                newStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
         }else {
             Alert alerte = new Alert(Alert.AlertType.ERROR);
             alerte.setTitle("erreur");
@@ -162,6 +195,7 @@ public class Addevent {
         }
 
     }
+
 
     @FXML
     void afficher(ActionEvent event) throws IOException {
@@ -263,6 +297,73 @@ public class Addevent {
         alerte.setHeaderText(null);
         alerte.setContentText(message);
         alerte.showAndWait();
+    }
+    private String generateCaptcha() {
+        String captcha = generateRandomString(4);
+        panee.getChildren().clear();
+        Random random = new Random();
+        for (int i = 0; i < captcha.length(); i++) {
+            char character = captcha.charAt(i);
+            Shape shape;
+            if (Character.isDigit(character)) {
+                shape = new Rectangle(30, 30);
+            } else {
+                shape = null;
+            }
+
+            if (shape != null) {
+
+
+
+                shape.setLayoutX(i * 50 + 20);
+                shape.setLayoutY(30);
+
+                shape.setRotate(random.nextInt(40) - 20);
+
+                panee.getChildren().add(shape);
+            }
+            Text text = new Text(String.valueOf(character));
+            text.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+            text.setFill(Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
+
+            text.setLayoutX(i * 50 + 30);
+            text.setLayoutY(50);
+
+            text.setRotate(random.nextInt(40) - 15);
+
+            panee.getChildren().add(text);
+        }
+
+        return captcha;
+    }
+
+
+    private String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder stringBuilder = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            stringBuilder.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return stringBuilder.toString();
+    }
+    private void envoyerSMSConfirmation() {
+
+
+        String message = "Bonjour  merci de verifier la liste des evenements";
+
+        // Initialisez Twilio avec vos informations d'identification
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        // Envoyez le SMS de confirmation
+        Message twilioMessage = Message.creator(
+                        new PhoneNumber(VOTRE_NUMERO),
+                        new PhoneNumber(TWILIO_PHONE_NUMBER),
+                        message)
+                .create();
+
+        // Affichez le SID du message Twilio dans la console
+        //  System.out.println("SID du message Twilio : " + twilioMessage.getSid());
     }
 }
 

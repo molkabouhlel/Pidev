@@ -54,13 +54,13 @@
       </ImageView>
       <TableView fx:id="tableview" layoutX="14.0" layoutY="206.0" prefHeight="323.0" prefWidth="733.0">
         <columns>
-          <TableColumn fx:id="nomc" prefWidth="75.0" text="nom" />
+          <TableColumn fx:id="nomc" prefWidth="75.0" text="name" />
           <TableColumn fx:id="desc" prefWidth="138.66668701171875" text="description" />
-            <TableColumn fx:id="imgc" minWidth="0.0" prefWidth="77.33338928222656" text="imagec" />
-            <TableColumn fx:id="dureec" prefWidth="54.6666259765625" text="duree" />
+            <TableColumn fx:id="imgc" minWidth="0.0" prefWidth="77.33338928222656" text="image" />
+            <TableColumn fx:id="dureec" prefWidth="54.6666259765625" text="duration" />
             <TableColumn fx:id="idcc" prefWidth="56.0" text="coach" />
             <TableColumn fx:id="idclub" prefWidth="46.0" text="club" />
-            <TableColumn fx:id="id_typc" prefWidth="148.66671752929688" text="categorie de cours" />
+            <TableColumn fx:id="id_typc" prefWidth="148.66671752929688" text="COURSE CATEGORY" />
             <TableColumn fx:id="action" prefWidth="131.33331298828125" text="action" />
         </columns>
       </TableView>
@@ -81,6 +81,16 @@
       <Button layoutX="593.0" layoutY="12.0" mnemonicParsing="false" onAction="#add" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="add" />
       <Button layoutX="528.0" layoutY="9.0" mnemonicParsing="false" onAction="#pdf" prefHeight="52.0" prefWidth="37.0" style="-fx-opacity: 0;" text="pdf" />
       <ChoiceBox fx:id="valcat" layoutX="28.0" layoutY="159.0" prefWidth="150.0" />
-      <ComboBox fx:id="trie" layoutX="583.0" layoutY="161.0" onAction="#trier" prefWidth="150.0" />
+      <ComboBox fx:id="trie" layoutX="608.0" layoutY="159.0" onAction="#trier" prefWidth="150.0" />
+      <Label layoutX="616.0" layoutY="139.0" text="sort :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="139.0" text="filtre :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

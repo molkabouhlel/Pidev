@@ -1,5 +1,6 @@
 package com.esprit.activite.services;
 
+import com.esprit.activite.modeles.Coach;
 import com.esprit.activite.modeles.Cours;
 import com.esprit.activite.modeles.Participer;
 import com.esprit.activite.modeles.typec;
@@ -21,7 +22,7 @@ public class participerService implements Iservice<Participer> {
         }
         @Override
         public void ajouter(Participer c) {
-            String req = "INSERT into participant (idcours,nomCours,nom, prenom, email ,numT) values ('" + c.getIdcours().getId() + "', '"+ c.getNomCours()+"', '" + c.getNom() + "','" + c.getPrenom() + "', '" + c.getEmail() + "', '"+c.getNumT()+"');";
+            String req = "INSERT into participant (idcours,nomCours,nom, prenom, email ,numT,id_mbr) values ('" + c.getIdcours().getId() + "', '"+ c.getNomCours()+"', '" + c.getNom() + "','" + c.getPrenom() + "', '" + c.getEmail() + "', '"+c.getNumT()+"','"+c.getId_mbr()+"');";
             try {
                 Statement st = connection.createStatement();
                 st.executeUpdate(req);
@@ -162,7 +163,8 @@ public class participerService implements Iservice<Participer> {
                         rs.getString("nom"),
                         rs.getString("prenom"),
                         rs.getString("email"),
-                        rs.getInt("numT")
+                        rs.getInt("numT"),
+                        rs.getInt("id_mbr")
                 ));
             }
 
@@ -172,6 +174,23 @@ public class participerService implements Iservice<Participer> {
 
         return participantList;
     }
+    public boolean utilisateurExiste(String nom, String prenom) {
+        String req = "SELECT 1 FROM usr WHERE nom = '" + nom + "' AND prenom = '" + prenom + "' LIMIT 1";
+
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            // Retourne true si au moins une ligne correspondante est trouvée, sinon retourne false
+            return rs.next();
+
+        } catch (SQLException e) {
+            // Gérez les exceptions de manière appropriée, par exemple, loggez l'erreur ou renvoyez false
+            System.out.println("Erreur lors de l'exécution de la requête : " + e.getMessage());
+            return false;
+        }
+    }
+
+
 }
 
 

@@ -33,7 +33,7 @@
                         <Image url="@Image/retour.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="258.0" layoutY="150.0" text="LISTE DES EVENEMENTS :" textFill="#f6f3f3" underline="true">
+                  <Label layoutX="383.0" layoutY="122.0" prefHeight="37.0" prefWidth="275.0" text="EVENT LIST:" textFill="#f6f3f3" underline="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -63,20 +63,30 @@
                   <TableColumn fx:id="evnom" prefWidth="72.0000331401825" text="evenement" />
                   <TableColumn fx:id="deseven" prefWidth="139.33330535888672" text="description" />
                   <TableColumn fx:id="imageurl" prefWidth="66.66664123535156" text="url image" />
-                  <TableColumn fx:id="dated" prefWidth="69.99996948242188" text="date debut" />
-                  <TableColumn fx:id="datefin" prefWidth="72.6666259765625" text="date fin" />
-                  <TableColumn fx:id="capacite" minWidth="0.0" prefWidth="59.33331298828125" text="capacite" />
-                  <TableColumn fx:id="id_es" prefWidth="67.99996948242188" text="espace" />
-                  <TableColumn fx:id="id_c" prefWidth="76.66668701171875" text="type cours" />
-                  <TableColumn fx:id="id_catev" prefWidth="104.0" text="type evenement" />
+                  <TableColumn fx:id="dated" prefWidth="69.99996948242188" text="start date" />
+                  <TableColumn fx:id="datefin" prefWidth="72.6666259765625" text="finish date" />
+                  <TableColumn fx:id="capacite" minWidth="0.0" prefWidth="59.33331298828125" text="capacity" />
+                  <TableColumn fx:id="id_es" prefWidth="67.99996948242188" text="space" />
+                  <TableColumn fx:id="id_c" prefWidth="76.66668701171875" text="COURSE CATEGORY" />
+                  <TableColumn fx:id="id_catev" prefWidth="104.0" text="EVENT CATEGORY" />
                   <TableColumn fx:id="action" prefWidth="93.99995930989587" text="action" />
                </columns>
             </TableView>
             <Button layoutX="663.0" layoutY="650.0" mnemonicParsing="false" onAction="#modifaffich" prefHeight="47.0" prefWidth="45.0" style="-fx-background-color: #4973d6; -fx-opacity: 0;" text="MODIFIER" textFill="#f7f8fb" />
             <Button layoutX="502.0" layoutY="646.0" mnemonicParsing="false" onAction="#supp" prefHeight="56.0" prefWidth="56.0" style="-fx-background-color: #4973d6; -fx-opacity: 0;" text="SUPPRIMER" textFill="#f7f8fb" />
             <TextField fx:id="recherche" layoutX="312.0" layoutY="207.0" prefHeight="30.0" prefWidth="363.0" promptText="search" />
-            <ChoiceBox fx:id="choice" layoutX="110.0" layoutY="207.0" prefWidth="150.0" />
-            <ComboBox fx:id="trie" layoutX="110.0" layoutY="237.0" onAction="#trier" prefWidth="150.0" />
+            <ChoiceBox fx:id="choice" layoutX="106.0" layoutY="209.0" prefWidth="150.0" />
+            <ComboBox fx:id="trie" layoutX="708.0" layoutY="209.0" onAction="#trier" prefWidth="150.0" />
+            <Label layoutX="139.0" layoutY="185.0" text="Filtre :">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="727.0" layoutY="194.0" text="sort :">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

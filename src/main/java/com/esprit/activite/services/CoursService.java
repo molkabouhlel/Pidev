@@ -5,6 +5,9 @@ import com.esprit.activite.modeles.Cours;
 import com.esprit.activite.modeles.club;
 import com.esprit.activite.modeles.typec;
 import com.esprit.activite.utils.DataSource;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -428,6 +431,5 @@ public Coach rechercherCatParNomCoach(String nom) {
         }
         return coachList;
     }
-
 
 }

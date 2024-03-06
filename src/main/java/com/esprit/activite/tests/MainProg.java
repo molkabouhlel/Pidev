@@ -37,7 +37,7 @@ public class MainProg {
        //  ps.modifier(new Cours(12,"dansec" ,"tttttt", "C:/Users/molka/Desktop/R.jpg", Time.valueOf("12:34:56"),1,5,new typec(2)));
        // System.out.println(ps.afficher());
 //ps.rechercheCours(16);
-        System.out.println(ps.rechercheclub(5));
+      //  System.out.println(ps.rechercheclub(5));
         System.out.println(ps.listCoach());
 
 /////////////////:evenement ////////////////////////////
@@ -60,8 +60,10 @@ public class MainProg {
        // System.out.println(s.rechercheparticipant("testtttt","update"));
        // System.out.println( ev.rechercheIdEspace());
 likeService l= new likeService();
-System.out.println(l.getlikeCountsForCours(46));
-        System.out.println(l.getDislikeCountsForCours(46));
+//System.out.println(l.getlikeCountsForCours(46));
+  //      System.out.println(l.getDislikeCountsForCours(46));
+        participerService es=new participerService();
+        //System.out.println(es.utilisateurExiste("testmolka","momo"));
     }
 
 

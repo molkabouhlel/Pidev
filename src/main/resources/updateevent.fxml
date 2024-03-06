@@ -41,15 +41,15 @@
                   <Image url="@1.png" />
                </image>
             </ImageView>
-            <Label layoutX="436.0" layoutY="112.0" text="CAPACITER :" />
-            <Label layoutX="173.0" layoutY="112.0" text="NOM DE L'EVENEMENT :" textFill="#232424" />
-            <Label layoutX="439.0" layoutY="356.0" text="CATEGORIE COURS:" />
-            <Label layoutX="178.0" layoutY="288.0" text="URL IMAGE :" />
-            <Label layoutX="439.0" layoutY="191.0" text="ESPACE :" />
+            <Label layoutX="436.0" layoutY="112.0" text="CAPACITY" />
+            <Label layoutX="173.0" layoutY="112.0" text="EVENT NAME :" textFill="#232424" />
+            <Label layoutX="439.0" layoutY="356.0" text="COURSE CATEGORY" />
+            <Label layoutX="178.0" layoutY="288.0" text="IMAGE URL :" />
+            <Label layoutX="439.0" layoutY="191.0" text="SPACE" />
             <Label layoutX="184.0" layoutY="191.0" text="DESCRIPTION :" />
-            <Label layoutX="184.0" layoutY="498.0" text="DATE-HEURE FIN :" />
-            <Label layoutX="436.0" layoutY="449.0" text="CATEGORIE EVENT" />
-            <Label layoutX="180.0" layoutY="365.0" text="DATE - HEURE DEBUT:" />
+            <Label layoutX="184.0" layoutY="498.0" text="END DATE-TIME :" />
+            <Label layoutX="436.0" layoutY="449.0" text="EVENT CATEGORY" />
+            <Label layoutX="180.0" layoutY="365.0" text="START DATE-TIME :" />
             <TextArea fx:id="deseveup" layoutX="176.0" layoutY="228.0" prefHeight="46.0" prefWidth="151.0" />
             <TextField fx:id="nomeveup" layoutX="177.0" layoutY="150.0" />
             <TextField fx:id="imeveup" layoutX="177.0" layoutY="316.0" />

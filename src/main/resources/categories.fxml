@@ -60,13 +60,23 @@
       <Button layoutX="443.0" layoutY="478.0" mnemonicParsing="false" onAction="#supprimercategoriecours" prefHeight="54.0" prefWidth="44.0" style="-fx-opacity: 0;" text="supprimer" />
       <TableView fx:id="tableview" layoutX="304.0" layoutY="196.0" prefHeight="263.0" prefWidth="451.0">
         <columns>
-          <TableColumn fx:id="typecours" prefWidth="327.3333740234375" text="NOM CATEGORIE" />
+          <TableColumn fx:id="typecours" prefWidth="327.3333740234375" text="category name" />
             <TableColumn fx:id="action" prefWidth="122.66668701171875" text="action" />
         </columns>
       </TableView>
       <TextField fx:id="idcatec" layoutX="41.0" layoutY="110.0" style="-fx-opacity: 0;" />
-      <TextField fx:id="recherche" layoutX="332.0" layoutY="143.0" prefHeight="30.0" prefWidth="363.0" promptText="search" />
-      <ChoiceBox fx:id="choice" layoutX="165.0" layoutY="145.0" prefWidth="150.0" />
-      <ComboBox fx:id="trier" layoutX="165.0" layoutY="170.0" onAction="#trier" prefWidth="150.0" />
+      <TextField fx:id="recherche" layoutX="305.0" layoutY="143.0" prefHeight="30.0" prefWidth="363.0" promptText="search" />
+      <ChoiceBox fx:id="choice" layoutX="90.0" layoutY="145.0" prefWidth="150.0" />
+      <ComboBox fx:id="trier" layoutX="680.0" layoutY="145.0" onAction="#trier" prefWidth="150.0" />
+      <Label layoutX="101.0" layoutY="126.0" text="filter :">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="693.0" layoutY="127.0" text="sort :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -63,7 +63,8 @@ public class ParticiperC {
                 participerService es = new participerService();
                 Cours coursSelectionne = es.rechercherCoursParNom(nomCoursSelectionne);
                 if (coursSelectionne != null) {
-                    es.ajouter(new Participer(coursSelectionne, nomCoursSelectionne, nomp.getText(), prenomp.getText(), emailp.getText(), num));
+                    if(es.utilisateurExiste(nomp.getText(),prenomp.getText())){
+                    es.ajouter(new Participer(coursSelectionne, nomCoursSelectionne, nomp.getText(), prenomp.getText(), emailp.getText(), num,2));}
 //                    envoyerSMSConfirmation();
                     qrCodeDescription = "le participant nom:" + nomp.getText() + " prenom:" + prenomp.getText() + " vient de participer au cours" + nomCoursSelectionne + " cliquer sur valider et vous recevez un sms de confirmation";
                     generateQRCode(nomp.getText(), prenomp.getText(), nomCoursSelectionne);
@@ -72,9 +73,9 @@ public class ParticiperC {
                     alerte.setContentText("Participation bien ajoutée");
                     alerte.show();
                 }
-            }
+            }}
         }
-    }
+
 
 
 

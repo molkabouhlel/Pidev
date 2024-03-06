@@ -53,6 +53,8 @@ public class Catevent {
     @FXML
     private TableView<type_ev> viewevent;
     private int idcatsselected;
+
+    @FXML
     private TextField recherche;
     @FXML
     private ComboBox<String> trier;
@@ -148,8 +150,8 @@ public class Catevent {
     void initialize() {
         List<String> sortTypes = new ArrayList<>();
         sortTypes.add("id");
-        sortTypes.add("par categorie");
-
+        sortTypes.add("parcategorie");
+        trier.getItems().addAll(sortTypes);
         type_evService c = new type_evService();
         List<type_ev> cat = c.afficher();
         ObservableList<type_ev> observableList = FXCollections.observableList(cat);
@@ -283,7 +285,7 @@ public class Catevent {
         sortedData.comparatorProperty().bind(trier.getSelectionModel().selectedItemProperty().asString().map(s -> {
             if (s.equals("id")) {
                 return nomComparator;
-            } else if (s.equals("par categorie")) {
+            } else if (s.equals("parcategorie")) {
                 return dateComparator;
             }
             return null; // Ajustez cela selon vos besoins

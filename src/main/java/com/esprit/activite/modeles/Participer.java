@@ -1,7 +1,6 @@
 package com.esprit.activite.modeles;
-
 import java.util.List;
-
+import com.esprit.activite.modeles.Membre;
 public class Participer {
     private int id;
     private Cours idcours;
@@ -10,13 +9,15 @@ public class Participer {
     private String prenom;
     private String email;
     private  int numT;
-    public Participer(Cours idcours, String nomCours, String nom, String prenom, String email,int numT) {
+    private int id_mbr;
+    public Participer(Cours idcours, String nomCours, String nom, String prenom, String email,int numT,int id_mbr) {
         this.idcours = idcours;
         this.nomCours = nomCours;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.numT=numT;
+        this.id_mbr=id_mbr;
     }
 
 
@@ -25,7 +26,7 @@ public class Participer {
     }
 
 
-    public Participer(int id, Cours idcours, String nomCours, String nom, String prenom, String email, int numT) {
+    public Participer(int id, Cours idcours, String nomCours, String nom, String prenom, String email, int numT,int id_mbr) {
         this.id = id;
         this.idcours = idcours;
         this.nomCours = nomCours;
@@ -33,6 +34,7 @@ public class Participer {
         this.prenom = prenom;
         this.email = email;
         this.numT=numT;
+        this.id_mbr=id_mbr;
     }
 
     public Participer(int id, String nomCours) {
@@ -98,6 +100,27 @@ public class Participer {
         this.numT = numT;
     }
 
+    public int getId_mbr() {
+        return id_mbr;
+    }
+
+    public void setId_mbr(int id_mbr) {
+        this.id_mbr = id_mbr;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Participer(String nomCours, String nom, String prenom, String email,int numT,int id_mbr) {
+        this.nomCours = nomCours;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.numT=numT;
+        this.id_mbr=id_mbr;
+    }
+
     @Override
     public String toString() {
         return "Participer{" +
@@ -108,18 +131,7 @@ public class Participer {
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", numT=" + numT +
+                ", id_mbr='" + id_mbr + '\'' +
                 '}';
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Participer(String nomCours, String nom, String prenom, String email,int numT) {
-        this.nomCours = nomCours;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.numT=numT;
     }
 }
