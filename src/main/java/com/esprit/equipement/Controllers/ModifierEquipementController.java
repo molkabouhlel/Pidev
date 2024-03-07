@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import com.esprit.equipement.modeles.Categorie_eq;
 import com.esprit.equipement.modeles.Equipement;
 import com.esprit.equipement.modeles.Maintenance_eq;
+import com.esprit.equipement.modeles.etat_m;
 import com.esprit.equipement.services.CategorieService;
 import com.esprit.equipement.services.EquipementService;
 import com.esprit.equipement.services.MaintenanceService;
@@ -52,7 +53,7 @@ public class ModifierEquipementController {
     private ChoiceBox<Integer> id_espace;
 
     @FXML
-    private ChoiceBox<Maintenance_eq> id_m;
+    private ChoiceBox<etat_m> id_m;
 
     @FXML
     private TextField image;
@@ -87,7 +88,7 @@ public class ModifierEquipementController {
         }
         //id_eq.setCache(e.getId_eq())
         id_espace.setValue(e.getId_espace());
-        id_m.setValue(e.getId_m());
+       // id_m.setValue(e.getId_m().getEtat_m());
         System.out.println("hello");
     }
 
@@ -113,7 +114,8 @@ public class ModifierEquipementController {
           // int idcoachSelected = id_coach.getValue();
 
             int idespSelected = id_espace.getValue();
-            Maintenance_eq m =id_m.getValue();
+            etat_m m =id_m.getValue();
+            Maintenance_eq meeq= eq.rechercherMParNom(m);
 
             equipement.setId_eq(id_eqq);
             equipement.setRef_eq(ref);
@@ -124,7 +126,7 @@ public class ModifierEquipementController {
             equipement.setId_ceq(c);
            // equipement.setId_coach(idcoachSelected);
             equipement.setId_espace(idespSelected);
-            equipement.setId_m(m);
+            equipement.setId_m(meeq);
 /////////////////
             if (!estNumerique(quantite_dispo.getText())) {
                 //alerte
@@ -170,7 +172,7 @@ public class ModifierEquipementController {
         id_ceq.setItems(FXCollections.observableArrayList(C));
 
         MaintenanceService ms=new MaintenanceService();
-        List<Maintenance_eq> M=ms.afficher();
+        List<etat_m> M=eqs.listmnom();
         System.out.println(M);
         id_m.setItems(FXCollections.observableArrayList(M));
         // List<Integer> Co=eqs.RecupereridCoach();

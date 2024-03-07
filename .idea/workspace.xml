@@ -6,38 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2bac3cfe-a9c5-46f1-9c60-62fa6e8f1a9b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AfficherEquipementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AfficherEquipementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AjoutCategorieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AjoutCategorieController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AjoutEquipementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AjoutEquipementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AjoutMaintenanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AjoutMaintenanceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/AjoutRdvController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AjoutRdvController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/DatabaseCalendarApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/DatabaseCalendarApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/ModifierEquipementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/ModifierEquipementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/PrincipaleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/PrincipaleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/Controllers/StatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/StatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/modeles/BadWordsChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/modeles/BadWordsChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/modeles/Categorie_eq.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/modeles/Categorie_eq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/modeles/Equipement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/modeles/Equipement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/modeles/Maintenance_eq.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/modeles/Maintenance_eq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/modeles/Rendez_vous.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/modeles/Rendez_vous.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/modeles/etat_m.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/modeles/etat_m.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/services/CategorieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/services/CategorieService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/services/EquipementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/services/EquipementService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/services/Iservice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/services/Iservice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/services/MaintenanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/services/MaintenanceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/services/Rendez_vousService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/services/Rendez_vousService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/tests/MainProg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/tests/MainProg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/tests/MainProgGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/tests/MainProgGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/activite/utils/DataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/utils/DataSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEquipement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjoutCategorie.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjoutCategorie.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjoutEquipement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjoutEquipement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjoutMaintenance.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjoutMaintenance.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjoutRdv.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjoutRdv.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierEquipement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierEquipement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Principale.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Principale.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Stat.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Stat.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/ModifierEquipementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/ModifierEquipementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/tests/MainProgGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/tests/MainProgGui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +87,8 @@
       <workItem from="1709765522957" duration="302000" />
       <workItem from="1709767881778" duration="443000" />
       <workItem from="1709806248971" duration="535000" />
+      <workItem from="1709810019336" duration="6002000" />
+      <workItem from="1709821673591" duration="1972000" />
     </task>
     <servers />
   </component>
