@@ -11,7 +11,7 @@ import com.esprit.equipement.modeles.Categorie_eq;
 import com.esprit.equipement.modeles.Equipement;
 import com.esprit.equipement.modeles.Maintenance_eq;
 import com.esprit.equipement.modeles.etat_m;
-import com.esprit.equipement.services.CategorieService;
+import com.esprit.equipement.services.Categorie_eqService;
 import com.esprit.equipement.services.EquipementService;
 import com.esprit.equipement.services.MaintenanceService;
 import javafx.collections.FXCollections;
@@ -166,7 +166,7 @@ public class ModifierEquipementController {
 
         EquipementService eqs=new EquipementService();
 
-        CategorieService es=new CategorieService();
+        Categorie_eqService es=new Categorie_eqService();
         List<String> C=eqs.listcat();
         System.out.println(C);
         id_ceq.setItems(FXCollections.observableArrayList(C));

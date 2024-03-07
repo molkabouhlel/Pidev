@@ -1,7 +1,7 @@
 package com.esprit.equipement.tests;
 
 
-import com.esprit.equipement.services.CategorieService;
+import com.esprit.equipement.services.Categorie_eqService;
 import com.esprit.equipement.services.EquipementService;
 import com.esprit.equipement.services.MaintenanceService;
 import com.esprit.equipement.services.Rendez_vousService;
@@ -22,7 +22,7 @@ public class MainProg {
   //  rv.modifier(new Rendez_vous(Timestamp.valueOf("2022-04-16 10:34:56"),8,new Equipement("molka"),5));
   // rv.supprimer(new Rendez_vous( 8));
          //System.out.println(rv.afficher());
-        CategorieService c=new CategorieService();
+        Categorie_eqService c=new Categorie_eqService();
        // c.ajouter(new Categorie_eq("test"));
         //c.modifier(new Categorie_eq(1,"test2"));
         //c.supprimer((new Categorie_eq(1)));

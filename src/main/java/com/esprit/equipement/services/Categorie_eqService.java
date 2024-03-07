@@ -10,10 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategorieService implements Iservice<Categorie_eq>
+public class Categorie_eqService implements Iservice<Categorie_eq>
 {private Connection connection;
 
-    public CategorieService() {
+    public Categorie_eqService() {
         connection = DataSource.getInstance().getConnection();
     }
     @Override

@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.esprit.equipement.modeles.Categorie_eq;
-import com.esprit.equipement.services.CategorieService;
+import com.esprit.equipement.services.Categorie_eqService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 
 
 
-public class AjoutCategorieController {
+public class AjoutCategorie_eqController {
 
 
     @FXML
@@ -71,14 +71,14 @@ public class AjoutCategorieController {
     @FXML
     void ajouter(ActionEvent event) throws IOException {
 
-        CategorieService es = new CategorieService();
+        Categorie_eqService es = new Categorie_eqService();
         if (controlSaisie(type_ceq) && controlSaisie(desc_ceq)) {
             es.ajouter(new Categorie_eq(type_ceq.getText(), desc_ceq.getText()));
             Alert alerte = new Alert(Alert.AlertType.INFORMATION);
             alerte.setTitle("categorie ajout");
             alerte.setContentText("categorie bien ajoutee");
             alerte.show();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutCategorie.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutCategorie_eq.fxml"));
             Parent root = loader.load();
             Stage currentStage = (Stage) tableview.getScene().getWindow();
             currentStage.setScene(new Scene(root));
@@ -88,7 +88,7 @@ public class AjoutCategorieController {
 
     @FXML
     void modifier(ActionEvent event) {
-        CategorieService es = new CategorieService();
+        Categorie_eqService es = new Categorie_eqService();
         Categorie_eq catselected = es.recherchecat_eq(idcatsselected);
         Categorie_eq c = new Categorie_eq();
         int idCat = Integer.parseInt(id_ceq.getText());
@@ -103,7 +103,7 @@ public class AjoutCategorieController {
 
     @FXML
     void supprimer(ActionEvent event) {
-        CategorieService c=new CategorieService();
+        Categorie_eqService c=new Categorie_eqService();
 
 
         int selectedID = tableview.getSelectionModel().getSelectedIndex();
@@ -127,7 +127,7 @@ public class AjoutCategorieController {
 
     @FXML
     void initialize() {
-        CategorieService c = new CategorieService();
+        Categorie_eqService c = new Categorie_eqService();
         List<Categorie_eq> cat = c.afficher();
         ObservableList<Categorie_eq> observableList = FXCollections.observableList(cat);
         tableview.setItems(observableList);
@@ -138,7 +138,7 @@ public class AjoutCategorieController {
         tableview.setEditable(true);
         type_cat.setCellFactory(TextFieldTableCell.forTableColumn());
         desc_cat.setCellFactory(TextFieldTableCell.forTableColumn());
-        CategorieService ss = new CategorieService();
+        Categorie_eqService ss = new Categorie_eqService();
         // Save changes on commit
         type_cat.setOnEditCommit(event -> {
             Categorie_eq s = event.getRowValue();
@@ -210,7 +210,7 @@ public class AjoutCategorieController {
         });
     }
     private void supprimerE(Categorie_eq ev) {
-        CategorieService p = new CategorieService();
+        Categorie_eqService p = new Categorie_eqService();
         p.supprimer(ev);
 
         tableview.getItems().remove(ev);

@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2bac3cfe-a9c5-46f1-9c60-62fa6e8f1a9b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AjoutCategorieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AjoutCategorie_eqController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AjoutEquipementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/AjoutEquipementController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/ModifierEquipementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/ModifierEquipementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/tests/MainProgGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/tests/MainProgGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/PrincipaleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/Controllers/PrincipaleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/services/CategorieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/services/Categorie_eqService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/tests/MainProg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/esprit/equipement/tests/MainProg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjoutCategorie.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjoutCategorie_eq.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +94,8 @@
       <workItem from="1709806248971" duration="535000" />
       <workItem from="1709810019336" duration="6002000" />
       <workItem from="1709821673591" duration="1972000" />
+      <workItem from="1709827688586" duration="58000" />
+      <workItem from="1709827786322" duration="245000" />
     </task>
     <servers />
   </component>

@@ -14,7 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import com.esprit.equipement.services.CategorieService;
+import com.esprit.equipement.services.Categorie_eqService;
 import com.esprit.equipement.services.EquipementService;
 import com.esprit.equipement.services.MaintenanceService;
 import javafx.event.ActionEvent;
@@ -69,7 +69,7 @@ public class AjoutEquipementController {
     @FXML
     void ajouerEquipement(ActionEvent event) throws IOException {
         EquipementService es = new EquipementService();
-        CategorieService cs = new CategorieService();
+        Categorie_eqService cs = new Categorie_eqService();
         MaintenanceService ms = new MaintenanceService();
         if (!estNumerique(quantite_dispo.getText())) {
      //alerte
@@ -115,7 +115,7 @@ if (controlSaisie(ref_eq) && controlSaisie(nom_eq) && controlSaisie(description_
     void initialize() {
         EquipementService eqs=new EquipementService();
 
-        CategorieService es=new CategorieService();
+        Categorie_eqService es=new Categorie_eqService();
        // List<Categorie_eq> C=es.afficher();
         List<String> nomcatList = eqs.listcat();
         id_ceq.setItems(FXCollections.observableArrayList(nomcatList));

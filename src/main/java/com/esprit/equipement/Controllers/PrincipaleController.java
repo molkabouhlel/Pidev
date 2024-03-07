@@ -19,7 +19,7 @@ public class PrincipaleController {
         currentStage.close();
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AjoutCategorie.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AjoutCategorie_eq.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();
