@@ -65,7 +65,7 @@ public class StatController {
         Stage currentStage = (Stage) source.getScene().getWindow();
         currentStage.close();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Principale.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Principale_eq.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();

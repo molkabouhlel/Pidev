@@ -142,7 +142,7 @@ if (controlSaisie(ref_eq) && controlSaisie(nom_eq) && controlSaisie(description_
         currentStage.close();
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Principale.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Principale_eq.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();

@@ -355,7 +355,7 @@ private int id_eqq;
 
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Stat.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Stat_eq.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();

@@ -223,7 +223,7 @@ public class AjoutMaintenanceController implements Initializable {
         currentStage.close(); // Close the current stage
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Principale.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Principale_eq.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();
