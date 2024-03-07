@@ -1,4 +1,4 @@
-package com.esprit.activite.Controllers;
+package com.esprit.equipement.Controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +13,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import com.esprit.activite.modeles.Equipement;
-import com.esprit.activite.services.EquipementService;
+import com.esprit.equipement.modeles.Equipement;
+import com.esprit.equipement.services.EquipementService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

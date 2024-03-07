@@ -1,9 +1,8 @@
-package com.esprit.activite.services;
+package com.esprit.equipement.services;
 
 //import com.esprit.activite.modeles.Cours;
-import com.esprit.activite.modeles.*;
-import com.esprit.activite.utils.DataSource;
-import javafx.scene.control.TableColumn;
+import com.esprit.equipement.modeles.*;
+import com.esprit.equipement.utils.DataSource;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -269,7 +268,7 @@ public List<Equipement> afficher() {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                maintenance_eq=new Maintenance_eq(rs.getInt("id_m"), com.esprit.activite.modeles.etat_m.valueOf(rs.getString("etat_m")));
+                maintenance_eq=new Maintenance_eq(rs.getInt("id_m"), com.esprit.equipement.modeles.etat_m.valueOf(rs.getString("etat_m")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

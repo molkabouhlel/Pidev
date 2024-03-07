@@ -14,24 +14,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.AjoutMaintenanceController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.equipement.Controllers.AjoutMaintenanceController">
    <children>
       <AnchorPane prefHeight="410.0" prefWidth="598.0">
          <children>
-            <Button fx:id="ajouterm" layoutX="31.0" layoutY="317.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="32.0" prefWidth="90.0" text="Ajouter" />
+            <Button fx:id="ajouterm" layoutX="31.0" layoutY="317.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="32.0" prefWidth="90.0" text="Add" />
             <TableView fx:id="tableview" layoutX="326.0" layoutY="109.0" prefHeight="231.0" prefWidth="252.0">
                <columns>
                   <TableColumn fx:id="id_ma" prefWidth="49.60003662109375" text="ID" />
                   <TableColumn fx:id="date_ma" prefWidth="100.0" text="Date" />
-                  <TableColumn fx:id="etat_ma" prefWidth="48.0" text="Etat" />
+                  <TableColumn fx:id="etat_ma" prefWidth="48.0" text="State" />
                   <TableColumn fx:id="action" prefWidth="52.79998779296875" text="Action" />
                </columns>
             </TableView>
             <TextField fx:id="id_m" layoutX="27.0" layoutY="135.0" opacity="0.0" prefHeight="32.0" prefWidth="158.0" promptText="ID" />
-            <Button fx:id="modifierm" layoutX="139.0" layoutY="315.0" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="99.0" text="Modifier" />
+            <Button fx:id="modifierm" layoutX="139.0" layoutY="315.0" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="99.0" text="Modify" />
             <AnchorPane layoutY="27.0" prefHeight="78.0" prefWidth="600.0" style="-fx-background-color: #3c79ff;">
                <children>
-                  <Text fill="#f6f6fc" layoutX="168.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajout Maintenance" wrappingWidth="214.93670654296875">
+                  <Text fill="#f6f6fc" layoutX="192.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maintenance" wrappingWidth="214.93670654296875">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -43,9 +43,9 @@
                   <Image url="@429042001_785011366978560_3416642108147507954_n.png" />
                </image>
             </ImageView>
-            <Button fx:id="supprimerm" layoutX="409.0" layoutY="350.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="supprimer" />
+            <Button fx:id="supprimerm" layoutX="409.0" layoutY="350.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="Delete" />
             <ChoiceBox fx:id="choicebox" layoutX="31.0" layoutY="279.0" prefWidth="150.0" />
-            <Button layoutX="106.0" layoutY="373.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="112.0" text="Retourner" />
+            <Button layoutX="106.0" layoutY="373.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="112.0" text="Return" />
             <HBox prefHeight="100.0" prefWidth="200.0" />
             <HBox fx:id="date_m" layoutX="29.0" layoutY="192.0" prefHeight="26.0" prefWidth="266.0">
                <children>

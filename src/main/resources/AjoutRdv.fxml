@@ -14,27 +14,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.AjoutRdvController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.equipement.Controllers.AjoutRdvController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
          <children>
             <AnchorPane layoutX="-8.0" layoutY="-7.0" prefHeight="410.0" prefWidth="598.0">
                <children>
-                  <Button fx:id="ajouterrv" layoutX="31.0" layoutY="317.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="32.0" prefWidth="90.0" text="Ajouter" />
+                  <Button fx:id="ajouterrv" layoutX="31.0" layoutY="317.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="32.0" prefWidth="90.0" text="Add" />
                   <TableView fx:id="tableview" layoutX="281.0" layoutY="109.0" prefHeight="231.0" prefWidth="297.0">
                      <columns>
                         <TableColumn fx:id="id_rvafficher" prefWidth="49.60003662109375" text="ID" />
                         <TableColumn fx:id="date_rvafficher" prefWidth="46.39996337890625" text="Date" />
-                        <TableColumn fx:id="id_eqafficher" prefWidth="76.79998779296875" text="Equipement" />
+                        <TableColumn fx:id="id_eqafficher" prefWidth="76.79998779296875" text="Equipment" />
                         <TableColumn fx:id="id_coachafficher" prefWidth="48.800048828125" text="Coach" />
                         <TableColumn fx:id="action" prefWidth="73.60000000000002" text="Action" />
                      </columns>
                   </TableView>
                   <TextField fx:id="id_rv" layoutX="27.0" layoutY="109.0" opacity="0.0" prefHeight="32.0" prefWidth="158.0" promptText="ID" />
-                  <Button fx:id="modifierrv" layoutX="139.0" layoutY="315.0" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="99.0" text="Modifier" />
+                  <Button fx:id="modifierrv" layoutX="139.0" layoutY="315.0" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="99.0" text="Modify" />
                   <AnchorPane layoutY="27.0" prefHeight="78.0" prefWidth="600.0" style="-fx-background-color: #3c79ff;">
                      <children>
-                        <Text fill="#f6f6fc" layoutX="238.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajout Rdv" wrappingWidth="214.93670654296875">
+                        <Text fill="#f6f6fc" layoutX="238.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment" wrappingWidth="214.93670654296875">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -46,10 +46,10 @@
                         <Image url="@429042001_785011366978560_3416642108147507954_n.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="supprimerrv" layoutX="430.0" layoutY="349.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="supprimer" />
+                  <Button fx:id="supprimerrv" layoutX="430.0" layoutY="349.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="Add" />
                   <ChoiceBox fx:id="id_eq" layoutX="30.0" layoutY="212.0" prefWidth="150.0" />
                   <ChoiceBox fx:id="id_coach" layoutX="30.0" layoutY="268.0" prefWidth="150.0" />
-                  <Button layoutX="105.0" layoutY="368.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="99.0" text="Retourner" />
+                  <Button layoutX="105.0" layoutY="368.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="99.0" text="Return" />
                   <HBox fx:id="date_rv" layoutX="15.0" layoutY="162.0" prefHeight="35.0" prefWidth="247.0">
                      <children>
                         <DatePicker fx:id="datePicker" />

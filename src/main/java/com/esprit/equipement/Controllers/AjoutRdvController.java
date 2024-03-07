@@ -1,4 +1,4 @@
-package com.esprit.activite.Controllers;
+package com.esprit.equipement.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -9,11 +9,9 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.esprit.activite.modeles.*;
-import com.esprit.activite.services.CategorieService;
-import com.esprit.activite.services.EquipementService;
-import com.esprit.activite.services.MaintenanceService;
-import com.esprit.activite.services.Rendez_vousService;
+import com.esprit.equipement.modeles.*;
+import com.esprit.equipement.services.EquipementService;
+import com.esprit.equipement.services.Rendez_vousService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,8 +24,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 
 public class AjoutRdvController {
 

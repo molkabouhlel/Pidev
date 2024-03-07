@@ -1,16 +1,10 @@
-package com.esprit.activite.tests;
+package com.esprit.equipement.tests;
 
 
-import com.esprit.activite.modeles.*;
-import com.esprit.activite.services.CategorieService;
-import com.esprit.activite.services.EquipementService;
-import com.esprit.activite.services.MaintenanceService;
-import com.esprit.activite.services.Rendez_vousService;
-import com.esprit.activite.utils.DataSource;
-
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
+import com.esprit.equipement.services.CategorieService;
+import com.esprit.equipement.services.EquipementService;
+import com.esprit.equipement.services.MaintenanceService;
+import com.esprit.equipement.services.Rendez_vousService;
 
 
 public class MainProg {

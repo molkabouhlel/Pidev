@@ -1,6 +1,6 @@
-package com.esprit.activite.Controllers;
+package com.esprit.equipement.Controllers;
 
-import com.esprit.activite.utils.DataSource;
+import com.esprit.equipement.utils.DataSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

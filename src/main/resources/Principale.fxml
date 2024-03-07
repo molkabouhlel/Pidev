@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.PrincipaleController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.equipement.Controllers.PrincipaleController">
    <children>
       <ImageView fitHeight="108.0" fitWidth="117.0" layoutX="318.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,9 +26,9 @@
             <Image url="@eq.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="44.0" layoutY="263.0" mnemonicParsing="false" onAction="#equipement" prefHeight="36.0" prefWidth="98.0" text="Equipements" />
-      <Button layoutX="479.0" layoutY="263.0" mnemonicParsing="false" onAction="#rdv" prefHeight="36.0" prefWidth="80.0" text="Rdv" />
-      <Button layoutX="332.0" layoutY="263.0" mnemonicParsing="false" onAction="#categorie" prefHeight="36.0" prefWidth="80.0" text="Categorie" />
+      <Button layoutX="44.0" layoutY="263.0" mnemonicParsing="false" onAction="#equipement" prefHeight="36.0" prefWidth="98.0" text="Equipments" />
+      <Button layoutX="461.0" layoutY="263.0" mnemonicParsing="false" onAction="#rdv" prefHeight="36.0" prefWidth="98.0" text="Appointments" />
+      <Button layoutX="332.0" layoutY="263.0" mnemonicParsing="false" onAction="#categorie" prefHeight="36.0" prefWidth="80.0" text="Categories" />
       <Button layoutX="187.0" layoutY="263.0" mnemonicParsing="false" onAction="#maintenance" prefHeight="36.0" prefWidth="98.0" text="Maintenance" />
       <ImageView fitHeight="88.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>

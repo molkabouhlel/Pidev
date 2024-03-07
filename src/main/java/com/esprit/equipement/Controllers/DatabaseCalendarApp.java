@@ -1,8 +1,8 @@
-package com.esprit.activite.Controllers;
+package com.esprit.equipement.Controllers;
 
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
-import com.esprit.activite.utils.DataSource;
+import com.esprit.equipement.utils.DataSource;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

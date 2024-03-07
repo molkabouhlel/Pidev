@@ -1,4 +1,4 @@
-package com.esprit.activite.modeles;
+package com.esprit.equipement.modeles;
 
 import okhttp3.*;
 import org.json.*;

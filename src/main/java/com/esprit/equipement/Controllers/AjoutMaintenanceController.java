@@ -1,4 +1,4 @@
-package com.esprit.activite.Controllers;
+package com.esprit.equipement.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -8,9 +8,9 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.esprit.activite.modeles.etat_m;
-import com.esprit.activite.modeles.Maintenance_eq;
-import com.esprit.activite.services.MaintenanceService;
+import com.esprit.equipement.modeles.etat_m;
+import com.esprit.equipement.modeles.Maintenance_eq;
+import com.esprit.equipement.services.MaintenanceService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

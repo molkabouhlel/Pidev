@@ -1,4 +1,4 @@
-package com.esprit.activite.Controllers;
+package com.esprit.equipement.Controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,16 +7,16 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.esprit.activite.modeles.*;
+import com.esprit.equipement.modeles.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import com.esprit.activite.services.CategorieService;
-import com.esprit.activite.services.EquipementService;
-import com.esprit.activite.services.MaintenanceService;
+import com.esprit.equipement.services.CategorieService;
+import com.esprit.equipement.services.EquipementService;
+import com.esprit.equipement.services.MaintenanceService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

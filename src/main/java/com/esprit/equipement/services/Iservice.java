@@ -1,4 +1,4 @@
-package com.esprit.activite.services;
+package com.esprit.equipement.services;
 
 import java.util.List;
 

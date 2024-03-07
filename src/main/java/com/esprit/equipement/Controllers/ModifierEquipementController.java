@@ -1,21 +1,18 @@
-package com.esprit.activite.Controllers;
+package com.esprit.equipement.Controllers;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.esprit.activite.modeles.Categorie_eq;
-import com.esprit.activite.modeles.Equipement;
-import com.esprit.activite.modeles.Maintenance_eq;
-import com.esprit.activite.modeles.Rendez_vous;
-import com.esprit.activite.services.CategorieService;
-import com.esprit.activite.services.EquipementService;
-import com.esprit.activite.services.MaintenanceService;
-import com.esprit.activite.services.Rendez_vousService;
+import com.esprit.equipement.modeles.Categorie_eq;
+import com.esprit.equipement.modeles.Equipement;
+import com.esprit.equipement.modeles.Maintenance_eq;
+import com.esprit.equipement.services.CategorieService;
+import com.esprit.equipement.services.EquipementService;
+import com.esprit.equipement.services.MaintenanceService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

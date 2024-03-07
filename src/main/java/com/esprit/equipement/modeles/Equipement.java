@@ -1,7 +1,5 @@
-package com.esprit.activite.modeles;
+package com.esprit.equipement.modeles;
 
-
-import java.util.Date;
 
 public class Equipement {
     private int id_eq;

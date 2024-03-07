@@ -1,8 +1,6 @@
-package com.esprit.activite.modeles;
+package com.esprit.equipement.modeles;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Rendez_vous {
     private Timestamp date_rv;

@@ -1,4 +1,4 @@
-package com.esprit.activite.tests;
+package com.esprit.equipement.tests;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

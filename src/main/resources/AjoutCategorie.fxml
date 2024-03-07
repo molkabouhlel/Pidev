@@ -10,10 +10,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.AjoutCategorieController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.equipement.Controllers.AjoutCategorieController">
    <children>
       <TextField fx:id="type_ceq" layoutX="31.0" layoutY="200.0" prefHeight="32.0" prefWidth="157.0" promptText="Type" />
-      <Button fx:id="ajouterceq" layoutX="31.0" layoutY="317.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="32.0" prefWidth="90.0" text="Ajouter" />
+      <Button fx:id="ajouterceq" layoutX="31.0" layoutY="317.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="32.0" prefWidth="90.0" text="Add" />
       <TableView fx:id="tableview" layoutX="326.0" layoutY="109.0" prefHeight="231.0" prefWidth="265.0">
         <columns>
           <TableColumn fx:id="id_cat" prefWidth="49.60003662109375" text="ID" />
@@ -23,10 +23,10 @@
         </columns>
       </TableView>
       <TextField fx:id="id_ceq" layoutX="27.0" layoutY="135.0" opacity="0.1" prefHeight="32.0" prefWidth="158.0" promptText="ID" />
-      <Button fx:id="modifierceq" layoutX="139.0" layoutY="315.0" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="99.0" text="Modifier" />
+      <Button fx:id="modifierceq" layoutX="139.0" layoutY="315.0" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="99.0" text="Modify" />
       <AnchorPane prefHeight="97.0" prefWidth="600.0" style="-fx-background-color: #3c79ff;">
          <children>
-            <Text fill="#f6f6fc" layoutX="205.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajout Categorie" wrappingWidth="178.13671875">
+            <Text fill="#f6f6fc" layoutX="242.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="178.13671875">
                <font>
                   <Font size="24.0" />
                </font>
@@ -38,8 +38,8 @@
             <Image url="@429042001_785011366978560_3416642108147507954_n.png" />
          </image>
       </ImageView>
-      <Button fx:id="supp" layoutX="409.0" layoutY="350.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="supprimer" />
-      <Button layoutX="106.0" layoutY="368.0" mnemonicParsing="false" onAction="#refresh" text="Retourner" />
+      <Button fx:id="supp" layoutX="409.0" layoutY="350.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="99.0" text="Delete" />
+      <Button layoutX="106.0" layoutY="368.0" mnemonicParsing="false" onAction="#refresh" text="Return" />
       <TextField fx:id="desc_ceq" layoutX="31.0" layoutY="256.0" prefHeight="32.0" prefWidth="157.0" promptText="Description" />
    </children>
 </AnchorPane>

@@ -1,4 +1,4 @@
-package com.esprit.activite.modeles;
+package com.esprit.equipement.modeles;
 
 public class Categorie_eq {
     private int id_ceq;

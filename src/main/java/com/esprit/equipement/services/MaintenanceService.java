@@ -1,10 +1,8 @@
-package com.esprit.activite.services;
+package com.esprit.equipement.services;
 
-import com.esprit.activite.modeles.Categorie_eq;
-import com.esprit.activite.modeles.Equipement;
-import com.esprit.activite.modeles.Maintenance_eq;
-import com.esprit.activite.modeles.etat_m;
-import com.esprit.activite.utils.DataSource;
+import com.esprit.equipement.modeles.Maintenance_eq;
+import com.esprit.equipement.modeles.etat_m;
+import com.esprit.equipement.utils.DataSource;
 
 import java.sql.*;
 import java.util.ArrayList;

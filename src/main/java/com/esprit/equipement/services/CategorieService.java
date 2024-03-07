@@ -1,8 +1,7 @@
-package com.esprit.activite.services;
+package com.esprit.equipement.services;
 
-import com.esprit.activite.modeles.Categorie_eq;
-import com.esprit.activite.modeles.Equipement;
-import com.esprit.activite.utils.DataSource;
+import com.esprit.equipement.modeles.Categorie_eq;
+import com.esprit.equipement.utils.DataSource;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -1,10 +1,10 @@
-package com.esprit.activite.Controllers;
+package com.esprit.equipement.Controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.esprit.activite.modeles.Categorie_eq;
-import com.esprit.activite.services.CategorieService;
+import com.esprit.equipement.modeles.Categorie_eq;
+import com.esprit.equipement.services.CategorieService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

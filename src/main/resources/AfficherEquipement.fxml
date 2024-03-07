@@ -11,17 +11,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="473.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.AfficherEquipementController">
+<AnchorPane prefHeight="473.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.equipement.Controllers.AfficherEquipementController">
    <children>
       <TableView fx:id="tableview" layoutX="3.0" layoutY="137.0" prefHeight="237.0" prefWidth="722.0">
         <columns>
             <TableColumn fx:id="id_eq" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="ref_eq" prefWidth="68.7999906539917" text="Reference" />
-          <TableColumn fx:id="nom_eq" prefWidth="43.20001220703125" text="Nom" />
+          <TableColumn fx:id="nom_eq" prefWidth="43.20001220703125" text="Name" />
             <TableColumn fx:id="description_eq" prefWidth="71.19999694824219" text="Description" />
-            <TableColumn fx:id="quantite_dispo" prefWidth="72.0" text="Quantite" />
+            <TableColumn fx:id="quantite_dispo" prefWidth="72.0" text="Quantity" />
             <TableColumn fx:id="id_espace" prefWidth="58.4000244140625" text="Espace" />
-            <TableColumn fx:id="id_ceq" prefWidth="63.199951171875" text="Categorie" />
+            <TableColumn fx:id="id_ceq" prefWidth="63.199951171875" text="Category" />
             <TableColumn fx:id="id_m" prefWidth="81.60003662109375" text="Maintenance" />
             <TableColumn fx:id="image" prefWidth="122.4000244140625" text="Image" />
             <TableColumn fx:id="action" prefWidth="54.40006103515623" text="Action" />
@@ -39,18 +39,18 @@
       </ImageView>
       <AnchorPane layoutY="65.0" prefHeight="62.0" prefWidth="737.0" style="-fx-background-color: #3c79ff;">
          <children>
-            <Text fill="#f6f6fc" layoutX="273.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Afficher Equipement" wrappingWidth="230.13671875">
+            <Text fill="#f6f6fc" layoutX="273.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipments" wrappingWidth="230.13671875">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <Button fx:id="supprimereq" layoutX="377.0" layoutY="399.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
-      <Button layoutX="519.0" layoutY="399.0" mnemonicParsing="false" onAction="#modifier" text="modifier" />
-      <Button layoutX="234.0" layoutY="398.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="90.0" text="Retourner" />
-      <TextField fx:id="recherche" layoutX="14.0" layoutY="386.0" promptText="Recherche" />
-      <Button fx:id="trie" layoutX="14.0" layoutY="422.0" mnemonicParsing="false" onAction="#trie" text="Trier" />
+      <Button fx:id="supprimereq" layoutX="377.0" layoutY="399.0" mnemonicParsing="false" onAction="#supprimer" text="Delete" />
+      <Button layoutX="519.0" layoutY="399.0" mnemonicParsing="false" onAction="#modifier" text="Modify" />
+      <Button layoutX="234.0" layoutY="398.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="90.0" text="Return" />
+      <TextField fx:id="recherche" layoutX="14.0" layoutY="386.0" promptText="Search" />
+      <Button fx:id="trie" layoutX="14.0" layoutY="422.0" mnemonicParsing="false" onAction="#trie" text="Sort" />
       <ComboBox fx:id="combobox" layoutX="70.0" layoutY="422.0" prefWidth="150.0" />
       <Button fx:id="stat" layoutX="635.0" layoutY="399.0" mnemonicParsing="false" onAction="#stat" text="Stat" />
    </children>
