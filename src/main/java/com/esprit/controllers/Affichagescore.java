@@ -14,6 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +111,22 @@ public class Affichagescore {
 
         }
     }
-
+    @FXML
+    void retret(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close(); // Close the current stage
+        // Load and show the new interface
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AffichageProduit.fxml"));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception, if any
+        }
+    }
 }
 
 

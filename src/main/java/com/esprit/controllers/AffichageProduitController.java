@@ -691,7 +691,7 @@ public class AffichageProduitController {
         currentStage.close(); // Close the current stage
         // Load and show the new interface
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Afficherbarchart.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/afficherbarchart.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();

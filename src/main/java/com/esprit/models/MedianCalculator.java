@@ -64,7 +64,6 @@ public class MedianCalculator {
 
     public double calculateMedian() {
         List<Integer> quantities = getQuantities();
-
         // Convertissez les quantités en tableau d'entiers
         int[] quantitiesArray = quantities.stream().mapToInt(Integer::intValue).toArray();
 
@@ -73,26 +72,11 @@ public class MedianCalculator {
 
         // Créez un objet DescriptiveStatistics
         DescriptiveStatistics statsQuantites = new DescriptiveStatistics();
-
         // Ajoutez les quantités triées à DescriptiveStatistics
         for (int q : quantitiesArray) {
             statsQuantites.addValue(q);
         }
-
         // Calcul de la médiane
         return statsQuantites.getPercentile(50);
     }
-    /*public ResultSet listQuant() {
-        ResultSet rs = null;
-
-        String req = "SELECT quantite_produit FROM produit";
-        try {
-            Statement st = connection.createStatement();
-            rs = st.executeQuery(req);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return rs;
-    }*/
-
 }
