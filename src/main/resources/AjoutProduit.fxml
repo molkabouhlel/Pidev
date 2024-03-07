@@ -58,7 +58,7 @@
             <Image url="@images/logo.png" />
          </image>
       </ImageView>
-      <Button layoutX="14.0" layoutY="498.0" mnemonicParsing="false" onAction="#returnM" prefHeight="33.0" prefWidth="55.0" text="&lt;--" textFill="WHITE">
+      <Button layoutX="14.0" layoutY="498.0" mnemonicParsing="false" onAction="#returnM" prefHeight="48.0" prefWidth="55.0" text="&lt;--" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

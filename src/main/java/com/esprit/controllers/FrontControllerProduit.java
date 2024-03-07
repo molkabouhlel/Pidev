@@ -64,7 +64,6 @@ public class FrontControllerProduit {
         ObservableList<Produit> produitList = FXCollections.observableArrayList();
         public FrontControllerProduit() {
         }
-
         @FXML
         void initialize() {
             ProduitService p = new ProduitService();
