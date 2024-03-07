@@ -16,16 +16,16 @@
             <Image url="@images/image_2024-02-20_160108214.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tableviewC" layoutX="109.0" layoutY="124.0" prefHeight="200.0" prefWidth="332.0">
+      <TableView fx:id="tableviewC" layoutX="102.0" layoutY="120.0" prefHeight="200.0" prefWidth="391.0">
         <columns>
           <TableColumn fx:id="NomC" prefWidth="75.0" text="Nom" />
-          <TableColumn fx:id="DescriptionC" prefWidth="75.0" text="Description" />
-            <TableColumn fx:id="action" prefWidth="75.0" text="Supprimer" />
+          <TableColumn fx:id="DescriptionC" prefWidth="160.7999267578125" text="Description" />
+            <TableColumn fx:id="action" prefWidth="101.60003662109375" text="Supprimer" />
         </columns>
       </TableView>
       <Button fx:id="modifierC" layoutX="182.0" layoutY="343.0" mnemonicParsing="false" onAction="#modifierC" text="Modifier" textFill="#e16f04" />
       <Button fx:id="supprimerC" layoutX="307.0" layoutY="343.0" mnemonicParsing="false" onAction="#supprimerC" text="Supprimer" textFill="#e16f04" />
-      <Label layoutX="197.0" layoutY="75.0" text="Nos Categories" textFill="#ef7f07">
+      <Label layoutX="203.0" layoutY="75.0" text="Nos Categories" textFill="#ef7f07">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

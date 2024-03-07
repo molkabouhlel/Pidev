@@ -41,21 +41,21 @@ public class AjoutCategorieController implements Initializable {
         CategorieService ps = new CategorieService();
         String description = tfDescriptionC.getText().trim();
         String nomC = tfNomC.getText().trim();
-        if (nomC.isEmpty()) {
+        if ((nomC.isEmpty()) ||(!nomC.matches("[a-zA-Z]+")) ) {
             // Display error message (e.g., using an Alert)
             Alert alertVide = new Alert(Alert.AlertType.ERROR);
             alertVide.setTitle("Erreur de Saisie");
-            alertVide.setHeaderText("Nom vide!");
-            alertVide.setContentText("Veuillez saisir le nom de la categorie.");
+            alertVide.setHeaderText("Nom vide ou contient des chiffres et des symboles!");
+            alertVide.setContentText("Veuillez saisir que des lettres .");
             alertVide.show();
             return; // Prevent further execution if content is empty
         }
-        if (description.isEmpty()) {
+        if ((description.isEmpty()) || (!description.matches("[a-zA-Z]+")) ) {
             // Display error message (e.g., using an Alert)
             Alert alertVide = new Alert(Alert.AlertType.ERROR);
             alertVide.setTitle("Erreur de Saisie");
-            alertVide.setHeaderText("Description vide!");
-            alertVide.setContentText("Veuillez saisir la description de la categorie.");
+            alertVide.setHeaderText("Description vide ou contient des chiffres et des symboles!");
+            alertVide.setContentText("Veuillez saisir que des lettres.");
             alertVide.show();
             return; // Prevent further execution if content is empty
         }

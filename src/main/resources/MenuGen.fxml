@@ -9,17 +9,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.MenuGenController">
    <children>
-      <ImageView fitHeight="407.0" fitWidth="628.0" layoutY="-5.0" pickOnBounds="true">
+      <ImageView fitHeight="466.0" fitWidth="707.0" layoutY="-64.0" pickOnBounds="true">
          <image>
             <Image url="@images/image_2024-02-20_160108214.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="58.0" fitWidth="628.0" pickOnBounds="true">
+      <ImageView fitHeight="58.0" fitWidth="707.0" pickOnBounds="true">
          <image>
             <Image url="@images/logo.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="222.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="262.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/gym.png" />
          </image>
@@ -29,12 +29,12 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="410.0" layoutY="322.0" mnemonicParsing="false" onAction="#MenuProd" text="Produit" textFill="#f45e00">
+      <Button layoutX="496.0" layoutY="322.0" mnemonicParsing="false" onAction="#MenuProd" text="Produit" textFill="#f45e00">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Label layoutX="266.0" layoutY="12.0" prefHeight="43.0" prefWidth="81.0" text="Menu" textFill="#f7670d">
+      <Label layoutX="290.0" layoutY="12.0" prefHeight="43.0" prefWidth="81.0" text="Menu" textFill="#f7670d">
          <font>
             <Font size="29.0" />
          </font>

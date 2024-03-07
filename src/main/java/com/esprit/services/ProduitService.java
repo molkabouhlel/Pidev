@@ -1,7 +1,6 @@
 package com.esprit.services;
 import com.esprit.models.Produit;
 import com.esprit.models.Categorie;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,6 +73,23 @@ public class ProduitService implements IService<Produit> {
 
         return produits;
     }
+    public List<Double> listnote() {
+        List<Double> produits = new ArrayList();
+        String req = "SELECT note FROM score";
+
+        try {
+            Statement st = this.connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+
+            while(rs.next()) {
+                produits.add(rs.getDouble("note" ));
+            }
+        } catch (SQLException var5) {
+            System.out.println(var5.getMessage());
+        }
+
+        return produits;
+    }
     public Categorie recherchecat(int id_categorie) {
         Categorie evs = null;
         String req = "SELECT * FROM categorie WHERE id_categorie = " + id_categorie;
@@ -111,6 +127,93 @@ public class ProduitService implements IService<Produit> {
             ps.setString(1, "%" + description_produit + "%");
 
         }
+        System.out.println("SQL Query: " + ps.toString());
+        ResultSet rs = ps.executeQuery();
+        List<Produit> forums = new ArrayList<>();
+
+        while (rs.next()) {
+            Categorie id_categorie = this.recherchecat(rs.getInt("id_categorie"));
+            Produit f = new Produit(rs.getInt("id_produit"), rs.getString("description_produit"), rs.getFloat("prix"), rs.getInt("quantite_produit"), rs.getString("marque"), id_categorie, rs.getString("image"),rs.getString("sku"));
+
+            forums.add(f);
+        }
+
+        return forums;
+    }
+    public List<Produit> triProduit() throws SQLException {
+        String query;
+        PreparedStatement ps;
+
+
+            // If search content is not empty, perform the search
+            query = "SELECT * FROM produit ORDER BY description_produit";
+            ps = this.connection.prepareStatement(query);
+           // ps.setString(1, "%" + description_produit + "%");
+
+
+        System.out.println("SQL Query: " + ps.toString());
+        ResultSet rs = ps.executeQuery();
+        List<Produit> forums = new ArrayList<>();
+
+        while (rs.next()) {
+            Categorie id_categorie = this.recherchecat(rs.getInt("id_categorie"));
+            Produit f = new Produit(rs.getInt("id_produit"), rs.getString("description_produit"), rs.getFloat("prix"), rs.getInt("quantite_produit"), rs.getString("marque"), id_categorie, rs.getString("image"),rs.getString("sku"));
+
+            forums.add(f);
+        }
+
+        return forums;
+    }
+    public List<Produit> trimarque() throws SQLException {
+        String query;
+        PreparedStatement ps;
+
+            // If search content is not empty, perform the search
+            query = "SELECT * FROM produit ORDER BY marque";
+            ps = this.connection.prepareStatement(query);
+            // ps.setString(1, "%" + description_produit + "%");
+        System.out.println("SQL Query: " + ps.toString());
+        ResultSet rs = ps.executeQuery();
+        List<Produit> forums = new ArrayList<>();
+
+        while (rs.next()) {
+            Categorie id_categorie = this.recherchecat(rs.getInt("id_categorie"));
+            Produit f = new Produit(rs.getInt("id_produit"), rs.getString("description_produit"), rs.getFloat("prix"), rs.getInt("quantite_produit"), rs.getString("marque"), id_categorie, rs.getString("image"),rs.getString("sku"));
+
+            forums.add(f);
+        }
+
+        return forums;
+    }
+    public List<Produit> filter1() throws SQLException {
+        String query;
+        PreparedStatement ps;
+
+        // If search content is not empty, perform the search
+        query = "SELECT * FROM produit WHERE quantite_produit >= 10 AND quantite_produit <= 20";
+        ps = this.connection.prepareStatement(query);
+        // ps.setString(1, "%" + description_produit + "%");
+        System.out.println("SQL Query: " + ps.toString());
+        ResultSet rs = ps.executeQuery();
+        List<Produit> forums = new ArrayList<>();
+
+        while (rs.next()) {
+            Categorie id_categorie = this.recherchecat(rs.getInt("id_categorie"));
+            Produit f = new Produit(rs.getInt("id_produit"), rs.getString("description_produit"), rs.getFloat("prix"), rs.getInt("quantite_produit"), rs.getString("marque"), id_categorie, rs.getString("image"),rs.getString("sku"));
+
+            forums.add(f);
+        }
+
+        return forums;
+    }
+    public List<Produit> filter20() throws SQLException {
+        String query;
+        PreparedStatement ps;
+
+        // If search content is not empty, perform the search
+        query = "SELECT * FROM produit WHERE quantite_produit >= 21 AND quantite_produit <= 30";
+        ps = this.connection.prepareStatement(query);
+        // ps.setString(1, "%" + description_produit + "%");
         System.out.println("SQL Query: " + ps.toString());
         ResultSet rs = ps.executeQuery();
         List<Produit> forums = new ArrayList<>();

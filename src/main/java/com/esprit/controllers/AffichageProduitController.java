@@ -1,15 +1,22 @@
 package com.esprit.controllers;
 import com.esprit.models.Categorie;
+import com.esprit.models.PDFGeneratorService;
 import com.esprit.models.Produit;
 import com.esprit.services.CategorieService;
 import com.esprit.services.ProduitService;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
-import java.io.File;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import java.awt.event.KeyEvent;
+import java.io.*;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,58 +37,76 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-
-import java.io.IOException;
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import static java.lang.Integer.parseInt;
 
 public class AffichageProduitController {
     @FXML
     private TableColumn<Produit, Void> action;
-
+   @FXML
+    private TableColumn<Produit, Void> action1;
     @FXML
-    private TableColumn<?,?>  id_categorie;
-
+    private TableColumn<Produit, String> id_categorie;
     @FXML
-    private TableColumn<Produit,String> description_produit;;
-
+    private TableColumn<Produit, String> description_produit;
     @FXML
-    private TableColumn<Produit,String> image;
-
+    private TableColumn<Produit, String> image;
     @FXML
     private TableColumn<Produit, String> marque;
-
     @FXML
     private TableColumn<Produit, Float> prix;
-
     @FXML
     private TableColumn<Produit, Integer> quantite_produit;
-
     @FXML
     private TableColumn<Produit, String> sku;
-
     @FXML
     private TableView<Produit> tableview;
     @FXML
+    private RadioButton filter1;
+    @FXML
+    private Button extrapdf;
+    @FXML
+    private RadioButton filter2;
+    @FXML
+    private CheckBox TriM;
+    @FXML
+    private RadioButton TriDesc;
+    @FXML
     private TextField rechP;
+    @FXML
+    private TextField TriP;
+    @FXML
+    private RadioButton trimm;
     ObservableList<Produit> produitList = FXCollections.observableArrayList();
     public AffichageProduitController() {
     }
+
     @FXML
     void initialize() {
         ProduitService p = new ProduitService();
         List<Produit> produitt = p.afficher();
         ObservableList<Produit> observableList = FXCollections.observableList(produitt);
         this.tableview.setItems(observableList);
-        this. id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
-        this. description_produit.setCellValueFactory(new PropertyValueFactory("desc"));
+        id_categorie.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId_categorie().getNom_cat()));
+       // id_categorie.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId_categorie().getNom_cat()));
+       // this.id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
+       // this.id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
+
+        this.id_categorie.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.description_produit.setCellValueFactory(new PropertyValueFactory("desc"));
         this.image.setCellValueFactory(new PropertyValueFactory("image"));
         this.marque.setCellValueFactory(new PropertyValueFactory("marque"));
         this.prix.setCellValueFactory(new PropertyValueFactory("prix"));
-        this. quantite_produit.setCellValueFactory(new PropertyValueFactory("quant"));
+        this.quantite_produit.setCellValueFactory(new PropertyValueFactory("quant"));
         this.sku.setCellValueFactory(new PropertyValueFactory("sku"));
         this.image.setCellFactory(column -> {
-            return new TableCell<Produit, String>() { private final ImageView imageView = new ImageView();
+            return new TableCell<Produit, String>() {
+                private final ImageView imageView = new ImageView();
+
                 {
                     // Set the size of the ImageView as needed
                     imageView.setFitWidth(150);
@@ -110,7 +135,7 @@ public class AffichageProduitController {
 
 
         this.description_produit.setCellFactory(TextFieldTableCell.forTableColumn());
-       this.sku.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.sku.setCellFactory(TextFieldTableCell.forTableColumn());
         this.marque.setCellFactory(TextFieldTableCell.forTableColumn());
         this.quantite_produit.setCellFactory(TextFieldTableCell.forTableColumn((new StringConverter<Integer>() {
             @Override
@@ -197,7 +222,6 @@ public class AffichageProduitController {
             }
 
 
-
             Produit pr = event.getRowValue();
             pr.setMarque(event.getNewValue());
             p.modifier(pr);
@@ -277,41 +301,9 @@ public class AffichageProduitController {
             p.modifier(pr);
         });
         boutonsupp();
-    }
-    @FXML
-    void modifierproduit(ActionEvent event) throws IOException{
-        Produit selected = (Produit) this.tableview.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/ModifierProduit.fxml"));
-            Parent root = (Parent)loader.load();
-            ModifierProduitController mrc = (ModifierProduitController) loader.getController();
-            mrc.setReponseToModify(selected);
-            this.tableview.getScene().setRoot(root);
-        } else {
-            Alert alertAjout = new Alert(AlertType.ERROR);
-            alertAjout.setTitle("Erreur de modification");
-            alertAjout.setHeaderText("Erreur!");
-            alertAjout.setContentText("Choisir une réponse pour la modifier!");
-            alertAjout.show();
-        }
-
+        boutonpdf();
     }
 
-    @FXML
-    void supprimerproduit(ActionEvent event) {
-        ProduitService p = new ProduitService();
-        int selectedID = this.tableview.getSelectionModel().getSelectedIndex();
-        if (selectedID >= 0) {
-            Produit coursASupprimer = (Produit)this.tableview.getItems().get(selectedID);
-            p.supprimer(coursASupprimer);
-            this.tableview.getItems().remove(selectedID);
-        } else {
-            Alert alerte = new Alert(AlertType.INFORMATION);
-            alerte.setTitle("erreur");
-            alerte.setContentText("cours nest pas selectioner");
-            alerte.show();
-        }
-    }
     @FXML
     void returnMe(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -328,29 +320,29 @@ public class AffichageProduitController {
             // Handle exception, if any
         }
     }
-    @FXML
-    void trierparquantite(ActionEvent event) {
-        ProduitService p = new ProduitService();
-        List<Produit> lp = new ArrayList<>();
-        p.trierProduitsParPrixCroissant(lp);
-        }
+
+
     @FXML
     public void SearchByContent(javafx.scene.input.KeyEvent keyEvent) {
         try {
-             ProduitService p = new ProduitService();
+            ProduitService p = new ProduitService();
             String content = rechP.getText();
-            List<Produit> SearchResults=p.SearchByContent(content);
+            List<Produit> SearchResults = p.SearchByContent(content);
             ObservableList<Produit> observableList = FXCollections.observableList(SearchResults);
             this.tableview.setItems(observableList);
-            this. id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
-            this. description_produit.setCellValueFactory(new PropertyValueFactory("desc"));
+            //this.id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
+
+            this.id_categorie.setCellFactory(TextFieldTableCell.forTableColumn());
+            this.description_produit.setCellValueFactory(new PropertyValueFactory("desc"));
             this.image.setCellValueFactory(new PropertyValueFactory("image"));
             this.marque.setCellValueFactory(new PropertyValueFactory("marque"));
             this.prix.setCellValueFactory(new PropertyValueFactory("prix"));
-            this. quantite_produit.setCellValueFactory(new PropertyValueFactory("quant"));
+            this.quantite_produit.setCellValueFactory(new PropertyValueFactory("quant"));
             this.sku.setCellValueFactory(new PropertyValueFactory("sku"));
-           this.image.setCellFactory(column -> {
-                return new TableCell<Produit, String>() { private final ImageView imageView = new ImageView();
+            this.image.setCellFactory(column -> {
+                return new TableCell<Produit, String>() {
+                    private final ImageView imageView = new ImageView();
+
                     {
                         // Set the size of the ImageView as needed
                         imageView.setFitWidth(150);
@@ -375,11 +367,6 @@ public class AffichageProduitController {
                     }
                 };
             });
-           // ForumList.setItems(observableList);
-           /* IDForum.setCellValueFactory(new PropertyValueFactory<>("IDForum"));
-            ContentForum.setCellValueFactory(new PropertyValueFactory<>("ContentForum"));
-            NB_posts.setCellValueFactory(new PropertyValueFactory<>("NB_posts"));
-            Category.setCellValueFactory(new PropertyValueFactory<>("Category"));*/
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -388,6 +375,7 @@ public class AffichageProduitController {
             alert.showAndWait();
         }
     }
+
     //TODO **************BOUTON SUPPRIMER cree tableview
     private void boutonsupp() {
         action.setCellFactory(col -> new TableCell<Produit, Void>() {
@@ -412,12 +400,320 @@ public class AffichageProduitController {
             }
         });
     }
+
     private void supprimer(Produit ev) {
         ProduitService p = new ProduitService();
         p.supprimer(ev);
         // Actualisez la TableView pour refléter la suppression
         tableview.getItems().remove(ev);
     }
+    //TODO **************BOUTON PDF  tableview
+    private void boutonpdf() {
+        action1.setCellFactory(col -> new TableCell<Produit, Void>() {
+            private final Button participerButton = new Button("pdf");
+
+            {
+                participerButton.setOnAction(event -> {
+                    //   tableview.edit(-1, null);
+                    Produit produit = getTableView().getItems().get(getIndex());
+                    PDFGeneratorService pd = new PDFGeneratorService();
+                    pd.generatePDFProduit(produit);
+                   // pd.generatePDF(tableview);
+                    //supprimer(produit);
+                });
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(participerButton);
+                }
+            }
+        });
     }
+   /* @FXML
+    void pdff(ActionEvent event) {
+        PDFGeneratorService pd = new PDFGeneratorService();
+        pd.generatePDF(tableview);
+    }*/
+    @FXML
+    void TriMa(ActionEvent event) {
+        try {
+            ProduitService p = new ProduitService();
+            List<Produit> SearchResults = p.trimarque();
+            ObservableList<Produit> observableList = FXCollections.observableList(SearchResults);
+            this.tableview.setItems(observableList);
+           // this.id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
+
+            this.id_categorie.setCellFactory(TextFieldTableCell.forTableColumn());
+            this.description_produit.setCellValueFactory(new PropertyValueFactory("desc"));
+            this.image.setCellValueFactory(new PropertyValueFactory("image"));
+            this.marque.setCellValueFactory(new PropertyValueFactory("marque"));
+            this.prix.setCellValueFactory(new PropertyValueFactory("prix"));
+            this.quantite_produit.setCellValueFactory(new PropertyValueFactory("quant"));
+            this.sku.setCellValueFactory(new PropertyValueFactory("sku"));
+            this.image.setCellFactory(column -> {
+                return new TableCell<Produit, String>() {
+                    private final ImageView imageView = new ImageView();
+
+                    {
+                        // Set the size of the ImageView as needed
+                        imageView.setFitWidth(150);
+                        imageView.setFitHeight(130);
+                        setGraphic(imageView);
+                    }
+
+                    @Override
+                    protected void updateItem(String imagePath, boolean empty) {
+                        super.updateItem(imagePath, empty);
+                        if (imagePath == null || empty) {
+                            imageView.setImage(null);
+                        } else {
+                            try {
+                                // Load the image from the imagePath and set it in the ImageView
+                                Image image = new Image(new File(imagePath).toURI().toString());
+                                imageView.setImage(image);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                };
+            });
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
+    @FXML
+    void TriDesc(ActionEvent event) {
+        try {
+            ProduitService p = new ProduitService();
+            List<Produit> SearchResults = p.triProduit();
+            ObservableList<Produit> observableList = FXCollections.observableList(SearchResults);
+            this.tableview.setItems(observableList);
+          //  this.id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
+
+            this.id_categorie.setCellFactory(TextFieldTableCell.forTableColumn());
+            this.description_produit.setCellValueFactory(new PropertyValueFactory("desc"));
+            this.image.setCellValueFactory(new PropertyValueFactory("image"));
+            this.marque.setCellValueFactory(new PropertyValueFactory("marque"));
+            this.prix.setCellValueFactory(new PropertyValueFactory("prix"));
+            this.quantite_produit.setCellValueFactory(new PropertyValueFactory("quant"));
+            this.sku.setCellValueFactory(new PropertyValueFactory("sku"));
+            this.image.setCellFactory(column -> {
+                return new TableCell<Produit, String>() {
+                    private final ImageView imageView = new ImageView();
+
+                    {
+                        // Set the size of the ImageView as needed
+                        imageView.setFitWidth(150);
+                        imageView.setFitHeight(130);
+                        setGraphic(imageView);
+                    }
+
+                    @Override
+                    protected void updateItem(String imagePath, boolean empty) {
+                        super.updateItem(imagePath, empty);
+                        if (imagePath == null || empty) {
+                            imageView.setImage(null);
+                        } else {
+                            try {
+                                // Load the image from the imagePath and set it in the ImageView
+                                Image image = new Image(new File(imagePath).toURI().toString());
+                                imageView.setImage(image);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                };
+            });
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
+    @FXML
+    void filter1(ActionEvent event) {
+        try {
+            ProduitService p = new ProduitService();
+            List<Produit> SearchResults = p.filter1();
+            ObservableList<Produit> observableList = FXCollections.observableList(SearchResults);
+            this.tableview.setItems(observableList);
+           // this.id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
+
+            this.id_categorie.setCellFactory(TextFieldTableCell.forTableColumn());
+            this.description_produit.setCellValueFactory(new PropertyValueFactory("desc"));
+            this.image.setCellValueFactory(new PropertyValueFactory("image"));
+            this.marque.setCellValueFactory(new PropertyValueFactory("marque"));
+            this.prix.setCellValueFactory(new PropertyValueFactory("prix"));
+            this.quantite_produit.setCellValueFactory(new PropertyValueFactory("quant"));
+            this.sku.setCellValueFactory(new PropertyValueFactory("sku"));
+            this.image.setCellFactory(column -> {
+                return new TableCell<Produit, String>() {
+                    private final ImageView imageView = new ImageView();
+
+                    {
+                        // Set the size of the ImageView as needed
+                        imageView.setFitWidth(150);
+                        imageView.setFitHeight(130);
+                        setGraphic(imageView);
+                    }
+
+                    @Override
+                    protected void updateItem(String imagePath, boolean empty) {
+                        super.updateItem(imagePath, empty);
+                        if (imagePath == null || empty) {
+                            imageView.setImage(null);
+                        } else {
+                            try {
+                                // Load the image from the imagePath and set it in the ImageView
+                                Image image = new Image(new File(imagePath).toURI().toString());
+                                imageView.setImage(image);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                };
+            });
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
+
+    @FXML
+    void filter2(ActionEvent event) {
+        try {
+            ProduitService p = new ProduitService();
+            List<Produit> SearchResults = p.filter20();
+            ObservableList<Produit> observableList = FXCollections.observableList(SearchResults);
+            this.tableview.setItems(observableList);
+           // this.id_categorie.setCellValueFactory(new PropertyValueFactory("id_categorie"));
+
+            this.id_categorie.setCellFactory(TextFieldTableCell.forTableColumn());
+            this.description_produit.setCellValueFactory(new PropertyValueFactory("desc"));
+            this.image.setCellValueFactory(new PropertyValueFactory("image"));
+            this.marque.setCellValueFactory(new PropertyValueFactory("marque"));
+            this.prix.setCellValueFactory(new PropertyValueFactory("prix"));
+            this.quantite_produit.setCellValueFactory(new PropertyValueFactory("quant"));
+            this.sku.setCellValueFactory(new PropertyValueFactory("sku"));
+            this.image.setCellFactory(column -> {
+                return new TableCell<Produit, String>() {
+                    private final ImageView imageView = new ImageView();
+
+                    {
+                        // Set the size of the ImageView as needed
+                        imageView.setFitWidth(150);
+                        imageView.setFitHeight(130);
+                        setGraphic(imageView);
+                    }
+
+                    @Override
+                    protected void updateItem(String imagePath, boolean empty) {
+                        super.updateItem(imagePath, empty);
+                        if (imagePath == null || empty) {
+                            imageView.setImage(null);
+                        } else {
+                            try {
+                                // Load the image from the imagePath and set it in the ImageView
+                                Image image = new Image(new File(imagePath).toURI().toString());
+                                imageView.setImage(image);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                };
+            });
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
+    @FXML
+    void rateshow(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close(); // Close the current stage
+        // Load and show the new interface
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Affichagescore.fxml"));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception, if any
+        }
+    }
+
+    @FXML
+    void rateadd(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close(); // Close the current stage
+        // Load and show the new interface
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjoutScore.fxml"));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception, if any
+        }
+    }
+    @FXML
+    void statshow(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage currentStage = (Stage) source.getScene().getWindow();
+        currentStage.close(); // Close the current stage
+        // Load and show the new interface
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Afficherbarchart.fxml"));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception, if any
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
