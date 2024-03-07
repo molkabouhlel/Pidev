@@ -17,7 +17,7 @@
 /* Styles pour les menus déroulants */
 .combo-box {
     -fx-background-color:#5eaffa; /* couleur de fond */
-    -fx-border-color: #DADADA ;/* couleur de la bordure */
+    -fx-border-color: #5eaffa ;/* couleur de la bordure */
     -fx-border-width: 0.5px; /* largeur de la bordure */
     -fx-padding: 2px; /* rembourrage */
 }
