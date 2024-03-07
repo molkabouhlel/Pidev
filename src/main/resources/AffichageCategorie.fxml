@@ -11,30 +11,28 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AffichageCategorieController">
    <children>
-      <ImageView fitHeight="408.0" fitWidth="607.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/image_2024-02-20_160108214.png" />
-         </image>
-      </ImageView>
-      <TableView fx:id="tableviewC" layoutX="102.0" layoutY="120.0" prefHeight="200.0" prefWidth="391.0">
+      <TableView fx:id="tableviewC" layoutX="241.0" layoutY="100.0" prefHeight="200.0" prefWidth="340.0">
         <columns>
-          <TableColumn fx:id="NomC" prefWidth="75.0" text="Nom" />
-          <TableColumn fx:id="DescriptionC" prefWidth="160.7999267578125" text="Description" />
-            <TableColumn fx:id="action" prefWidth="101.60003662109375" text="Supprimer" />
+          <TableColumn fx:id="NomC" prefWidth="111.199951171875" text="Nom" />
+          <TableColumn fx:id="DescriptionC" prefWidth="134.4000244140625" text="Description" />
+            <TableColumn fx:id="action" prefWidth="92.80001831054688" text="Supprimer" />
         </columns>
       </TableView>
-      <Button fx:id="modifierC" layoutX="182.0" layoutY="343.0" mnemonicParsing="false" onAction="#modifierC" text="Modifier" textFill="#e16f04" />
-      <Button fx:id="supprimerC" layoutX="307.0" layoutY="343.0" mnemonicParsing="false" onAction="#supprimerC" text="Supprimer" textFill="#e16f04" />
-      <Label layoutX="203.0" layoutY="75.0" text="Nos Categories" textFill="#ef7f07">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Label>
       <ImageView fitHeight="58.0" fitWidth="607.0" pickOnBounds="true">
          <image>
             <Image url="@images/logo.png" />
          </image>
       </ImageView>
-      <Button layoutX="457.0" layoutY="343.0" mnemonicParsing="false" onAction="#retu" text="&lt;-" textFill="#ec6103" />
+      <Button layoutX="557.0" layoutY="356.0" mnemonicParsing="false" onAction="#retu" text="&lt;-" textFill="#ec6103" />
+      <ImageView fitHeight="343.0" fitWidth="177.0" layoutY="57.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/bg.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="9.0" layoutY="189.0" text="Nos Categories" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

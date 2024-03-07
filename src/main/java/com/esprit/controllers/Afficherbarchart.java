@@ -1,5 +1,4 @@
 package com.esprit.controllers;
-
 import com.esprit.models.MedianCalculator;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
