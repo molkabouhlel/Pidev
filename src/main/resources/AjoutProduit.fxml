@@ -9,65 +9,64 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjoutProduitController">
+<AnchorPane prefHeight="552.0" prefWidth="781.0" stylesheets="@syle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjoutProduitController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="-4.0" pickOnBounds="true">
+      <ImageView fitHeight="478.0" fitWidth="211.0" layoutY="74.0" pickOnBounds="true">
          <image>
-            <Image url="@images/image_2024-02-20_160108214.png" />
+            <Image url="@images/bg.png" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="114.0" prefHeight="18.0" prefWidth="80.0" text="Description" textFill="WHITE">
+      <Label layoutX="233.0" layoutY="189.0" prefHeight="18.0" prefWidth="80.0" text="Description" textFill="#848383">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <Label layoutX="14.0" layoutY="176.0" prefHeight="18.0" prefWidth="33.0" text="Prix" textFill="WHITE">
+      <Label layoutX="239.0" layoutY="236.0" prefHeight="18.0" prefWidth="33.0" text="Prix" textFill="#848383">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <TextField fx:id="tfDescription" layoutX="109.0" layoutY="109.0" prefHeight="27.0" prefWidth="142.0" />
-      <TextField fx:id="tfPrix" layoutX="109.0" layoutY="170.0" />
-      <Button layoutX="211.0" layoutY="352.0" mnemonicParsing="false" onAction="#addProduit" prefHeight="30.0" prefWidth="97.0" text="Ajouter" textFill="#e7760c" />
-      <Label layoutX="14.0" layoutY="233.0" text="Quantite" textFill="WHITE">
+      <TextField fx:id="tfDescription" layoutX="332.0" layoutY="190.0" prefHeight="21.0" prefWidth="142.0" />
+      <TextField fx:id="tfPrix" layoutX="328.0" layoutY="236.0" />
+      <Button layoutX="403.0" layoutY="498.0" minHeight="21.0" mnemonicParsing="false" onAction="#addProduit" prefHeight="30.0" prefWidth="142.0" text="Ajouter" textFill="#e7760c" />
+      <Label layoutX="233.0" layoutY="291.0" text="Quantite" textFill="#848383">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <Label layoutX="330.0" layoutY="133.0" text="Marque" textFill="WHITE">
+      <Label layoutX="503.0" layoutY="191.0" text="Marque" textFill="#848383">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <Label layoutX="317.0" layoutY="191.0" prefHeight="18.0" prefWidth="80.0" text="categorie" textFill="WHITE">
+      <Label layoutX="503.0" layoutY="285.0" prefHeight="18.0" prefWidth="80.0" text="categorie" textFill="#848383">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <Label layoutX="317.0" layoutY="249.0" text="url image" textFill="WHITE">
+      <Label layoutX="385.0" layoutY="349.0" text="url image" textFill="#848383">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <Label layoutX="20.0" layoutY="292.0" text="sku" textFill="WHITE">
+      <Label layoutX="507.0" layoutY="238.0" text="sku" textFill="#848383">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <TextField fx:id="tfcategorie" layoutX="566.0" layoutY="355.0" prefHeight="0.0" prefWidth="0.0" />
-      <TextField fx:id="tfurl" layoutX="415.0" layoutY="244.0" />
-      <TextField fx:id="tfsku" layoutX="114.0" layoutY="287.0" />
-      <TextField fx:id="tfQuantite" layoutX="109.0" layoutY="225.0" />
-      <TextField fx:id="tfMarque" layoutX="411.0" layoutY="129.0" />
-      <ComboBox fx:id="id_categorie" layoutX="417.0" layoutY="189.0" prefWidth="150.0" />
-      <Button layoutX="445.0" layoutY="283.0" mnemonicParsing="false" onAction="#browse" text="Browse" textFill="#e77205" />
-      <ImageView fitHeight="48.0" fitWidth="600.0" layoutX="-4.0" pickOnBounds="true">
+      <TextField fx:id="tfurl" layoutX="471.0" layoutY="347.0" />
+      <TextField fx:id="tfsku" layoutX="598.0" layoutY="236.0" />
+      <TextField fx:id="tfQuantite" layoutX="328.0" layoutY="288.0" />
+      <TextField fx:id="tfMarque" layoutX="593.0" layoutY="189.0" />
+      <ComboBox fx:id="id_categorie" layoutX="603.0" layoutY="282.0" prefHeight="27.0" prefWidth="150.0" />
+      <Button layoutX="499.0" layoutY="383.0" mnemonicParsing="false" onAction="#browse" prefHeight="22.0" prefWidth="87.0" text="Browse" textFill="#e77205" />
+      <ImageView fitHeight="78.0" fitWidth="787.0" layoutX="-4.0" pickOnBounds="true">
          <image>
             <Image url="@images/logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="199.0" layoutY="77.0" text="Ajout d'un produit" textFill="#e48015">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Label>
-      <Button layoutX="356.0" layoutY="355.0" mnemonicParsing="false" onAction="#returnM" text="&lt;--" textFill="#e76209">
+      <Button layoutX="14.0" layoutY="498.0" mnemonicParsing="false" onAction="#returnM" prefHeight="33.0" prefWidth="55.0" text="&lt;--" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
+      <Label layoutX="11.0" layoutY="241.0" prefHeight="48.0" prefWidth="211.0" text="Ajouter un produit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

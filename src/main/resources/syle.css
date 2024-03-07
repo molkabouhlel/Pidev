@@ -1,0 +1,29 @@
+.button {
+    -fx-background-color: #5eaffa; /* couleur de fond */
+    -fx-text-fill: white; /* couleur du texte */
+    -fx-font-size: 14px; /* taille de la police */
+    -fx-padding: 10px 20px; /* rembourrage */
+}
+.button:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #5eaffa;/* nouvelle couleur de fond lorsque survolé */
+}
+.text-field {
+    -fx-background-color: #DADADA; /* couleur de fond */
+    -fx-border-color: #DADADA; /* couleur de la bordure */
+    -fx-border-width: 0.5px; /* largeur de la bordure */
+    -fx-padding: 2px; /* rembourrage */
+}
+/* Styles pour les menus déroulants */
+.combo-box {
+    -fx-background-color:#DADADA; /* couleur de fond */
+    -fx-border-color: #DADADA ;/* couleur de la bordure */
+    -fx-border-width: 0.5px; /* largeur de la bordure */
+    -fx-padding: 2px; /* rembourrage */
+}
+.root {
+    -fx-background-color: white;
+}
+.label-background {
+    -fx-background-color: #DADADA;
+}
