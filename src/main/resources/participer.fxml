@@ -11,9 +11,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.ParticiperC">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ParticiperC">
    <children>
-      <AnchorPane prefHeight="507.0" prefWidth="647.0" style="-fx-background-color: #bbe3fb;">
+      <AnchorPane prefHeight="507.0" prefWidth="647.0" style="-fx-background-color: white;">
          <children>
             <AnchorPane prefHeight="507.0" prefWidth="149.0" style="-fx-background-color: #84c6f5;">
                <children>
@@ -23,7 +23,7 @@
                      </image>
                   </ImageView>
                   <Button layoutX="29.0" layoutY="65.0" mnemonicParsing="false" onAction="#retourner" prefHeight="50.0" prefWidth="55.0" style="-fx-opacity: 0;" text="RETOURNER" textFill="#f8f5f5" />
-                  <Label layoutX="3.0" layoutY="185.0" prefHeight="50.0" prefWidth="143.0" text="PARTICIPATE" textFill="#f6f5f5" underline="true">
+                  <Label layoutX="6.0" layoutY="213.0" prefHeight="50.0" prefWidth="143.0" text="PARTICIPATE" textFill="#f6f5f5" underline="true">
                      <font>
                         <Font name="Arial Black" size="18.0" />
                      </font>

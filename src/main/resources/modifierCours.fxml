@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="567.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.ModifierCours">
+<AnchorPane prefHeight="567.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ModifierCours">
    <children>
-      <AnchorPane layoutY="50.0" prefHeight="559.0" prefWidth="779.0" style="-fx-background-color: #bbe3fb;">
+      <AnchorPane layoutY="50.0" prefHeight="559.0" prefWidth="779.0" style="-fx-background-color: white;">
          <children>
             <ImageView fitHeight="97.0" fitWidth="77.0" layoutX="643.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -69,7 +69,7 @@
                      </image>
                   </ImageView>
                   <Button layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#reafficherc" prefHeight="49.0" prefWidth="66.0" style="-fx-background-radius: 15; -fx-background-color: #2f85b3; -fx-opacity: 0;" text="retourner" textFill="#fbfafa" />
-                  <Label layoutX="19.0" layoutY="230.0" prefHeight="66.0" prefWidth="97.0" text="COURSE" textFill="WHITE" underline="true">
+                  <Label layoutY="230.0" prefHeight="66.0" prefWidth="141.0" text="COURSE :" textFill="WHITE" underline="true">
                      <font>
                         <Font name="Arial Black" size="24.0" />
                      </font>

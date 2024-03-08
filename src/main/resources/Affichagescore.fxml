@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #5eaffa;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Affichagescore">
+   <children>
+      <TableView fx:id="tableviewsc" layoutX="452.0" layoutY="81.0" prefHeight="287.0" prefWidth="242.0">
+        <columns>
+          <TableColumn fx:id="tf_prd" prefWidth="96.79992485046387" text="PRODUCT" />
+          <TableColumn fx:id="tf_note" prefWidth="80.79999542236328" text="RATE" />
+        </columns>
+      </TableView>
+      <ImageView fitHeight="64.0" fitWidth="704.0" layoutY="-2.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
+      <PieChart fx:id="piechartnote" layoutY="62.0" prefHeight="334.0" prefWidth="438.0" />
+   </children>
+</AnchorPane>

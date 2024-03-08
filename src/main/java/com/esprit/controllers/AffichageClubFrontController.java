@@ -286,7 +286,7 @@ public class AffichageClubFrontController {
     @FXML
     void RedirectToMenu()  throws IOException {
         timeline.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MenuModuleClub.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/InterfaceMenuCoach.fxml"));
         Parent root = loader.load();
         Stage currentStage = (Stage) flowPane.getScene().getWindow();
         currentStage.setScene(new Scene(root));

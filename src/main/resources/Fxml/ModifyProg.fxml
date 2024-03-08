@@ -18,29 +18,35 @@
       </ImageView>
       <VBox layoutX="203.0" layoutY="58.0" prefHeight="348.0" prefWidth="394.0" spacing="3.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
             <TextField fx:id="nom_prog" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description programme" wrappingWidth="140.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description program" wrappingWidth="140.0" />
             <TextArea fx:id="descrprog" prefHeight="46.0" prefWidth="386.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" wrappingWidth="69.625" />
             <TextField fx:id="rate" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat initial" wrappingWidth="119.18359375" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="initial State" wrappingWidth="119.18359375" />
             <TextField fx:id="etatint" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat final" wrappingWidth="100.060546875" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Final State " wrappingWidth="100.060546875" />
             <TextField fx:id="etatfin" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date debut " />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" />
             <TextField fx:id="datedeb" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Final Date " />
             <TextField fx:id="datefin" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_user" />
             <TextField fx:id="iduser" prefHeight="0.0" prefWidth="394.0" />
          </children>
       </VBox>
-      <Button layoutX="329.0" layoutY="456.0" mnemonicParsing="false" onAction="#ModifierProg" prefHeight="25.0" prefWidth="93.0" text="Modify" />
+      <Button layoutX="338.0" layoutY="469.0" mnemonicParsing="false" onAction="#ModifierProg" prefHeight="25.0" prefWidth="93.0" text="Modify" textFill="#5eaffa" />
       <Button layoutX="556.0" layoutY="14.0" mnemonicParsing="false" onAction="#RedirectToProgrammeAfficher" prefHeight="25.0" prefWidth="63.0" text="Return" visible="false" />
       <ImageView fitHeight="52.0" fitWidth="63.0" layoutX="571.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../Pidev-suivi/src/images/429637005_772930231416567_4989761362167058879_n.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="-41.0" prefHeight="526.0" prefWidth="197.0" style="-fx-background-color: #5eaffa;" />
+      <ImageView fitHeight="62.0" fitWidth="726.0" layoutX="156.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../gofit.png" />
          </image>
       </ImageView>
    </children>

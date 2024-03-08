@@ -107,12 +107,12 @@ public class ObjectifController {
         objectifToModify = objective;
         if (objectifToModify != null && objectifToModify.getID_obj() != 0) {
             Programme programme = objectifToModify.getProgramme();
-            objectifIdTextField.setText(String.valueOf(objectifToModify.getID_obj()));
+          //  objectifIdTextField.setText(String.valueOf(objectifToModify.getID_obj()));
             courseIdComboBox.setValue(objectifToModify.getID_cours());
             programmeField.setText(String.valueOf(programme.getID_prog()));
             objectiveDescriptionTextArea.setText(objectifToModify.getDescription_obj());
         } else {
-            objectifIdTextField.setText(null);
+           // objectifIdTextField.setText(null);
             courseIdComboBox.setValue(null);
             programmeField.setText(null);
             objectiveDescriptionTextArea.setText(null);
@@ -126,7 +126,7 @@ public class ObjectifController {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         programToModify = program;
         ProgrammeServices programService = new ProgrammeServices();
-        // HEDHI COMBOBOX BL LES ID cours
+
         List<Integer> lc = programService.RecupereridCours();
         courseIdComboBox.setItems(FXCollections.observableArrayList(lc));
 

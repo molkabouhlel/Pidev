@@ -1,14 +1,12 @@
 package com.esprit.controllers;
 
-import com.esprit.models.Club;
+import com.esprit.models.*;
 
-import com.esprit.models.Cours;
-import com.esprit.models.Espace;
-import com.esprit.models.ListCours;
 import com.esprit.services.ClubService;
 
 import com.esprit.services.EspaceService;
 import com.esprit.services.ListCoursService;
+import com.esprit.services.ParticiapantClubService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,7 +40,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 public class DetailClubController {
-
+    Preferences prefs = Preferences.systemNodeForPackage(this.getClass());
 
     @FXML
     private ImageView imageClub;
@@ -87,6 +85,7 @@ private TextField user_mail;
 
     private Club ClubToModifier;
 
+    private ParticipantClub participantClubToModify;
 
 
     public void initClub(Club C) {
@@ -114,6 +113,7 @@ private TextField user_mail;
         imageClub.setStyle("-fx-border-color: black; -fx-border-width: 5px;");
 
         Id_Club_Selected=C.getId_club();
+
     }
 
 
@@ -128,6 +128,18 @@ private TextField user_mail;
         });*/
         generateCaptcha();
         drawCaptcha();
+
+        int cin= Integer.parseInt(prefs.get("cin","not found"));
+        String nom=prefs.get("nom","not found");
+        String prenom=prefs.get("prénom","not found");
+        String email=prefs.get("email","not found");
+
+
+         user_mail.setText(nom);
+       user_nom.setText(prenom);
+        user_prenom.setText(email);
+
+        participantClubToModify=new ParticipantClub(cin,C);
     }
 
     @FXML
@@ -176,10 +188,17 @@ private TextField user_mail;
 
 
     @FXML
-    private void check() {
+    private void check() throws IOException {
+        ParticiapantClubService pcs=new ParticiapantClubService();
+
         String userInput = captchaTextfield.getText();
         if (userInput.equals(captcha)) {
             System.out.println("CAPTCHA matched!");
+            pcs.ajouter(participantClubToModify);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/affichageClubFront.fxml"));
+            Parent root = loader.load();
+            Stage currentStage = (Stage) imageClub.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
 
         } else {
             System.out.println("CAPTCHA did not match!");

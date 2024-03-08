@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="473.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AfficherEquipementController">
+   <children>
+      <TableView fx:id="tableview" layoutX="3.0" layoutY="137.0" prefHeight="237.0" prefWidth="722.0">
+        <columns>
+            <TableColumn fx:id="id_eq" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="ref_eq" prefWidth="68.7999906539917" text="Reference" />
+          <TableColumn fx:id="nom_eq" prefWidth="43.20001220703125" text="Name" />
+            <TableColumn fx:id="description_eq" prefWidth="71.19999694824219" text="Description" />
+            <TableColumn fx:id="quantite_dispo" prefWidth="72.0" text="Quantity" />
+            <TableColumn fx:id="id_espace" prefWidth="58.4000244140625" text="Espace" />
+            <TableColumn fx:id="id_ceq" prefWidth="63.199951171875" text="Category" />
+            <TableColumn fx:id="id_m" prefWidth="81.60003662109375" text="Maintenance" />
+            <TableColumn fx:id="image" prefWidth="122.4000244140625" text="Image" />
+            <TableColumn fx:id="action" prefWidth="54.40006103515623" text="Action" />
+        </columns>
+      </TableView>
+      <Text fill="#f6f6fc" layoutX="198.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajout Equipement" wrappingWidth="214.93670654296875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="66.0" fitWidth="745.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@429042001_785011366978560_3416642108147507954_n.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="65.0" prefHeight="62.0" prefWidth="737.0" style="-fx-background-color: #5eaffa;">
+         <children>
+            <Text fill="#f6f6fc" layoutX="280.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipments" wrappingWidth="230.13671875">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Button fx:id="supprimereq" layoutX="377.0" layoutY="399.0" mnemonicParsing="false" onAction="#supprimer" text="Delete" />
+      <Button layoutX="519.0" layoutY="399.0" mnemonicParsing="false" onAction="#modifier" text="Modify" />
+      <Button layoutX="234.0" layoutY="398.0" mnemonicParsing="false" onAction="#refresh" prefHeight="26.0" prefWidth="90.0" text="Return" />
+      <TextField fx:id="recherche" layoutX="14.0" layoutY="386.0" promptText="Search" />
+      <Button fx:id="trie" layoutX="14.0" layoutY="422.0" mnemonicParsing="false" onAction="#trie" text="Sort" />
+      <ComboBox fx:id="combobox" layoutX="70.0" layoutY="422.0" prefWidth="150.0" />
+      <Button fx:id="stat" layoutX="635.0" layoutY="399.0" mnemonicParsing="false" onAction="#stat" text="Stat" />
+   </children>
+</AnchorPane>

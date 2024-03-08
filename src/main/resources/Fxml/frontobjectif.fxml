@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="526.0" prefWidth="765.0" styleClass="form_container" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.FrontobjController">
+
+    <children>
+        <Label layoutX="288.0" layoutY="13.0" prefHeight="27.0" prefWidth="189.0" style="-fx-font-size: 18px;" styleClass="title" text="Gestion des Objectifs" />
+        <TableView fx:id="objectiveTableView" layoutX="290.0" layoutY="120.0" prefHeight="259.0" prefWidth="424.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="120.0">
+            <columns>
+                <TableColumn fx:id="colDescr" prefWidth="89.0" text="Description" />
+            </columns>
+        </TableView>
+        <ButtonBar layoutX="401.0" layoutY="405.0" prefHeight="40.0" prefWidth="317.0" AnchorPane.leftAnchor="401.0">
+            <buttons>
+
+            </buttons>
+        </ButtonBar>
+        <ImageView fitHeight="52.0" fitWidth="765.0" pickOnBounds="true">
+            <image>
+            </image>
+        </ImageView>
+        <Button fx:id="ReturntoAffichage" layoutX="640.0" layoutY="21.0" mnemonicParsing="false" onAction="#ReturnToAffichage" opacity="0.0" prefHeight="0.0" prefWidth="54.0" text="Return" />
+        <ImageView fitHeight="71.0" fitWidth="70.0" layoutX="670.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/429637005_772930231416567_4989761362167058879_n.png" />
+            </image>
+        </ImageView>
+    </children>
+
+</AnchorPane>

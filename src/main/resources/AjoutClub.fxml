@@ -15,22 +15,22 @@
       <AnchorPane fx:id="formaddespace" layoutX="236.0" layoutY="5.0" prefHeight="400.0" prefWidth="358.0">
          <children>
             <TextField fx:id="nom_club" layoutX="190.0" layoutY="62.0" />
-            <Label layoutX="85.0" layoutY="59.0" text="Nom : " />
+            <Label layoutX="85.0" layoutY="59.0" text="Name :" />
             <TextArea fx:id="description_club" layoutX="188.0" layoutY="139.0" prefHeight="52.0" prefWidth="150.0" />
             <Label layoutX="85.0" layoutY="143.0" text="Description :" />
             <TextField fx:id="image_club" layoutX="188.0" layoutY="200.0" />
             <TextField fx:id="temp_ouverture" layoutX="190.0" layoutY="297.0" />
             <Label layoutX="89.0" layoutY="201.0" text="Image :" />
-            <Label layoutX="86.0" layoutY="301.0" text="Temp:ouverture" />
-            <Button fx:id="ajoutclub" layoutX="159.0" layoutY="349.0" mnemonicParsing="false" onAction="#ajouterclub" prefHeight="26.0" prefWidth="61.0" text="ADD" />
-            <Button fx:id="Return" layoutX="251.0" layoutY="349.0" mnemonicParsing="false" onAction="#RedirectToClubAfficher" prefHeight="26.0" prefWidth="61.0" text="Return" />
+            <Label layoutX="86.0" layoutY="301.0" text="opening Time :" />
+            <Button fx:id="ajoutclub" layoutX="159.0" layoutY="349.0" mnemonicParsing="false" onAction="#ajouterclub" prefHeight="26.0" prefWidth="61.0" text="ADD" textFill="#5eaffa" />
+            <Button fx:id="Return" layoutX="251.0" layoutY="349.0" mnemonicParsing="false" onAction="#RedirectToClubAfficher" prefHeight="26.0" prefWidth="61.0" text="Return" textFill="#5eaffa" />
             <TextField fx:id="adresse_club" layoutX="190.0" layoutY="101.0" />
-            <Label layoutX="85.0" layoutY="100.0" text="Adresse :" />
+            <Label layoutX="85.0" layoutY="100.0" text="Address :" />
 
 
-            <Label layoutX="85.0" layoutY="270.0" text="Espace" />
+            <Label layoutX="85.0" layoutY="270.0" text="Space :" />
             <ComboBox fx:id="Espace" layoutX="187.0" layoutY="266.0" prefWidth="150.0" />
-            <Button fx:id="Browse" layoutX="265.0" layoutY="229.0" mnemonicParsing="false" onAction="#browseimage" prefHeight="26.0" prefWidth="74.0" text="Browse" />
+            <Button fx:id="Browse" layoutX="265.0" layoutY="229.0" mnemonicParsing="false" onAction="#browseimage" prefHeight="26.0" prefWidth="74.0" text="Browse" textFill="#5eaffa" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="54.0" fitWidth="600.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
@@ -39,7 +39,7 @@
          </image>
       </ImageView>
       <Label layoutY="53.0" prefHeight="352.0" prefWidth="242.0" style="-fx-background-color: rgb(56, 122, 223);" textFill="#960b0b" />
-      <Label layoutX="33.0" layoutY="68.0" prefHeight="71.0" prefWidth="175.0" text="Ajout Club" textFill="WHITE">
+      <Label layoutX="25.0" layoutY="182.0" prefHeight="71.0" prefWidth="175.0" text="Add Club :" textFill="WHITE">
          <font>
             <Font size="33.0" />
          </font>

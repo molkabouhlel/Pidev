@@ -20,7 +20,7 @@ public class MainProgGUI extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/MenuPrincipal.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/menuuser.fxml"));
         Parent root= loader.load();
         Scene scene=new Scene(root);
         primaryStage.setScene(scene);

@@ -16,7 +16,7 @@
       <TableView fx:id="ListeCourd_TableView" layoutX="300.0" layoutY="198.0" prefHeight="200.0" prefWidth="162.0">
         <columns>
             <TableColumn fx:id="Clubcolonne" prefWidth="76.0" text="Club" />
-            <TableColumn fx:id="cours" prefWidth="85.5999755859375" text="id_cours" />
+            <TableColumn fx:id="cours" prefWidth="85.5999755859375" text="id_course" />
         </columns>
       </TableView>
       <ImageView fitHeight="64.0" fitWidth="675.0" layoutX="-15.0" pickOnBounds="true">
@@ -26,10 +26,10 @@
       </ImageView>
       <Label layoutX="479.0" layoutY="166.0" text="Club" />
       <ComboBox fx:id="id_cours" layoutX="478.0" layoutY="270.0" prefWidth="150.0" />
-      <Label layoutX="482.0" layoutY="244.0" text="id_cours" />
-      <Button fx:id="Ajout_ListeCours" layoutX="467.0" layoutY="350.0" mnemonicParsing="false" onAction="#Ajout_ListeCours" prefHeight="26.0" prefWidth="55.0" text="Add" />
-      <Button fx:id="ModifyListeCours" layoutX="529.0" layoutY="350.0" mnemonicParsing="false" onAction="#ModifyListeCours" text="Modify" />
-      <Button fx:id="DeleteListeCours" layoutX="588.0" layoutY="350.0" mnemonicParsing="false" onAction="#DeleteListeCours" text="Delete" />
+      <Label layoutX="482.0" layoutY="244.0" text="id_course" />
+      <Button fx:id="Ajout_ListeCours" layoutX="467.0" layoutY="350.0" mnemonicParsing="false" onAction="#Ajout_ListeCours" prefHeight="26.0" prefWidth="55.0" text="Add" textFill="#5eaffe" />
+      <Button fx:id="ModifyListeCours" layoutX="529.0" layoutY="350.0" mnemonicParsing="false" onAction="#ModifyListeCours" text="Modify" textFill="#5eaffe" />
+      <Button fx:id="DeleteListeCours" layoutX="588.0" layoutY="350.0" mnemonicParsing="false" onAction="#DeleteListeCours" text="Delete" textFill="#5eaffe" />
       <ImageView fitHeight="56.0" fitWidth="103.0" layoutX="599.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/retour.png" />
@@ -48,9 +48,9 @@
       <Label layoutX="35.0" layoutY="331.0" text="Espace" />
       <TextField fx:id="adresse_club" layoutX="134.0" layoutY="172.0" />
       <Label layoutX="39.0" layoutY="175.0" text="Address" />
-      <Button fx:id="" layoutX="208.0" layoutY="297.0" mnemonicParsing="false" onAction="#Browse" prefHeight="26.0" prefWidth="66.0" text="Browse" />
+      <Button fx:id="" layoutX="208.0" layoutY="297.0" mnemonicParsing="false" onAction="#Browse" prefHeight="26.0" prefWidth="66.0" text="Browse" textFill="#5eaffe" />
       <ImageView fx:id="imageClub" fitHeight="122.0" fitWidth="150.0" layoutX="295.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
       <TextField fx:id="Club" layoutX="478.0" layoutY="199.0" />
-      <Button layoutX="34.0" layoutY="393.0" mnemonicParsing="false" onAction="#ModifyClub" prefHeight="26.0" prefWidth="66.0" text="Modify" />
+      <Button layoutX="34.0" layoutY="393.0" mnemonicParsing="false" onAction="#ModifyClub" prefHeight="26.0" prefWidth="66.0" text="Modify" textFill="#5eaffe" />
    </children>
 </AnchorPane>

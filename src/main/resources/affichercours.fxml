@@ -12,20 +12,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Affichercours">
+<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Affichercours">
    <children>
-      <AnchorPane prefHeight="132.0" prefWidth="822.0" style="-fx-background-color: #84c6f5;">
+      <AnchorPane prefHeight="132.0" prefWidth="822.0" style="-fx-background-color: #5eaffa;">
          <children>
             <ImageView fitHeight="58.0" fitWidth="61.0" layoutX="15.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Image/retour.png" />
                </image>
             </ImageView>
-            <Button layoutX="14.0" layoutY="72.0" mnemonicParsing="false" onAction="#returnlist" prefHeight="52.0" prefWidth="61.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="retourner" textFill="#f0f1f6">
+            <Button layoutX="14.0" layoutY="78.0" mnemonicParsing="false" onAction="#returnlist" prefHeight="52.0" prefWidth="61.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="retourner" textFill="#f0f1f6">
                <font>
                   <Font size="13.0" />
                </font></Button>
-            <Label layoutX="196.0" layoutY="78.0" prefHeight="40.0" prefWidth="405.0" text="             LISTE DES COURS               " textAlignment="CENTER" textFill="#f5f6f6" underline="true">
+            <Label layoutX="196.0" layoutY="78.0" prefHeight="40.0" prefWidth="405.0" text="             COURSE  LISTE                " textAlignment="CENTER" textFill="#f5f6f6" underline="true">
                <font>
                   <Font size="24.0" />
                </font>
@@ -42,14 +42,14 @@
             <Image url="@Image/pdf_4726010-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="58.0" fitWidth="66.0" layoutX="98.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="58.0" fitWidth="66.0" layoutX="98.0" layoutY="536.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/delete_7133356-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="69.0" fitWidth="98.0" layoutX="12.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="69.0" fitWidth="98.0" layoutX="20.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Image/image-removebg-preview%20(3).png" />
+
          </image>
       </ImageView>
       <TableView fx:id="tableview" layoutX="14.0" layoutY="206.0" prefHeight="323.0" prefWidth="733.0">
@@ -64,8 +64,8 @@
             <TableColumn fx:id="action" prefWidth="131.33331298828125" text="action" />
         </columns>
       </TableView>
-      <Button layoutX="22.0" layoutY="544.0" mnemonicParsing="false" onAction="#modifiercours" prefHeight="40.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="modifier" textFill="#fbf8f8" />
-      <Button layoutX="103.0" layoutY="535.0" mnemonicParsing="false" onAction="#supprimercours" prefHeight="58.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="supprimer" textFill="#fbf8f8" />
+      <Button layoutX="47.0" layoutY="545.0" mnemonicParsing="false" onAction="#modifiercours" prefHeight="40.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="modifier" textFill="#fbf8f8" />
+      <Button layoutX="103.0" layoutY="548.0" mnemonicParsing="false" onAction="#supprimercours" prefHeight="58.0" prefWidth="47.0" style="-fx-background-radius: 15; -fx-background-color: #69a9ff; -fx-opacity: 0;" text="supprimer" textFill="#fbf8f8" />
       <TextField fx:id="recherche" layoutX="216.0" layoutY="157.0" prefHeight="30.0" prefWidth="363.0" promptText="search" />
       <ImageView fitHeight="58.0" fitWidth="61.0" layoutX="657.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -87,7 +87,7 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="54.0" layoutY="139.0" text="filtre :">
+      <Label layoutX="54.0" layoutY="139.0" text="filter :">
          <font>
             <Font name="Arial" size="14.0" />
          </font>

@@ -284,7 +284,7 @@ public class ListeCoursController {
     void Ajout_ListeCours(ActionEvent event) throws IOException {
         ClubService cs = new ClubService();
 
-        Club C=cs.rechercheClub(ListCoursToModifier.getClub().getId_club());
+        Club C=cs.rechercheClub(ClubToModifier.getId_club());
 
         ListCoursService LS=new ListCoursService();
 

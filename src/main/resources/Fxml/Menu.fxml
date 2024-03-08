@@ -9,25 +9,21 @@
    <children>
       <ImageView fitHeight="54.0" fitWidth="528.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Pidev-suivi/src/images/logo.png" />
+            <Image url="@../429042001_785011366978560_3416642108147507954_n.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="359.0" fitWidth="528.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="gestionprogramme" layoutX="80.0" layoutY="272.0" mnemonicParsing="false" onAction="#RedirectToAffichageProgramme" prefHeight="25.0" prefWidth="138.0" text="PROGRAM" textFill="#5eaffa" />
+      <Button fx:id="gestionobjectif" layoutX="314.0" layoutY="272.0" mnemonicParsing="false" onAction="#RedirectToAffichageObjectif" prefHeight="25.0" prefWidth="151.0" text="GOALS" textFill="#5eaffa" />
+      <ImageView fitHeight="164.0" fitWidth="225.0" layoutX="304.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Pidev-suivi/src/images/img.png" />
+            <Image url="@../Image/image_2024-03-08_033418467-removebg-preview.png" />
          </image>
       </ImageView>
-      <Button fx:id="gestionprogramme" layoutX="80.0" layoutY="272.0" mnemonicParsing="false" onAction="#RedirectToAffichageProgramme" prefHeight="25.0" prefWidth="138.0" text="Gestion Programme" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="74.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="68.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Pidev-suivi/src/images/machine-de-tapis-roulant.png" />
+            <Image url="@../Image/image-removebg-preview%20(1).png" />
          </image>
       </ImageView>
-      <Button fx:id="gestionobjectif" layoutX="314.0" layoutY="272.0" mnemonicParsing="false" onAction="#RedirectToAffichageObjectif" prefHeight="25.0" prefWidth="151.0" text="Gestion Objectif" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="325.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../Pidev-suivi/src/images/faire-des-exercices.png" />
-         </image>
-      </ImageView>
+      <Button layoutX="462.0" layoutY="11.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
    </children>
 </AnchorPane>

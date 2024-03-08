@@ -14,6 +14,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AffichageProg1Controller">
    <children>
       <ImageView fitHeight="70.0" fitWidth="727.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="45.0" layoutY="5.0" mnemonicParsing="false" onAction="#retour" text="Return" />
       <AnchorPane layoutY="64.0" prefHeight="50.0" prefWidth="728.0" style="-fx-background-color: #84c6f5;">
          <children>
             <Label layoutX="249.0" layoutY="10.0" text="Liste Des Programme" textFill="#f7f9fb">
@@ -22,6 +23,7 @@
                </font>
             </Label>
             <Button layoutX="45.0" layoutY="13.0" mnemonicParsing="false" onAction="#trier" text="Trier" />
+
             <ComboBox fx:id="cbSort" layoutX="116.0" layoutY="13.0" prefHeight="25.0" prefWidth="95.0" promptText="Filtrer" />
             <TextField fx:id="recherche" layoutX="538.0" layoutY="13.0" />
          </children>
@@ -30,7 +32,6 @@
          <content>
             <FlowPane fx:id="flowPane" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Rating fx:id="rating" rating="3.5" />
                </children></FlowPane>
          </content>
       </ScrollPane>

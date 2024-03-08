@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjoutScoreController">
+   <children>
+      <Label layoutX="246.0" layoutY="165.0" text="PRODUCT" textFill="#5eaffa">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfnote" layoutX="326.0" layoutY="212.0" />
+      <ComboBox fx:id="id_produit" layoutX="326.0" layoutY="162.0" prefWidth="150.0" />
+      <ImageView fitHeight="54.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="257.0" layoutY="215.0" text="RATE :" textFill="#5eaffa">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Button layoutX="324.0" layoutY="261.0" mnemonicParsing="false" onAction="#addscore" text="Confirm" textFill="#5eaffa">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="420.0" layoutY="262.0" mnemonicParsing="false" onAction="#ret" text="Return" textFill="#5eaffa">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="-6.0" layoutY="53.0" prefHeight="415.0" prefWidth="195.0" style="-fx-background-color: #5eaffa;">
+         <children>
+            <Label layoutX="33.0" layoutY="182.0" text="PRODUCT " textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

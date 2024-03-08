@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Updateevent">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Updateevent">
    <children>
       <AnchorPane prefHeight="625.0" prefWidth="815.0" style="-fx-background-color: #bbe3fb;">
          <children>
             <ImageView fitHeight="61.0" fitWidth="67.0" layoutX="721.0" layoutY="533.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Image/image-removebg-preview%20(3).png" />
+               <Image url="@Image/image-removebg-preview%20(3).png" />
                </image>
             </ImageView>
             <AnchorPane prefHeight="619.0" prefWidth="151.0" style="-fx-background-color: #84c6f5;">

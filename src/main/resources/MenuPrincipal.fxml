@@ -1,28 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.MenuPrincipalController">
    <children>
+      <Button layoutX="186.0" layoutY="171.0" mnemonicParsing="false" onAction="#RedirectToModuleUser" text=" User" />
+      <Button layoutX="297.0" layoutY="170.0" mnemonicParsing="false" onAction="#RedirectToModuleSuivi" text="Daily follow-Up" />
+      <Button layoutX="479.0" layoutY="171.0" mnemonicParsing="false" onAction="#RedirectToModuleEquipement" text="Equipment" />
+      <Button layoutX="326.0" layoutY="328.0" mnemonicParsing="false" onAction="#RedirectToModuleClub" text="Clubs" />
+      <Button layoutX="180.0" layoutY="325.0" mnemonicParsing="false" onAction="#RedirectToModuleCours" text="Courses" />
+      <Button layoutX="481.0" layoutY="324.0" mnemonicParsing="false" onAction="#RedirectToModuleProduit" text="Products" />
+      <AnchorPane layoutX="-32.0" layoutY="10.0" prefHeight="400.0" prefWidth="186.0" style="-fx-background-color: #5eaffa;">
+         <children>
+            <Label layoutX="51.0" layoutY="183.0" text="Back office" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
       <ImageView fitHeight="54.0" fitWidth="605.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Image/logo.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="355.0" fitWidth="603.0" layoutY="54.0" pickOnBounds="true">
+      <ImageView fitHeight="77.0" fitWidth="91.0" layoutX="303.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Image/image_2024-02-20_160108214.png" />
+            <Image url="@Image/429831694_949816656264892_6680150149362932677_n.png" />
          </image>
       </ImageView>
-      <Button layoutX="77.0" layoutY="154.0" mnemonicParsing="false" onAction="#RedirectToModuleUser" text="Module User" />
-      <Button layoutX="249.0" layoutY="153.0" mnemonicParsing="false" onAction="#RedirectToModuleSuivi" text="Module Suivi" />
-      <Button layoutX="417.0" layoutY="156.0" mnemonicParsing="false" onAction="#RedirectToModuleEquipement" text="Module Equipement" />
-      <Button layoutX="255.0" layoutY="323.0" mnemonicParsing="false" onAction="#RedirectToModuleClub" text="Module Club" />
-      <Button layoutX="77.0" layoutY="321.0" mnemonicParsing="false" onAction="#RedirectToModuleCours" text="Module Cours" />
-      <Button layoutX="428.0" layoutY="325.0" mnemonicParsing="false" onAction="#RedirectToModuleProduit" text="Module Produit" />
+      <ImageView fitHeight="77.0" fitWidth="99.0" layoutX="467.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/430158717_1391091498218528_6353254432968852464_n.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="87.0" fitWidth="86.0" layoutX="480.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/427932374_418534897388508_348939992555683088_n.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="87.0" fitWidth="99.0" layoutX="170.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/429592902_1094733181677293_6225200601182305652_n.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="87.0" fitWidth="152.0" layoutX="154.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/429893179_937730694460249_3141179121370675989_n.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="77.0" fitWidth="134.0" layoutX="289.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/431096480_399925382760650_3074706071774889082_n.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

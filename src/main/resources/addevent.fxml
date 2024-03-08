@@ -15,20 +15,20 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="639.0" prefWidth="833.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.Addevent">
+<AnchorPane prefHeight="639.0" prefWidth="833.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Addevent">
    <children>
-      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="665.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="743.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/add_4210903-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="99.0" fitWidth="97.0" layoutX="732.0" layoutY="523.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="99.0" fitWidth="97.0" layoutX="743.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Image/afficher.png" />
          </image>
       </ImageView>
-      <Button layoutX="738.0" layoutY="547.0" mnemonicParsing="false" onAction="#afficher" prefHeight="58.0" prefWidth="68.0" style="-fx-background-color: #2f85b3; -fx-background-radius: 15; -fx-opacity: 0;" text="AFFICHER" textFill="#efecec" />
-      <AnchorPane prefHeight="639.0" prefWidth="131.0" style="-fx-background-color: #84c6f5;">
+      <Button layoutX="742.0" layoutY="170.0" mnemonicParsing="false" onAction="#afficher" prefHeight="58.0" prefWidth="60.0" style="-fx-background-color: #2f85b3; -fx-background-radius: 15; -fx-opacity: 0;" text="AFFICHER" textFill="#efecec" />
+      <AnchorPane prefHeight="639.0" prefWidth="131.0" style="-fx-background-color: #5eaffa;">
          <children>
             <ImageView fitHeight="58.0" fitWidth="88.0" layoutX="25.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -51,7 +51,7 @@
       <Label layoutX="418.0" layoutY="103.0" text="CAPACITY :" />
       <Label layoutX="186.0" layoutY="103.0" text="EVENT NAME:" textFill="#232424" />
       <Label layoutX="421.0" layoutY="262.0" text="COURSE CATEGORY :" />
-      <Label layoutX="185.0" layoutY="284.0" prefHeight="25.0" prefWidth="79.0" text="IMAGE URL:" />
+      <Label layoutX="185.0" layoutY="284.0" prefHeight="25.0" prefWidth="79.0" text="URL IMAGE :" />
       <Label layoutX="428.0" layoutY="181.0" text="SPACE :" />
       <Label layoutX="184.0" layoutY="168.0" prefHeight="25.0" prefWidth="97.0" text="DESCRIPTION :" />
       <Label layoutX="176.0" layoutY="505.0" text="  END DATE-TIME:" />
@@ -61,7 +61,7 @@
       <TextField fx:id="nomeve" layoutX="184.0" layoutY="133.0" />
       <TextField fx:id="imeve" layoutX="177.0" layoutY="320.0" />
       <TextField fx:id="capeve" layoutX="416.0" layoutY="133.0" prefHeight="25.0" prefWidth="175.0" />
-      <Button layoutX="660.0" layoutY="547.0" mnemonicParsing="false" onAction="#addev" prefHeight="58.0" prefWidth="68.0" style="-fx-background-radius: 15; -fx-background-color: #2f85b3; -fx-opacity: 0;" text="AJOUTER" textFill="#f8f7f7" />
+      <Button layoutX="738.0" layoutY="103.0" mnemonicParsing="false" onAction="#addev" prefHeight="58.0" prefWidth="68.0" style="-fx-background-radius: 15; -fx-background-color: #2f85b3; -fx-opacity: 0;" text="AJOUTER" textFill="#f8f7f7" />
       <DatePicker fx:id="datedebcomb" layoutX="172.0" layoutY="408.0" />
       <DatePicker fx:id="datefincom" layoutX="172.0" layoutY="537.0" />
       <Button layoutX="336.0" layoutY="320.0" mnemonicParsing="false" onAction="#browse" style="-fx-background-radius: 15; -fx-blend-mode: 30;" text="browse">

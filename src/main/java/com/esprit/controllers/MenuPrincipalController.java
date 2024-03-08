@@ -9,8 +9,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.prefs.Preferences;
+
+import static org.apache.http.client.methods.RequestBuilder.put;
 
 public class MenuPrincipalController {
+
+
+
 
     @FXML
     void RedirectToModuleClub(ActionEvent event) throws IOException {
@@ -27,7 +33,7 @@ public class MenuPrincipalController {
     void RedirectToModuleEquipement(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/principale.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Principale_eq.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -38,7 +44,7 @@ public class MenuPrincipalController {
     void RedirectToModuleProduit(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MenuGen.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -47,6 +53,7 @@ public class MenuPrincipalController {
 
     @FXML
     void RedirectToModuleSuivi(ActionEvent event) throws IOException {
+
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Menu.fxml"));
@@ -60,7 +67,7 @@ public class MenuPrincipalController {
     void RedirectToModuleUser(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/principale.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/backadmin.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

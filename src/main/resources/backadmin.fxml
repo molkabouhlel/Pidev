@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="393.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Backadmin">
+    <children>
+        <AnchorPane layoutX="-42.0" prefHeight="400.0" prefWidth="173.0" style="-fx-background-color: #5eaffa;">
+            <children>
+                <Button layoutX="81.0" layoutY="226.0" mnemonicParsing="false" onAction="#coachI" prefHeight="26.0" prefWidth="62.0" text="Coach" />
+                <Button layoutX="81.0" layoutY="145.0" mnemonicParsing="false" onAction="#membreI" text="Member" />
+                <Button layoutX="86.0" layoutY="50.0" mnemonicParsing="false" onAction="#returnButton" opacity="0.0" text="Button" />
+            <Button layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#retour" text="Return" />
+
+            </children>
+        </AnchorPane>
+        <TableView fx:id="adminTableView" layoutX="132.0" layoutY="111.0" prefHeight="234.0" prefWidth="574.0">
+            <columns>
+                <TableColumn fx:id="emailColumn" onEditCommit="#onEditCommit" prefWidth="108.0" text="Email" />
+                <TableColumn fx:id="nom" onEditCommit="#onEditCommit" prefWidth="100.0" text="Name" />
+                <TableColumn fx:id="prenom" onEditCommit="#onEditCommit" prefWidth="100.0" text="LastName" />
+                <TableColumn fx:id="numT" onEditCommit="#onEditCommit" prefWidth="70.0" text="NumT" />
+                <TableColumn fx:id="role" onEditCommit="#onEditCommit" prefWidth="160.7999267578125" text="Role" />
+                <!-- Add more columns for other attributes... -->
+            </columns>
+        </TableView>
+        <Label layoutX="318.0" layoutY="14.0" text=" Admins" textFill="#589fd9">
+            <font>
+                <Font name="Ebrima Bold" size="32.0" />
+            </font>
+        </Label>
+          <Button layoutX="616.0" layoutY="77.0" mnemonicParsing="false" onAction="#addAdmin" text="Add Admin" />
+      <Button layoutX="616.0" layoutY="42.0" mnemonicParsing="false" onAction="#statButton" prefHeight="26.0" prefWidth="76.0" text="Statstic" />
+      <TextField fx:id="rechercher" layoutX="305.0" layoutY="64.0" />
+      <Button layoutX="189.0" layoutY="64.0" mnemonicParsing="false" onAction="#trier" prefHeight="26.0" prefWidth="62.0" text="Sort" />
+    </children>
+</AnchorPane>

@@ -17,24 +17,24 @@
             <AnchorPane fx:id="formaddespace" layoutX="243.0" prefHeight="405.0" prefWidth="358.0">
                <children>
                   <TextField fx:id="nom_club" layoutX="188.0" layoutY="81.0" />
-                  <Label layoutX="95.0" layoutY="84.0" text="Nom" />
+                  <Label layoutX="95.0" layoutY="84.0" text="NAME" />
                   <TextArea fx:id="description_club" layoutX="189.0" layoutY="150.0" prefHeight="52.0" prefWidth="150.0" />
-                  <Label layoutX="91.0" layoutY="152.0" text="Description" />
+                  <Label layoutX="91.0" layoutY="152.0" text="DESCRIPTION :" />
                   <TextField fx:id="temp_ouverture" layoutX="187.0" layoutY="267.0" />
-                  <Label layoutX="84.0" layoutY="271.0" text="Temp:ouverture" />
+                  <Label layoutX="84.0" layoutY="271.0" text="OPENING TIME :" />
                   <Button fx:id="ModifierClub" layoutX="161.0" layoutY="344.0" mnemonicParsing="false" onAction="#ModifierClub" prefHeight="26.0" prefWidth="66.0" text="Modify" />
                   <Label layoutX="95.0" layoutY="49.0" text="ID" />
-                  <TextField fx:id="id_club" layoutX="187.0" layoutY="48.0" editable="false" />
+                  <TextField fx:id="id_club" editable="false" layoutX="187.0" layoutY="48.0" />
                   <Button fx:id="Return" layoutX="250.0" layoutY="344.0" mnemonicParsing="false" onAction="#RedirectToClubAfficher" prefHeight="26.0" prefWidth="66.0" text="Return" />
                   <TextField fx:id="image_club" layoutX="188.0" layoutY="210.0" />
-                  <Label layoutX="90.0" layoutY="211.0" text="Image" />
+                  <Label layoutX="90.0" layoutY="211.0" text="Image :" />
                   <ComboBox fx:id="Espace" layoutX="187.0" layoutY="301.0" prefWidth="150.0" />
-                  <Label layoutX="89.0" layoutY="303.0" text="Espace" />
+                  <Label layoutX="89.0" layoutY="303.0" text="SPACE :" />
 
 
 
                   <TextField fx:id="adresse_club" layoutX="189.0" layoutY="117.0" />
-                  <Label layoutX="94.0" layoutY="120.0" text="Adresse" />
+                  <Label layoutX="94.0" layoutY="120.0" text="ADRESS :" />
                   <Button fx:id="Browse" layoutX="264.0" layoutY="237.0" mnemonicParsing="false" onAction="#Browse" prefHeight="26.0" prefWidth="66.0" text="Browse" />
                </children>
             </AnchorPane>
@@ -50,8 +50,8 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Label layoutX="-2.0" layoutY="50.0" prefHeight="366.0" prefWidth="262.0" style="-fx-background-color: rgb(56, 122, 223);" textFill="#960b0b" />
-      <Label layoutX="24.0" layoutY="69.0" prefHeight="94.0" prefWidth="210.0" text="Modifier Club" textFill="WHITE">
+      <Label layoutX="-2.0" layoutY="50.0" prefHeight="366.0" prefWidth="262.0" style="-fx-background-color: rgb(56, 122, 223);" textFill="#5eaffa" />
+      <Label layoutX="37.0" layoutY="173.0" prefHeight="94.0" prefWidth="210.0" text="CLUBS" textFill="WHITE">
          <font>
             <Font size="33.0" />
          </font>

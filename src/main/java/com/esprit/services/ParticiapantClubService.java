@@ -21,7 +21,7 @@ public class ParticiapantClubService implements IService<ParticipantClub>{
     //prefs.get(id);
     @Override
     public void ajouter(ParticipantClub PC) {
-        String req = "INSERT into participantclub(id_user,id_club) values ('" + PC.getId_user() + "', '" + PC.getNom_club() + "');";
+        String req = "INSERT into participantclub(id_user,id_club) values ('" + PC.getId_user() + "', '" + PC.getNom_club().getId_club() + "');";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);

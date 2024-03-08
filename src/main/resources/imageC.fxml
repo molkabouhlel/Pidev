@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.activite.Controllers.ImageC">
-   <AnchorPane layoutY="60.0" prefHeight="57.0" prefWidth="822.0" style="-fx-background-color: #84c6f5;">
+<AnchorPane prefHeight="615.0" prefWidth="822.0" style="-fx-background-color: #bbe3fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ImageC">
+   <AnchorPane layoutY="60.0" prefHeight="57.0" prefWidth="822.0" style="-fx-background-color: #5eaffa;">
       <children>
          <ImageView fitHeight="55.0" fitWidth="49.0" layoutX="33.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@Image/retour.png" />
             </image>
          </ImageView>
-         <Label layoutX="411.0" layoutY="18.0" text="OUR COURSE" textFill="#f7f9fb" underline="true">
+         <Label layoutX="411.0" layoutY="18.0" text=" COURSE" textFill="#f7f9fb" underline="true">
             <font>
                <Font name="Arial" size="25.0" />
             </font>
@@ -29,7 +29,7 @@
          <TextField fx:id="recherche" layoutX="604.0" layoutY="25.0" prefHeight="30.0" prefWidth="210.0" promptText="search" style="-fx-background-color: #bbe3fb;" />
          <ComboBox fx:id="filtre" layoutX="91.0" layoutY="30.0" onAction="#trier" prefWidth="150.0" style="-fx-background-color: #bbe3fb;" />
          <ChoiceBox fx:id="choice" layoutX="249.0" layoutY="31.0" prefWidth="150.0" />
-         <Label layoutX="256.0" layoutY="14.0" text="filtre :">
+         <Label layoutX="256.0" layoutY="14.0" text="filter :">
             <font>
                <Font name="Arial" size="14.0" />
             </font>

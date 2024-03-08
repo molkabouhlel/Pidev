@@ -22,7 +22,7 @@ public class MenuModuleClubController {
     @FXML
     private Button gestionClub;
 
-    private String test="front";
+    private String test="back";
 
     @FXML
     void RedirectToAffichageClub(ActionEvent event) throws IOException {
@@ -59,6 +59,16 @@ public class MenuModuleClubController {
     }
 
 
+    @FXML
+    void retour(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MenuPrincipal.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
 }
 

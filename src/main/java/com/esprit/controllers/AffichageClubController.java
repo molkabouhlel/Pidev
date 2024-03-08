@@ -264,7 +264,7 @@ public class AffichageClubController {
             try {
                 Parent root = loader.load();
                 ListeCoursController LCC = loader.getController();
-                //LCC.initClub(clubSelected);
+                LCC.initClub(clubSelected);
                 LCC.initialize(clubSelected);
                 Stage currentStage = (Stage) flowPane.getScene().getWindow();
                 currentStage.setScene(new Scene(root));

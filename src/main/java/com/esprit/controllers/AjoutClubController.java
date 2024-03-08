@@ -44,7 +44,7 @@ public class AjoutClubController  implements Initializable {
     private AnchorPane formaddespace;
 
     @FXML
-    private ComboBox<Espace> Espace;
+    private ComboBox<String> Espace;
 
     @FXML
     private TextField image_club;
@@ -66,11 +66,12 @@ public class AjoutClubController  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //HEDHI COMBOBOX BL LES ATTRIBUT ESPACE LKOL
         EspaceService es=new EspaceService();
-        List<Espace> l=es.afficher();
+        List<String> l=es.affichernomEspace();
         Espace.setItems(FXCollections.observableArrayList(l));
         Espace.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                temp_ouverture.setText(String.valueOf(newValue.getHeure_debut()));
+                Espace e=es.rechercheEspacenom(newValue);
+                temp_ouverture.setText(String.valueOf(e.getHeure_debut()));
                 temp_ouverture.setEditable(false);
             }
         });
@@ -168,9 +169,9 @@ public class AjoutClubController  implements Initializable {
             ClubService cs = new ClubService();
             EspaceService es = new EspaceService();
 
-            //Espace e=es.rechercheEspace(Espace.getValue());
+            Espace e=es.rechercheEspacenom(Espace.getValue());
 
-            cs.ajouter(new Club(nom_club.getText(),adresse_club.getText() ,description_club.getText(),image_club.getText(),Time.valueOf(temp_ouverture.getText()),Espace.getValue()) );
+            cs.ajouter(new Club(nom_club.getText(),adresse_club.getText() ,description_club.getText(),image_club.getText(),Time.valueOf(temp_ouverture.getText()),e) );
             //cs.ajouter(new Club(nom_club.getText(),adresse_club.getText() ,description_club.getText(),image_club.getText(),Time.valueOf(temp_ouverture.getText()),e) );
         Alert alerte= new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("espace ajout");

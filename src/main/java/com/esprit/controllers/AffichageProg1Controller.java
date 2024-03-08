@@ -286,18 +286,12 @@ public class AffichageProg1Controller {
     }
 
 
-        @FXML
-    void RedirectToAjoutClub(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutClub.fxml"));
-        Parent root = loader.load();
-        Stage currentStage = (Stage) flowPane.getScene().getWindow();
-        currentStage.setScene(new Scene(root));
-    }
+
 
 
     @FXML
-    void RedirectToMenu()  throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MenuModule.fxml"));
+    void retour()  throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Menu.fxml"));
         Parent root = loader.load();
         Stage currentStage = (Stage) flowPane.getScene().getWindow();
         currentStage.setScene(new Scene(root));

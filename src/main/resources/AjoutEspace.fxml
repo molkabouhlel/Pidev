@@ -21,7 +21,7 @@
             <TextField fx:id="heure_fin" layoutX="187.0" layoutY="297.0" />
             <Label layoutX="82.0" layoutY="234.0" text="Open Hour" />
             <Label layoutX="85.0" layoutY="299.0" text="Close Hour" />
-            <Button fx:id="ajoutespace" layoutX="159.0" layoutY="349.0" mnemonicParsing="false" onAction="#ajouterespace" prefHeight="26.0" prefWidth="61.0" text="ADD" />
+            <Button fx:id="ajoutespace" layoutX="230.0" layoutY="356.0" mnemonicParsing="false" onAction="#ajouterespace" prefHeight="26.0" prefWidth="61.0" text="ADD" textFill="#5eaffa" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="52.0" fitWidth="600.0" pickOnBounds="true">
@@ -30,7 +30,7 @@
          </image>
       </ImageView>
       <Label layoutY="52.0" prefHeight="365.0" prefWidth="249.0" style="-fx-background-color: rgb(56, 122, 223);" textFill="#960b0b" />
-      <Label layoutX="24.0" layoutY="64.0" prefHeight="94.0" prefWidth="210.0" text="Add Espace" textFill="WHITE">
+      <Label layoutX="19.0" layoutY="161.0" prefHeight="94.0" prefWidth="210.0" text="Add Space :" textFill="WHITE">
          <font>
             <Font size="33.0" />
          </font>

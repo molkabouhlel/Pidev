@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Afficherbarchart">
+   <children>
+      <BarChart fx:id="barChart" layoutX="190.0" layoutY="70.0" prefHeight="305.0" prefWidth="397.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <ImageView fitHeight="55.0" fitWidth="601.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="54.0" prefHeight="400.0" prefWidth="186.0" style="-fx-background-color: #5eaffa;">
+         <children>
+            <Button layoutX="86.0" layoutY="50.0" mnemonicParsing="false" onAction="#returnButton" opacity="0.0" text="Button" />
+            <Label layoutX="26.0" layoutY="182.0" prefHeight="35.0" prefWidth="138.0" text="STATISTICS :" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button layoutX="517.0" layoutY="407.0" mnemonicParsing="false" onAction="#returnButton" text="Return" textFill="#5eaffa" />
+   </children>
+</AnchorPane>

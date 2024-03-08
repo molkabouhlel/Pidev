@@ -17,11 +17,10 @@
 <AnchorPane prefHeight="526.0" prefWidth="765.0" styleClass="form_container" stylesheets="@../../../../../Pidev-suivi/src/main/resources/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ObjectifController">
 
     <children>
-        <Label layoutX="288.0" layoutY="13.0" prefHeight="27.0" prefWidth="189.0" style="-fx-font-size: 18px;" styleClass="title" text="Gestion des Objectifs" />
+      <AnchorPane layoutX="-41.0" layoutY="5.0" prefHeight="526.0" prefWidth="197.0" style="-fx-background-color: #5eaffa;" />
+        <Label layoutX="324.0" layoutY="62.0" prefHeight="27.0" prefWidth="189.0" style="-fx-font-size: 18px;" styleClass="title" text="GOALS" />
         <VBox layoutX="482.0" layoutY="109.0" prefHeight="280.0" prefWidth="269.0" spacing="15.0">
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
-                <TextField fx:id="objectifIdTextField" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_cours" />
                 <ComboBox fx:id="courseIdComboBox" prefHeight="43.0" prefWidth="268.0" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_programme " />
@@ -38,27 +37,23 @@
         </TableView>
         <ButtonBar layoutX="401.0" layoutY="405.0" prefHeight="40.0" prefWidth="317.0" AnchorPane.leftAnchor="401.0">
             <buttons>
-                <Button fx:id="btsave" layoutX="135.0" layoutY="18.0" minWidth="55.0" mnemonicParsing="false" onAction="#addObjective" prefHeight="34.0" text="Save" />
-                <Button fx:id="btupdate" mnemonicParsing="false" onAction="#updateObjective" text="Update" />
-                <Button fx:id="btdelete" layoutX="50.0" layoutY="18.0" mnemonicParsing="false" onAction="#deleteObjective" text="Delete" />
-                <Button fx:id="btclear" layoutX="147.0" layoutY="18.0" mnemonicParsing="false" onAction="#clearObjective" text="Clear" />
+                <Button fx:id="btsave" layoutX="135.0" layoutY="18.0" minWidth="55.0" mnemonicParsing="false" onAction="#addObjective" prefHeight="34.0" text="Save" textFill="#5eaffa" />
+                <Button fx:id="btupdate" mnemonicParsing="false" onAction="#updateObjective" text="Update" textFill="#5eaffa" />
+                <Button fx:id="btdelete" layoutX="50.0" layoutY="18.0" mnemonicParsing="false" onAction="#deleteObjective" text="Delete" textFill="#5eaffa" />
+                <Button fx:id="btclear" layoutX="147.0" layoutY="18.0" mnemonicParsing="false" onAction="#clearObjective" text="Clear" textFill="#5eaffa" />
             </buttons>
         </ButtonBar>
-        <ImageView fitHeight="52.0" fitWidth="765.0" pickOnBounds="true">
-            <image>
-            </image>
-        </ImageView>
-        <VBox layoutX="31.0" layoutY="38.0" prefHeight="446.0" prefWidth="231.0" spacing="3.0">
+        <VBox layoutX="31.0" layoutY="88.0" prefHeight="446.0" prefWidth="231.0" spacing="3.0">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
                 <TextField fx:id="programIdTextField" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description programme" wrappingWidth="140.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Program Description" wrappingWidth="140.0" />
                 <TextArea fx:id="programDescriptionTextArea" prefHeight="29.0" prefWidth="230.0" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" wrappingWidth="69.625" />
                 <TextField fx:id="rateTextField" prefHeight="9.0" prefWidth="230.0" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat initial" wrappingWidth="119.18359375" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="initial State" wrappingWidth="119.18359375" />
                 <TextField fx:id="initialStateTextField" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat final" wrappingWidth="100.060546875" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Final Date" wrappingWidth="100.060546875" />
                 <TextField fx:id="finalStateTextField" prefHeight="5.0" prefWidth="20.0" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_user" />
                 <TextField fx:id="userIdTextField" prefHeight="16.0" prefWidth="230.0" />

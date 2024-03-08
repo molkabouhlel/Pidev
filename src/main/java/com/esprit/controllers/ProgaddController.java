@@ -19,8 +19,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.prefs.Preferences;
 
 public class ProgaddController {
+    Preferences prefs = Preferences.systemNodeForPackage(this.getClass());
 
     @FXML
     private DatePicker datedebtxt;
@@ -46,6 +48,10 @@ public class ProgaddController {
 
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    @FXML
+    void initialize() {
+        iduserText.setText(prefs.get("cin","not found"));
+    }
     @FXML
     void ajouterProg(ActionEvent event) {
         /////////////////////////////////////////////////CONTROLE DE SAISIE //////////////////////////////////////////
@@ -112,9 +118,9 @@ public class ProgaddController {
             // Effacer les champs après l'ajout
             nomText.clear();
             descrprogText.clear();
-            rateText.clear();
+            //rateText.clear();
             etatintText.clear();
-            etatfinText.clear();
+           // etatfinText.clear();
             datedebtxt.getEditor().clear();
             datefintxt.getEditor().clear();
             iduserText.clear();

@@ -9,12 +9,12 @@ public class Cours {
    private String description;
    private String imagec;
    private Time duree;
-  private int idcoach;
+  private Coach idcoach;
   private Club   idclub;
   private  typec id_typec;
   public Cours(){}
 
-    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, Club idclub, typec id_typec) {
+    public Cours(int id, String nom, String description, String imagec, Time duree, Coach idcoach, Club idclub, typec id_typec) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -25,7 +25,7 @@ public class Cours {
         this.id_typec = id_typec;
     }
 
-    public Cours(String nom, String description, String imagec, Time duree, int idcoach, Club idclub, typec id_typec) {
+    public Cours(String nom, String description, String imagec, Time duree, Coach idcoach, Club idclub, typec id_typec) {
         this.nom = nom;
         this.description = description;
         this.imagec = imagec;
@@ -35,7 +35,7 @@ public class Cours {
         this.id_typec = id_typec;
     }
 
-    public Cours(int id, String nom, String description, String imagec, Time duree, int idcoach, Club idclub) {
+    public Cours(int id, String nom, String description, String imagec, Time duree, Coach idcoach, Club idclub) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -109,11 +109,11 @@ public class Cours {
         this.duree = duree;
     }
 
-    public int getIdcoach() {
+    public Coach getIdcoach() {
         return idcoach;
     }
 
-    public void setIdcoach(int idcoach) {
+    public void setIdcoach(Coach idcoach) {
         this.idcoach = idcoach;
     }
 
